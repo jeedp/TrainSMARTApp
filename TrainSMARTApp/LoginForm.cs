@@ -20,7 +20,8 @@ namespace TrainSMARTApp
         
         // panel/button transparency
         int opacity = 90;
-        Color color = Color.Black;
+        Color pnlBgColor = Color.Black;
+        Color pnlTxtBxBgColor = Color.White;
 
 
 
@@ -154,7 +155,7 @@ namespace TrainSMARTApp
         private void ShowMenu(Panel panel)
         {
             panel.Parent = pictureBox_Background;
-            panel.BackColor = Color.FromArgb(opacity, color);
+            panel.BackColor = Color.FromArgb(opacity, pnlBgColor);
             panel.Width = 513;
             panel.Visible = true;
             panel.BringToFront();
@@ -178,11 +179,22 @@ namespace TrainSMARTApp
                             lbl.Location = new Point(140, 125);
                         break;
 
-                    case cuiButton cuibtn:
-                        cuibtn.Parent = panel;
-                        cuibtn.BackColor = Color.Transparent;
-                        cuibtn.HoverBackground = Color.Transparent;
-                        cuibtn.PressedBackground = Color.Transparent;
+                    case cuiButton cuiBtn:
+                        cuiBtn.Parent = panel;
+                        cuiBtn.BackColor = Color.Transparent;
+                        cuiBtn.HoverBackground = Color.Transparent;
+                        cuiBtn.PressedBackground = Color.Transparent;
+                        break;
+
+                    case cuiTextBox2 cuiTxtBx:
+                        cuiTxtBx.Parent = panel;
+                        cuiTxtBx.BackgroundColor = Color.FromArgb(10, Color.FromArgb(68, 68, 77));
+                        if (cuiTxtBx == cuiTextBox_Register_Username)
+                            cuiTxtBx.Location = new Point(146, 175);
+                        if (cuiTxtBx == cuiTextBox_Register_Password)
+                            cuiTxtBx.Location = new Point(146, 260);
+                        if (cuiTxtBx == cuiTextBox_Register_Email)
+                            cuiTxtBx.Location = new Point(146, 345);
                         break;
                 }
 

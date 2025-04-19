@@ -120,10 +120,10 @@
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="button_Back.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAACxIAAAsSAdLdfvwAAABkSURBVDhP3ZCxDYAwDAQTBqEIM8AEMAK70cFqTEBLdzQf
-        KbIUiEIFJ7nx6/16O/d9gAbo7P4RGVdgt9otMm7AAfRWz5IknsAMhIJpo3mijvFdstI9sKjzkLQqo/rb
-        ER0Idv8zLrfb0ROsVaacAAAAAElFTkSuQmCC
+        iVBORw0KGgoAAAANSUhEUgAAAA8AAAAPCAYAAAA71pVKAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        EAAACxABrSO9dQAAAGRJREFUOE/dkLENgDAMBBMGoQgzwAQwArvRwWpMQEt3NB8pshSIQgUnufHr/Xo7
+        932ABujs/hEZV2C32i0ybsAB9FbPkiSewAyEgmmjeaKO8V2y0j2wqPOQtCqj+tsRHQh2/zMut9vRE6xV
+        ppwAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="button_Exit.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">

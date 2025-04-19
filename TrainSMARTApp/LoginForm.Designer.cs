@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoginForm));
             this.panel_Title = new System.Windows.Forms.Panel();
+            this.button_Back = new System.Windows.Forms.Button();
             this.button_Exit = new System.Windows.Forms.Button();
             this.pictureBox_Background = new System.Windows.Forms.PictureBox();
             this.label_Main_Welcome = new System.Windows.Forms.Label();
@@ -37,10 +38,12 @@
             this.cuiButton_Main_LogIn = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Main_Register = new CuoreUI.Controls.cuiButton();
             this.panel_Menu_Main = new System.Windows.Forms.Panel();
-            this.button_Back = new System.Windows.Forms.Button();
             this.panel_Menu_Register = new System.Windows.Forms.Panel();
-            this.panel_Menu_LogIn = new System.Windows.Forms.Panel();
+            this.cuiTextBox_Register_Username = new CuoreUI.Controls.cuiTextBox2();
             this.label_Register_SignUp = new System.Windows.Forms.Label();
+            this.panel_Menu_LogIn = new System.Windows.Forms.Panel();
+            this.cuiTextBox_Register_Password = new CuoreUI.Controls.cuiTextBox2();
+            this.cuiTextBox_Register_Email = new CuoreUI.Controls.cuiTextBox2();
             this.panel_Title.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Background)).BeginInit();
             this.panel_Menu_Main.SuspendLayout();
@@ -58,6 +61,24 @@
             this.panel_Title.Name = "panel_Title";
             this.panel_Title.Size = new System.Drawing.Size(513, 35);
             this.panel_Title.TabIndex = 2;
+            // 
+            // button_Back
+            // 
+            this.button_Back.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(5)))), ((int)(((byte)(5)))));
+            this.button_Back.Dock = System.Windows.Forms.DockStyle.Left;
+            this.button_Back.FlatAppearance.BorderSize = 0;
+            this.button_Back.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
+            this.button_Back.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.button_Back.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.button_Back.Image = ((System.Drawing.Image)(resources.GetObject("button_Back.Image")));
+            this.button_Back.Location = new System.Drawing.Point(0, 0);
+            this.button_Back.Margin = new System.Windows.Forms.Padding(0);
+            this.button_Back.Name = "button_Back";
+            this.button_Back.Size = new System.Drawing.Size(43, 35);
+            this.button_Back.TabIndex = 6;
+            this.button_Back.TabStop = false;
+            this.button_Back.UseVisualStyleBackColor = false;
+            this.button_Back.Click += new System.EventHandler(this.button_Back_Click);
             // 
             // button_Exit
             // 
@@ -97,7 +118,7 @@
             this.label_Main_Welcome.ForeColor = System.Drawing.Color.White;
             this.label_Main_Welcome.Location = new System.Drawing.Point(45, 284);
             this.label_Main_Welcome.Name = "label_Main_Welcome";
-            this.label_Main_Welcome.Size = new System.Drawing.Size(403, 40);
+            this.label_Main_Welcome.Size = new System.Drawing.Size(387, 38);
             this.label_Main_Welcome.TabIndex = 5;
             this.label_Main_Welcome.Text = "Welcome to TrainSMART";
             // 
@@ -202,45 +223,49 @@
             this.panel_Menu_Main.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel_Menu_Main.Location = new System.Drawing.Point(0, 0);
             this.panel_Menu_Main.Name = "panel_Menu_Main";
-            this.panel_Menu_Main.Size = new System.Drawing.Size(0, 788);
+            this.panel_Menu_Main.Size = new System.Drawing.Size(0, 787);
             this.panel_Menu_Main.TabIndex = 9;
-            // 
-            // button_Back
-            // 
-            this.button_Back.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(5)))), ((int)(((byte)(5)))));
-            this.button_Back.Dock = System.Windows.Forms.DockStyle.Left;
-            this.button_Back.FlatAppearance.BorderSize = 0;
-            this.button_Back.FlatAppearance.MouseOverBackColor = System.Drawing.Color.DimGray;
-            this.button_Back.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button_Back.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.button_Back.Image = ((System.Drawing.Image)(resources.GetObject("button_Back.Image")));
-            this.button_Back.Location = new System.Drawing.Point(0, 0);
-            this.button_Back.Margin = new System.Windows.Forms.Padding(0);
-            this.button_Back.Name = "button_Back";
-            this.button_Back.Size = new System.Drawing.Size(43, 35);
-            this.button_Back.TabIndex = 6;
-            this.button_Back.TabStop = false;
-            this.button_Back.UseVisualStyleBackColor = false;
-            this.button_Back.Click += new System.EventHandler(this.button_Back_Click);
             // 
             // panel_Menu_Register
             // 
             this.panel_Menu_Register.BackColor = System.Drawing.Color.Transparent;
+            this.panel_Menu_Register.Controls.Add(this.cuiTextBox_Register_Email);
+            this.panel_Menu_Register.Controls.Add(this.cuiTextBox_Register_Username);
+            this.panel_Menu_Register.Controls.Add(this.cuiTextBox_Register_Password);
             this.panel_Menu_Register.Controls.Add(this.label_Register_SignUp);
             this.panel_Menu_Register.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel_Menu_Register.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.panel_Menu_Register.ForeColor = System.Drawing.Color.White;
             this.panel_Menu_Register.Location = new System.Drawing.Point(0, 35);
             this.panel_Menu_Register.Name = "panel_Menu_Register";
-            this.panel_Menu_Register.Size = new System.Drawing.Size(513, 753);
+            this.panel_Menu_Register.Size = new System.Drawing.Size(513, 752);
             this.panel_Menu_Register.TabIndex = 10;
             // 
-            // panel_Menu_LogIn
+            // cuiTextBox_Register_Username
             // 
-            this.panel_Menu_LogIn.BackColor = System.Drawing.Color.Transparent;
-            this.panel_Menu_LogIn.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel_Menu_LogIn.Location = new System.Drawing.Point(0, 35);
-            this.panel_Menu_LogIn.Name = "panel_Menu_LogIn";
-            this.panel_Menu_LogIn.Size = new System.Drawing.Size(0, 753);
-            this.panel_Menu_LogIn.TabIndex = 11;
+            this.cuiTextBox_Register_Username.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
+            this.cuiTextBox_Register_Username.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
+            this.cuiTextBox_Register_Username.BorderColor = System.Drawing.Color.Transparent;
+            this.cuiTextBox_Register_Username.BorderSize = 1;
+            this.cuiTextBox_Register_Username.Content = "";
+            this.cuiTextBox_Register_Username.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cuiTextBox_Register_Username.FocusBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
+            this.cuiTextBox_Register_Username.FocusBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
+            this.cuiTextBox_Register_Username.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiTextBox_Register_Username.ForeColor = System.Drawing.Color.White;
+            this.cuiTextBox_Register_Username.Location = new System.Drawing.Point(195, 215);
+            this.cuiTextBox_Register_Username.Margin = new System.Windows.Forms.Padding(4, 4, 4, 21);
+            this.cuiTextBox_Register_Username.Multiline = false;
+            this.cuiTextBox_Register_Username.Name = "cuiTextBox_Register_Username";
+            this.cuiTextBox_Register_Username.Padding = new System.Windows.Forms.Padding(24, 28, 24, 0);
+            this.cuiTextBox_Register_Username.PasswordChar = false;
+            this.cuiTextBox_Register_Username.PlaceholderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.cuiTextBox_Register_Username.PlaceholderText = "Username";
+            this.cuiTextBox_Register_Username.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiTextBox_Register_Username.Size = new System.Drawing.Size(410, 80);
+            this.cuiTextBox_Register_Username.TabIndex = 14;
+            this.cuiTextBox_Register_Username.TextOffset = new System.Drawing.Size(0, 0);
+            this.cuiTextBox_Register_Username.UnderlinedStyle = false;
             // 
             // label_Register_SignUp
             // 
@@ -249,18 +274,79 @@
             this.label_Register_SignUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label_Register_SignUp.Font = new System.Drawing.Font("SansSerif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label_Register_SignUp.ForeColor = System.Drawing.Color.White;
-            this.label_Register_SignUp.Location = new System.Drawing.Point(43, 209);
+            this.label_Register_SignUp.Location = new System.Drawing.Point(45, 133);
             this.label_Register_SignUp.Name = "label_Register_SignUp";
-            this.label_Register_SignUp.Size = new System.Drawing.Size(133, 40);
+            this.label_Register_SignUp.Size = new System.Drawing.Size(127, 38);
             this.label_Register_SignUp.TabIndex = 12;
             this.label_Register_SignUp.Text = "Sign up";
+            // 
+            // panel_Menu_LogIn
+            // 
+            this.panel_Menu_LogIn.BackColor = System.Drawing.Color.Transparent;
+            this.panel_Menu_LogIn.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel_Menu_LogIn.Location = new System.Drawing.Point(0, 35);
+            this.panel_Menu_LogIn.Name = "panel_Menu_LogIn";
+            this.panel_Menu_LogIn.Size = new System.Drawing.Size(0, 752);
+            this.panel_Menu_LogIn.TabIndex = 11;
+            // 
+            // cuiTextBox_Register_Password
+            // 
+            this.cuiTextBox_Register_Password.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
+            this.cuiTextBox_Register_Password.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
+            this.cuiTextBox_Register_Password.BorderColor = System.Drawing.Color.Transparent;
+            this.cuiTextBox_Register_Password.BorderSize = 1;
+            this.cuiTextBox_Register_Password.Content = "";
+            this.cuiTextBox_Register_Password.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cuiTextBox_Register_Password.FocusBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
+            this.cuiTextBox_Register_Password.FocusBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
+            this.cuiTextBox_Register_Password.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiTextBox_Register_Password.ForeColor = System.Drawing.Color.White;
+            this.cuiTextBox_Register_Password.Location = new System.Drawing.Point(195, 321);
+            this.cuiTextBox_Register_Password.Margin = new System.Windows.Forms.Padding(4, 4, 4, 22);
+            this.cuiTextBox_Register_Password.Multiline = false;
+            this.cuiTextBox_Register_Password.Name = "cuiTextBox_Register_Password";
+            this.cuiTextBox_Register_Password.Padding = new System.Windows.Forms.Padding(24, 28, 24, 0);
+            this.cuiTextBox_Register_Password.PasswordChar = false;
+            this.cuiTextBox_Register_Password.PlaceholderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.cuiTextBox_Register_Password.PlaceholderText = "Password";
+            this.cuiTextBox_Register_Password.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiTextBox_Register_Password.Size = new System.Drawing.Size(410, 80);
+            this.cuiTextBox_Register_Password.TabIndex = 15;
+            this.cuiTextBox_Register_Password.TextOffset = new System.Drawing.Size(0, 0);
+            this.cuiTextBox_Register_Password.UnderlinedStyle = false;
+            // 
+            // cuiTextBox_Register_Email
+            // 
+            this.cuiTextBox_Register_Email.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
+            this.cuiTextBox_Register_Email.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
+            this.cuiTextBox_Register_Email.BorderColor = System.Drawing.Color.Transparent;
+            this.cuiTextBox_Register_Email.BorderSize = 1;
+            this.cuiTextBox_Register_Email.Content = "";
+            this.cuiTextBox_Register_Email.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cuiTextBox_Register_Email.FocusBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
+            this.cuiTextBox_Register_Email.FocusBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
+            this.cuiTextBox_Register_Email.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiTextBox_Register_Email.ForeColor = System.Drawing.Color.White;
+            this.cuiTextBox_Register_Email.Location = new System.Drawing.Point(195, 425);
+            this.cuiTextBox_Register_Email.Margin = new System.Windows.Forms.Padding(4, 4, 4, 20);
+            this.cuiTextBox_Register_Email.Multiline = false;
+            this.cuiTextBox_Register_Email.Name = "cuiTextBox_Register_Email";
+            this.cuiTextBox_Register_Email.Padding = new System.Windows.Forms.Padding(24, 28, 24, 0);
+            this.cuiTextBox_Register_Email.PasswordChar = false;
+            this.cuiTextBox_Register_Email.PlaceholderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.cuiTextBox_Register_Email.PlaceholderText = "Email";
+            this.cuiTextBox_Register_Email.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiTextBox_Register_Email.Size = new System.Drawing.Size(410, 80);
+            this.cuiTextBox_Register_Email.TabIndex = 16;
+            this.cuiTextBox_Register_Email.TextOffset = new System.Drawing.Size(0, 0);
+            this.cuiTextBox_Register_Email.UnderlinedStyle = false;
             // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = new System.Drawing.Size(513, 788);
+            this.ClientSize = new System.Drawing.Size(513, 787);
             this.Controls.Add(this.panel_Menu_LogIn);
             this.Controls.Add(this.panel_Menu_Register);
             this.Controls.Add(this.panel_Title);
@@ -294,6 +380,9 @@
         private System.Windows.Forms.Panel panel_Menu_Register;
         private System.Windows.Forms.Panel panel_Menu_LogIn;
         private System.Windows.Forms.Label label_Register_SignUp;
+        private CuoreUI.Controls.cuiTextBox2 cuiTextBox_Register_Username;
+        private CuoreUI.Controls.cuiTextBox2 cuiTextBox_Register_Password;
+        private CuoreUI.Controls.cuiTextBox2 cuiTextBox_Register_Email;
     }
 }
 
