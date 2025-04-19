@@ -44,13 +44,13 @@ namespace TrainSMARTApp
             this.panel_Title.MouseDown += this.MouseDown;
             this.panel_Title.MouseMove += this.MouseMove;
             this.panel_Title.MouseUp += this.MouseUp;
+            
 
 
-
-            ShowMenu(panel_Menu_Main); // default menu
-            ShowControls(panel_Menu_Main);
             HideMenu(panel_Menu_Register);
             HideMenu(panel_Menu_LogIn);
+            ShowMenu(panel_Menu_Main); // default menu
+            ShowControls(panel_Menu_Main);
         }
 
 
@@ -170,31 +170,48 @@ namespace TrainSMARTApp
                     case Label lbl:
                         lbl.Parent = panel;
                         lbl.BackColor = Color.Transparent;
-
                         if (lbl == label_Main_Welcome)
                             lbl.Location = new Point(70, 231);
                         if (lbl == label_Main_Description)
                             lbl.Location = new Point(70, 269);
                         if (lbl == label_Register_SignUp)
                             lbl.Location = new Point(140, 125);
+                        if (lbl == label_Register_PrivacyPolicy)
+                            lbl.Location = new Point(144, 504);
                         break;
 
                     case cuiButton cuiBtn:
                         cuiBtn.Parent = panel;
                         cuiBtn.BackColor = Color.Transparent;
-                        cuiBtn.HoverBackground = Color.Transparent;
-                        cuiBtn.PressedBackground = Color.Transparent;
+                        if (cuiBtn == cuiButton_Main_Register || cuiBtn == cuiButton_Register_PrivacyPolicy)
+                        {
+                            cuiBtn.HoverBackground = Color.Transparent;
+                            cuiBtn.PressedBackground = Color.Transparent;
+                            // TODO: pinpoint the location of this button                                
+                            //if (cuiBtn == cuiButton_Main_Register)
+                            if (cuiBtn == cuiButton_Register_PrivacyPolicy)
+                                cuiBtn.Location = new Point(350, 500);
+                        }
+                        if (cuiBtn == cuiButton_Main_Login || cuiBtn == cuiButton_Register_SignUp)
+                        {
+                            cuiBtn.HoverBackground = Color.LightSkyBlue;
+                            cuiBtn.PressedBackground = Color.FromArgb(101, 188, 255);
+                            // TODO: pinpoint the location of this button                                
+                            //if (cuiBtn == cuiButton_Main_LogIn)
+                            if (cuiBtn == cuiButton_Register_SignUp)
+                                cuiBtn.Location = new Point(144, 438);
+                        }
                         break;
 
                     case cuiTextBox2 cuiTxtBx:
                         cuiTxtBx.Parent = panel;
                         cuiTxtBx.BackgroundColor = Color.FromArgb(10, Color.FromArgb(68, 68, 77));
                         if (cuiTxtBx == cuiTextBox_Register_Username)
-                            cuiTxtBx.Location = new Point(146, 175);
+                            cuiTxtBx.Location = new Point(144, 175);
                         if (cuiTxtBx == cuiTextBox_Register_Password)
-                            cuiTxtBx.Location = new Point(146, 260);
+                            cuiTxtBx.Location = new Point(144, 260);
                         if (cuiTxtBx == cuiTextBox_Register_Email)
-                            cuiTxtBx.Location = new Point(146, 345);
+                            cuiTxtBx.Location = new Point(144, 345);
                         break;
                 }
 
