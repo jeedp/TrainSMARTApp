@@ -23,11 +23,13 @@ namespace TrainSMARTApp
         public LoginForm()
         {
             InitializeComponent();
+
+            // panel sizes in design is 513, 753
         }
 
 
 
-        
+
 
         private void LoginForm_Load(object sender, EventArgs e)
         {
@@ -37,7 +39,7 @@ namespace TrainSMARTApp
 
 
 
-            ShowMainControls();
+            ShowMainControls(); 
         }
 
 
@@ -76,11 +78,19 @@ namespace TrainSMARTApp
 
         private void cuiButton_LogIn_Click(object sender, EventArgs e)
         {
-            panel_Main.Width = 0;
+            panel_Menu_Main.Width = 0;
+            panel_Menu_Main.Visible = false;
+            panel_Menu_Main.SendToBack();
+
+
         }
 
         private void cuiButton_Register_Click(object sender, EventArgs e)
         {
+            panel_Menu_Main.Width = 0;
+            panel_Menu_Main.Visible = false;
+            panel_Menu_Main.SendToBack();
+
 
         }
 
@@ -124,31 +134,41 @@ namespace TrainSMARTApp
             int opacity = 90;
             Color color = Color.Black;
 
-            panel_Main.Parent = pictureBox_Background;
-            panel_Main.BackColor = Color.FromArgb(opacity, color);
-            panel_Main.Width = 500;
-            panel_Main.Visible = true;
-            panel_Main.BringToFront();
+            panel_Menu_Main.Parent = pictureBox_Background;
+            panel_Menu_Main.BackColor = Color.FromArgb(opacity, color);
+            panel_Menu_Main.Width = 513;
+            panel_Menu_Main.Visible = true;
+            panel_Menu_Main.BringToFront();
 
-            label_Welcome.Parent = panel_Main;
+            label_Welcome.Parent = panel_Menu_Main;
             label_Welcome.BackColor = Color.Transparent;
             label_Welcome.Location = new Point(70, 231);
             label_Welcome.BringToFront();
 
-            label_Description.Parent = panel_Main;
+            label_Description.Parent = panel_Menu_Main;
             label_Description.BackColor = Color.Transparent;
             label_Description.Location = new Point(70, 267);
             label_Description.BringToFront();
 
-            cuiButton_LogIn.Parent = panel_Main;
+            cuiButton_LogIn.Parent = panel_Menu_Main;
             cuiButton_LogIn.BackColor = Color.Transparent;
             cuiButton_LogIn.BringToFront();
 
-            cuiButton_Register.Parent = panel_Main;
+            cuiButton_Register.Parent = panel_Menu_Main;
             cuiButton_Register.BackColor = Color.Transparent;
             cuiButton_Register.HoverBackground = Color.Transparent;
             cuiButton_Register.PressedBackground = Color.Transparent;
             cuiButton_Register.BringToFront();
+        }
+
+        private void ShowLogInMenu()
+        {
+
+        }
+
+        private void ShowRegisterMenu()
+        {
+
         }
     }
 }

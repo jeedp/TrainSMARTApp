@@ -36,10 +36,15 @@
             this.label_Description = new System.Windows.Forms.Label();
             this.cuiButton_LogIn = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Register = new CuoreUI.Controls.cuiButton();
-            this.panel_Main = new System.Windows.Forms.Panel();
+            this.panel_Menu_Main = new System.Windows.Forms.Panel();
             this.button_Back = new System.Windows.Forms.Button();
+            this.panel_Menu_Register = new System.Windows.Forms.Panel();
+            this.panel_Menu_LogIn = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.panel_Title.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Background)).BeginInit();
+            this.panel_Menu_Main.SuspendLayout();
+            this.panel_Menu_Register.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_Title
@@ -48,10 +53,10 @@
             this.panel_Title.Controls.Add(this.button_Back);
             this.panel_Title.Controls.Add(this.button_Exit);
             this.panel_Title.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel_Title.Location = new System.Drawing.Point(513, 0);
+            this.panel_Title.Location = new System.Drawing.Point(0, 0);
             this.panel_Title.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Title.Name = "panel_Title";
-            this.panel_Title.Size = new System.Drawing.Size(0, 35);
+            this.panel_Title.Size = new System.Drawing.Size(513, 35);
             this.panel_Title.TabIndex = 2;
             // 
             // button_Exit
@@ -63,7 +68,7 @@
             this.button_Exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Exit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.button_Exit.Image = ((System.Drawing.Image)(resources.GetObject("button_Exit.Image")));
-            this.button_Exit.Location = new System.Drawing.Point(-43, 0);
+            this.button_Exit.Location = new System.Drawing.Point(470, 0);
             this.button_Exit.Margin = new System.Windows.Forms.Padding(0);
             this.button_Exit.Name = "button_Exit";
             this.button_Exit.Size = new System.Drawing.Size(43, 35);
@@ -103,7 +108,7 @@
             this.label_Description.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label_Description.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label_Description.ForeColor = System.Drawing.Color.White;
-            this.label_Description.Location = new System.Drawing.Point(45, 324);
+            this.label_Description.Location = new System.Drawing.Point(47, 324);
             this.label_Description.Name = "label_Description";
             this.label_Description.Size = new System.Drawing.Size(280, 27);
             this.label_Description.TabIndex = 6;
@@ -187,14 +192,18 @@
             this.cuiButton_Register.TextOffset = new System.Drawing.Point(0, 0);
             this.cuiButton_Register.Click += new System.EventHandler(this.cuiButton_Register_Click);
             // 
-            // panel_Main
+            // panel_Menu_Main
             // 
-            this.panel_Main.BackColor = System.Drawing.Color.Transparent;
-            this.panel_Main.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel_Main.Location = new System.Drawing.Point(0, 0);
-            this.panel_Main.Name = "panel_Main";
-            this.panel_Main.Size = new System.Drawing.Size(513, 788);
-            this.panel_Main.TabIndex = 9;
+            this.panel_Menu_Main.BackColor = System.Drawing.Color.Transparent;
+            this.panel_Menu_Main.Controls.Add(this.label_Description);
+            this.panel_Menu_Main.Controls.Add(this.label_Welcome);
+            this.panel_Menu_Main.Controls.Add(this.cuiButton_Register);
+            this.panel_Menu_Main.Controls.Add(this.cuiButton_LogIn);
+            this.panel_Menu_Main.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel_Menu_Main.Location = new System.Drawing.Point(0, 0);
+            this.panel_Menu_Main.Name = "panel_Menu_Main";
+            this.panel_Menu_Main.Size = new System.Drawing.Size(0, 788);
+            this.panel_Menu_Main.TabIndex = 9;
             // 
             // button_Back
             // 
@@ -213,27 +222,60 @@
             this.button_Back.TabStop = false;
             this.button_Back.UseVisualStyleBackColor = false;
             // 
+            // panel_Menu_Register
+            // 
+            this.panel_Menu_Register.BackColor = System.Drawing.Color.Transparent;
+            this.panel_Menu_Register.Controls.Add(this.label1);
+            this.panel_Menu_Register.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel_Menu_Register.Location = new System.Drawing.Point(513, 35);
+            this.panel_Menu_Register.Name = "panel_Menu_Register";
+            this.panel_Menu_Register.Size = new System.Drawing.Size(0, 753);
+            this.panel_Menu_Register.TabIndex = 10;
+            // 
+            // panel_Menu_LogIn
+            // 
+            this.panel_Menu_LogIn.BackColor = System.Drawing.Color.Transparent;
+            this.panel_Menu_LogIn.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel_Menu_LogIn.Location = new System.Drawing.Point(513, 35);
+            this.panel_Menu_LogIn.Name = "panel_Menu_LogIn";
+            this.panel_Menu_LogIn.Size = new System.Drawing.Size(0, 753);
+            this.panel_Menu_LogIn.TabIndex = 11;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label1.Font = new System.Drawing.Font("SansSerif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label1.ForeColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(43, 209);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(403, 40);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Welcome to TrainSMART";
+            // 
             // LoginForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(513, 788);
+            this.Controls.Add(this.panel_Menu_LogIn);
+            this.Controls.Add(this.panel_Menu_Register);
             this.Controls.Add(this.panel_Title);
-            this.Controls.Add(this.cuiButton_LogIn);
-            this.Controls.Add(this.cuiButton_Register);
-            this.Controls.Add(this.label_Description);
-            this.Controls.Add(this.label_Welcome);
+            this.Controls.Add(this.panel_Menu_Main);
             this.Controls.Add(this.pictureBox_Background);
-            this.Controls.Add(this.panel_Main);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LoginForm";
             this.Load += new System.EventHandler(this.LoginForm_Load);
             this.panel_Title.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Background)).EndInit();
+            this.panel_Menu_Main.ResumeLayout(false);
+            this.panel_Menu_Main.PerformLayout();
+            this.panel_Menu_Register.ResumeLayout(false);
+            this.panel_Menu_Register.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -246,8 +288,11 @@
         private System.Windows.Forms.Label label_Description;
         private CuoreUI.Controls.cuiButton cuiButton_LogIn;
         private CuoreUI.Controls.cuiButton cuiButton_Register;
-        private System.Windows.Forms.Panel panel_Main;
+        private System.Windows.Forms.Panel panel_Menu_Main;
         private System.Windows.Forms.Button button_Back;
+        private System.Windows.Forms.Panel panel_Menu_Register;
+        private System.Windows.Forms.Panel panel_Menu_LogIn;
+        private System.Windows.Forms.Label label1;
     }
 }
 
