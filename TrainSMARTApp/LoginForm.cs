@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -19,8 +20,30 @@ namespace TrainSMARTApp
         private Point lastLocation;
         
         // panel/button transparency
-        int opacity = 90;
-        Color pnlBgColor = Color.Black;
+        private int opacity = 90;
+        private Color pnlBgColor = Color.Black;
+
+        // sql connection string
+        private string connectionString = "Data Source=LAPTOP-R9RSTS0G\\SQLEXPRESS;Initial Catalog=UserDB;";
+
+
+
+
+
+        private enum DisplayMode
+        {
+            Main,
+            Register,
+            LogIn
+        }
+        private DisplayMode currentMode = DisplayMode.Main;
+
+
+
+
+
+
+
 
 
 
@@ -89,7 +112,7 @@ namespace TrainSMARTApp
             HideMenu(panel_Menu_Register);
             HideMenu(panel_Menu_LogIn);
             ShowMenu(panel_Menu_Main);
-            //ShowControls(panel_Menu_Main);
+            currentMode = DisplayMode.Main;
         }
 
 
@@ -103,19 +126,95 @@ namespace TrainSMARTApp
 
         // MAIN CONTROLS
 
-        private void cuiButton_LogIn_Click(object sender, EventArgs e)
-        {
-            HideMenu(panel_Menu_Main);
-            ShowMenu(panel_Menu_LogIn);
-            //ShowControls(panel_Menu_LogIn);
-        }
-
         private void cuiButton_Register_Click(object sender, EventArgs e)
         {
             HideMenu(panel_Menu_Main);
             ShowMenu(panel_Menu_Register);
-            //ShowControls(panel_Menu_Register);
+            currentMode = DisplayMode.Register;
         }
+
+        private void cuiButton_LogIn_Click(object sender, EventArgs e)
+        {
+            HideMenu(panel_Menu_Main);
+            ShowMenu(panel_Menu_LogIn);
+            currentMode = DisplayMode.LogIn;
+        }
+
+
+
+
+
+
+
+
+
+
+
+        // REGISTER CONTROLS
+            // TODO: Upgrade password to be hashed when stored in database
+        private void cuiButton_Register_SignUp_Click(object sender, EventArgs e)
+        {
+            string username = cuiTextBox_Register_Username.Text;
+            string password = cuiTextBox_Register_Password.Text;
+            string email = cuiTextBox_Register_Email.Text;
+
+            if (!InputValidation())
+                return;
+
+            // You can add more validation here like email format, password strength, etc.
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "INSERT INTO Users (Username, Password, Email) VALUES (@Username, @Password, @Email)";
+                using (SqlCommand cmd = new SqlCommand(query, conn))
+                {
+                    cmd.Parameters.AddWithValue("@Username", username);
+                    cmd.Parameters.AddWithValue("@Password", password); // You should hash the password in a real app
+                    cmd.Parameters.AddWithValue("@Email", email);
+
+                    try
+                    {
+                        conn.Open();
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Registration successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                            // Clear fields after successful registration
+                            cuiTextBox_Register_Username.Content = "";
+                            cuiTextBox_Register_Password.Content = "";
+                            cuiTextBox_Register_Email.Content = "";
+                        }
+                        else
+                        {
+                            MessageBox.Show("Registration failed. Try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Database error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+
+
+        private void cuiButton_Register_PrivacyPolicy_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+
+
+
+
+
+
+
+        // LOG IN CONTROLS
 
 
 
@@ -128,7 +227,7 @@ namespace TrainSMARTApp
 
         // HELPER METHODS 
 
-            // for dragging the form
+        // for dragging the form
         private new void MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
@@ -207,48 +306,99 @@ namespace TrainSMARTApp
                     case Label lbl:
                         lbl.Parent = panel;
                         lbl.BackColor = Color.Transparent;
-                        if (labelPositions.TryGetValue(lbl, out Point pos))
+                        if (labelPositions.TryGetValue(lbl, out Point lblPos))
                         {
-                            lbl.Location = pos;
+                            lbl.Location = lblPos;
                         }
                         break;
 
                     case cuiButton cuiBtn:
                         cuiBtn.Parent = panel;
                         cuiBtn.BackColor = Color.Transparent;
-                        if (cuiBtn == cuiButton_Main_Register 
-                            || cuiBtn == cuiButton_Register_PrivacyPolicy
-                            || cuiBtn == cuiButton_Login_ResetPass)
+                        if (cuiBtn == cuiButton_Main_Register ||
+                            cuiBtn == cuiButton_Register_PrivacyPolicy ||
+                            cuiBtn == cuiButton_Login_ResetPass)
                         {
                             cuiBtn.HoverBackground = Color.Transparent;
                             cuiBtn.PressedBackground = Color.Transparent;
                         }
-                        if (cuiBtn == cuiButton_Main_Login 
-                            || cuiBtn == cuiButton_Register_SignUp
-                            || cuiBtn == cuiButton_Login_Login)
+                        if (cuiBtn == cuiButton_Main_Login ||
+                            cuiBtn == cuiButton_Register_SignUp ||
+                            cuiBtn == cuiButton_Login_Login)
                         {
                             cuiBtn.HoverBackground = Color.LightSkyBlue;
                             cuiBtn.PressedBackground = Color.FromArgb(101, 188, 255);
                         }
-                        if (cuiButtonPositions.TryGetValue(cuiBtn, out Point btnLocation))
+                        if (cuiButtonPositions.TryGetValue(cuiBtn, out Point cuiBtnPos))
                         {
-                            cuiBtn.Location = btnLocation;
+                            cuiBtn.Location = cuiBtnPos;
                         }
                         break;
 
                     case cuiTextBox2 cuiTxtBx:
                         cuiTxtBx.Parent = panel;
-                        cuiTxtBx.BackgroundColor = Color.FromArgb(10, Color.FromArgb(68, 68, 77));
-                        if (cuiTextBoxPositions.TryGetValue(cuiTxtBx, out Point txtLocation))
+                        cuiTxtBx.BackColor = Color.FromArgb(90, Color.FromArgb(68, 68, 77));
+                        cuiTxtBx.BackgroundColor = Color.FromArgb(90, Color.FromArgb(68, 68, 77));
+                        if (cuiTextBoxPositions.TryGetValue(cuiTxtBx, out Point cuiTxtBxPos))
                         {
-                            cuiTxtBx.Location = txtLocation;
+                            cuiTxtBx.Location = cuiTxtBxPos;
                         }
                         break;
                 }
-
                 control.BringToFront();
             }
         }
-        
+
+        private bool InputValidation()
+        {
+            var cuiTxtBx = (currentMode == DisplayMode.Register)
+                ? new List<cuiTextBox2>
+                {
+                    cuiTextBox_Register_Username,
+                    cuiTextBox_Register_Password,
+                    cuiTextBox_Register_Email
+                }
+                : new List<cuiTextBox2>
+                {
+                    cuiTextBox_Login_Username,
+                    cuiTextBox_Login_Password
+                };
+
+            foreach (var txtBox in cuiTxtBx)
+            {
+                if (string.IsNullOrWhiteSpace(txtBox.Content) || txtBox.Content.Contains(" "))
+                {
+                    MessageBox.Show("Please fill in all fields.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+
+                    txtBox.FocusBorderColor = Color.Red;
+                    txtBox.Focus();
+
+                    return false;
+                }
+
+                // TODO: Create error mode for the txt boxes
+
+
+
+
+                //if (txtBox.Content.Contains(" "))
+                //{
+                //    MessageBox.Show(
+                //        "Spaces are not allowed in the username or password.", "Validation Error",
+                //        MessageBoxButtons.OK,
+                //        MessageBoxIcon.Warning);
+                //    return false;
+                //}
+            }
+            return true;
+
+            
+        }
+
+        private void HideError()
+        {
+            
+        }
+
     }
 }
