@@ -39,19 +39,19 @@
             this.cuiButton_Main_Register = new CuoreUI.Controls.cuiButton();
             this.panel_Menu_Main = new System.Windows.Forms.Panel();
             this.panel_Menu_Register = new System.Windows.Forms.Panel();
+            this.cuiButton_Register_PrivacyPolicy = new CuoreUI.Controls.cuiButton();
+            this.label_Register_PrivacyPolicy = new System.Windows.Forms.Label();
+            this.cuiButton_Register_SignUp = new CuoreUI.Controls.cuiButton();
+            this.cuiTextBox_Register_Email = new CuoreUI.Controls.cuiTextBox2();
             this.cuiTextBox_Register_Username = new CuoreUI.Controls.cuiTextBox2();
+            this.cuiTextBox_Register_Password = new CuoreUI.Controls.cuiTextBox2();
             this.label_Register_SignUp = new System.Windows.Forms.Label();
             this.panel_Menu_LogIn = new System.Windows.Forms.Panel();
-            this.cuiTextBox_Register_Password = new CuoreUI.Controls.cuiTextBox2();
-            this.cuiTextBox_Register_Email = new CuoreUI.Controls.cuiTextBox2();
-            this.cuiButton_Register_SignUp = new CuoreUI.Controls.cuiButton();
-            this.label_Register_PrivacyPolicy = new System.Windows.Forms.Label();
-            this.cuiButton_Register_PrivacyPolicy = new CuoreUI.Controls.cuiButton();
+            this.cuiButton_Login_ResetPass = new CuoreUI.Controls.cuiButton();
+            this.cuiButton_Login_Login = new CuoreUI.Controls.cuiButton();
+            this.cuiTextBox_Login_Password = new CuoreUI.Controls.cuiTextBox2();
+            this.cuiTextBox_Login_Username = new CuoreUI.Controls.cuiTextBox2();
             this.label_Login_Login = new System.Windows.Forms.Label();
-            this.cuiTextBox21 = new CuoreUI.Controls.cuiTextBox2();
-            this.cuiTextBox22 = new CuoreUI.Controls.cuiTextBox2();
-            this.cuiButton1 = new CuoreUI.Controls.cuiButton();
-            this.cuiButton2 = new CuoreUI.Controls.cuiButton();
             this.panel_Title.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Background)).BeginInit();
             this.panel_Menu_Main.SuspendLayout();
@@ -65,10 +65,10 @@
             this.panel_Title.Controls.Add(this.button_Back);
             this.panel_Title.Controls.Add(this.button_Exit);
             this.panel_Title.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel_Title.Location = new System.Drawing.Point(0, 0);
+            this.panel_Title.Location = new System.Drawing.Point(513, 0);
             this.panel_Title.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Title.Name = "panel_Title";
-            this.panel_Title.Size = new System.Drawing.Size(513, 35);
+            this.panel_Title.Size = new System.Drawing.Size(0, 35);
             this.panel_Title.TabIndex = 2;
             // 
             // button_Back
@@ -98,7 +98,7 @@
             this.button_Exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Exit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.button_Exit.Image = ((System.Drawing.Image)(resources.GetObject("button_Exit.Image")));
-            this.button_Exit.Location = new System.Drawing.Point(470, 0);
+            this.button_Exit.Location = new System.Drawing.Point(-43, 0);
             this.button_Exit.Margin = new System.Windows.Forms.Padding(0);
             this.button_Exit.Name = "button_Exit";
             this.button_Exit.Size = new System.Drawing.Size(43, 35);
@@ -155,7 +155,7 @@
             this.cuiButton_Main_Login.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(106)))), ((int)(((byte)(0)))));
             this.cuiButton_Main_Login.Content = "LOG IN";
             this.cuiButton_Main_Login.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.cuiButton_Main_Login.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiButton_Main_Login.Font = new System.Drawing.Font("SansSerif", 12.4F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.cuiButton_Main_Login.ForeColor = System.Drawing.Color.White;
             this.cuiButton_Main_Login.HoverBackground = System.Drawing.Color.LightSkyBlue;
             this.cuiButton_Main_Login.HoveredImageTint = System.Drawing.Color.White;
@@ -178,7 +178,7 @@
             this.cuiButton_Main_Login.PressedImageTint = System.Drawing.Color.White;
             this.cuiButton_Main_Login.PressedOutline = System.Drawing.Color.Empty;
             this.cuiButton_Main_Login.Rounding = new System.Windows.Forms.Padding(4);
-            this.cuiButton_Main_Login.Size = new System.Drawing.Size(142, 52);
+            this.cuiButton_Main_Login.Size = new System.Drawing.Size(143, 54);
             this.cuiButton_Main_Login.TabIndex = 7;
             this.cuiButton_Main_Login.TextOffset = new System.Drawing.Point(0, 0);
             this.cuiButton_Main_Login.Click += new System.EventHandler(this.cuiButton_LogIn_Click);
@@ -194,7 +194,7 @@
             this.cuiButton_Main_Register.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(106)))), ((int)(((byte)(0)))));
             this.cuiButton_Main_Register.Content = "REGISTER";
             this.cuiButton_Main_Register.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.cuiButton_Main_Register.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiButton_Main_Register.Font = new System.Drawing.Font("SansSerif", 12.4F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.cuiButton_Main_Register.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
             this.cuiButton_Main_Register.HoverBackground = System.Drawing.Color.Transparent;
             this.cuiButton_Main_Register.HoveredImageTint = System.Drawing.Color.White;
@@ -217,7 +217,7 @@
             this.cuiButton_Main_Register.PressedImageTint = System.Drawing.Color.White;
             this.cuiButton_Main_Register.PressedOutline = System.Drawing.Color.Empty;
             this.cuiButton_Main_Register.Rounding = new System.Windows.Forms.Padding(4);
-            this.cuiButton_Main_Register.Size = new System.Drawing.Size(142, 52);
+            this.cuiButton_Main_Register.Size = new System.Drawing.Size(143, 54);
             this.cuiButton_Main_Register.TabIndex = 8;
             this.cuiButton_Main_Register.TextOffset = new System.Drawing.Point(0, 0);
             this.cuiButton_Main_Register.Click += new System.EventHandler(this.cuiButton_Register_Click);
@@ -232,7 +232,7 @@
             this.panel_Menu_Main.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel_Menu_Main.Location = new System.Drawing.Point(0, 0);
             this.panel_Menu_Main.Name = "panel_Menu_Main";
-            this.panel_Menu_Main.Size = new System.Drawing.Size(0, 787);
+            this.panel_Menu_Main.Size = new System.Drawing.Size(513, 787);
             this.panel_Menu_Main.TabIndex = 9;
             // 
             // panel_Menu_Register
@@ -252,163 +252,6 @@
             this.panel_Menu_Register.Name = "panel_Menu_Register";
             this.panel_Menu_Register.Size = new System.Drawing.Size(0, 752);
             this.panel_Menu_Register.TabIndex = 10;
-            // 
-            // cuiTextBox_Register_Username
-            // 
-            this.cuiTextBox_Register_Username.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
-            this.cuiTextBox_Register_Username.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
-            this.cuiTextBox_Register_Username.BorderColor = System.Drawing.Color.Transparent;
-            this.cuiTextBox_Register_Username.BorderSize = 2;
-            this.cuiTextBox_Register_Username.Content = "";
-            this.cuiTextBox_Register_Username.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cuiTextBox_Register_Username.FocusBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
-            this.cuiTextBox_Register_Username.FocusBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
-            this.cuiTextBox_Register_Username.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cuiTextBox_Register_Username.ForeColor = System.Drawing.Color.White;
-            this.cuiTextBox_Register_Username.Location = new System.Drawing.Point(193, 215);
-            this.cuiTextBox_Register_Username.Margin = new System.Windows.Forms.Padding(4, 4, 4, 21);
-            this.cuiTextBox_Register_Username.Multiline = false;
-            this.cuiTextBox_Register_Username.Name = "cuiTextBox_Register_Username";
-            this.cuiTextBox_Register_Username.Padding = new System.Windows.Forms.Padding(24, 28, 24, 0);
-            this.cuiTextBox_Register_Username.PasswordChar = false;
-            this.cuiTextBox_Register_Username.PlaceholderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.cuiTextBox_Register_Username.PlaceholderText = "Username";
-            this.cuiTextBox_Register_Username.Rounding = new System.Windows.Forms.Padding(8);
-            this.cuiTextBox_Register_Username.Size = new System.Drawing.Size(410, 80);
-            this.cuiTextBox_Register_Username.TabIndex = 14;
-            this.cuiTextBox_Register_Username.TextOffset = new System.Drawing.Size(0, 0);
-            this.cuiTextBox_Register_Username.UnderlinedStyle = false;
-            // 
-            // label_Register_SignUp
-            // 
-            this.label_Register_SignUp.AutoSize = true;
-            this.label_Register_SignUp.BackColor = System.Drawing.Color.Transparent;
-            this.label_Register_SignUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Register_SignUp.Font = new System.Drawing.Font("SansSerif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label_Register_SignUp.ForeColor = System.Drawing.Color.White;
-            this.label_Register_SignUp.Location = new System.Drawing.Point(45, 133);
-            this.label_Register_SignUp.Name = "label_Register_SignUp";
-            this.label_Register_SignUp.Size = new System.Drawing.Size(127, 38);
-            this.label_Register_SignUp.TabIndex = 12;
-            this.label_Register_SignUp.Text = "Sign up";
-            // 
-            // panel_Menu_LogIn
-            // 
-            this.panel_Menu_LogIn.BackColor = System.Drawing.Color.Transparent;
-            this.panel_Menu_LogIn.Controls.Add(this.cuiButton2);
-            this.panel_Menu_LogIn.Controls.Add(this.cuiButton1);
-            this.panel_Menu_LogIn.Controls.Add(this.cuiTextBox22);
-            this.panel_Menu_LogIn.Controls.Add(this.cuiTextBox21);
-            this.panel_Menu_LogIn.Controls.Add(this.label_Login_Login);
-            this.panel_Menu_LogIn.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel_Menu_LogIn.Location = new System.Drawing.Point(0, 35);
-            this.panel_Menu_LogIn.Name = "panel_Menu_LogIn";
-            this.panel_Menu_LogIn.Size = new System.Drawing.Size(513, 752);
-            this.panel_Menu_LogIn.TabIndex = 11;
-            // 
-            // cuiTextBox_Register_Password
-            // 
-            this.cuiTextBox_Register_Password.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
-            this.cuiTextBox_Register_Password.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
-            this.cuiTextBox_Register_Password.BorderColor = System.Drawing.Color.Transparent;
-            this.cuiTextBox_Register_Password.BorderSize = 2;
-            this.cuiTextBox_Register_Password.Content = "";
-            this.cuiTextBox_Register_Password.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cuiTextBox_Register_Password.FocusBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
-            this.cuiTextBox_Register_Password.FocusBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
-            this.cuiTextBox_Register_Password.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cuiTextBox_Register_Password.ForeColor = System.Drawing.Color.White;
-            this.cuiTextBox_Register_Password.Location = new System.Drawing.Point(193, 321);
-            this.cuiTextBox_Register_Password.Margin = new System.Windows.Forms.Padding(4, 4, 4, 22);
-            this.cuiTextBox_Register_Password.Multiline = false;
-            this.cuiTextBox_Register_Password.Name = "cuiTextBox_Register_Password";
-            this.cuiTextBox_Register_Password.Padding = new System.Windows.Forms.Padding(24, 28, 24, 0);
-            this.cuiTextBox_Register_Password.PasswordChar = false;
-            this.cuiTextBox_Register_Password.PlaceholderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.cuiTextBox_Register_Password.PlaceholderText = "Password";
-            this.cuiTextBox_Register_Password.Rounding = new System.Windows.Forms.Padding(8);
-            this.cuiTextBox_Register_Password.Size = new System.Drawing.Size(410, 80);
-            this.cuiTextBox_Register_Password.TabIndex = 15;
-            this.cuiTextBox_Register_Password.TextOffset = new System.Drawing.Size(0, 0);
-            this.cuiTextBox_Register_Password.UnderlinedStyle = false;
-            // 
-            // cuiTextBox_Register_Email
-            // 
-            this.cuiTextBox_Register_Email.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
-            this.cuiTextBox_Register_Email.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
-            this.cuiTextBox_Register_Email.BorderColor = System.Drawing.Color.Transparent;
-            this.cuiTextBox_Register_Email.BorderSize = 2;
-            this.cuiTextBox_Register_Email.Content = "";
-            this.cuiTextBox_Register_Email.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cuiTextBox_Register_Email.FocusBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
-            this.cuiTextBox_Register_Email.FocusBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
-            this.cuiTextBox_Register_Email.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cuiTextBox_Register_Email.ForeColor = System.Drawing.Color.White;
-            this.cuiTextBox_Register_Email.Location = new System.Drawing.Point(193, 425);
-            this.cuiTextBox_Register_Email.Margin = new System.Windows.Forms.Padding(4, 4, 4, 20);
-            this.cuiTextBox_Register_Email.Multiline = false;
-            this.cuiTextBox_Register_Email.Name = "cuiTextBox_Register_Email";
-            this.cuiTextBox_Register_Email.Padding = new System.Windows.Forms.Padding(24, 28, 24, 0);
-            this.cuiTextBox_Register_Email.PasswordChar = false;
-            this.cuiTextBox_Register_Email.PlaceholderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.cuiTextBox_Register_Email.PlaceholderText = "Email";
-            this.cuiTextBox_Register_Email.Rounding = new System.Windows.Forms.Padding(8);
-            this.cuiTextBox_Register_Email.Size = new System.Drawing.Size(410, 80);
-            this.cuiTextBox_Register_Email.TabIndex = 16;
-            this.cuiTextBox_Register_Email.TextOffset = new System.Drawing.Size(0, 0);
-            this.cuiTextBox_Register_Email.UnderlinedStyle = false;
-            // 
-            // cuiButton_Register_SignUp
-            // 
-            this.cuiButton_Register_SignUp.BackColor = System.Drawing.Color.Transparent;
-            this.cuiButton_Register_SignUp.CheckButton = false;
-            this.cuiButton_Register_SignUp.Checked = false;
-            this.cuiButton_Register_SignUp.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(106)))), ((int)(((byte)(0)))));
-            this.cuiButton_Register_SignUp.CheckedForeColor = System.Drawing.Color.White;
-            this.cuiButton_Register_SignUp.CheckedImageTint = System.Drawing.Color.White;
-            this.cuiButton_Register_SignUp.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(106)))), ((int)(((byte)(0)))));
-            this.cuiButton_Register_SignUp.Content = "SIGN UP";
-            this.cuiButton_Register_SignUp.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.cuiButton_Register_SignUp.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cuiButton_Register_SignUp.ForeColor = System.Drawing.Color.White;
-            this.cuiButton_Register_SignUp.HoverBackground = System.Drawing.Color.LightSkyBlue;
-            this.cuiButton_Register_SignUp.HoveredImageTint = System.Drawing.Color.White;
-            this.cuiButton_Register_SignUp.HoverForeColor = System.Drawing.Color.White;
-            this.cuiButton_Register_SignUp.HoverOutline = System.Drawing.Color.Empty;
-            this.cuiButton_Register_SignUp.Image = null;
-            this.cuiButton_Register_SignUp.ImageAutoCenter = true;
-            this.cuiButton_Register_SignUp.ImageExpand = new System.Drawing.Point(0, 0);
-            this.cuiButton_Register_SignUp.ImageOffset = new System.Drawing.Point(0, 0);
-            this.cuiButton_Register_SignUp.Location = new System.Drawing.Point(193, 538);
-            this.cuiButton_Register_SignUp.Margin = new System.Windows.Forms.Padding(0);
-            this.cuiButton_Register_SignUp.Name = "cuiButton_Register_SignUp";
-            this.cuiButton_Register_SignUp.NormalBackground = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
-            this.cuiButton_Register_SignUp.NormalForeColor = System.Drawing.Color.White;
-            this.cuiButton_Register_SignUp.NormalImageTint = System.Drawing.Color.White;
-            this.cuiButton_Register_SignUp.NormalOutline = System.Drawing.Color.Empty;
-            this.cuiButton_Register_SignUp.OutlineThickness = 1.6F;
-            this.cuiButton_Register_SignUp.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
-            this.cuiButton_Register_SignUp.PressedForeColor = System.Drawing.Color.White;
-            this.cuiButton_Register_SignUp.PressedImageTint = System.Drawing.Color.White;
-            this.cuiButton_Register_SignUp.PressedOutline = System.Drawing.Color.Empty;
-            this.cuiButton_Register_SignUp.Rounding = new System.Windows.Forms.Padding(4);
-            this.cuiButton_Register_SignUp.Size = new System.Drawing.Size(410, 55);
-            this.cuiButton_Register_SignUp.TabIndex = 17;
-            this.cuiButton_Register_SignUp.TextOffset = new System.Drawing.Point(0, 0);
-            // 
-            // label_Register_PrivacyPolicy
-            // 
-            this.label_Register_PrivacyPolicy.AutoSize = true;
-            this.label_Register_PrivacyPolicy.BackColor = System.Drawing.Color.Transparent;
-            this.label_Register_PrivacyPolicy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Register_PrivacyPolicy.Font = new System.Drawing.Font("SansSerif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label_Register_PrivacyPolicy.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.label_Register_PrivacyPolicy.Location = new System.Drawing.Point(188, 620);
-            this.label_Register_PrivacyPolicy.Name = "label_Register_PrivacyPolicy";
-            this.label_Register_PrivacyPolicy.Size = new System.Drawing.Size(230, 40);
-            this.label_Register_PrivacyPolicy.TabIndex = 18;
-            this.label_Register_PrivacyPolicy.Text = "By signing in to TrainSMART,\r\nyou agree to our";
-            this.label_Register_PrivacyPolicy.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // cuiButton_Register_PrivacyPolicy
             // 
@@ -448,6 +291,291 @@
             this.cuiButton_Register_PrivacyPolicy.TabIndex = 19;
             this.cuiButton_Register_PrivacyPolicy.TextOffset = new System.Drawing.Point(0, -10);
             // 
+            // label_Register_PrivacyPolicy
+            // 
+            this.label_Register_PrivacyPolicy.AutoSize = true;
+            this.label_Register_PrivacyPolicy.BackColor = System.Drawing.Color.Transparent;
+            this.label_Register_PrivacyPolicy.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_Register_PrivacyPolicy.Font = new System.Drawing.Font("SansSerif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label_Register_PrivacyPolicy.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.label_Register_PrivacyPolicy.Location = new System.Drawing.Point(188, 620);
+            this.label_Register_PrivacyPolicy.Name = "label_Register_PrivacyPolicy";
+            this.label_Register_PrivacyPolicy.Size = new System.Drawing.Size(230, 40);
+            this.label_Register_PrivacyPolicy.TabIndex = 18;
+            this.label_Register_PrivacyPolicy.Text = "By signing in to TrainSMART,\r\nyou agree to our";
+            this.label_Register_PrivacyPolicy.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // cuiButton_Register_SignUp
+            // 
+            this.cuiButton_Register_SignUp.BackColor = System.Drawing.Color.Transparent;
+            this.cuiButton_Register_SignUp.CheckButton = false;
+            this.cuiButton_Register_SignUp.Checked = false;
+            this.cuiButton_Register_SignUp.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(106)))), ((int)(((byte)(0)))));
+            this.cuiButton_Register_SignUp.CheckedForeColor = System.Drawing.Color.White;
+            this.cuiButton_Register_SignUp.CheckedImageTint = System.Drawing.Color.White;
+            this.cuiButton_Register_SignUp.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(106)))), ((int)(((byte)(0)))));
+            this.cuiButton_Register_SignUp.Content = "SIGN UP";
+            this.cuiButton_Register_SignUp.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.cuiButton_Register_SignUp.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiButton_Register_SignUp.ForeColor = System.Drawing.Color.White;
+            this.cuiButton_Register_SignUp.HoverBackground = System.Drawing.Color.LightSkyBlue;
+            this.cuiButton_Register_SignUp.HoveredImageTint = System.Drawing.Color.White;
+            this.cuiButton_Register_SignUp.HoverForeColor = System.Drawing.Color.White;
+            this.cuiButton_Register_SignUp.HoverOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Register_SignUp.Image = null;
+            this.cuiButton_Register_SignUp.ImageAutoCenter = true;
+            this.cuiButton_Register_SignUp.ImageExpand = new System.Drawing.Point(0, 0);
+            this.cuiButton_Register_SignUp.ImageOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_Register_SignUp.Location = new System.Drawing.Point(193, 538);
+            this.cuiButton_Register_SignUp.Margin = new System.Windows.Forms.Padding(0);
+            this.cuiButton_Register_SignUp.Name = "cuiButton_Register_SignUp";
+            this.cuiButton_Register_SignUp.NormalBackground = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
+            this.cuiButton_Register_SignUp.NormalForeColor = System.Drawing.Color.White;
+            this.cuiButton_Register_SignUp.NormalImageTint = System.Drawing.Color.White;
+            this.cuiButton_Register_SignUp.NormalOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Register_SignUp.OutlineThickness = 1.6F;
+            this.cuiButton_Register_SignUp.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
+            this.cuiButton_Register_SignUp.PressedForeColor = System.Drawing.Color.White;
+            this.cuiButton_Register_SignUp.PressedImageTint = System.Drawing.Color.White;
+            this.cuiButton_Register_SignUp.PressedOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Register_SignUp.Rounding = new System.Windows.Forms.Padding(4);
+            this.cuiButton_Register_SignUp.Size = new System.Drawing.Size(410, 55);
+            this.cuiButton_Register_SignUp.TabIndex = 17;
+            this.cuiButton_Register_SignUp.TextOffset = new System.Drawing.Point(0, 0);
+            // 
+            // cuiTextBox_Register_Email
+            // 
+            this.cuiTextBox_Register_Email.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
+            this.cuiTextBox_Register_Email.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
+            this.cuiTextBox_Register_Email.BorderColor = System.Drawing.Color.Transparent;
+            this.cuiTextBox_Register_Email.BorderSize = 2;
+            this.cuiTextBox_Register_Email.Content = "";
+            this.cuiTextBox_Register_Email.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cuiTextBox_Register_Email.FocusBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
+            this.cuiTextBox_Register_Email.FocusBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
+            this.cuiTextBox_Register_Email.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiTextBox_Register_Email.ForeColor = System.Drawing.Color.White;
+            this.cuiTextBox_Register_Email.Location = new System.Drawing.Point(193, 425);
+            this.cuiTextBox_Register_Email.Margin = new System.Windows.Forms.Padding(4, 4, 4, 20);
+            this.cuiTextBox_Register_Email.Multiline = false;
+            this.cuiTextBox_Register_Email.Name = "cuiTextBox_Register_Email";
+            this.cuiTextBox_Register_Email.Padding = new System.Windows.Forms.Padding(24, 28, 24, 0);
+            this.cuiTextBox_Register_Email.PasswordChar = false;
+            this.cuiTextBox_Register_Email.PlaceholderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.cuiTextBox_Register_Email.PlaceholderText = "Email";
+            this.cuiTextBox_Register_Email.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiTextBox_Register_Email.Size = new System.Drawing.Size(410, 80);
+            this.cuiTextBox_Register_Email.TabIndex = 16;
+            this.cuiTextBox_Register_Email.TextOffset = new System.Drawing.Size(0, 0);
+            this.cuiTextBox_Register_Email.UnderlinedStyle = false;
+            // 
+            // cuiTextBox_Register_Username
+            // 
+            this.cuiTextBox_Register_Username.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
+            this.cuiTextBox_Register_Username.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
+            this.cuiTextBox_Register_Username.BorderColor = System.Drawing.Color.Transparent;
+            this.cuiTextBox_Register_Username.BorderSize = 2;
+            this.cuiTextBox_Register_Username.Content = "";
+            this.cuiTextBox_Register_Username.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cuiTextBox_Register_Username.FocusBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
+            this.cuiTextBox_Register_Username.FocusBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
+            this.cuiTextBox_Register_Username.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiTextBox_Register_Username.ForeColor = System.Drawing.Color.White;
+            this.cuiTextBox_Register_Username.Location = new System.Drawing.Point(193, 215);
+            this.cuiTextBox_Register_Username.Margin = new System.Windows.Forms.Padding(4, 4, 4, 21);
+            this.cuiTextBox_Register_Username.Multiline = false;
+            this.cuiTextBox_Register_Username.Name = "cuiTextBox_Register_Username";
+            this.cuiTextBox_Register_Username.Padding = new System.Windows.Forms.Padding(24, 28, 24, 0);
+            this.cuiTextBox_Register_Username.PasswordChar = false;
+            this.cuiTextBox_Register_Username.PlaceholderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.cuiTextBox_Register_Username.PlaceholderText = "Username";
+            this.cuiTextBox_Register_Username.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiTextBox_Register_Username.Size = new System.Drawing.Size(410, 80);
+            this.cuiTextBox_Register_Username.TabIndex = 14;
+            this.cuiTextBox_Register_Username.TextOffset = new System.Drawing.Size(0, 0);
+            this.cuiTextBox_Register_Username.UnderlinedStyle = false;
+            // 
+            // cuiTextBox_Register_Password
+            // 
+            this.cuiTextBox_Register_Password.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
+            this.cuiTextBox_Register_Password.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
+            this.cuiTextBox_Register_Password.BorderColor = System.Drawing.Color.Transparent;
+            this.cuiTextBox_Register_Password.BorderSize = 2;
+            this.cuiTextBox_Register_Password.Content = "";
+            this.cuiTextBox_Register_Password.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cuiTextBox_Register_Password.FocusBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
+            this.cuiTextBox_Register_Password.FocusBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
+            this.cuiTextBox_Register_Password.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiTextBox_Register_Password.ForeColor = System.Drawing.Color.White;
+            this.cuiTextBox_Register_Password.Location = new System.Drawing.Point(193, 321);
+            this.cuiTextBox_Register_Password.Margin = new System.Windows.Forms.Padding(4, 4, 4, 22);
+            this.cuiTextBox_Register_Password.Multiline = false;
+            this.cuiTextBox_Register_Password.Name = "cuiTextBox_Register_Password";
+            this.cuiTextBox_Register_Password.Padding = new System.Windows.Forms.Padding(24, 28, 24, 0);
+            this.cuiTextBox_Register_Password.PasswordChar = false;
+            this.cuiTextBox_Register_Password.PlaceholderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.cuiTextBox_Register_Password.PlaceholderText = "Password";
+            this.cuiTextBox_Register_Password.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiTextBox_Register_Password.Size = new System.Drawing.Size(410, 80);
+            this.cuiTextBox_Register_Password.TabIndex = 15;
+            this.cuiTextBox_Register_Password.TextOffset = new System.Drawing.Size(0, 0);
+            this.cuiTextBox_Register_Password.UnderlinedStyle = false;
+            // 
+            // label_Register_SignUp
+            // 
+            this.label_Register_SignUp.AutoSize = true;
+            this.label_Register_SignUp.BackColor = System.Drawing.Color.Transparent;
+            this.label_Register_SignUp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_Register_SignUp.Font = new System.Drawing.Font("SansSerif", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label_Register_SignUp.ForeColor = System.Drawing.Color.White;
+            this.label_Register_SignUp.Location = new System.Drawing.Point(45, 133);
+            this.label_Register_SignUp.Name = "label_Register_SignUp";
+            this.label_Register_SignUp.Size = new System.Drawing.Size(127, 38);
+            this.label_Register_SignUp.TabIndex = 12;
+            this.label_Register_SignUp.Text = "Sign up";
+            // 
+            // panel_Menu_LogIn
+            // 
+            this.panel_Menu_LogIn.BackColor = System.Drawing.Color.Transparent;
+            this.panel_Menu_LogIn.Controls.Add(this.cuiButton_Login_ResetPass);
+            this.panel_Menu_LogIn.Controls.Add(this.cuiButton_Login_Login);
+            this.panel_Menu_LogIn.Controls.Add(this.cuiTextBox_Login_Password);
+            this.panel_Menu_LogIn.Controls.Add(this.cuiTextBox_Login_Username);
+            this.panel_Menu_LogIn.Controls.Add(this.label_Login_Login);
+            this.panel_Menu_LogIn.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel_Menu_LogIn.Location = new System.Drawing.Point(513, 35);
+            this.panel_Menu_LogIn.Name = "panel_Menu_LogIn";
+            this.panel_Menu_LogIn.Size = new System.Drawing.Size(0, 752);
+            this.panel_Menu_LogIn.TabIndex = 11;
+            // 
+            // cuiButton_Login_ResetPass
+            // 
+            this.cuiButton_Login_ResetPass.BackColor = System.Drawing.SystemColors.WindowText;
+            this.cuiButton_Login_ResetPass.CheckButton = false;
+            this.cuiButton_Login_ResetPass.Checked = false;
+            this.cuiButton_Login_ResetPass.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(106)))), ((int)(((byte)(0)))));
+            this.cuiButton_Login_ResetPass.CheckedForeColor = System.Drawing.Color.White;
+            this.cuiButton_Login_ResetPass.CheckedImageTint = System.Drawing.Color.White;
+            this.cuiButton_Login_ResetPass.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(106)))), ((int)(((byte)(0)))));
+            this.cuiButton_Login_ResetPass.Content = "RESET PASSWORD";
+            this.cuiButton_Login_ResetPass.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.cuiButton_Login_ResetPass.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiButton_Login_ResetPass.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
+            this.cuiButton_Login_ResetPass.HoverBackground = System.Drawing.Color.Transparent;
+            this.cuiButton_Login_ResetPass.HoveredImageTint = System.Drawing.Color.White;
+            this.cuiButton_Login_ResetPass.HoverForeColor = System.Drawing.Color.White;
+            this.cuiButton_Login_ResetPass.HoverOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Login_ResetPass.Image = null;
+            this.cuiButton_Login_ResetPass.ImageAutoCenter = true;
+            this.cuiButton_Login_ResetPass.ImageExpand = new System.Drawing.Point(0, 0);
+            this.cuiButton_Login_ResetPass.ImageOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_Login_ResetPass.Location = new System.Drawing.Point(224, 496);
+            this.cuiButton_Login_ResetPass.Margin = new System.Windows.Forms.Padding(0);
+            this.cuiButton_Login_ResetPass.Name = "cuiButton_Login_ResetPass";
+            this.cuiButton_Login_ResetPass.NormalBackground = System.Drawing.Color.Transparent;
+            this.cuiButton_Login_ResetPass.NormalForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
+            this.cuiButton_Login_ResetPass.NormalImageTint = System.Drawing.Color.White;
+            this.cuiButton_Login_ResetPass.NormalOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Login_ResetPass.OutlineThickness = 1.6F;
+            this.cuiButton_Login_ResetPass.PressedBackground = System.Drawing.Color.Transparent;
+            this.cuiButton_Login_ResetPass.PressedForeColor = System.Drawing.Color.LightGray;
+            this.cuiButton_Login_ResetPass.PressedImageTint = System.Drawing.Color.White;
+            this.cuiButton_Login_ResetPass.PressedOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Login_ResetPass.Rounding = new System.Windows.Forms.Padding(4);
+            this.cuiButton_Login_ResetPass.Size = new System.Drawing.Size(240, 52);
+            this.cuiButton_Login_ResetPass.TabIndex = 18;
+            this.cuiButton_Login_ResetPass.TextOffset = new System.Drawing.Point(0, 0);
+            // 
+            // cuiButton_Login_Login
+            // 
+            this.cuiButton_Login_Login.BackColor = System.Drawing.Color.Transparent;
+            this.cuiButton_Login_Login.CheckButton = false;
+            this.cuiButton_Login_Login.Checked = false;
+            this.cuiButton_Login_Login.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(106)))), ((int)(((byte)(0)))));
+            this.cuiButton_Login_Login.CheckedForeColor = System.Drawing.Color.White;
+            this.cuiButton_Login_Login.CheckedImageTint = System.Drawing.Color.White;
+            this.cuiButton_Login_Login.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(106)))), ((int)(((byte)(0)))));
+            this.cuiButton_Login_Login.Content = "LOG IN";
+            this.cuiButton_Login_Login.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.cuiButton_Login_Login.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiButton_Login_Login.ForeColor = System.Drawing.Color.White;
+            this.cuiButton_Login_Login.HoverBackground = System.Drawing.Color.LightSkyBlue;
+            this.cuiButton_Login_Login.HoveredImageTint = System.Drawing.Color.White;
+            this.cuiButton_Login_Login.HoverForeColor = System.Drawing.Color.White;
+            this.cuiButton_Login_Login.HoverOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Login_Login.Image = null;
+            this.cuiButton_Login_Login.ImageAutoCenter = true;
+            this.cuiButton_Login_Login.ImageExpand = new System.Drawing.Point(0, 0);
+            this.cuiButton_Login_Login.ImageOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_Login_Login.Location = new System.Drawing.Point(464, 495);
+            this.cuiButton_Login_Login.Margin = new System.Windows.Forms.Padding(0);
+            this.cuiButton_Login_Login.Name = "cuiButton_Login_Login";
+            this.cuiButton_Login_Login.NormalBackground = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
+            this.cuiButton_Login_Login.NormalForeColor = System.Drawing.Color.White;
+            this.cuiButton_Login_Login.NormalImageTint = System.Drawing.Color.White;
+            this.cuiButton_Login_Login.NormalOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Login_Login.OutlineThickness = 1.6F;
+            this.cuiButton_Login_Login.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
+            this.cuiButton_Login_Login.PressedForeColor = System.Drawing.Color.White;
+            this.cuiButton_Login_Login.PressedImageTint = System.Drawing.Color.White;
+            this.cuiButton_Login_Login.PressedOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Login_Login.Rounding = new System.Windows.Forms.Padding(4);
+            this.cuiButton_Login_Login.Size = new System.Drawing.Size(143, 54);
+            this.cuiButton_Login_Login.TabIndex = 17;
+            this.cuiButton_Login_Login.TextOffset = new System.Drawing.Point(0, 0);
+            // 
+            // cuiTextBox_Login_Password
+            // 
+            this.cuiTextBox_Login_Password.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
+            this.cuiTextBox_Login_Password.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
+            this.cuiTextBox_Login_Password.BorderColor = System.Drawing.Color.Transparent;
+            this.cuiTextBox_Login_Password.BorderSize = 2;
+            this.cuiTextBox_Login_Password.Content = "";
+            this.cuiTextBox_Login_Password.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cuiTextBox_Login_Password.FocusBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
+            this.cuiTextBox_Login_Password.FocusBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
+            this.cuiTextBox_Login_Password.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiTextBox_Login_Password.ForeColor = System.Drawing.Color.White;
+            this.cuiTextBox_Login_Password.Location = new System.Drawing.Point(194, 369);
+            this.cuiTextBox_Login_Password.Margin = new System.Windows.Forms.Padding(4, 4, 4, 22);
+            this.cuiTextBox_Login_Password.Multiline = false;
+            this.cuiTextBox_Login_Password.Name = "cuiTextBox_Login_Password";
+            this.cuiTextBox_Login_Password.Padding = new System.Windows.Forms.Padding(24, 34, 24, 0);
+            this.cuiTextBox_Login_Password.PasswordChar = false;
+            this.cuiTextBox_Login_Password.PlaceholderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.cuiTextBox_Login_Password.PlaceholderText = "Password";
+            this.cuiTextBox_Login_Password.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiTextBox_Login_Password.Size = new System.Drawing.Size(410, 92);
+            this.cuiTextBox_Login_Password.TabIndex = 16;
+            this.cuiTextBox_Login_Password.TextOffset = new System.Drawing.Size(0, 0);
+            this.cuiTextBox_Login_Password.UnderlinedStyle = false;
+            // 
+            // cuiTextBox_Login_Username
+            // 
+            this.cuiTextBox_Login_Username.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
+            this.cuiTextBox_Login_Username.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
+            this.cuiTextBox_Login_Username.BorderColor = System.Drawing.Color.Transparent;
+            this.cuiTextBox_Login_Username.BorderSize = 2;
+            this.cuiTextBox_Login_Username.Content = "";
+            this.cuiTextBox_Login_Username.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cuiTextBox_Login_Username.FocusBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
+            this.cuiTextBox_Login_Username.FocusBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
+            this.cuiTextBox_Login_Username.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiTextBox_Login_Username.ForeColor = System.Drawing.Color.White;
+            this.cuiTextBox_Login_Username.Location = new System.Drawing.Point(194, 253);
+            this.cuiTextBox_Login_Username.Margin = new System.Windows.Forms.Padding(4, 4, 4, 21);
+            this.cuiTextBox_Login_Username.Multiline = false;
+            this.cuiTextBox_Login_Username.Name = "cuiTextBox_Login_Username";
+            this.cuiTextBox_Login_Username.Padding = new System.Windows.Forms.Padding(24, 34, 24, 0);
+            this.cuiTextBox_Login_Username.PasswordChar = false;
+            this.cuiTextBox_Login_Username.PlaceholderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
+            this.cuiTextBox_Login_Username.PlaceholderText = "Username";
+            this.cuiTextBox_Login_Username.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiTextBox_Login_Username.Size = new System.Drawing.Size(410, 92);
+            this.cuiTextBox_Login_Username.TabIndex = 15;
+            this.cuiTextBox_Login_Username.TextOffset = new System.Drawing.Size(0, 0);
+            this.cuiTextBox_Login_Username.UnderlinedStyle = false;
+            // 
             // label_Login_Login
             // 
             this.label_Login_Login.AutoSize = true;
@@ -460,134 +588,6 @@
             this.label_Login_Login.Size = new System.Drawing.Size(121, 43);
             this.label_Login_Login.TabIndex = 13;
             this.label_Login_Login.Text = "Log in";
-            // 
-            // cuiTextBox21
-            // 
-            this.cuiTextBox21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
-            this.cuiTextBox21.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
-            this.cuiTextBox21.BorderColor = System.Drawing.Color.Transparent;
-            this.cuiTextBox21.BorderSize = 2;
-            this.cuiTextBox21.Content = "";
-            this.cuiTextBox21.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cuiTextBox21.FocusBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
-            this.cuiTextBox21.FocusBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
-            this.cuiTextBox21.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cuiTextBox21.ForeColor = System.Drawing.Color.White;
-            this.cuiTextBox21.Location = new System.Drawing.Point(194, 253);
-            this.cuiTextBox21.Margin = new System.Windows.Forms.Padding(4, 4, 4, 21);
-            this.cuiTextBox21.Multiline = false;
-            this.cuiTextBox21.Name = "cuiTextBox21";
-            this.cuiTextBox21.Padding = new System.Windows.Forms.Padding(24, 34, 24, 0);
-            this.cuiTextBox21.PasswordChar = false;
-            this.cuiTextBox21.PlaceholderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.cuiTextBox21.PlaceholderText = "Username";
-            this.cuiTextBox21.Rounding = new System.Windows.Forms.Padding(8);
-            this.cuiTextBox21.Size = new System.Drawing.Size(410, 92);
-            this.cuiTextBox21.TabIndex = 15;
-            this.cuiTextBox21.TextOffset = new System.Drawing.Size(0, 0);
-            this.cuiTextBox21.UnderlinedStyle = false;
-            // 
-            // cuiTextBox22
-            // 
-            this.cuiTextBox22.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
-            this.cuiTextBox22.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
-            this.cuiTextBox22.BorderColor = System.Drawing.Color.Transparent;
-            this.cuiTextBox22.BorderSize = 2;
-            this.cuiTextBox22.Content = "";
-            this.cuiTextBox22.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cuiTextBox22.FocusBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(68)))), ((int)(((byte)(68)))), ((int)(((byte)(77)))));
-            this.cuiTextBox22.FocusBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
-            this.cuiTextBox22.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cuiTextBox22.ForeColor = System.Drawing.Color.White;
-            this.cuiTextBox22.Location = new System.Drawing.Point(194, 369);
-            this.cuiTextBox22.Margin = new System.Windows.Forms.Padding(4, 4, 4, 22);
-            this.cuiTextBox22.Multiline = false;
-            this.cuiTextBox22.Name = "cuiTextBox22";
-            this.cuiTextBox22.Padding = new System.Windows.Forms.Padding(24, 34, 24, 0);
-            this.cuiTextBox22.PasswordChar = false;
-            this.cuiTextBox22.PlaceholderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.cuiTextBox22.PlaceholderText = "Password";
-            this.cuiTextBox22.Rounding = new System.Windows.Forms.Padding(8);
-            this.cuiTextBox22.Size = new System.Drawing.Size(410, 92);
-            this.cuiTextBox22.TabIndex = 16;
-            this.cuiTextBox22.TextOffset = new System.Drawing.Size(0, 0);
-            this.cuiTextBox22.UnderlinedStyle = false;
-            // 
-            // cuiButton1
-            // 
-            this.cuiButton1.BackColor = System.Drawing.Color.Transparent;
-            this.cuiButton1.CheckButton = false;
-            this.cuiButton1.Checked = false;
-            this.cuiButton1.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(106)))), ((int)(((byte)(0)))));
-            this.cuiButton1.CheckedForeColor = System.Drawing.Color.White;
-            this.cuiButton1.CheckedImageTint = System.Drawing.Color.White;
-            this.cuiButton1.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(106)))), ((int)(((byte)(0)))));
-            this.cuiButton1.Content = "LOG IN";
-            this.cuiButton1.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.cuiButton1.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cuiButton1.ForeColor = System.Drawing.Color.White;
-            this.cuiButton1.HoverBackground = System.Drawing.Color.LightSkyBlue;
-            this.cuiButton1.HoveredImageTint = System.Drawing.Color.White;
-            this.cuiButton1.HoverForeColor = System.Drawing.Color.White;
-            this.cuiButton1.HoverOutline = System.Drawing.Color.Empty;
-            this.cuiButton1.Image = null;
-            this.cuiButton1.ImageAutoCenter = true;
-            this.cuiButton1.ImageExpand = new System.Drawing.Point(0, 0);
-            this.cuiButton1.ImageOffset = new System.Drawing.Point(0, 0);
-            this.cuiButton1.Location = new System.Drawing.Point(464, 495);
-            this.cuiButton1.Margin = new System.Windows.Forms.Padding(0);
-            this.cuiButton1.Name = "cuiButton1";
-            this.cuiButton1.NormalBackground = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
-            this.cuiButton1.NormalForeColor = System.Drawing.Color.White;
-            this.cuiButton1.NormalImageTint = System.Drawing.Color.White;
-            this.cuiButton1.NormalOutline = System.Drawing.Color.Empty;
-            this.cuiButton1.OutlineThickness = 1.6F;
-            this.cuiButton1.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
-            this.cuiButton1.PressedForeColor = System.Drawing.Color.White;
-            this.cuiButton1.PressedImageTint = System.Drawing.Color.White;
-            this.cuiButton1.PressedOutline = System.Drawing.Color.Empty;
-            this.cuiButton1.Rounding = new System.Windows.Forms.Padding(4);
-            this.cuiButton1.Size = new System.Drawing.Size(142, 54);
-            this.cuiButton1.TabIndex = 17;
-            this.cuiButton1.TextOffset = new System.Drawing.Point(0, 0);
-            // 
-            // cuiButton2
-            // 
-            this.cuiButton2.BackColor = System.Drawing.SystemColors.WindowText;
-            this.cuiButton2.CheckButton = false;
-            this.cuiButton2.Checked = false;
-            this.cuiButton2.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(106)))), ((int)(((byte)(0)))));
-            this.cuiButton2.CheckedForeColor = System.Drawing.Color.White;
-            this.cuiButton2.CheckedImageTint = System.Drawing.Color.White;
-            this.cuiButton2.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(106)))), ((int)(((byte)(0)))));
-            this.cuiButton2.Content = "RESET PASSWORD";
-            this.cuiButton2.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.cuiButton2.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cuiButton2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
-            this.cuiButton2.HoverBackground = System.Drawing.Color.Transparent;
-            this.cuiButton2.HoveredImageTint = System.Drawing.Color.White;
-            this.cuiButton2.HoverForeColor = System.Drawing.Color.White;
-            this.cuiButton2.HoverOutline = System.Drawing.Color.Empty;
-            this.cuiButton2.Image = null;
-            this.cuiButton2.ImageAutoCenter = true;
-            this.cuiButton2.ImageExpand = new System.Drawing.Point(0, 0);
-            this.cuiButton2.ImageOffset = new System.Drawing.Point(0, 0);
-            this.cuiButton2.Location = new System.Drawing.Point(224, 496);
-            this.cuiButton2.Margin = new System.Windows.Forms.Padding(0);
-            this.cuiButton2.Name = "cuiButton2";
-            this.cuiButton2.NormalBackground = System.Drawing.Color.Transparent;
-            this.cuiButton2.NormalForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
-            this.cuiButton2.NormalImageTint = System.Drawing.Color.White;
-            this.cuiButton2.NormalOutline = System.Drawing.Color.Empty;
-            this.cuiButton2.OutlineThickness = 1.6F;
-            this.cuiButton2.PressedBackground = System.Drawing.Color.Transparent;
-            this.cuiButton2.PressedForeColor = System.Drawing.Color.LightGray;
-            this.cuiButton2.PressedImageTint = System.Drawing.Color.White;
-            this.cuiButton2.PressedOutline = System.Drawing.Color.Empty;
-            this.cuiButton2.Rounding = new System.Windows.Forms.Padding(4);
-            this.cuiButton2.Size = new System.Drawing.Size(240, 52);
-            this.cuiButton2.TabIndex = 18;
-            this.cuiButton2.TextOffset = new System.Drawing.Point(0, 0);
             // 
             // LoginForm
             // 
@@ -636,10 +636,10 @@
         private CuoreUI.Controls.cuiButton cuiButton_Register_SignUp;
         private CuoreUI.Controls.cuiButton cuiButton_Register_PrivacyPolicy;
         private System.Windows.Forms.Label label_Register_PrivacyPolicy;
-        private CuoreUI.Controls.cuiButton cuiButton2;
-        private CuoreUI.Controls.cuiButton cuiButton1;
-        private CuoreUI.Controls.cuiTextBox2 cuiTextBox22;
-        private CuoreUI.Controls.cuiTextBox2 cuiTextBox21;
+        private CuoreUI.Controls.cuiButton cuiButton_Login_ResetPass;
+        private CuoreUI.Controls.cuiButton cuiButton_Login_Login;
+        private CuoreUI.Controls.cuiTextBox2 cuiTextBox_Login_Password;
+        private CuoreUI.Controls.cuiTextBox2 cuiTextBox_Login_Username;
         private System.Windows.Forms.Label label_Login_Login;
     }
 }

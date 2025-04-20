@@ -21,8 +21,6 @@ namespace TrainSMARTApp
         // panel/button transparency
         int opacity = 90;
         Color pnlBgColor = Color.Black;
-        Color pnlTxtBxBgColor = Color.White;
-
 
 
 
@@ -33,6 +31,7 @@ namespace TrainSMARTApp
             InitializeComponent();
 
             // panel sizes in design is 513, 753
+            // pictureBox_Background location in design is -49, 0
         }
 
 
@@ -44,11 +43,20 @@ namespace TrainSMARTApp
             this.panel_Title.MouseDown += this.MouseDown;
             this.panel_Title.MouseMove += this.MouseMove;
             this.panel_Title.MouseUp += this.MouseUp;
-            
 
-
+            // Load panels and controls then show default menu
             HideMenu(panel_Menu_Register);
             HideMenu(panel_Menu_LogIn);
+            HideMenu(panel_Menu_Main);
+
+            ShowMenu(panel_Menu_Register);
+            ShowControls(panel_Menu_Register);
+            HideMenu(panel_Menu_Register);
+
+            ShowMenu(panel_Menu_LogIn); 
+            ShowControls(panel_Menu_LogIn);
+            HideMenu(panel_Menu_LogIn);
+
             ShowMenu(panel_Menu_Main); // default menu
             ShowControls(panel_Menu_Main);
         }
@@ -81,7 +89,7 @@ namespace TrainSMARTApp
             HideMenu(panel_Menu_Register);
             HideMenu(panel_Menu_LogIn);
             ShowMenu(panel_Menu_Main);
-            ShowControls(panel_Menu_Main);
+            //ShowControls(panel_Menu_Main);
         }
 
 
@@ -99,14 +107,14 @@ namespace TrainSMARTApp
         {
             HideMenu(panel_Menu_Main);
             ShowMenu(panel_Menu_LogIn);
-            ShowControls(panel_Menu_LogIn);
+            //ShowControls(panel_Menu_LogIn);
         }
 
         private void cuiButton_Register_Click(object sender, EventArgs e)
         {
             HideMenu(panel_Menu_Main);
             ShowMenu(panel_Menu_Register);
-            ShowControls(panel_Menu_Register);
+            //ShowControls(panel_Menu_Register);
         }
 
 
@@ -163,6 +171,7 @@ namespace TrainSMARTApp
 
         private void ShowControls(Panel panel)
         {
+            // TODO: pinpoint control locations in Login panel
             foreach (Control control in panel.Controls)
             {
                 switch (control)
@@ -178,28 +187,38 @@ namespace TrainSMARTApp
                             lbl.Location = new Point(140, 125);
                         if (lbl == label_Register_PrivacyPolicy)
                             lbl.Location = new Point(144, 504);
+                        if (lbl == label_Login_Login)
+                            lbl.Location = new Point(140, 150);
                         break;
 
                     case cuiButton cuiBtn:
                         cuiBtn.Parent = panel;
                         cuiBtn.BackColor = Color.Transparent;
-                        if (cuiBtn == cuiButton_Main_Register || cuiBtn == cuiButton_Register_PrivacyPolicy)
+                        if (cuiBtn == cuiButton_Main_Register 
+                            || cuiBtn == cuiButton_Register_PrivacyPolicy
+                            || cuiBtn == cuiButton_Login_ResetPass)
                         {
                             cuiBtn.HoverBackground = Color.Transparent;
                             cuiBtn.PressedBackground = Color.Transparent;
-                            // TODO: pinpoint the location of this button                                
-                            //if (cuiBtn == cuiButton_Main_Register)
+                            if (cuiBtn == cuiButton_Main_Register)
+                                cuiBtn.Location = new Point(172, 327);
                             if (cuiBtn == cuiButton_Register_PrivacyPolicy)
                                 cuiBtn.Location = new Point(350, 500);
+                            if (cuiBtn == cuiButton_Login_ResetPass)
+                                cuiBtn.Location = new Point(168, 403);
                         }
-                        if (cuiBtn == cuiButton_Main_Login || cuiBtn == cuiButton_Register_SignUp)
+                        if (cuiBtn == cuiButton_Main_Login 
+                            || cuiBtn == cuiButton_Register_SignUp
+                            || cuiBtn == cuiButton_Login_Login)
                         {
                             cuiBtn.HoverBackground = Color.LightSkyBlue;
                             cuiBtn.PressedBackground = Color.FromArgb(101, 188, 255);
-                            // TODO: pinpoint the location of this button                                
-                            //if (cuiBtn == cuiButton_Main_LogIn)
+                            if (cuiBtn == cuiButton_Main_Login)
+                                cuiBtn.Location = new Point(277, 325);
                             if (cuiBtn == cuiButton_Register_SignUp)
                                 cuiBtn.Location = new Point(144, 438);
+                            if (cuiBtn == cuiButton_Login_Login)
+                                cuiBtn.Location = new Point(346, 402);
                         }
                         break;
 
@@ -212,6 +231,10 @@ namespace TrainSMARTApp
                             cuiTxtBx.Location = new Point(144, 260);
                         if (cuiTxtBx == cuiTextBox_Register_Email)
                             cuiTxtBx.Location = new Point(144, 345);
+                        if (cuiTxtBx == cuiTextBox_Login_Username)
+                            cuiTxtBx.Location = new Point(146, 206);
+                        if (cuiTxtBx == cuiTextBox_Login_Password)
+                            cuiTxtBx.Location = new Point(146, 300);
                         break;
                 }
 
