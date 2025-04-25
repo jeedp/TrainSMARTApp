@@ -39,6 +39,9 @@
             this.cuiButton_Main_Register = new CuoreUI.Controls.cuiButton();
             this.panel_Menu_Main = new System.Windows.Forms.Panel();
             this.panel_Menu_Register = new System.Windows.Forms.Panel();
+            this.label_Register_Email_Error = new System.Windows.Forms.Label();
+            this.label_Register_Password_Error = new System.Windows.Forms.Label();
+            this.label_Register_Username_Error = new System.Windows.Forms.Label();
             this.cuiButton_Register_PrivacyPolicy = new CuoreUI.Controls.cuiButton();
             this.label_Register_PrivacyPolicy = new System.Windows.Forms.Label();
             this.cuiButton_Register_SignUp = new CuoreUI.Controls.cuiButton();
@@ -46,7 +49,7 @@
             this.cuiTextBox_Register_Username = new CuoreUI.Controls.cuiTextBox2();
             this.cuiTextBox_Register_Password = new CuoreUI.Controls.cuiTextBox2();
             this.label_Register_SignUp = new System.Windows.Forms.Label();
-            this.panel_Menu_LogIn = new System.Windows.Forms.Panel();
+            this.panel_Menu_Login = new System.Windows.Forms.Panel();
             this.cuiButton_Login_ResetPass = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Login_Login = new CuoreUI.Controls.cuiButton();
             this.cuiTextBox_Login_Password = new CuoreUI.Controls.cuiTextBox2();
@@ -57,7 +60,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Background)).BeginInit();
             this.panel_Menu_Main.SuspendLayout();
             this.panel_Menu_Register.SuspendLayout();
-            this.panel_Menu_LogIn.SuspendLayout();
+            this.panel_Menu_Login.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_Title
@@ -239,6 +242,9 @@
             // panel_Menu_Register
             // 
             this.panel_Menu_Register.BackColor = System.Drawing.Color.Transparent;
+            this.panel_Menu_Register.Controls.Add(this.label_Register_Email_Error);
+            this.panel_Menu_Register.Controls.Add(this.label_Register_Password_Error);
+            this.panel_Menu_Register.Controls.Add(this.label_Register_Username_Error);
             this.panel_Menu_Register.Controls.Add(this.cuiButton_Register_PrivacyPolicy);
             this.panel_Menu_Register.Controls.Add(this.label_Register_PrivacyPolicy);
             this.panel_Menu_Register.Controls.Add(this.cuiButton_Register_SignUp);
@@ -249,10 +255,52 @@
             this.panel_Menu_Register.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel_Menu_Register.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.panel_Menu_Register.ForeColor = System.Drawing.Color.White;
-            this.panel_Menu_Register.Location = new System.Drawing.Point(0, 35);
+            this.panel_Menu_Register.Location = new System.Drawing.Point(513, 35);
             this.panel_Menu_Register.Name = "panel_Menu_Register";
-            this.panel_Menu_Register.Size = new System.Drawing.Size(513, 752);
+            this.panel_Menu_Register.Size = new System.Drawing.Size(0, 752);
             this.panel_Menu_Register.TabIndex = 10;
+            // 
+            // label_Register_Email_Error
+            // 
+            this.label_Register_Email_Error.AutoSize = true;
+            this.label_Register_Email_Error.BackColor = System.Drawing.Color.Transparent;
+            this.label_Register_Email_Error.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_Register_Email_Error.Font = new System.Drawing.Font("SansSerif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label_Register_Email_Error.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(89)))), ((int)(((byte)(100)))));
+            this.label_Register_Email_Error.Location = new System.Drawing.Point(209, 508);
+            this.label_Register_Email_Error.Name = "label_Register_Email_Error";
+            this.label_Register_Email_Error.Size = new System.Drawing.Size(179, 21);
+            this.label_Register_Email_Error.TabIndex = 22;
+            this.label_Register_Email_Error.Text = "Invalid email address";
+            this.label_Register_Email_Error.Visible = false;
+            // 
+            // label_Register_Password_Error
+            // 
+            this.label_Register_Password_Error.AutoSize = true;
+            this.label_Register_Password_Error.BackColor = System.Drawing.Color.Transparent;
+            this.label_Register_Password_Error.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_Register_Password_Error.Font = new System.Drawing.Font("SansSerif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label_Register_Password_Error.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(89)))), ((int)(((byte)(100)))));
+            this.label_Register_Password_Error.Location = new System.Drawing.Point(209, 402);
+            this.label_Register_Password_Error.Name = "label_Register_Password_Error";
+            this.label_Register_Password_Error.Size = new System.Drawing.Size(233, 21);
+            this.label_Register_Password_Error.TabIndex = 21;
+            this.label_Register_Password_Error.Text = "Invalid password characters";
+            this.label_Register_Password_Error.Visible = false;
+            // 
+            // label_Register_Username_Error
+            // 
+            this.label_Register_Username_Error.AutoSize = true;
+            this.label_Register_Username_Error.BackColor = System.Drawing.Color.Transparent;
+            this.label_Register_Username_Error.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_Register_Username_Error.Font = new System.Drawing.Font("SansSerif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label_Register_Username_Error.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(89)))), ((int)(((byte)(100)))));
+            this.label_Register_Username_Error.Location = new System.Drawing.Point(209, 298);
+            this.label_Register_Username_Error.Name = "label_Register_Username_Error";
+            this.label_Register_Username_Error.Size = new System.Drawing.Size(187, 21);
+            this.label_Register_Username_Error.TabIndex = 20;
+            this.label_Register_Username_Error.Text = "Username is required!";
+            this.label_Register_Username_Error.Visible = false;
             // 
             // cuiButton_Register_PrivacyPolicy
             // 
@@ -437,19 +485,19 @@
             this.label_Register_SignUp.TabIndex = 12;
             this.label_Register_SignUp.Text = "Sign up";
             // 
-            // panel_Menu_LogIn
+            // panel_Menu_Login
             // 
-            this.panel_Menu_LogIn.BackColor = System.Drawing.Color.Transparent;
-            this.panel_Menu_LogIn.Controls.Add(this.cuiButton_Login_ResetPass);
-            this.panel_Menu_LogIn.Controls.Add(this.cuiButton_Login_Login);
-            this.panel_Menu_LogIn.Controls.Add(this.cuiTextBox_Login_Password);
-            this.panel_Menu_LogIn.Controls.Add(this.cuiTextBox_Login_Username);
-            this.panel_Menu_LogIn.Controls.Add(this.label_Login_Login);
-            this.panel_Menu_LogIn.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel_Menu_LogIn.Location = new System.Drawing.Point(0, 35);
-            this.panel_Menu_LogIn.Name = "panel_Menu_LogIn";
-            this.panel_Menu_LogIn.Size = new System.Drawing.Size(0, 752);
-            this.panel_Menu_LogIn.TabIndex = 11;
+            this.panel_Menu_Login.BackColor = System.Drawing.Color.Transparent;
+            this.panel_Menu_Login.Controls.Add(this.cuiButton_Login_ResetPass);
+            this.panel_Menu_Login.Controls.Add(this.cuiButton_Login_Login);
+            this.panel_Menu_Login.Controls.Add(this.cuiTextBox_Login_Password);
+            this.panel_Menu_Login.Controls.Add(this.cuiTextBox_Login_Username);
+            this.panel_Menu_Login.Controls.Add(this.label_Login_Login);
+            this.panel_Menu_Login.Dock = System.Windows.Forms.DockStyle.Right;
+            this.panel_Menu_Login.Location = new System.Drawing.Point(0, 35);
+            this.panel_Menu_Login.Name = "panel_Menu_Login";
+            this.panel_Menu_Login.Size = new System.Drawing.Size(513, 752);
+            this.panel_Menu_Login.TabIndex = 11;
             // 
             // cuiButton_Login_ResetPass
             // 
@@ -488,6 +536,7 @@
             this.cuiButton_Login_ResetPass.Size = new System.Drawing.Size(240, 52);
             this.cuiButton_Login_ResetPass.TabIndex = 18;
             this.cuiButton_Login_ResetPass.TextOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_Login_ResetPass.Click += new System.EventHandler(this.cuiButton_Login_ResetPass_Click);
             // 
             // cuiButton_Login_Login
             // 
@@ -526,6 +575,7 @@
             this.cuiButton_Login_Login.Size = new System.Drawing.Size(143, 54);
             this.cuiButton_Login_Login.TabIndex = 17;
             this.cuiButton_Login_Login.TextOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_Login_Login.Click += new System.EventHandler(this.cuiButton_Login_Login_Click);
             // 
             // cuiTextBox_Login_Password
             // 
@@ -605,7 +655,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(513, 787);
-            this.Controls.Add(this.panel_Menu_LogIn);
+            this.Controls.Add(this.panel_Menu_Login);
             this.Controls.Add(this.panel_Menu_Register);
             this.Controls.Add(this.panel_Title);
             this.Controls.Add(this.panel_Menu_Main);
@@ -620,8 +670,8 @@
             this.panel_Menu_Main.PerformLayout();
             this.panel_Menu_Register.ResumeLayout(false);
             this.panel_Menu_Register.PerformLayout();
-            this.panel_Menu_LogIn.ResumeLayout(false);
-            this.panel_Menu_LogIn.PerformLayout();
+            this.panel_Menu_Login.ResumeLayout(false);
+            this.panel_Menu_Login.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -638,7 +688,7 @@
         private System.Windows.Forms.Panel panel_Menu_Main;
         private System.Windows.Forms.Button button_Back;
         private System.Windows.Forms.Panel panel_Menu_Register;
-        private System.Windows.Forms.Panel panel_Menu_LogIn;
+        private System.Windows.Forms.Panel panel_Menu_Login;
         private System.Windows.Forms.Label label_Register_SignUp;
         private CuoreUI.Controls.cuiTextBox2 cuiTextBox_Register_Username;
         private CuoreUI.Controls.cuiTextBox2 cuiTextBox_Register_Password;
@@ -652,6 +702,9 @@
         private CuoreUI.Controls.cuiTextBox2 cuiTextBox_Login_Username;
         private System.Windows.Forms.Label label_Login_Login;
         private CuoreUI.Components.cuiFormRounder cuiFormRounder;
+        private System.Windows.Forms.Label label_Register_Username_Error;
+        private System.Windows.Forms.Label label_Register_Email_Error;
+        private System.Windows.Forms.Label label_Register_Password_Error;
     }
 }
 

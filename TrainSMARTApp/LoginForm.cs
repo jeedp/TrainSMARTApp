@@ -6,10 +6,12 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CuoreUI.Controls;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace TrainSMARTApp
 {
@@ -24,7 +26,7 @@ namespace TrainSMARTApp
         private Color pnlBgColor = Color.Black;
 
         // sql connection string
-        private string connectionString = "Data Source=LAPTOP-R9RSTS0G\\SQLEXPRESS;Initial Catalog=UserDB;";
+        private string connectionString = "Data Source=LAPTOP-R9RSTS0G\\SQLEXPRESS;Initial Catalog=UserDB;Integrated Security=True;TrustServerCertificate=True;Encrypt=True";
 
 
 
@@ -69,19 +71,36 @@ namespace TrainSMARTApp
 
             // Load panels and controls then show default menu
             HideMenu(panel_Menu_Register);
-            HideMenu(panel_Menu_LogIn);
+            HideMenu(panel_Menu_Login);
             HideMenu(panel_Menu_Main);
 
             ShowMenu(panel_Menu_Register);
             ShowControls(panel_Menu_Register);
             HideMenu(panel_Menu_Register);
 
-            ShowMenu(panel_Menu_LogIn); 
-            ShowControls(panel_Menu_LogIn);
-            HideMenu(panel_Menu_LogIn);
+            ShowMenu(panel_Menu_Login); 
+            ShowControls(panel_Menu_Login);
+            HideMenu(panel_Menu_Login);
 
             ShowMenu(panel_Menu_Main); // default menu
             ShowControls(panel_Menu_Main);
+
+
+
+            var textBoxes = new List<cuiTextBox2>
+            {
+                cuiTextBox_Register_Username,
+                cuiTextBox_Register_Password,
+                cuiTextBox_Register_Email,
+                cuiTextBox_Login_Username,
+                cuiTextBox_Login_Password
+            };
+
+            foreach (var txtBox in textBoxes)
+            {
+                txtBox.ContentChanged += HideTxtBoxError;
+            }
+
         }
 
 
@@ -110,7 +129,7 @@ namespace TrainSMARTApp
         private void button_Back_Click(object sender, EventArgs e)
         {
             HideMenu(panel_Menu_Register);
-            HideMenu(panel_Menu_LogIn);
+            HideMenu(panel_Menu_Login);
             ShowMenu(panel_Menu_Main);
             currentMode = DisplayMode.Main;
         }
@@ -136,7 +155,7 @@ namespace TrainSMARTApp
         private void cuiButton_LogIn_Click(object sender, EventArgs e)
         {
             HideMenu(panel_Menu_Main);
-            ShowMenu(panel_Menu_LogIn);
+            ShowMenu(panel_Menu_Login);
             currentMode = DisplayMode.LogIn;
         }
 
@@ -154,22 +173,22 @@ namespace TrainSMARTApp
             // TODO: Upgrade password to be hashed when stored in database
         private void cuiButton_Register_SignUp_Click(object sender, EventArgs e)
         {
-            string username = cuiTextBox_Register_Username.Text;
-            string password = cuiTextBox_Register_Password.Text;
-            string email = cuiTextBox_Register_Email.Text;
+            string username = cuiTextBox_Register_Username.Content.Trim();
+            string password = cuiTextBox_Register_Password.Content.Trim();
+            string email = cuiTextBox_Register_Email.Content.Trim();
 
-            if (!InputValidation())
-                return;
+            if (!InputValidation()) return;
 
-            // You can add more validation here like email format, password strength, etc.
+            //string passwordHash = ComputeSha256Hash(password); // 🔒 hash the password
+            string passwordHash = password; // For testing purposes, use plain text password
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO Users (Username, Password, Email) VALUES (@Username, @Password, @Email)";
+                string query = "INSERT INTO Users (Username, PasswordHash, Email) VALUES (@Username, @PasswordHash, @Email)";
                 using (SqlCommand cmd = new SqlCommand(query, conn))
                 {
                     cmd.Parameters.AddWithValue("@Username", username);
-                    cmd.Parameters.AddWithValue("@Password", password); // You should hash the password in a real app
+                    cmd.Parameters.AddWithValue("@PasswordHash", passwordHash);
                     cmd.Parameters.AddWithValue("@Email", email);
 
                     try
@@ -180,8 +199,6 @@ namespace TrainSMARTApp
                         if (rowsAffected > 0)
                         {
                             MessageBox.Show("Registration successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                            // Clear fields after successful registration
                             cuiTextBox_Register_Username.Content = "";
                             cuiTextBox_Register_Password.Content = "";
                             cuiTextBox_Register_Email.Content = "";
@@ -200,9 +217,10 @@ namespace TrainSMARTApp
         }
 
 
+
         private void cuiButton_Register_PrivacyPolicy_Click(object sender, EventArgs e)
         {
-
+            // TODO: Show privacy policy
         }
 
 
@@ -215,6 +233,90 @@ namespace TrainSMARTApp
 
 
         // LOG IN CONTROLS
+            
+        private void cuiButton_Login_ResetPass_Click(object sender, EventArgs e)
+        {
+            string username = cuiTextBox_Login_Username.Content.Trim();
+
+            if (!InputValidation())
+            {
+                MessageBox.Show("Enter your username to reset password.", "Input Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "SELECT COUNT(*) FROM Users WHERE Username = @Username";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Username", username);
+
+                try
+                {
+                    conn.Open();
+                    int count = (int)cmd.ExecuteScalar();
+
+                    if (count == 1)
+                    {
+                        // TODO: send an email or show a reset panel
+                        MessageBox.Show("A password reset link has been sent (simulated).", "Reset Sent", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Username not found.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+            }
+        }
+
+
+        private void cuiButton_Login_Login_Click(object sender, EventArgs e)
+        {
+            string username = cuiTextBox_Login_Username.Content.Trim();
+            string password = cuiTextBox_Login_Password.Content.Trim();
+
+            if (!InputValidation())
+            {
+                MessageBox.Show("Please enter both username and password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            //string hashedPassword = ComputeSha256Hash(password); // Hashing method below
+            string hashedPassword = password; // For testing purposes, use plain text password
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "SELECT COUNT(*) FROM Users WHERE Username = @Username AND PasswordHash = @PasswordHash";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@Username", username);
+                cmd.Parameters.AddWithValue("@PasswordHash", hashedPassword);
+
+                try
+                {
+                    conn.Open();
+                    int count = (int)cmd.ExecuteScalar();
+
+                    if (count == 1)
+                    {
+                        //MessageBox.Show("Login successful!", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MainForm nextForm = new MainForm();
+                        nextForm.Show(); 
+                    }
+                    else
+                    {
+                        MessageBox.Show("Invalid username or password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: " + ex.Message);
+                }
+            }
+        }
+
 
 
 
@@ -227,7 +329,7 @@ namespace TrainSMARTApp
 
         // HELPER METHODS 
 
-        // for dragging the form
+            // for dragging the form
         private new void MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
@@ -351,7 +453,7 @@ namespace TrainSMARTApp
 
         private bool InputValidation()
         {
-            var cuiTxtBx = (currentMode == DisplayMode.Register)
+            var cuiTxtBox = (currentMode == DisplayMode.Register)
                 ? new List<cuiTextBox2>
                 {
                     cuiTextBox_Register_Username,
@@ -364,40 +466,76 @@ namespace TrainSMARTApp
                     cuiTextBox_Login_Password
                 };
 
-            foreach (var txtBox in cuiTxtBx)
+            var errorLabels = new Dictionary<cuiTextBox2, Label>
             {
-                if (string.IsNullOrWhiteSpace(txtBox.Content) || txtBox.Content.Contains(" "))
+                { cuiTextBox_Register_Username, label_Register_Username_Error },
+                { cuiTextBox_Register_Password, label_Register_Password_Error },
+                { cuiTextBox_Register_Email,    label_Register_Email_Error }
+            };
+
+
+            foreach (var txtBox in cuiTxtBox)
+            {
+                if (txtBox == cuiTextBox_Register_Email && !ValidationHelper.IsValidEmail(txtBox.Content))
                 {
-                    MessageBox.Show("Please fill in all fields.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-
-                    txtBox.FocusBorderColor = Color.Red;
-                    txtBox.Focus();
-
+                    IndicateError();
                     return false;
                 }
 
-                // TODO: Create error mode for the txt boxes
 
+                if (string.IsNullOrWhiteSpace(txtBox.Content) || txtBox.Content.Contains(" "))
+                {
+                    IndicateError();
+                    if (errorLabels.TryGetValue(txtBox, out var label))
+                    {
+                        label.Visible = true;
+                    }
+                    return false;
+                }
+                // TODO: offset textbox placeholder text (use labels) when focused
 
+                continue;
 
-
-                //if (txtBox.Content.Contains(" "))
-                //{
-                //    MessageBox.Show(
-                //        "Spaces are not allowed in the username or password.", "Validation Error",
-                //        MessageBoxButtons.OK,
-                //        MessageBoxIcon.Warning);
-                //    return false;
-                //}
+                void IndicateError()
+                {
+                    txtBox.FocusBorderColor = Color.Red;
+                    txtBox.Focus();
+                }
             }
             return true;
 
-            
         }
 
-        private void HideError()
+        private void HideTxtBoxError(object sender, EventArgs e)
         {
-            
+            var errorLabels = new Dictionary<cuiTextBox2, Label>
+            {
+                { cuiTextBox_Register_Username, label_Register_Username_Error },
+                { cuiTextBox_Register_Password, label_Register_Password_Error },
+                { cuiTextBox_Register_Email,    label_Register_Email_Error }
+            };
+
+            var txtBox = (cuiTextBox2)sender;
+            txtBox.FocusBorderColor = Color.FromArgb(53, 167, 255);
+
+            if (errorLabels.TryGetValue(txtBox, out var label))
+            {
+                label.Visible = false;
+            }
+
+        }
+
+        // Hashing method
+        private string ComputeSha256Hash(string rawData)
+        {
+            using (SHA256 sha256Hash = SHA256.Create())
+            {
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+                StringBuilder builder = new StringBuilder();
+                foreach (byte b in bytes)
+                    builder.Append(b.ToString("x2"));
+                return builder.ToString();
+            }
         }
 
     }
