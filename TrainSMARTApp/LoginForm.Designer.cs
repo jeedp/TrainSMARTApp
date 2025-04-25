@@ -622,7 +622,7 @@
             this.cuiTextBox_Login_Username.Padding = new System.Windows.Forms.Padding(24, 34, 24, 0);
             this.cuiTextBox_Login_Username.PasswordChar = false;
             this.cuiTextBox_Login_Username.PlaceholderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
-            this.cuiTextBox_Login_Username.PlaceholderText = "Username";
+            this.cuiTextBox_Login_Username.PlaceholderText = "Username or email";
             this.cuiTextBox_Login_Username.Rounding = new System.Windows.Forms.Padding(8);
             this.cuiTextBox_Login_Username.Size = new System.Drawing.Size(410, 92);
             this.cuiTextBox_Login_Username.TabIndex = 15;

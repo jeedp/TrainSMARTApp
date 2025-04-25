@@ -57,6 +57,9 @@ namespace TrainSMARTApp
 
             // panel sizes in design is 513, 753
             // pictureBox_Background location in design is -49, 0
+
+            MainForm nextForm = new MainForm();
+            nextForm.Show();
         }
 
 
@@ -199,9 +202,14 @@ namespace TrainSMARTApp
                         if (rowsAffected > 0)
                         {
                             MessageBox.Show("Registration successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                             cuiTextBox_Register_Username.Content = "";
                             cuiTextBox_Register_Password.Content = "";
                             cuiTextBox_Register_Email.Content = "";
+
+                            this.Hide();
+                            MainForm nextForm = new MainForm();
+                            nextForm.Show();
                         }
                         else
                         {
@@ -215,8 +223,6 @@ namespace TrainSMARTApp
                 }
             }
         }
-
-
 
         private void cuiButton_Register_PrivacyPolicy_Click(object sender, EventArgs e)
         {
@@ -233,7 +239,7 @@ namespace TrainSMARTApp
 
 
         // LOG IN CONTROLS
-            
+            // TODO: modify/enhance this method
         private void cuiButton_Login_ResetPass_Click(object sender, EventArgs e)
         {
             string username = cuiTextBox_Login_Username.Content.Trim();
@@ -280,7 +286,10 @@ namespace TrainSMARTApp
 
             if (!InputValidation())
             {
-                MessageBox.Show("Please enter both username and password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(
+                    "Sorry, couldn't log in! Please check your username and password",
+                    "Login Failed",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
@@ -301,13 +310,14 @@ namespace TrainSMARTApp
 
                     if (count == 1)
                     {
-                        //MessageBox.Show("Login successful!", "Welcome", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        this.Hide();
                         MainForm nextForm = new MainForm();
-                        nextForm.Show(); 
+                        nextForm.Show();
                     }
                     else
                     {
                         MessageBox.Show("Invalid username or password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        // TODO: enhance
                     }
                 }
                 catch (Exception ex)
