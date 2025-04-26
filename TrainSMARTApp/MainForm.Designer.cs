@@ -69,8 +69,14 @@
             this.panel_Measure_Title = new System.Windows.Forms.Panel();
             this.label_Measure_Title = new System.Windows.Forms.Label();
             this.flowLayoutPanel_Measure = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel_Profile_User = new System.Windows.Forms.Panel();
+            this.cuiPictureBox1 = new CuoreUI.Controls.cuiPictureBox();
+            this.label_Profile_Username = new System.Windows.Forms.Label();
+            this.label_Profile_WorkoutCount = new System.Windows.Forms.Label();
+            this.label_Profile_Dashboard = new System.Windows.Forms.Label();
             this.panel_Menus.SuspendLayout();
             this.panel_Form_Title.SuspendLayout();
+            this.flowLayoutPanel_Profile.SuspendLayout();
             this.panel_Profile_Title.SuspendLayout();
             this.panel_Menu_Profile.SuspendLayout();
             this.panel_Menu_History.SuspendLayout();
@@ -81,6 +87,7 @@
             this.panel_Exercises_Title.SuspendLayout();
             this.panel_Menu_Measure.SuspendLayout();
             this.panel_Measure_Title.SuspendLayout();
+            this.panel_Profile_User.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_Menus
@@ -132,6 +139,7 @@
             this.cuiButton_Menu_Measure.Size = new System.Drawing.Size(102, 82);
             this.cuiButton_Menu_Measure.TabIndex = 8;
             this.cuiButton_Menu_Measure.TextOffset = new System.Drawing.Point(0, 15);
+            this.cuiButton_Menu_Measure.Click += new System.EventHandler(this.cuiButton_Menu_Measure_Click);
             // 
             // cuiButton_Menu_Exercises
             // 
@@ -169,6 +177,7 @@
             this.cuiButton_Menu_Exercises.Size = new System.Drawing.Size(102, 82);
             this.cuiButton_Menu_Exercises.TabIndex = 7;
             this.cuiButton_Menu_Exercises.TextOffset = new System.Drawing.Point(0, 15);
+            this.cuiButton_Menu_Exercises.Click += new System.EventHandler(this.cuiButton_Menu_Exercises_Click);
             // 
             // cuiButton_Menu_Workout
             // 
@@ -206,6 +215,7 @@
             this.cuiButton_Menu_Workout.Size = new System.Drawing.Size(103, 82);
             this.cuiButton_Menu_Workout.TabIndex = 6;
             this.cuiButton_Menu_Workout.TextOffset = new System.Drawing.Point(0, 15);
+            this.cuiButton_Menu_Workout.Click += new System.EventHandler(this.cuiButton_Menu_Workout_Click);
             // 
             // cuiButton_Menu_History
             // 
@@ -243,6 +253,7 @@
             this.cuiButton_Menu_History.Size = new System.Drawing.Size(102, 82);
             this.cuiButton_Menu_History.TabIndex = 5;
             this.cuiButton_Menu_History.TextOffset = new System.Drawing.Point(0, 15);
+            this.cuiButton_Menu_History.Click += new System.EventHandler(this.cuiButton_Menu_History_Click);
             // 
             // cuiButton_Menu_Profile
             // 
@@ -280,6 +291,7 @@
             this.cuiButton_Menu_Profile.Size = new System.Drawing.Size(102, 82);
             this.cuiButton_Menu_Profile.TabIndex = 4;
             this.cuiButton_Menu_Profile.TextOffset = new System.Drawing.Point(0, 15);
+            this.cuiButton_Menu_Profile.Click += new System.EventHandler(this.cuiButton_Menu_Profile_Click);
             // 
             // panel_Form_Title
             // 
@@ -328,6 +340,7 @@
             // flowLayoutPanel_Profile
             // 
             this.flowLayoutPanel_Profile.AutoScroll = true;
+            this.flowLayoutPanel_Profile.Controls.Add(this.panel_Profile_User);
             this.flowLayoutPanel_Profile.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel_Profile.Location = new System.Drawing.Point(0, 95);
             this.flowLayoutPanel_Profile.Margin = new System.Windows.Forms.Padding(0);
@@ -827,6 +840,73 @@
             this.flowLayoutPanel_Measure.Size = new System.Drawing.Size(513, 566);
             this.flowLayoutPanel_Measure.TabIndex = 6;
             // 
+            // panel_Profile_User
+            // 
+            this.panel_Profile_User.Controls.Add(this.label_Profile_Dashboard);
+            this.panel_Profile_User.Controls.Add(this.label_Profile_WorkoutCount);
+            this.panel_Profile_User.Controls.Add(this.label_Profile_Username);
+            this.panel_Profile_User.Controls.Add(this.cuiPictureBox1);
+            this.panel_Profile_User.Location = new System.Drawing.Point(3, 3);
+            this.panel_Profile_User.Name = "panel_Profile_User";
+            this.panel_Profile_User.Size = new System.Drawing.Size(507, 150);
+            this.panel_Profile_User.TabIndex = 0;
+            // 
+            // cuiPictureBox1
+            // 
+            this.cuiPictureBox1.Content = ((System.Drawing.Image)(resources.GetObject("cuiPictureBox1.Content")));
+            this.cuiPictureBox1.CornerRadius = 8;
+            this.cuiPictureBox1.ImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(116)))), ((int)(((byte)(120)))), ((int)(((byte)(122)))));
+            this.cuiPictureBox1.Location = new System.Drawing.Point(16, 0);
+            this.cuiPictureBox1.Margin = new System.Windows.Forms.Padding(0);
+            this.cuiPictureBox1.Name = "cuiPictureBox1";
+            this.cuiPictureBox1.OutlineThickness = 1F;
+            this.cuiPictureBox1.PanelOutlineColor = System.Drawing.Color.Empty;
+            this.cuiPictureBox1.Rotation = 0;
+            this.cuiPictureBox1.Size = new System.Drawing.Size(110, 100);
+            this.cuiPictureBox1.TabIndex = 1;
+            // 
+            // label_Profile_Username
+            // 
+            this.label_Profile_Username.AutoSize = true;
+            this.label_Profile_Username.BackColor = System.Drawing.Color.Transparent;
+            this.label_Profile_Username.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_Profile_Username.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label_Profile_Username.ForeColor = System.Drawing.Color.White;
+            this.label_Profile_Username.Location = new System.Drawing.Point(130, 25);
+            this.label_Profile_Username.Name = "label_Profile_Username";
+            this.label_Profile_Username.Size = new System.Drawing.Size(64, 27);
+            this.label_Profile_Username.TabIndex = 9;
+            this.label_Profile_Username.Text = "User";
+            this.label_Profile_Username.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_Profile_WorkoutCount
+            // 
+            this.label_Profile_WorkoutCount.AutoSize = true;
+            this.label_Profile_WorkoutCount.BackColor = System.Drawing.Color.Transparent;
+            this.label_Profile_WorkoutCount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_Profile_WorkoutCount.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label_Profile_WorkoutCount.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(194)))), ((int)(((byte)(195)))));
+            this.label_Profile_WorkoutCount.Location = new System.Drawing.Point(130, 56);
+            this.label_Profile_WorkoutCount.Name = "label_Profile_WorkoutCount";
+            this.label_Profile_WorkoutCount.Size = new System.Drawing.Size(107, 23);
+            this.label_Profile_WorkoutCount.TabIndex = 10;
+            this.label_Profile_WorkoutCount.Text = "0 workouts";
+            this.label_Profile_WorkoutCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_Profile_Dashboard
+            // 
+            this.label_Profile_Dashboard.AutoSize = true;
+            this.label_Profile_Dashboard.BackColor = System.Drawing.Color.Transparent;
+            this.label_Profile_Dashboard.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_Profile_Dashboard.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label_Profile_Dashboard.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(194)))), ((int)(((byte)(195)))));
+            this.label_Profile_Dashboard.Location = new System.Drawing.Point(20, 118);
+            this.label_Profile_Dashboard.Name = "label_Profile_Dashboard";
+            this.label_Profile_Dashboard.Size = new System.Drawing.Size(104, 17);
+            this.label_Profile_Dashboard.TabIndex = 11;
+            this.label_Profile_Dashboard.Text = "DASHBOARD";
+            this.label_Profile_Dashboard.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -847,6 +927,7 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.panel_Menus.ResumeLayout(false);
             this.panel_Form_Title.ResumeLayout(false);
+            this.flowLayoutPanel_Profile.ResumeLayout(false);
             this.panel_Profile_Title.ResumeLayout(false);
             this.panel_Profile_Title.PerformLayout();
             this.panel_Menu_Profile.ResumeLayout(false);
@@ -862,6 +943,8 @@
             this.panel_Menu_Measure.ResumeLayout(false);
             this.panel_Measure_Title.ResumeLayout(false);
             this.panel_Measure_Title.PerformLayout();
+            this.panel_Profile_User.ResumeLayout(false);
+            this.panel_Profile_User.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -908,5 +991,10 @@
         private System.Windows.Forms.Panel panel_Measure_Title;
         private System.Windows.Forms.Label label_Measure_Title;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_Measure;
+        private System.Windows.Forms.Panel panel_Profile_User;
+        private CuoreUI.Controls.cuiPictureBox cuiPictureBox1;
+        private System.Windows.Forms.Label label_Profile_WorkoutCount;
+        private System.Windows.Forms.Label label_Profile_Username;
+        private System.Windows.Forms.Label label_Profile_Dashboard;
     }
 }

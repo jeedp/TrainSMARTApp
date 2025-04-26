@@ -24,7 +24,8 @@ namespace TrainSMARTApp
         {
             InitializeComponent();
 
-            // menu panels size (513, 661)
+            // menu panels size in design (513, 661)
+            // panel size in code (0, 537)
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -66,9 +67,45 @@ namespace TrainSMARTApp
 
 
 
+        // MENU BUTTONS
+
+        private void cuiButton_Menu_Profile_Click(object sender, EventArgs e)
+        {
+            ShowMenu(panel_Menu_Profile);
+        }
+
+        private void cuiButton_Menu_History_Click(object sender, EventArgs e)
+        {
+            ShowMenu(panel_Menu_History);
+        }
+
+        private void cuiButton_Menu_Workout_Click(object sender, EventArgs e)
+        {
+            ShowMenu(panel_Menu_Workout);
+        }
+
+        private void cuiButton_Menu_Exercises_Click(object sender, EventArgs e)
+        {
+            ShowMenu(panel_Menu_Exercises);
+        }
+
+        private void cuiButton_Menu_Measure_Click(object sender, EventArgs e)
+        {
+            ShowMenu(panel_Menu_Measure);
+        }
+
+
+
+
+
+
+
+
+
+
         // HELPER METHODS 
 
-        // for dragging the form
+            // for dragging the form
         private new void MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;
@@ -90,6 +127,24 @@ namespace TrainSMARTApp
             mouseDown = false;
         }
 
-       
+        private void ShowMenu(Panel panel)
+        {
+            var panels = new List<Panel>
+            {
+                panel_Menu_Profile,
+                panel_Menu_History,
+                panel_Menu_Workout,
+                panel_Menu_Exercises,
+                panel_Menu_Measure
+            };
+
+            foreach (var pnl in panels)
+            {
+                pnl.Visible = pnl == panel;
+                pnl.Height = (pnl == panel) ? 537 : 0;
+            }
+        }
+
+
     }
 }
