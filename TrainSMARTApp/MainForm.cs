@@ -23,13 +23,15 @@ namespace TrainSMARTApp
         public MainForm()
         {
             InitializeComponent();
+
+            // menu panels size (513, 661)
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            this.panel_Title.MouseDown += this.MouseDown;
-            this.panel_Title.MouseMove += this.MouseMove;
-            this.panel_Title.MouseUp += this.MouseUp;
+            this.panel_Form_Title.MouseDown += this.MouseDown;
+            this.panel_Form_Title.MouseMove += this.MouseMove;
+            this.panel_Form_Title.MouseUp += this.MouseUp;
         }
 
 
