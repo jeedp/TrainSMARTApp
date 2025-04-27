@@ -164,6 +164,9 @@ namespace TrainSMARTApp
             }
         }
 
+        private void ShowMeasurementPanel()
+        {
 
+        }
     }
 }
