@@ -103,9 +103,28 @@ namespace TrainSMARTApp
 
 
 
+        // PROFILE MENU
+
+        // HISTORY MENU
+
+        // WORKOUT MENU
+
+        // EXERCISES MENU
+
+        // MEASURE MENU
+
+
+
+
+
+
+
+
+
+
         // HELPER METHODS 
 
-            // for dragging the form
+        // for dragging the form
         private new void MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;

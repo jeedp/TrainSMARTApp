@@ -60,6 +60,8 @@ namespace TrainSMARTApp
 
             MainForm nextForm = new MainForm();
             nextForm.Show();
+
+            // TODO: if user has not signed out, auto log in
         }
 
 
