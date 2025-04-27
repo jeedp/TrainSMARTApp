@@ -29,8 +29,13 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+<<<<<<< HEAD
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+=======
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+>>>>>>> ee780b8 (working on Measure Measurements panel)
             this.panel_Menus = new System.Windows.Forms.Panel();
             this.cuiButton_Menu_Measure = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Menu_Exercises = new CuoreUI.Controls.cuiButton();
@@ -113,6 +118,10 @@
             this.textBox_Measure_ChartName = new System.Windows.Forms.TextBox();
             this.label_Measure_History = new System.Windows.Forms.Label();
             this.cuiButton_Measure_AddHistory = new CuoreUI.Controls.cuiButton();
+<<<<<<< HEAD
+            this.cuiDataGridView1 = new CuoreUI.Controls.cuiDataGridView();
+=======
+>>>>>>> ee780b8 (working on Measure Measurements panel)
             this.panel_Menus.SuspendLayout();
             this.panel_Form_Title.SuspendLayout();
             this.flowLayoutPanel_Profile.SuspendLayout();
@@ -994,16 +1003,29 @@
             this.chart_Profile_WorkoutCount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.chart_Profile_WorkoutCount.BorderlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.chart_Profile_WorkoutCount.BorderSkin.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
-            chartArea1.BackColor = System.Drawing.Color.Transparent;
-            chartArea1.BorderWidth = 0;
-            chartArea1.Name = "ChartArea1";
-            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea1);
+<<<<<<< HEAD
+            chartArea8.BackColor = System.Drawing.Color.Transparent;
+            chartArea8.BorderWidth = 0;
+            chartArea8.Name = "ChartArea1";
+            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea8);
             this.chart_Profile_WorkoutCount.Location = new System.Drawing.Point(51, 17);
             this.chart_Profile_WorkoutCount.Name = "chart_Profile_WorkoutCount";
             this.chart_Profile_WorkoutCount.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series1.ChartArea = "ChartArea1";
-            series1.Name = "Series1";
-            this.chart_Profile_WorkoutCount.Series.Add(series1);
+            series8.ChartArea = "ChartArea1";
+            series8.Name = "Series1";
+            this.chart_Profile_WorkoutCount.Series.Add(series8);
+=======
+            chartArea4.BackColor = System.Drawing.Color.Transparent;
+            chartArea4.BorderWidth = 0;
+            chartArea4.Name = "ChartArea1";
+            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea4);
+            this.chart_Profile_WorkoutCount.Location = new System.Drawing.Point(51, 17);
+            this.chart_Profile_WorkoutCount.Name = "chart_Profile_WorkoutCount";
+            this.chart_Profile_WorkoutCount.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
+            series4.ChartArea = "ChartArea1";
+            series4.Name = "Series1";
+            this.chart_Profile_WorkoutCount.Series.Add(series4);
+>>>>>>> ee780b8 (working on Measure Measurements panel)
             this.chart_Profile_WorkoutCount.Size = new System.Drawing.Size(400, 300);
             this.chart_Profile_WorkoutCount.TabIndex = 0;
             this.chart_Profile_WorkoutCount.Text = "chart1";
@@ -1097,7 +1119,7 @@
             this.cuiButton_Workout_AddTemplate.Font = new System.Drawing.Font("SansSerif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.cuiButton_Workout_AddTemplate.ForeColor = System.Drawing.Color.White;
             this.cuiButton_Workout_AddTemplate.HoverBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Workout_AddTemplate.HoveredImageTint = System.Drawing.Color.White;
+            this.cuiButton_Workout_AddTemplate.HoveredImageTint = System.Drawing.Color.DarkGray;
             this.cuiButton_Workout_AddTemplate.HoverForeColor = System.Drawing.Color.White;
             this.cuiButton_Workout_AddTemplate.HoverOutline = System.Drawing.Color.Empty;
             this.cuiButton_Workout_AddTemplate.Image = ((System.Drawing.Image)(resources.GetObject("cuiButton_Workout_AddTemplate.Image")));
@@ -1112,8 +1134,8 @@
             this.cuiButton_Workout_AddTemplate.NormalOutline = System.Drawing.Color.Empty;
             this.cuiButton_Workout_AddTemplate.OutlineThickness = 0F;
             this.cuiButton_Workout_AddTemplate.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Workout_AddTemplate.PressedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Workout_AddTemplate.PressedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_Workout_AddTemplate.PressedForeColor = System.Drawing.Color.White;
+            this.cuiButton_Workout_AddTemplate.PressedImageTint = System.Drawing.Color.DimGray;
             this.cuiButton_Workout_AddTemplate.PressedOutline = System.Drawing.Color.Empty;
             this.cuiButton_Workout_AddTemplate.Rounding = new System.Windows.Forms.Padding(8);
             this.cuiButton_Workout_AddTemplate.Size = new System.Drawing.Size(43, 41);
@@ -1818,6 +1840,10 @@
             // 
             // panel_Measure_MeasurementData
             // 
+<<<<<<< HEAD
+            this.panel_Measure_MeasurementData.Controls.Add(this.cuiDataGridView1);
+=======
+>>>>>>> ee780b8 (working on Measure Measurements panel)
             this.panel_Measure_MeasurementData.Controls.Add(this.cuiButton_Measure_AddHistory);
             this.panel_Measure_MeasurementData.Controls.Add(this.textBox_Measure_ChartName);
             this.panel_Measure_MeasurementData.Controls.Add(this.label_Measure_History);
@@ -1887,7 +1913,7 @@
             this.cuiButton_Measure_Back.Font = new System.Drawing.Font("SansSerif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.cuiButton_Measure_Back.ForeColor = System.Drawing.Color.White;
             this.cuiButton_Measure_Back.HoverBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Measure_Back.HoveredImageTint = System.Drawing.Color.DimGray;
+            this.cuiButton_Measure_Back.HoveredImageTint = System.Drawing.Color.DarkGray;
             this.cuiButton_Measure_Back.HoverForeColor = System.Drawing.Color.White;
             this.cuiButton_Measure_Back.HoverOutline = System.Drawing.Color.Empty;
             this.cuiButton_Measure_Back.Image = ((System.Drawing.Image)(resources.GetObject("cuiButton_Measure_Back.Image")));
@@ -1903,7 +1929,7 @@
             this.cuiButton_Measure_Back.OutlineThickness = 0F;
             this.cuiButton_Measure_Back.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.cuiButton_Measure_Back.PressedForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measure_Back.PressedImageTint = System.Drawing.Color.DarkGray;
+            this.cuiButton_Measure_Back.PressedImageTint = System.Drawing.Color.DimGray;
             this.cuiButton_Measure_Back.PressedOutline = System.Drawing.Color.Empty;
             this.cuiButton_Measure_Back.Rounding = new System.Windows.Forms.Padding(8);
             this.cuiButton_Measure_Back.Size = new System.Drawing.Size(102, 80);
@@ -1996,7 +2022,7 @@
             this.cuiButton_Measure_AddHistory.Font = new System.Drawing.Font("SansSerif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.cuiButton_Measure_AddHistory.ForeColor = System.Drawing.Color.White;
             this.cuiButton_Measure_AddHistory.HoverBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Measure_AddHistory.HoveredImageTint = System.Drawing.Color.White;
+            this.cuiButton_Measure_AddHistory.HoveredImageTint = System.Drawing.Color.DarkGray;
             this.cuiButton_Measure_AddHistory.HoverForeColor = System.Drawing.Color.White;
             this.cuiButton_Measure_AddHistory.HoverOutline = System.Drawing.Color.Empty;
             this.cuiButton_Measure_AddHistory.Image = ((System.Drawing.Image)(resources.GetObject("cuiButton_Measure_AddHistory.Image")));
@@ -2011,13 +2037,33 @@
             this.cuiButton_Measure_AddHistory.NormalOutline = System.Drawing.Color.Empty;
             this.cuiButton_Measure_AddHistory.OutlineThickness = 0F;
             this.cuiButton_Measure_AddHistory.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Measure_AddHistory.PressedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Measure_AddHistory.PressedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_Measure_AddHistory.PressedForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measure_AddHistory.PressedImageTint = System.Drawing.Color.DimGray;
             this.cuiButton_Measure_AddHistory.PressedOutline = System.Drawing.Color.Empty;
             this.cuiButton_Measure_AddHistory.Rounding = new System.Windows.Forms.Padding(8);
             this.cuiButton_Measure_AddHistory.Size = new System.Drawing.Size(43, 41);
             this.cuiButton_Measure_AddHistory.TabIndex = 16;
             this.cuiButton_Measure_AddHistory.TextOffset = new System.Drawing.Point(0, 15);
+<<<<<<< HEAD
+            // 
+            // cuiDataGridView1
+            // 
+            this.cuiDataGridView1.AutoScroll = true;
+            this.cuiDataGridView1.Cell = System.Drawing.Color.White;
+            this.cuiDataGridView1.Cell2 = System.Drawing.Color.LightGray;
+            this.cuiDataGridView1.CellBorder = System.Drawing.Color.Gray;
+            this.cuiDataGridView1.CellHover = System.Drawing.Color.Gray;
+            this.cuiDataGridView1.CellSelect = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(106)))), ((int)(((byte)(0)))));
+            this.cuiDataGridView1.DataSource = null;
+            this.cuiDataGridView1.HeaderColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.cuiDataGridView1.Location = new System.Drawing.Point(25, 527);
+            this.cuiDataGridView1.Name = "cuiDataGridView1";
+            this.cuiDataGridView1.Rounding = 8;
+            this.cuiDataGridView1.Size = new System.Drawing.Size(462, 128);
+            this.cuiDataGridView1.TabIndex = 17;
+            this.cuiDataGridView1.Text = "cuiDataGridView1";
+=======
+>>>>>>> ee780b8 (working on Measure Measurements panel)
             // 
             // MainForm
             // 
@@ -2157,5 +2203,9 @@
         private System.Windows.Forms.TextBox textBox_Measure_ChartName;
         private System.Windows.Forms.Label label_Measure_History;
         private CuoreUI.Controls.cuiButton cuiButton_Measure_AddHistory;
+<<<<<<< HEAD
+        private CuoreUI.Controls.cuiDataGridView cuiDataGridView1;
+=======
+>>>>>>> ee780b8 (working on Measure Measurements panel)
     }
 }
