@@ -17,38 +17,85 @@ DROP TABLE IF EXISTS dbo.Workouts;
 GO
 
 
+DROP TABLE IF EXISTS dbo.WorkoutTemplates;
+GO
+
+
+DROP TABLE IF EXISTS dbo.TemplateExercises;
+GO
+
+
+DROP TABLE IF EXISTS dbo.Exercises;
+GO
+
+
 DROP TABLE IF EXISTS dbo.Measurements;
 GO
 
-
+-- user data
 CREATE TABLE dbo.Users
 (
-    UserID        INT            IDENTITY(1,1) PRIMARY KEY,
-    Username      NVARCHAR(50)   NOT NULL UNIQUE,
-    PasswordHash  NVARCHAR(255)  NOT NULL,
-    Email         NVARCHAR(100)  NOT NULL UNIQUE,
-    DateCreated   DATETIME       NOT NULL DEFAULT GETDATE(),
-    WorkoutCount  INT            NOT NULL DEFAULT 0
+    UserID              INT                 IDENTITY(1,1) PRIMARY KEY,
+    Username            NVARCHAR(50)        NOT NULL UNIQUE,
+    PasswordHash        NVARCHAR(255)       NOT NULL,
+    Email               NVARCHAR(100)       NOT NULL UNIQUE,
+    DateCreated         DATETIME            NOT NULL DEFAULT GETDATE(),
+    WorkoutCount        INT                 NOT NULL DEFAULT 0
 );
 GO
 
 
+-- history data
 CREATE TABLE dbo.Workouts
 (
-    WorkoutID       INT IDENTITY(1,1)   PRIMARY KEY,
-    UserID          INT                 NOT NULL FOREIGN KEY REFERENCES dbo.Users(UserID),
-    WorkoutDate     DATETIME            DEFAULT GETDATE(),
-    WorkoutType     NVARCHAR(100),
-    DurationMinutes INT
+    WorkoutID           INT                 IDENTITY(1,1) PRIMARY KEY,
+    UserID              INT                 NOT NULL FOREIGN KEY REFERENCES dbo.Users(UserID),
+    WorkoutDate         DATETIME            DEFAULT GETDATE(),
+    WorkoutType         NVARCHAR(100),
+    DurationMinutes     INT
 );
 GO
 
 
+-- workout data
+CREATE TABLE dbo.WorkoutTemplates
+(
+    TemplateID          INT                 IDENTITY(1,1) PRIMARY KEY,
+    UserID              INT                 NOT NULL FOREIGN KEY REFERENCES dbo.Users(UserID),
+    TemplateName        NVARCHAR(100)       NOT NULL,
+    CreatedDate         DATETIME            DEFAULT GETDATE()
+);
+GO
+
+
+CREATE TABLE dbo.TemplateExercises
+(
+    TemplateExerciseID  INT         IDENTITY(1,1) PRIMARY KEY,
+    TemplateID          INT         NOT NULL FOREIGN KEY REFERENCES dbo.WorkoutTemplates(TemplateID),
+    ExerciseID          INT         NOT NULL FOREIGN KEY REFERENCES dbo.Exercises(ExerciseID),
+    Sets                INT,
+    Reps                INT,
+    RestSeconds         INT
+);
+GO
+
+
+-- exercises data
+CREATE TABLE dbo.Exercises
+(
+    ExerciseID          INT                     IDENTITY(1,1) PRIMARY KEY,
+    ExerciseName        NVARCHAR(100)           NOT NULL UNIQUE,
+    MuscleGroup         NVARCHAR(50)    -- e.g., Chest, Legs
+);
+GO
+
+
+-- measure data
 CREATE TABLE dbo.Measurements
 (
-    MeasurementID   INT IDENTITY(1,1)   PRIMARY KEY,
-    UserID          INT                 NOT NULL FOREIGN KEY REFERENCES dbo.Users(UserID),
-    MeasurementDate DATETIME            DEFAULT GETDATE(),
+    MeasurementID       INT IDENTITY(1,1)       PRIMARY KEY,
+    UserID              INT                     NOT NULL FOREIGN KEY REFERENCES dbo.Users(UserID),
+    MeasurementDate     DATETIME                DEFAULT GETDATE(),
 
     -- General
     WeightKg           DECIMAL(5,2),   -- e.g., 75.50 kg
@@ -81,6 +128,10 @@ GO
 
 SELECT * FROM dbo.Workouts;
 GO
+
+
+SELECT * FROM dbo.Exercises;
+GO  
 
 
 SELECT * FROM dbo.Measurements;

@@ -124,7 +124,7 @@ namespace TrainSMARTApp
 
         // HELPER METHODS 
 
-        // for dragging the form
+            // for dragging the form
         private new void MouseDown(object sender, MouseEventArgs e)
         {
             mouseDown = true;

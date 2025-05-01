@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel_Menus = new System.Windows.Forms.Panel();
             this.cuiButton_Menu_Measure = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Menu_Exercises = new CuoreUI.Controls.cuiButton();
@@ -114,6 +114,8 @@
             this.panel_Measure_Measurement_Title = new System.Windows.Forms.Panel();
             this.cuiButton_Measure_Measurement_Back = new CuoreUI.Controls.cuiButton();
             this.label_Measure_Measurement_Name = new System.Windows.Forms.Label();
+            this.label_Workout_SampleTemplates = new System.Windows.Forms.Label();
+            this.label_ = new System.Windows.Forms.Label();
             this.panel_Menus.SuspendLayout();
             this.panel_Form_Title.SuspendLayout();
             this.flowLayoutPanel_Profile.SuspendLayout();
@@ -477,16 +479,16 @@
             this.chart_Profile_WorkoutCount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.chart_Profile_WorkoutCount.BorderlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.chart_Profile_WorkoutCount.BorderSkin.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
-            chartArea2.BackColor = System.Drawing.Color.Transparent;
-            chartArea2.BorderWidth = 0;
-            chartArea2.Name = "ChartArea1";
-            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea2);
+            chartArea8.BackColor = System.Drawing.Color.Transparent;
+            chartArea8.BorderWidth = 0;
+            chartArea8.Name = "ChartArea1";
+            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea8);
             this.chart_Profile_WorkoutCount.Location = new System.Drawing.Point(51, 17);
             this.chart_Profile_WorkoutCount.Name = "chart_Profile_WorkoutCount";
             this.chart_Profile_WorkoutCount.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series2.ChartArea = "ChartArea1";
-            series2.Name = "Series1";
-            this.chart_Profile_WorkoutCount.Series.Add(series2);
+            series8.ChartArea = "ChartArea1";
+            series8.Name = "Series1";
+            this.chart_Profile_WorkoutCount.Series.Add(series8);
             this.chart_Profile_WorkoutCount.Size = new System.Drawing.Size(400, 300);
             this.chart_Profile_WorkoutCount.TabIndex = 0;
             this.chart_Profile_WorkoutCount.Text = "chart1";
@@ -744,7 +746,10 @@
             // 
             this.flowLayoutPanel_Workout.AutoScroll = true;
             this.flowLayoutPanel_Workout.Controls.Add(this.panel_Workout_QuickStart);
+            this.flowLayoutPanel_Workout.Controls.Add(this.label_);
+            this.flowLayoutPanel_Workout.Controls.Add(this.label_Workout_SampleTemplates);
             this.flowLayoutPanel_Workout.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.flowLayoutPanel_Workout.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel_Workout.Location = new System.Drawing.Point(0, 90);
             this.flowLayoutPanel_Workout.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel_Workout.Name = "flowLayoutPanel_Workout";
@@ -760,7 +765,7 @@
             this.panel_Workout_QuickStart.Location = new System.Drawing.Point(0, 0);
             this.panel_Workout_QuickStart.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Workout_QuickStart.Name = "panel_Workout_QuickStart";
-            this.panel_Workout_QuickStart.Size = new System.Drawing.Size(513, 195);
+            this.panel_Workout_QuickStart.Size = new System.Drawing.Size(513, 190);
             this.panel_Workout_QuickStart.TabIndex = 0;
             // 
             // cuiButton_Workout_AddTemplate
@@ -783,7 +788,7 @@
             this.cuiButton_Workout_AddTemplate.ImageAutoCenter = true;
             this.cuiButton_Workout_AddTemplate.ImageExpand = new System.Drawing.Point(2, 2);
             this.cuiButton_Workout_AddTemplate.ImageOffset = new System.Drawing.Point(0, 0);
-            this.cuiButton_Workout_AddTemplate.Location = new System.Drawing.Point(445, 144);
+            this.cuiButton_Workout_AddTemplate.Location = new System.Drawing.Point(445, 136);
             this.cuiButton_Workout_AddTemplate.Name = "cuiButton_Workout_AddTemplate";
             this.cuiButton_Workout_AddTemplate.NormalBackground = System.Drawing.Color.Transparent;
             this.cuiButton_Workout_AddTemplate.NormalForeColor = System.Drawing.Color.White;
@@ -806,7 +811,7 @@
             this.label_Workout_MyTemplates.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label_Workout_MyTemplates.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label_Workout_MyTemplates.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(194)))), ((int)(((byte)(195)))));
-            this.label_Workout_MyTemplates.Location = new System.Drawing.Point(20, 149);
+            this.label_Workout_MyTemplates.Location = new System.Drawing.Point(20, 143);
             this.label_Workout_MyTemplates.Name = "label_Workout_MyTemplates";
             this.label_Workout_MyTemplates.Size = new System.Drawing.Size(122, 17);
             this.label_Workout_MyTemplates.TabIndex = 14;
@@ -833,7 +838,7 @@
             this.cuiButton_QuickStart.ImageAutoCenter = true;
             this.cuiButton_QuickStart.ImageExpand = new System.Drawing.Point(0, 0);
             this.cuiButton_QuickStart.ImageOffset = new System.Drawing.Point(0, 0);
-            this.cuiButton_QuickStart.Location = new System.Drawing.Point(23, 60);
+            this.cuiButton_QuickStart.Location = new System.Drawing.Point(23, 54);
             this.cuiButton_QuickStart.Name = "cuiButton_QuickStart";
             this.cuiButton_QuickStart.NormalBackground = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
             this.cuiButton_QuickStart.NormalForeColor = System.Drawing.Color.White;
@@ -856,7 +861,7 @@
             this.label_Workout_QuickStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label_Workout_QuickStart.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label_Workout_QuickStart.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(194)))), ((int)(((byte)(195)))));
-            this.label_Workout_QuickStart.Location = new System.Drawing.Point(20, 17);
+            this.label_Workout_QuickStart.Location = new System.Drawing.Point(20, 11);
             this.label_Workout_QuickStart.Name = "label_Workout_QuickStart";
             this.label_Workout_QuickStart.Size = new System.Drawing.Size(109, 17);
             this.label_Workout_QuickStart.TabIndex = 12;
@@ -2039,6 +2044,37 @@
             this.label_Measure_Measurement_Name.Text = "Measure";
             this.label_Measure_Measurement_Name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label_Workout_SampleTemplates
+            // 
+            this.label_Workout_SampleTemplates.AutoSize = true;
+            this.label_Workout_SampleTemplates.BackColor = System.Drawing.Color.Transparent;
+            this.label_Workout_SampleTemplates.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_Workout_SampleTemplates.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label_Workout_SampleTemplates.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(194)))), ((int)(((byte)(195)))));
+            this.label_Workout_SampleTemplates.Location = new System.Drawing.Point(20, 263);
+            this.label_Workout_SampleTemplates.Margin = new System.Windows.Forms.Padding(20, 26, 3, 0);
+            this.label_Workout_SampleTemplates.Name = "label_Workout_SampleTemplates";
+            this.label_Workout_SampleTemplates.Size = new System.Drawing.Size(160, 17);
+            this.label_Workout_SampleTemplates.TabIndex = 15;
+            this.label_Workout_SampleTemplates.Text = "SAMPLE TEMPLATES";
+            this.label_Workout_SampleTemplates.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_
+            // 
+            this.label_.AutoSize = true;
+            this.label_.BackColor = System.Drawing.Color.Transparent;
+            this.label_.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_.Font = new System.Drawing.Font("SansSerif", 11.4F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label_.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(194)))), ((int)(((byte)(195)))));
+            this.label_.Location = new System.Drawing.Point(20, 193);
+            this.label_.Margin = new System.Windows.Forms.Padding(20, 3, 3, 0);
+            this.label_.Name = "label_";
+            this.label_.Size = new System.Drawing.Size(432, 44);
+            this.label_.TabIndex = 16;
+            this.label_.Text = "You don\'t have any custom templates yet.\r\nTap the \'+\' button to create your first" +
+    " template!\r\n";
+            this.label_.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2075,6 +2111,7 @@
             this.panel_Workout_Title.ResumeLayout(false);
             this.panel_Workout_Title.PerformLayout();
             this.flowLayoutPanel_Workout.ResumeLayout(false);
+            this.flowLayoutPanel_Workout.PerformLayout();
             this.panel_Workout_QuickStart.ResumeLayout(false);
             this.panel_Workout_QuickStart.PerformLayout();
             this.panel_Menu_Exercises.ResumeLayout(false);
@@ -2178,5 +2215,7 @@
         private System.Windows.Forms.Label label_Measure_Measurement_History;
         private CuoreUI.Controls.cuiButton cuiButton_Measure_Measurement_AddHistory;
         private CuoreUI.Controls.cuiDataGridView cuiDataGridView_Measurement_WeightHistory;
+        private System.Windows.Forms.Label label_Workout_SampleTemplates;
+        private System.Windows.Forms.Label label_;
     }
 }
