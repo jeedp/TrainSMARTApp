@@ -281,6 +281,7 @@ namespace TrainSMARTApp
         }
 
 
+        // TODO: enhance where user is able to also log in using email
         private void cuiButton_Login_Login_Click(object sender, EventArgs e)
         {
             string username = cuiTextBox_Login_Username.Content.Trim();

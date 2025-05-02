@@ -26,6 +26,11 @@ namespace TrainSMARTApp
 
             // menu panels size in design (513, 661)
             // panel size in code (0, 537)
+
+            // cuiGradientBorder_AboveMenu size (513, 10)
+            // panel_Menus size (513, 82)
+
+            // TODO: add duplicate check
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -168,5 +173,6 @@ namespace TrainSMARTApp
         {
 
         }
+
     }
 }
