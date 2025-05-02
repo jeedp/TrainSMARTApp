@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel_Menus = new System.Windows.Forms.Panel();
             this.cuiButton_Menu_Measure = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Menu_Exercises = new CuoreUI.Controls.cuiButton();
@@ -50,7 +50,7 @@
             this.cuiGradientBorder_Measurement_ChartLineBorder = new CuoreUI.Controls.cuiGradientBorder();
             this.cuiGradientBorder_Measurement = new CuoreUI.Controls.cuiGradientBorder();
             this.panel_Measurement_Title = new System.Windows.Forms.Panel();
-            this.cuiButton_Measurement_Back = new CuoreUI.Controls.cuiButton();
+            this.cuiButton_Measure_Back = new CuoreUI.Controls.cuiButton();
             this.label_Measurement_Name = new System.Windows.Forms.Label();
             this.flowLayoutPanel_WorkoutCreation = new System.Windows.Forms.FlowLayoutPanel();
             this.cuiButton_WorkoutCreation_AddExercise = new CuoreUI.Controls.cuiButton();
@@ -114,9 +114,9 @@
             this.label_Measure_Title = new System.Windows.Forms.Label();
             this.flowLayoutPanel_Measure = new System.Windows.Forms.FlowLayoutPanel();
             this.label_Measurement_Core = new System.Windows.Forms.Label();
-            this.cuiButton_Measurement_Weight = new CuoreUI.Controls.cuiButton();
-            this.cuiButton_Measurement_BodyFatPercentage = new CuoreUI.Controls.cuiButton();
-            this.cuiButton_Measurement_CaloricIntake = new CuoreUI.Controls.cuiButton();
+            this.cuiButton_Measure_Weight = new CuoreUI.Controls.cuiButton();
+            this.cuiButton_Measure_BodyFatPercentage = new CuoreUI.Controls.cuiButton();
+            this.cuiButton_Measure_CaloricIntake = new CuoreUI.Controls.cuiButton();
             this.label_Measurement_BodyPart = new System.Windows.Forms.Label();
             this.cuiButton_Measure_Neck = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Measure_Shoulders = new CuoreUI.Controls.cuiButton();
@@ -578,7 +578,7 @@
             // panel_Measurement_Title
             // 
             this.panel_Measurement_Title.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(51)))), ((int)(((byte)(55)))));
-            this.panel_Measurement_Title.Controls.Add(this.cuiButton_Measurement_Back);
+            this.panel_Measurement_Title.Controls.Add(this.cuiButton_Measure_Back);
             this.panel_Measurement_Title.Controls.Add(this.label_Measurement_Name);
             this.panel_Measurement_Title.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel_Measurement_Title.Location = new System.Drawing.Point(0, 0);
@@ -586,42 +586,42 @@
             this.panel_Measurement_Title.Size = new System.Drawing.Size(513, 80);
             this.panel_Measurement_Title.TabIndex = 7;
             // 
-            // cuiButton_Measurement_Back
+            // cuiButton_Measure_Back
             // 
-            this.cuiButton_Measurement_Back.CheckButton = false;
-            this.cuiButton_Measurement_Back.Checked = false;
-            this.cuiButton_Measurement_Back.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Measurement_Back.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Measurement_Back.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Measurement_Back.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Measurement_Back.Content = "";
-            this.cuiButton_Measurement_Back.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.cuiButton_Measurement_Back.Dock = System.Windows.Forms.DockStyle.Left;
-            this.cuiButton_Measurement_Back.Font = new System.Drawing.Font("SansSerif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cuiButton_Measurement_Back.ForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measurement_Back.HoverBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Measurement_Back.HoveredImageTint = System.Drawing.Color.DarkGray;
-            this.cuiButton_Measurement_Back.HoverForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measurement_Back.HoverOutline = System.Drawing.Color.Empty;
-            this.cuiButton_Measurement_Back.Image = ((System.Drawing.Image)(resources.GetObject("cuiButton_Measurement_Back.Image")));
-            this.cuiButton_Measurement_Back.ImageAutoCenter = true;
-            this.cuiButton_Measurement_Back.ImageExpand = new System.Drawing.Point(6, 6);
-            this.cuiButton_Measurement_Back.ImageOffset = new System.Drawing.Point(-2, 0);
-            this.cuiButton_Measurement_Back.Location = new System.Drawing.Point(0, 0);
-            this.cuiButton_Measurement_Back.Name = "cuiButton_Measurement_Back";
-            this.cuiButton_Measurement_Back.NormalBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_Measurement_Back.NormalForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measurement_Back.NormalImageTint = System.Drawing.Color.White;
-            this.cuiButton_Measurement_Back.NormalOutline = System.Drawing.Color.Empty;
-            this.cuiButton_Measurement_Back.OutlineThickness = 0F;
-            this.cuiButton_Measurement_Back.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Measurement_Back.PressedForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measurement_Back.PressedImageTint = System.Drawing.Color.DimGray;
-            this.cuiButton_Measurement_Back.PressedOutline = System.Drawing.Color.Empty;
-            this.cuiButton_Measurement_Back.Rounding = new System.Windows.Forms.Padding(8);
-            this.cuiButton_Measurement_Back.Size = new System.Drawing.Size(102, 80);
-            this.cuiButton_Measurement_Back.TabIndex = 8;
-            this.cuiButton_Measurement_Back.TextOffset = new System.Drawing.Point(0, 15);
+            this.cuiButton_Measure_Back.CheckButton = false;
+            this.cuiButton_Measure_Back.Checked = false;
+            this.cuiButton_Measure_Back.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_Measure_Back.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_Measure_Back.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_Measure_Back.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_Measure_Back.Content = "";
+            this.cuiButton_Measure_Back.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.cuiButton_Measure_Back.Dock = System.Windows.Forms.DockStyle.Left;
+            this.cuiButton_Measure_Back.Font = new System.Drawing.Font("SansSerif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiButton_Measure_Back.ForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measure_Back.HoverBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_Measure_Back.HoveredImageTint = System.Drawing.Color.DarkGray;
+            this.cuiButton_Measure_Back.HoverForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measure_Back.HoverOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Measure_Back.Image = ((System.Drawing.Image)(resources.GetObject("cuiButton_Measure_Back.Image")));
+            this.cuiButton_Measure_Back.ImageAutoCenter = true;
+            this.cuiButton_Measure_Back.ImageExpand = new System.Drawing.Point(6, 6);
+            this.cuiButton_Measure_Back.ImageOffset = new System.Drawing.Point(-2, 0);
+            this.cuiButton_Measure_Back.Location = new System.Drawing.Point(0, 0);
+            this.cuiButton_Measure_Back.Name = "cuiButton_Measure_Back";
+            this.cuiButton_Measure_Back.NormalBackground = System.Drawing.Color.Transparent;
+            this.cuiButton_Measure_Back.NormalForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measure_Back.NormalImageTint = System.Drawing.Color.White;
+            this.cuiButton_Measure_Back.NormalOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Measure_Back.OutlineThickness = 0F;
+            this.cuiButton_Measure_Back.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_Measure_Back.PressedForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measure_Back.PressedImageTint = System.Drawing.Color.DimGray;
+            this.cuiButton_Measure_Back.PressedOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Measure_Back.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiButton_Measure_Back.Size = new System.Drawing.Size(102, 80);
+            this.cuiButton_Measure_Back.TabIndex = 8;
+            this.cuiButton_Measure_Back.TextOffset = new System.Drawing.Point(0, 15);
             // 
             // label_Measurement_Name
             // 
@@ -643,6 +643,7 @@
             this.flowLayoutPanel_WorkoutCreation.Controls.Add(this.panel_WorkoutCreation_TemplateName);
             this.flowLayoutPanel_WorkoutCreation.Controls.Add(this.cuiButton_WorkoutCreation_AddExercise);
             this.flowLayoutPanel_WorkoutCreation.Cursor = System.Windows.Forms.Cursors.Default;
+            this.flowLayoutPanel_WorkoutCreation.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel_WorkoutCreation.Location = new System.Drawing.Point(0, 90);
             this.flowLayoutPanel_WorkoutCreation.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel_WorkoutCreation.Name = "flowLayoutPanel_WorkoutCreation";
@@ -757,6 +758,7 @@
             this.cuiButton_WorkoutCreation_EditName.Size = new System.Drawing.Size(72, 45);
             this.cuiButton_WorkoutCreation_EditName.TabIndex = 9;
             this.cuiButton_WorkoutCreation_EditName.TextOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_WorkoutCreation_EditName.Click += new System.EventHandler(this.cuiButton_WorkoutCreation_EditName_Click);
             // 
             // cuiTextBox_WorkoutCreation_Note
             // 
@@ -884,6 +886,7 @@
             this.cuiButton_WorkoutCreation_Save.Size = new System.Drawing.Size(80, 80);
             this.cuiButton_WorkoutCreation_Save.TabIndex = 17;
             this.cuiButton_WorkoutCreation_Save.TextOffset = new System.Drawing.Point(-7, 0);
+            this.cuiButton_WorkoutCreation_Save.Click += new System.EventHandler(this.cuiButton_WorkoutCreation_Save_Click);
             // 
             // cuiGradientBorder_WorkoutCreation
             // 
@@ -910,7 +913,7 @@
             this.panel_WorkoutCreation.Location = new System.Drawing.Point(0, 35);
             this.panel_WorkoutCreation.Margin = new System.Windows.Forms.Padding(0);
             this.panel_WorkoutCreation.Name = "panel_WorkoutCreation";
-            this.panel_WorkoutCreation.Size = new System.Drawing.Size(513, 661);
+            this.panel_WorkoutCreation.Size = new System.Drawing.Size(513, 0);
             this.panel_WorkoutCreation.TabIndex = 17;
             // 
             // panel_Menu_Profile
@@ -1095,16 +1098,16 @@
             this.chart_Profile_WorkoutCount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.chart_Profile_WorkoutCount.BorderlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.chart_Profile_WorkoutCount.BorderSkin.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
-            chartArea9.BackColor = System.Drawing.Color.Transparent;
-            chartArea9.BorderWidth = 0;
-            chartArea9.Name = "ChartArea1";
-            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea9);
+            chartArea3.BackColor = System.Drawing.Color.Transparent;
+            chartArea3.BorderWidth = 0;
+            chartArea3.Name = "ChartArea1";
+            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea3);
             this.chart_Profile_WorkoutCount.Location = new System.Drawing.Point(51, 17);
             this.chart_Profile_WorkoutCount.Name = "chart_Profile_WorkoutCount";
             this.chart_Profile_WorkoutCount.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series9.ChartArea = "ChartArea1";
-            series9.Name = "Series1";
-            this.chart_Profile_WorkoutCount.Series.Add(series9);
+            series3.ChartArea = "ChartArea1";
+            series3.Name = "Series1";
+            this.chart_Profile_WorkoutCount.Series.Add(series3);
             this.chart_Profile_WorkoutCount.Size = new System.Drawing.Size(400, 300);
             this.chart_Profile_WorkoutCount.TabIndex = 0;
             this.chart_Profile_WorkoutCount.Text = "chart1";
@@ -1215,10 +1218,10 @@
             this.panel_Menu_Exercises.Controls.Add(this.panel_Exercises_Title);
             this.panel_Menu_Exercises.Controls.Add(this.flowLayoutPanel_Exercises);
             this.panel_Menu_Exercises.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel_Menu_Exercises.Location = new System.Drawing.Point(0, 696);
+            this.panel_Menu_Exercises.Location = new System.Drawing.Point(0, 35);
             this.panel_Menu_Exercises.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Menu_Exercises.Name = "panel_Menu_Exercises";
-            this.panel_Menu_Exercises.Size = new System.Drawing.Size(513, 0);
+            this.panel_Menu_Exercises.Size = new System.Drawing.Size(513, 661);
             this.panel_Menu_Exercises.TabIndex = 20;
             // 
             // cuiGradientBorder_Exercises
@@ -1286,6 +1289,7 @@
             this.cuiButton_Exercises_Search.Size = new System.Drawing.Size(72, 80);
             this.cuiButton_Exercises_Search.TabIndex = 10;
             this.cuiButton_Exercises_Search.TextOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_Exercises_Search.Click += new System.EventHandler(this.cuiButton_Exercises_Search_Click);
             // 
             // cuiButton_Exercises_Filter
             // 
@@ -1323,6 +1327,7 @@
             this.cuiButton_Exercises_Filter.Size = new System.Drawing.Size(72, 80);
             this.cuiButton_Exercises_Filter.TabIndex = 9;
             this.cuiButton_Exercises_Filter.TextOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_Exercises_Filter.Click += new System.EventHandler(this.cuiButton_Exercises_Filter_Click);
             // 
             // cuiButton_Exercises_Create
             // 
@@ -1360,6 +1365,7 @@
             this.cuiButton_Exercises_Create.Size = new System.Drawing.Size(72, 80);
             this.cuiButton_Exercises_Create.TabIndex = 8;
             this.cuiButton_Exercises_Create.TextOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_Exercises_Create.Click += new System.EventHandler(this.cuiButton_Exercises_Create_Click);
             // 
             // label_Exercises_Title
             // 
@@ -1379,7 +1385,7 @@
             // 
             this.flowLayoutPanel_Exercises.AutoScroll = true;
             this.flowLayoutPanel_Exercises.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel_Exercises.Location = new System.Drawing.Point(0, -566);
+            this.flowLayoutPanel_Exercises.Location = new System.Drawing.Point(0, 95);
             this.flowLayoutPanel_Exercises.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel_Exercises.Name = "flowLayoutPanel_Exercises";
             this.flowLayoutPanel_Exercises.Size = new System.Drawing.Size(513, 566);
@@ -1391,7 +1397,7 @@
             this.panel_Menu_Workout.Controls.Add(this.panel_Workout_Title);
             this.panel_Menu_Workout.Controls.Add(this.flowLayoutPanel_Workout);
             this.panel_Menu_Workout.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel_Menu_Workout.Location = new System.Drawing.Point(0, 696);
+            this.panel_Menu_Workout.Location = new System.Drawing.Point(0, 35);
             this.panel_Menu_Workout.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Menu_Workout.Name = "panel_Menu_Workout";
             this.panel_Menu_Workout.Size = new System.Drawing.Size(513, 0);
@@ -1791,7 +1797,7 @@
             this.panel_Menu_Measure.Controls.Add(this.panel_Measure_Title);
             this.panel_Menu_Measure.Controls.Add(this.flowLayoutPanel_Measure);
             this.panel_Menu_Measure.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel_Menu_Measure.Location = new System.Drawing.Point(0, 696);
+            this.panel_Menu_Measure.Location = new System.Drawing.Point(0, 35);
             this.panel_Menu_Measure.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Menu_Measure.Name = "panel_Menu_Measure";
             this.panel_Menu_Measure.Size = new System.Drawing.Size(513, 0);
@@ -1841,9 +1847,9 @@
             // 
             this.flowLayoutPanel_Measure.AutoScroll = true;
             this.flowLayoutPanel_Measure.Controls.Add(this.label_Measurement_Core);
-            this.flowLayoutPanel_Measure.Controls.Add(this.cuiButton_Measurement_Weight);
-            this.flowLayoutPanel_Measure.Controls.Add(this.cuiButton_Measurement_BodyFatPercentage);
-            this.flowLayoutPanel_Measure.Controls.Add(this.cuiButton_Measurement_CaloricIntake);
+            this.flowLayoutPanel_Measure.Controls.Add(this.cuiButton_Measure_Weight);
+            this.flowLayoutPanel_Measure.Controls.Add(this.cuiButton_Measure_BodyFatPercentage);
+            this.flowLayoutPanel_Measure.Controls.Add(this.cuiButton_Measure_CaloricIntake);
             this.flowLayoutPanel_Measure.Controls.Add(this.label_Measurement_BodyPart);
             this.flowLayoutPanel_Measure.Controls.Add(this.cuiButton_Measure_Neck);
             this.flowLayoutPanel_Measure.Controls.Add(this.cuiButton_Measure_Shoulders);
@@ -1882,116 +1888,116 @@
             this.label_Measurement_Core.Text = "CORE";
             this.label_Measurement_Core.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // cuiButton_Measurement_Weight
+            // cuiButton_Measure_Weight
             // 
-            this.cuiButton_Measurement_Weight.CheckButton = false;
-            this.cuiButton_Measurement_Weight.Checked = false;
-            this.cuiButton_Measurement_Weight.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Measurement_Weight.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Measurement_Weight.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Measurement_Weight.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Measurement_Weight.Content = "Weight";
-            this.cuiButton_Measurement_Weight.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.cuiButton_Measurement_Weight.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cuiButton_Measurement_Weight.ForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measurement_Weight.HoverBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_Measurement_Weight.HoveredImageTint = System.Drawing.Color.White;
-            this.cuiButton_Measurement_Weight.HoverForeColor = System.Drawing.Color.DimGray;
-            this.cuiButton_Measurement_Weight.HoverOutline = System.Drawing.Color.Empty;
-            this.cuiButton_Measurement_Weight.Image = null;
-            this.cuiButton_Measurement_Weight.ImageAutoCenter = false;
-            this.cuiButton_Measurement_Weight.ImageExpand = new System.Drawing.Point(0, 0);
-            this.cuiButton_Measurement_Weight.ImageOffset = new System.Drawing.Point(0, 0);
-            this.cuiButton_Measurement_Weight.Location = new System.Drawing.Point(3, 48);
-            this.cuiButton_Measurement_Weight.Margin = new System.Windows.Forms.Padding(3, 17, 3, 0);
-            this.cuiButton_Measurement_Weight.Name = "cuiButton_Measurement_Weight";
-            this.cuiButton_Measurement_Weight.NormalBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_Measurement_Weight.NormalForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measurement_Weight.NormalImageTint = System.Drawing.Color.White;
-            this.cuiButton_Measurement_Weight.NormalOutline = System.Drawing.Color.Empty;
-            this.cuiButton_Measurement_Weight.OutlineThickness = 0F;
-            this.cuiButton_Measurement_Weight.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(91)))), ((int)(((byte)(94)))));
-            this.cuiButton_Measurement_Weight.PressedForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measurement_Weight.PressedImageTint = System.Drawing.Color.White;
-            this.cuiButton_Measurement_Weight.PressedOutline = System.Drawing.Color.Empty;
-            this.cuiButton_Measurement_Weight.Rounding = new System.Windows.Forms.Padding(0);
-            this.cuiButton_Measurement_Weight.Size = new System.Drawing.Size(485, 95);
-            this.cuiButton_Measurement_Weight.TabIndex = 13;
-            this.cuiButton_Measurement_Weight.TextOffset = new System.Drawing.Point(-134, 1);
+            this.cuiButton_Measure_Weight.CheckButton = false;
+            this.cuiButton_Measure_Weight.Checked = false;
+            this.cuiButton_Measure_Weight.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_Measure_Weight.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_Measure_Weight.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_Measure_Weight.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_Measure_Weight.Content = "Weight";
+            this.cuiButton_Measure_Weight.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.cuiButton_Measure_Weight.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiButton_Measure_Weight.ForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measure_Weight.HoverBackground = System.Drawing.Color.Transparent;
+            this.cuiButton_Measure_Weight.HoveredImageTint = System.Drawing.Color.White;
+            this.cuiButton_Measure_Weight.HoverForeColor = System.Drawing.Color.DimGray;
+            this.cuiButton_Measure_Weight.HoverOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Measure_Weight.Image = null;
+            this.cuiButton_Measure_Weight.ImageAutoCenter = false;
+            this.cuiButton_Measure_Weight.ImageExpand = new System.Drawing.Point(0, 0);
+            this.cuiButton_Measure_Weight.ImageOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_Measure_Weight.Location = new System.Drawing.Point(3, 48);
+            this.cuiButton_Measure_Weight.Margin = new System.Windows.Forms.Padding(3, 17, 3, 0);
+            this.cuiButton_Measure_Weight.Name = "cuiButton_Measure_Weight";
+            this.cuiButton_Measure_Weight.NormalBackground = System.Drawing.Color.Transparent;
+            this.cuiButton_Measure_Weight.NormalForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measure_Weight.NormalImageTint = System.Drawing.Color.White;
+            this.cuiButton_Measure_Weight.NormalOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Measure_Weight.OutlineThickness = 0F;
+            this.cuiButton_Measure_Weight.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(91)))), ((int)(((byte)(94)))));
+            this.cuiButton_Measure_Weight.PressedForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measure_Weight.PressedImageTint = System.Drawing.Color.White;
+            this.cuiButton_Measure_Weight.PressedOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Measure_Weight.Rounding = new System.Windows.Forms.Padding(0);
+            this.cuiButton_Measure_Weight.Size = new System.Drawing.Size(485, 95);
+            this.cuiButton_Measure_Weight.TabIndex = 13;
+            this.cuiButton_Measure_Weight.TextOffset = new System.Drawing.Point(-134, 1);
             // 
-            // cuiButton_Measurement_BodyFatPercentage
+            // cuiButton_Measure_BodyFatPercentage
             // 
-            this.cuiButton_Measurement_BodyFatPercentage.CheckButton = false;
-            this.cuiButton_Measurement_BodyFatPercentage.Checked = false;
-            this.cuiButton_Measurement_BodyFatPercentage.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Measurement_BodyFatPercentage.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Measurement_BodyFatPercentage.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Measurement_BodyFatPercentage.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Measurement_BodyFatPercentage.Content = "Body fat percentage";
-            this.cuiButton_Measurement_BodyFatPercentage.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.cuiButton_Measurement_BodyFatPercentage.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cuiButton_Measurement_BodyFatPercentage.ForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measurement_BodyFatPercentage.HoverBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_Measurement_BodyFatPercentage.HoveredImageTint = System.Drawing.Color.White;
-            this.cuiButton_Measurement_BodyFatPercentage.HoverForeColor = System.Drawing.Color.DimGray;
-            this.cuiButton_Measurement_BodyFatPercentage.HoverOutline = System.Drawing.Color.Empty;
-            this.cuiButton_Measurement_BodyFatPercentage.Image = null;
-            this.cuiButton_Measurement_BodyFatPercentage.ImageAutoCenter = false;
-            this.cuiButton_Measurement_BodyFatPercentage.ImageExpand = new System.Drawing.Point(0, 0);
-            this.cuiButton_Measurement_BodyFatPercentage.ImageOffset = new System.Drawing.Point(0, 0);
-            this.cuiButton_Measurement_BodyFatPercentage.Location = new System.Drawing.Point(3, 143);
-            this.cuiButton_Measurement_BodyFatPercentage.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.cuiButton_Measurement_BodyFatPercentage.Name = "cuiButton_Measurement_BodyFatPercentage";
-            this.cuiButton_Measurement_BodyFatPercentage.NormalBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_Measurement_BodyFatPercentage.NormalForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measurement_BodyFatPercentage.NormalImageTint = System.Drawing.Color.White;
-            this.cuiButton_Measurement_BodyFatPercentage.NormalOutline = System.Drawing.Color.Empty;
-            this.cuiButton_Measurement_BodyFatPercentage.OutlineThickness = 0F;
-            this.cuiButton_Measurement_BodyFatPercentage.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(91)))), ((int)(((byte)(94)))));
-            this.cuiButton_Measurement_BodyFatPercentage.PressedForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measurement_BodyFatPercentage.PressedImageTint = System.Drawing.Color.White;
-            this.cuiButton_Measurement_BodyFatPercentage.PressedOutline = System.Drawing.Color.Empty;
-            this.cuiButton_Measurement_BodyFatPercentage.Rounding = new System.Windows.Forms.Padding(0);
-            this.cuiButton_Measurement_BodyFatPercentage.Size = new System.Drawing.Size(485, 95);
-            this.cuiButton_Measurement_BodyFatPercentage.TabIndex = 14;
-            this.cuiButton_Measurement_BodyFatPercentage.TextOffset = new System.Drawing.Point(-75, 1);
+            this.cuiButton_Measure_BodyFatPercentage.CheckButton = false;
+            this.cuiButton_Measure_BodyFatPercentage.Checked = false;
+            this.cuiButton_Measure_BodyFatPercentage.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_Measure_BodyFatPercentage.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_Measure_BodyFatPercentage.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_Measure_BodyFatPercentage.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_Measure_BodyFatPercentage.Content = "Body fat percentage";
+            this.cuiButton_Measure_BodyFatPercentage.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.cuiButton_Measure_BodyFatPercentage.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiButton_Measure_BodyFatPercentage.ForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measure_BodyFatPercentage.HoverBackground = System.Drawing.Color.Transparent;
+            this.cuiButton_Measure_BodyFatPercentage.HoveredImageTint = System.Drawing.Color.White;
+            this.cuiButton_Measure_BodyFatPercentage.HoverForeColor = System.Drawing.Color.DimGray;
+            this.cuiButton_Measure_BodyFatPercentage.HoverOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Measure_BodyFatPercentage.Image = null;
+            this.cuiButton_Measure_BodyFatPercentage.ImageAutoCenter = false;
+            this.cuiButton_Measure_BodyFatPercentage.ImageExpand = new System.Drawing.Point(0, 0);
+            this.cuiButton_Measure_BodyFatPercentage.ImageOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_Measure_BodyFatPercentage.Location = new System.Drawing.Point(3, 143);
+            this.cuiButton_Measure_BodyFatPercentage.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.cuiButton_Measure_BodyFatPercentage.Name = "cuiButton_Measure_BodyFatPercentage";
+            this.cuiButton_Measure_BodyFatPercentage.NormalBackground = System.Drawing.Color.Transparent;
+            this.cuiButton_Measure_BodyFatPercentage.NormalForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measure_BodyFatPercentage.NormalImageTint = System.Drawing.Color.White;
+            this.cuiButton_Measure_BodyFatPercentage.NormalOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Measure_BodyFatPercentage.OutlineThickness = 0F;
+            this.cuiButton_Measure_BodyFatPercentage.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(91)))), ((int)(((byte)(94)))));
+            this.cuiButton_Measure_BodyFatPercentage.PressedForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measure_BodyFatPercentage.PressedImageTint = System.Drawing.Color.White;
+            this.cuiButton_Measure_BodyFatPercentage.PressedOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Measure_BodyFatPercentage.Rounding = new System.Windows.Forms.Padding(0);
+            this.cuiButton_Measure_BodyFatPercentage.Size = new System.Drawing.Size(485, 95);
+            this.cuiButton_Measure_BodyFatPercentage.TabIndex = 14;
+            this.cuiButton_Measure_BodyFatPercentage.TextOffset = new System.Drawing.Point(-75, 1);
             // 
-            // cuiButton_Measurement_CaloricIntake
+            // cuiButton_Measure_CaloricIntake
             // 
-            this.cuiButton_Measurement_CaloricIntake.CheckButton = false;
-            this.cuiButton_Measurement_CaloricIntake.Checked = false;
-            this.cuiButton_Measurement_CaloricIntake.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Measurement_CaloricIntake.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Measurement_CaloricIntake.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Measurement_CaloricIntake.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Measurement_CaloricIntake.Content = "Caloric intake";
-            this.cuiButton_Measurement_CaloricIntake.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.cuiButton_Measurement_CaloricIntake.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cuiButton_Measurement_CaloricIntake.ForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measurement_CaloricIntake.HoverBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_Measurement_CaloricIntake.HoveredImageTint = System.Drawing.Color.White;
-            this.cuiButton_Measurement_CaloricIntake.HoverForeColor = System.Drawing.Color.DimGray;
-            this.cuiButton_Measurement_CaloricIntake.HoverOutline = System.Drawing.Color.Empty;
-            this.cuiButton_Measurement_CaloricIntake.Image = null;
-            this.cuiButton_Measurement_CaloricIntake.ImageAutoCenter = false;
-            this.cuiButton_Measurement_CaloricIntake.ImageExpand = new System.Drawing.Point(0, 0);
-            this.cuiButton_Measurement_CaloricIntake.ImageOffset = new System.Drawing.Point(0, 0);
-            this.cuiButton_Measurement_CaloricIntake.Location = new System.Drawing.Point(3, 238);
-            this.cuiButton_Measurement_CaloricIntake.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
-            this.cuiButton_Measurement_CaloricIntake.Name = "cuiButton_Measurement_CaloricIntake";
-            this.cuiButton_Measurement_CaloricIntake.NormalBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_Measurement_CaloricIntake.NormalForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measurement_CaloricIntake.NormalImageTint = System.Drawing.Color.White;
-            this.cuiButton_Measurement_CaloricIntake.NormalOutline = System.Drawing.Color.Empty;
-            this.cuiButton_Measurement_CaloricIntake.OutlineThickness = 0F;
-            this.cuiButton_Measurement_CaloricIntake.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(91)))), ((int)(((byte)(94)))));
-            this.cuiButton_Measurement_CaloricIntake.PressedForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measurement_CaloricIntake.PressedImageTint = System.Drawing.Color.White;
-            this.cuiButton_Measurement_CaloricIntake.PressedOutline = System.Drawing.Color.Empty;
-            this.cuiButton_Measurement_CaloricIntake.Rounding = new System.Windows.Forms.Padding(0);
-            this.cuiButton_Measurement_CaloricIntake.Size = new System.Drawing.Size(485, 95);
-            this.cuiButton_Measurement_CaloricIntake.TabIndex = 15;
-            this.cuiButton_Measurement_CaloricIntake.TextOffset = new System.Drawing.Point(-103, 1);
+            this.cuiButton_Measure_CaloricIntake.CheckButton = false;
+            this.cuiButton_Measure_CaloricIntake.Checked = false;
+            this.cuiButton_Measure_CaloricIntake.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_Measure_CaloricIntake.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_Measure_CaloricIntake.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_Measure_CaloricIntake.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_Measure_CaloricIntake.Content = "Caloric intake";
+            this.cuiButton_Measure_CaloricIntake.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.cuiButton_Measure_CaloricIntake.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiButton_Measure_CaloricIntake.ForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measure_CaloricIntake.HoverBackground = System.Drawing.Color.Transparent;
+            this.cuiButton_Measure_CaloricIntake.HoveredImageTint = System.Drawing.Color.White;
+            this.cuiButton_Measure_CaloricIntake.HoverForeColor = System.Drawing.Color.DimGray;
+            this.cuiButton_Measure_CaloricIntake.HoverOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Measure_CaloricIntake.Image = null;
+            this.cuiButton_Measure_CaloricIntake.ImageAutoCenter = false;
+            this.cuiButton_Measure_CaloricIntake.ImageExpand = new System.Drawing.Point(0, 0);
+            this.cuiButton_Measure_CaloricIntake.ImageOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_Measure_CaloricIntake.Location = new System.Drawing.Point(3, 238);
+            this.cuiButton_Measure_CaloricIntake.Margin = new System.Windows.Forms.Padding(3, 0, 3, 0);
+            this.cuiButton_Measure_CaloricIntake.Name = "cuiButton_Measure_CaloricIntake";
+            this.cuiButton_Measure_CaloricIntake.NormalBackground = System.Drawing.Color.Transparent;
+            this.cuiButton_Measure_CaloricIntake.NormalForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measure_CaloricIntake.NormalImageTint = System.Drawing.Color.White;
+            this.cuiButton_Measure_CaloricIntake.NormalOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Measure_CaloricIntake.OutlineThickness = 0F;
+            this.cuiButton_Measure_CaloricIntake.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(91)))), ((int)(((byte)(94)))));
+            this.cuiButton_Measure_CaloricIntake.PressedForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measure_CaloricIntake.PressedImageTint = System.Drawing.Color.White;
+            this.cuiButton_Measure_CaloricIntake.PressedOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Measure_CaloricIntake.Rounding = new System.Windows.Forms.Padding(0);
+            this.cuiButton_Measure_CaloricIntake.Size = new System.Drawing.Size(485, 95);
+            this.cuiButton_Measure_CaloricIntake.TabIndex = 15;
+            this.cuiButton_Measure_CaloricIntake.TextOffset = new System.Drawing.Point(-103, 1);
             // 
             // label_Measurement_BodyPart
             // 
@@ -2640,7 +2646,7 @@
         private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder_Measurement;
         private System.Windows.Forms.Panel panel_Measurement_Title;
         private System.Windows.Forms.Label label_Measurement_Name;
-        private CuoreUI.Controls.cuiButton cuiButton_Measurement_Back;
+        private CuoreUI.Controls.cuiButton cuiButton_Measure_Back;
         private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder_Measurement_ChartLineBorder;
         private CuoreUI.Controls.Charts.cuiChartLine cuiChartLine_Measurement_Weight;
         private System.Windows.Forms.TextBox textBox_Measurement_ChartName;
@@ -2678,9 +2684,9 @@
         private System.Windows.Forms.Label label_Measure_Title;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_Measure;
         private System.Windows.Forms.Label label_Measurement_Core;
-        private CuoreUI.Controls.cuiButton cuiButton_Measurement_Weight;
-        private CuoreUI.Controls.cuiButton cuiButton_Measurement_BodyFatPercentage;
-        private CuoreUI.Controls.cuiButton cuiButton_Measurement_CaloricIntake;
+        private CuoreUI.Controls.cuiButton cuiButton_Measure_Weight;
+        private CuoreUI.Controls.cuiButton cuiButton_Measure_BodyFatPercentage;
+        private CuoreUI.Controls.cuiButton cuiButton_Measure_CaloricIntake;
         private System.Windows.Forms.Label label_Measurement_BodyPart;
         private CuoreUI.Controls.cuiButton cuiButton_Measure_Neck;
         private CuoreUI.Controls.cuiButton cuiButton_Measure_Shoulders;

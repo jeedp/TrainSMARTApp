@@ -18,8 +18,8 @@ namespace TrainSMARTApp
     public partial class LoginForm: Form
     {
         // for dragging the form
-        private bool mouseDown;
-        private Point lastLocation;
+        private bool _mouseDown;
+        private Point _lastLocation;
         
         // panel/button transparency
         private int opacity = 90;
@@ -345,23 +345,23 @@ namespace TrainSMARTApp
             // for dragging the form
         private new void MouseDown(object sender, MouseEventArgs e)
         {
-            mouseDown = true;
-            lastLocation = e.Location;
+            _mouseDown = true;
+            _lastLocation = e.Location;
         }
 
         private new void MouseMove(object sender, MouseEventArgs e)
         {
-            if (mouseDown)
+            if (_mouseDown)
             {
                 this.Location = new Point(
-                    (this.Location.X - lastLocation.X) + e.X, (this.Location.Y - lastLocation.Y) + e.Y);
+                    (this.Location.X - _lastLocation.X) + e.X, (this.Location.Y - _lastLocation.Y) + e.Y);
                 this.Update();
             }
         }
 
         private new void MouseUp(object sender, MouseEventArgs e)
         {
-            mouseDown = false;
+            _mouseDown = false;
         }
 
 

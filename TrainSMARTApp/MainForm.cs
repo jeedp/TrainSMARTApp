@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CuoreUI;
+using CuoreUI.Controls;
 
 namespace TrainSMARTApp
 {
@@ -15,6 +18,9 @@ namespace TrainSMARTApp
         // for dragging the form
         private bool _mouseDown;
         private Point _lastLocation;
+
+        // sql connection string
+        private string connectionString = "Data Source=LAPTOP-R9RSTS0G\\SQLEXPRESS;Initial Catalog=UserDB;Integrated Security=True;TrustServerCertificate=True;Encrypt=True";
 
 
 
@@ -92,6 +98,7 @@ namespace TrainSMARTApp
         private void cuiButton_Menu_Exercises_Click(object sender, EventArgs e)
         {
             ShowMenu(panel_Menu_Exercises);
+            LoadExerciseButtons();
         }
 
         private void cuiButton_Menu_Measure_Click(object sender, EventArgs e)
@@ -127,7 +134,41 @@ namespace TrainSMARTApp
             ShowMenu(panel_Menu_Workout);
         }
 
+        private void cuiButton_WorkoutCreation_Save_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cuiButton_WorkoutCreation_EditName_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+
+
+
+
+
+
+
         // EXERCISES MENU
+
+        private void cuiButton_Exercises_Search_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cuiButton_Exercises_Filter_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cuiButton_Exercises_Create_Click(object sender, EventArgs e)
+        {
+
+        }
 
         // MEASURE MENU
 
@@ -142,7 +183,7 @@ namespace TrainSMARTApp
 
         // HELPER METHODS 
 
-        // for dragging the form
+            // for dragging the form
         private new void MouseDown(object sender, MouseEventArgs e)
         {
             _mouseDown = true;
@@ -190,6 +231,62 @@ namespace TrainSMARTApp
 
         }
 
-        
+        private void LoadExerciseButtons()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                string query = "SELECT * FROM Exercises ORDER BY ExerciseName ASC";
+                SqlCommand cmd = new SqlCommand(query, conn);
+
+                try
+                {
+                    conn.Open();
+                    SqlDataReader reader = cmd.ExecuteReader();
+
+                    flowLayoutPanel_Exercises.Controls.Clear();
+
+                    while (reader.Read())
+                    {
+                        int id = reader.GetInt32(0);
+                        string name = reader.GetString(1);
+                        string muscleGroup = reader.IsDBNull(2) ? " " : reader.GetString(2);
+
+                        cuiButton btn = new cuiButton
+                        {
+                            Content = $"{name}\n({muscleGroup})",
+                            Width = 360,
+                            Height = 85,
+                            Tag = id, // Store the ID in case you need it later
+                            Font = new Font("SansSerif", 13.8f, FontStyle.Bold),
+                            TextOffset = new Point(0, -10),
+                            Margin = new Padding(3, 0, 3, 0),
+                            BackColor = Color.Transparent,
+                            ForeColor = Color.White,
+                            HoverBackground = Color.Transparent,
+                            HoverForeColor = Color.DimGray,
+                            NormalBackground = Color.Black,
+                            NormalForeColor = Color.White,
+                            PressedBackground = Color.FromArgb(84, 91, 94),
+                            PressedForeColor = Color.White,
+                        };
+
+                        btn.Click += (s, e) =>
+                        {
+                            // Handle button click event (e.g., show details or add to template)
+                            MessageBox.Show($"Exercise: {name}\nMuscle Group: {muscleGroup}", "Exercise Info");
+                        };
+
+                        flowLayoutPanel_Exercises.Controls.Add(btn);
+                    }
+
+                    reader.Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading exercises: " + ex.Message);
+                }
+            }
+        }
+
     }
 }
