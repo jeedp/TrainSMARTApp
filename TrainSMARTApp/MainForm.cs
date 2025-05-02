@@ -13,8 +13,8 @@ namespace TrainSMARTApp
     public partial class MainForm: Form
     {
         // for dragging the form
-        private bool mouseDown;
-        private Point lastLocation;
+        private bool _mouseDown;
+        private Point _lastLocation;
 
 
 
@@ -114,6 +114,19 @@ namespace TrainSMARTApp
 
         // WORKOUT MENU
 
+        private void cuiButton_Workout_AddTemplate_Click(object sender, EventArgs e)
+        {
+            ShowMenu(panel_WorkoutCreation);
+        }
+
+
+            // WORKOUT CREATION MENU
+
+        private void cuiButton_WorkoutCreation_Exit_Click(object sender, EventArgs e)
+        {
+            ShowMenu(panel_Menu_Workout);
+        }
+
         // EXERCISES MENU
 
         // MEASURE MENU
@@ -129,26 +142,26 @@ namespace TrainSMARTApp
 
         // HELPER METHODS 
 
-            // for dragging the form
+        // for dragging the form
         private new void MouseDown(object sender, MouseEventArgs e)
         {
-            mouseDown = true;
-            lastLocation = e.Location;
+            _mouseDown = true;
+            _lastLocation = e.Location;
         }
 
         private new void MouseMove(object sender, MouseEventArgs e)
         {
-            if (mouseDown)
+            if (_mouseDown)
             {
                 this.Location = new Point(
-                    (this.Location.X - lastLocation.X) + e.X, (this.Location.Y - lastLocation.Y) + e.Y);
+                    (this.Location.X - _lastLocation.X) + e.X, (this.Location.Y - _lastLocation.Y) + e.Y);
                 this.Update();
             }
         }
 
         private new void MouseUp(object sender, MouseEventArgs e)
         {
-            mouseDown = false;
+            _mouseDown = false;
         }
 
         private void ShowMenu(Panel panel)
@@ -159,13 +172,16 @@ namespace TrainSMARTApp
                 panel_Menu_History,
                 panel_Menu_Workout,
                 panel_Menu_Exercises,
-                panel_Menu_Measure
+                panel_Menu_Measure,
+                panel_Measurement_Menu,
+
+                panel_WorkoutCreation,
             };
 
             foreach (var pnl in panels)
             {
                 pnl.Visible = pnl == panel;
-                pnl.Height = (pnl == panel) ? 537 : 0;
+                pnl.Height = (pnl == panel) ? (pnl == panel_WorkoutCreation) ? 611 : 537 : 0;
             }
         }
 
@@ -174,5 +190,6 @@ namespace TrainSMARTApp
 
         }
 
+        
     }
 }
