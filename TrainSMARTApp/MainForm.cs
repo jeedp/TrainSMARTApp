@@ -44,6 +44,8 @@ namespace TrainSMARTApp
             this.panel_Form_Title.MouseDown += this.MouseDown;
             this.panel_Form_Title.MouseMove += this.MouseMove;
             this.panel_Form_Title.MouseUp += this.MouseUp;
+
+            cuiTextBox_Exercises_Search.ContentChanged += DynamicSearch;
         }
 
 
@@ -157,7 +159,12 @@ namespace TrainSMARTApp
 
         private void cuiButton_Exercises_Search_Click(object sender, EventArgs e)
         {
+            ShowHideSearchBar(panel_Exercises_Search, true);
+        }
 
+        private void cuiButton_Exercises_GoBack_Click(object sender, EventArgs e)
+        {
+            ShowHideSearchBar(panel_Exercises_Search, false);
         }
 
         private void cuiButton_Exercises_Filter_Click(object sender, EventArgs e)
@@ -165,10 +172,6 @@ namespace TrainSMARTApp
 
         }
 
-        private void cuiButton_Exercises_Create_Click(object sender, EventArgs e)
-        {
-
-        }
 
         // MEASURE MENU
 
@@ -183,7 +186,7 @@ namespace TrainSMARTApp
 
         // HELPER METHODS 
 
-            // for dragging the form
+        // for dragging the form
         private new void MouseDown(object sender, MouseEventArgs e)
         {
             _mouseDown = true;
@@ -224,6 +227,9 @@ namespace TrainSMARTApp
                 pnl.Visible = pnl == panel;
                 pnl.Height = (pnl == panel) ? (pnl == panel_WorkoutCreation) ? 611 : 537 : 0;
             }
+
+            if (panel == panel_Menu_Exercises)
+                ShowHideSearchBar(panel_Exercises_Search, false);
         }
 
         private void ShowMeasurementPanel()
@@ -231,12 +237,30 @@ namespace TrainSMARTApp
 
         }
 
-        private void LoadExerciseButtons()
+        private void ShowHideSearchBar(Panel panel, bool isShown)
+        {
+            panel.Width = (isShown) ? 321 : 0;
+        }
+
+        private void LoadExerciseButtons(string search = "", string muscleGroupFilter = "")
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = "SELECT * FROM Exercises ORDER BY ExerciseName ASC";
+                string query = "SELECT * FROM Exercises WHERE 1=1";
+
+                if (!string.IsNullOrEmpty(search))
+                    query += " AND ExerciseName LIKE @Search";
+
+                if (!string.IsNullOrEmpty(muscleGroupFilter) && muscleGroupFilter != "All")
+                    query += " AND MuscleGroup = @MuscleGroup";
+
                 SqlCommand cmd = new SqlCommand(query, conn);
+
+                if (!string.IsNullOrEmpty(search))
+                    cmd.Parameters.AddWithValue("@Search", $"%{search}%");
+
+                if (!string.IsNullOrEmpty(muscleGroupFilter) && muscleGroupFilter != "All")
+                    cmd.Parameters.AddWithValue("@MuscleGroup", muscleGroupFilter);
 
                 try
                 {
@@ -259,20 +283,40 @@ namespace TrainSMARTApp
                             Tag = id, // Store the ID in case you need it later
                             Font = new Font("SansSerif", 13.8f, FontStyle.Bold),
                             TextOffset = new Point(0, -10),
+                            RightToLeft = RightToLeft.Yes,
                             Margin = new Padding(3, 0, 3, 0),
                             BackColor = Color.Transparent,
                             ForeColor = Color.White,
                             HoverBackground = Color.Transparent,
                             HoverForeColor = Color.DimGray,
-                            NormalBackground = Color.Black,
+                            NormalBackground = Color.Transparent,
                             NormalForeColor = Color.White,
                             PressedBackground = Color.FromArgb(84, 91, 94),
                             PressedForeColor = Color.White,
                         };
 
+                        //Button btn = new Button
+                        //{
+                        //    Text = $"{name}\n({muscleGroup})",
+                        //    Width = 360,
+                        //    Height = 85,
+                        //    Tag = id, // Store the ID in case you need it later
+                        //    Font = new Font("SansSerif", 12.0f, FontStyle.Regular),
+                        //    Margin = new Padding(3, 0, 3, 0),
+                        //    TextAlign = ContentAlignment.MiddleLeft,
+                        //    FlatStyle = FlatStyle.Flat,
+                        //    FlatAppearance =
+                        //    {
+                        //        MouseDownBackColor = Color.FromArgb(84, 91, 94), BorderSize = 0,
+                        //        MouseOverBackColor = Color.DimGray, BorderColor = Color.FromArgb(41, 50, 54),
+                        //    },
+                        //    BackColor = Color.Transparent,
+                        //    ForeColor = Color.White,
+                        //};
+
                         btn.Click += (s, e) =>
                         {
-                            // Handle button click event (e.g., show details or add to template)
+                            // TODO: Enhance the button click event to show more details
                             MessageBox.Show($"Exercise: {name}\nMuscle Group: {muscleGroup}", "Exercise Info");
                         };
 
@@ -288,5 +332,11 @@ namespace TrainSMARTApp
             }
         }
 
+        private void DynamicSearch(object sender, EventArgs e)
+        {
+            string searchText = cuiTextBox_Exercises_Search.Content;
+            string muscleGroupFilter = ""; // TODO: Get the selected muscle group filter
+            LoadExerciseButtons(searchText, muscleGroupFilter);
+        }
     }
 }
