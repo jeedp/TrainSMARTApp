@@ -22,7 +22,7 @@ namespace TrainSMARTApp
         // sql connection string
         private string connectionString = "Data Source=LAPTOP-R9RSTS0G\\SQLEXPRESS;Initial Catalog=UserDB;Integrated Security=True;TrustServerCertificate=True;Encrypt=True";
 
-
+        private bool areFiltersShown = false;
 
 
 
@@ -45,7 +45,10 @@ namespace TrainSMARTApp
             this.panel_Form_Title.MouseMove += this.MouseMove;
             this.panel_Form_Title.MouseUp += this.MouseUp;
 
-            cuiTextBox_Exercises_Search.ContentChanged += DynamicSearch;
+            cuiTextBox_Exercises_Search.ContentChanged += DynamicExerciseSearchAndFilter;
+
+            //LoadExerciseButtons();
+
         }
 
 
@@ -169,7 +172,7 @@ namespace TrainSMARTApp
 
         private void cuiButton_Exercises_Filter_Click(object sender, EventArgs e)
         {
-
+            ShowHideFilter(cuiBorder_Exercises_Filter, flowLayoutPanel_Exercises);
         }
 
 
@@ -234,12 +237,20 @@ namespace TrainSMARTApp
 
         private void ShowMeasurementPanel()
         {
-
+            // TODO: implementation
         }
 
         private void ShowHideSearchBar(Panel panel, bool isShown)
         {
             panel.Width = (isShown) ? 321 : 0;
+        }
+
+        private void ShowHideFilter(cuiBorder border, FlowLayoutPanel flowLayoutPanel)
+        {
+            areFiltersShown = !areFiltersShown;
+            border.Height = (areFiltersShown) ? 100 : 0;
+            flowLayoutPanel.Height = (areFiltersShown) ? 300 : 500;
+
         }
 
         private void LoadExerciseButtons(string search = "", string muscleGroupFilter = "")
@@ -332,7 +343,7 @@ namespace TrainSMARTApp
             }
         }
 
-        private void DynamicSearch(object sender, EventArgs e)
+        private void DynamicExerciseSearchAndFilter(object sender, EventArgs e)
         {
             string searchText = cuiTextBox_Exercises_Search.Content;
             string muscleGroupFilter = ""; // TODO: Get the selected muscle group filter

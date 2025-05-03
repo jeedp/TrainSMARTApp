@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel_Menus = new System.Windows.Forms.Panel();
             this.cuiButton_Menu_Measure = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Menu_Exercises = new CuoreUI.Controls.cuiButton();
@@ -135,6 +135,21 @@
             this.cuiButton_Measure_RightThigh = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Measure_LeftCalf = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Measure_RightCalf = new CuoreUI.Controls.cuiButton();
+            this.cuiBorder_Exercises_Filter = new CuoreUI.Controls.cuiBorder();
+            this.cuiCheckbox10 = new CuoreUI.Controls.cuiCheckbox();
+            this.cuiCheckbox7 = new CuoreUI.Controls.cuiCheckbox();
+            this.cuiCheckbox8 = new CuoreUI.Controls.cuiCheckbox();
+            this.cuiCheckbox9 = new CuoreUI.Controls.cuiCheckbox();
+            this.cuiCheckbox4 = new CuoreUI.Controls.cuiCheckbox();
+            this.cuiCheckbox5 = new CuoreUI.Controls.cuiCheckbox();
+            this.cuiCheckbox6 = new CuoreUI.Controls.cuiCheckbox();
+            this.cuiCheckbox3 = new CuoreUI.Controls.cuiCheckbox();
+            this.cuiCheckbox2 = new CuoreUI.Controls.cuiCheckbox();
+            this.cuiCheckbox1 = new CuoreUI.Controls.cuiCheckbox();
+            this.cuiGradientBorder1 = new CuoreUI.Controls.cuiGradientBorder();
+            this.cuiGradientBorder2 = new CuoreUI.Controls.cuiGradientBorder();
+            this.cuiGradientBorder3 = new CuoreUI.Controls.cuiGradientBorder();
+            this.cuiGradientBorder4 = new CuoreUI.Controls.cuiGradientBorder();
             this.panel_Menus.SuspendLayout();
             this.panel_Form_Title.SuspendLayout();
             this.panel_Measurement_Menu.SuspendLayout();
@@ -161,6 +176,7 @@
             this.panel_Menu_Measure.SuspendLayout();
             this.panel_Measure_Title.SuspendLayout();
             this.flowLayoutPanel_Measure.SuspendLayout();
+            this.cuiBorder_Exercises_Filter.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_Menus
@@ -1101,16 +1117,16 @@
             this.chart_Profile_WorkoutCount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.chart_Profile_WorkoutCount.BorderlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.chart_Profile_WorkoutCount.BorderSkin.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
-            chartArea5.BackColor = System.Drawing.Color.Transparent;
-            chartArea5.BorderWidth = 0;
-            chartArea5.Name = "ChartArea1";
-            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea5);
+            chartArea2.BackColor = System.Drawing.Color.Transparent;
+            chartArea2.BorderWidth = 0;
+            chartArea2.Name = "ChartArea1";
+            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea2);
             this.chart_Profile_WorkoutCount.Location = new System.Drawing.Point(51, 17);
             this.chart_Profile_WorkoutCount.Name = "chart_Profile_WorkoutCount";
             this.chart_Profile_WorkoutCount.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series5.ChartArea = "ChartArea1";
-            series5.Name = "Series1";
-            this.chart_Profile_WorkoutCount.Series.Add(series5);
+            series2.ChartArea = "ChartArea1";
+            series2.Name = "Series1";
+            this.chart_Profile_WorkoutCount.Series.Add(series2);
             this.chart_Profile_WorkoutCount.Size = new System.Drawing.Size(400, 300);
             this.chart_Profile_WorkoutCount.TabIndex = 0;
             this.chart_Profile_WorkoutCount.Text = "chart1";
@@ -1217,6 +1233,7 @@
             // 
             // panel_Menu_Exercises
             // 
+            this.panel_Menu_Exercises.Controls.Add(this.cuiBorder_Exercises_Filter);
             this.panel_Menu_Exercises.Controls.Add(this.cuiGradientBorder_Exercises);
             this.panel_Menu_Exercises.Controls.Add(this.panel_Exercises_Title);
             this.panel_Menu_Exercises.Controls.Add(this.flowLayoutPanel_Exercises);
@@ -1426,10 +1443,10 @@
             // 
             this.flowLayoutPanel_Exercises.AutoScroll = true;
             this.flowLayoutPanel_Exercises.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel_Exercises.Location = new System.Drawing.Point(0, 95);
+            this.flowLayoutPanel_Exercises.Location = new System.Drawing.Point(0, 412);
             this.flowLayoutPanel_Exercises.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel_Exercises.Name = "flowLayoutPanel_Exercises";
-            this.flowLayoutPanel_Exercises.Size = new System.Drawing.Size(513, 566);
+            this.flowLayoutPanel_Exercises.Size = new System.Drawing.Size(513, 249);
             this.flowLayoutPanel_Exercises.TabIndex = 6;
             // 
             // panel_Menu_Workout
@@ -2610,6 +2627,316 @@
             this.cuiButton_Measure_RightCalf.TabIndex = 31;
             this.cuiButton_Measure_RightCalf.TextOffset = new System.Drawing.Point(-124, 1);
             // 
+            // cuiBorder_Exercises_Filter
+            // 
+            this.cuiBorder_Exercises_Filter.Controls.Add(this.cuiGradientBorder4);
+            this.cuiBorder_Exercises_Filter.Controls.Add(this.cuiGradientBorder3);
+            this.cuiBorder_Exercises_Filter.Controls.Add(this.cuiGradientBorder2);
+            this.cuiBorder_Exercises_Filter.Controls.Add(this.cuiGradientBorder1);
+            this.cuiBorder_Exercises_Filter.Controls.Add(this.cuiCheckbox10);
+            this.cuiBorder_Exercises_Filter.Controls.Add(this.cuiCheckbox7);
+            this.cuiBorder_Exercises_Filter.Controls.Add(this.cuiCheckbox8);
+            this.cuiBorder_Exercises_Filter.Controls.Add(this.cuiCheckbox9);
+            this.cuiBorder_Exercises_Filter.Controls.Add(this.cuiCheckbox4);
+            this.cuiBorder_Exercises_Filter.Controls.Add(this.cuiCheckbox5);
+            this.cuiBorder_Exercises_Filter.Controls.Add(this.cuiCheckbox6);
+            this.cuiBorder_Exercises_Filter.Controls.Add(this.cuiCheckbox3);
+            this.cuiBorder_Exercises_Filter.Controls.Add(this.cuiCheckbox2);
+            this.cuiBorder_Exercises_Filter.Controls.Add(this.cuiCheckbox1);
+            this.cuiBorder_Exercises_Filter.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cuiBorder_Exercises_Filter.Location = new System.Drawing.Point(0, 90);
+            this.cuiBorder_Exercises_Filter.Name = "cuiBorder_Exercises_Filter";
+            this.cuiBorder_Exercises_Filter.OutlineThickness = 1F;
+            this.cuiBorder_Exercises_Filter.PanelColor = System.Drawing.Color.Transparent;
+            this.cuiBorder_Exercises_Filter.PanelOutlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(102)))), ((int)(((byte)(105)))));
+            this.cuiBorder_Exercises_Filter.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiBorder_Exercises_Filter.Size = new System.Drawing.Size(513, 100);
+            this.cuiBorder_Exercises_Filter.TabIndex = 0;
+            // 
+            // cuiCheckbox10
+            // 
+            this.cuiCheckbox10.Checked = false;
+            this.cuiCheckbox10.CheckedForeground = System.Drawing.SystemColors.MenuHighlight;
+            this.cuiCheckbox10.CheckedOutlineColor = System.Drawing.SystemColors.Highlight;
+            this.cuiCheckbox10.CheckedSymbolColor = System.Drawing.Color.White;
+            this.cuiCheckbox10.Content = "Chest";
+            this.cuiCheckbox10.Font = new System.Drawing.Font("SansSerif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiCheckbox10.ForeColor = System.Drawing.Color.White;
+            this.cuiCheckbox10.Location = new System.Drawing.Point(390, 10);
+            this.cuiCheckbox10.MinimumSize = new System.Drawing.Size(16, 16);
+            this.cuiCheckbox10.Name = "cuiCheckbox10";
+            this.cuiCheckbox10.OutlineStyle = true;
+            this.cuiCheckbox10.OutlineThickness = 1F;
+            this.cuiCheckbox10.Rounding = 5;
+            this.cuiCheckbox10.ShowSymbols = true;
+            this.cuiCheckbox10.Size = new System.Drawing.Size(100, 25);
+            this.cuiCheckbox10.TabIndex = 21;
+            this.cuiCheckbox10.UncheckedForeground = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.cuiCheckbox10.UncheckedOutlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.cuiCheckbox10.UncheckedSymbolColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            // 
+            // cuiCheckbox7
+            // 
+            this.cuiCheckbox7.Checked = false;
+            this.cuiCheckbox7.CheckedForeground = System.Drawing.SystemColors.MenuHighlight;
+            this.cuiCheckbox7.CheckedOutlineColor = System.Drawing.SystemColors.Highlight;
+            this.cuiCheckbox7.CheckedSymbolColor = System.Drawing.Color.White;
+            this.cuiCheckbox7.Content = "Cardio";
+            this.cuiCheckbox7.Font = new System.Drawing.Font("SansSerif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiCheckbox7.ForeColor = System.Drawing.Color.White;
+            this.cuiCheckbox7.Location = new System.Drawing.Point(281, 60);
+            this.cuiCheckbox7.MinimumSize = new System.Drawing.Size(16, 16);
+            this.cuiCheckbox7.Name = "cuiCheckbox7";
+            this.cuiCheckbox7.OutlineStyle = true;
+            this.cuiCheckbox7.OutlineThickness = 1F;
+            this.cuiCheckbox7.Rounding = 5;
+            this.cuiCheckbox7.ShowSymbols = true;
+            this.cuiCheckbox7.Size = new System.Drawing.Size(98, 25);
+            this.cuiCheckbox7.TabIndex = 20;
+            this.cuiCheckbox7.UncheckedForeground = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.cuiCheckbox7.UncheckedOutlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.cuiCheckbox7.UncheckedSymbolColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            // 
+            // cuiCheckbox8
+            // 
+            this.cuiCheckbox8.Checked = false;
+            this.cuiCheckbox8.CheckedForeground = System.Drawing.SystemColors.MenuHighlight;
+            this.cuiCheckbox8.CheckedOutlineColor = System.Drawing.SystemColors.Highlight;
+            this.cuiCheckbox8.CheckedSymbolColor = System.Drawing.Color.White;
+            this.cuiCheckbox8.Content = "Other";
+            this.cuiCheckbox8.Font = new System.Drawing.Font("SansSerif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiCheckbox8.ForeColor = System.Drawing.Color.White;
+            this.cuiCheckbox8.Location = new System.Drawing.Point(281, 35);
+            this.cuiCheckbox8.MinimumSize = new System.Drawing.Size(16, 16);
+            this.cuiCheckbox8.Name = "cuiCheckbox8";
+            this.cuiCheckbox8.OutlineStyle = true;
+            this.cuiCheckbox8.OutlineThickness = 1F;
+            this.cuiCheckbox8.Rounding = 5;
+            this.cuiCheckbox8.ShowSymbols = true;
+            this.cuiCheckbox8.Size = new System.Drawing.Size(98, 25);
+            this.cuiCheckbox8.TabIndex = 19;
+            this.cuiCheckbox8.UncheckedForeground = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.cuiCheckbox8.UncheckedOutlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.cuiCheckbox8.UncheckedSymbolColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            // 
+            // cuiCheckbox9
+            // 
+            this.cuiCheckbox9.Checked = false;
+            this.cuiCheckbox9.CheckedForeground = System.Drawing.SystemColors.MenuHighlight;
+            this.cuiCheckbox9.CheckedOutlineColor = System.Drawing.SystemColors.Highlight;
+            this.cuiCheckbox9.CheckedSymbolColor = System.Drawing.Color.White;
+            this.cuiCheckbox9.Content = "Back";
+            this.cuiCheckbox9.Font = new System.Drawing.Font("SansSerif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiCheckbox9.ForeColor = System.Drawing.Color.White;
+            this.cuiCheckbox9.Location = new System.Drawing.Point(281, 10);
+            this.cuiCheckbox9.MinimumSize = new System.Drawing.Size(16, 16);
+            this.cuiCheckbox9.Name = "cuiCheckbox9";
+            this.cuiCheckbox9.OutlineStyle = true;
+            this.cuiCheckbox9.OutlineThickness = 1F;
+            this.cuiCheckbox9.Rounding = 5;
+            this.cuiCheckbox9.ShowSymbols = true;
+            this.cuiCheckbox9.Size = new System.Drawing.Size(98, 25);
+            this.cuiCheckbox9.TabIndex = 18;
+            this.cuiCheckbox9.UncheckedForeground = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.cuiCheckbox9.UncheckedOutlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.cuiCheckbox9.UncheckedSymbolColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            // 
+            // cuiCheckbox4
+            // 
+            this.cuiCheckbox4.Checked = false;
+            this.cuiCheckbox4.CheckedForeground = System.Drawing.SystemColors.MenuHighlight;
+            this.cuiCheckbox4.CheckedOutlineColor = System.Drawing.SystemColors.Highlight;
+            this.cuiCheckbox4.CheckedSymbolColor = System.Drawing.Color.White;
+            this.cuiCheckbox4.Content = "Full body";
+            this.cuiCheckbox4.Font = new System.Drawing.Font("SansSerif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiCheckbox4.ForeColor = System.Drawing.Color.White;
+            this.cuiCheckbox4.Location = new System.Drawing.Point(143, 60);
+            this.cuiCheckbox4.MinimumSize = new System.Drawing.Size(16, 16);
+            this.cuiCheckbox4.Name = "cuiCheckbox4";
+            this.cuiCheckbox4.OutlineStyle = true;
+            this.cuiCheckbox4.OutlineThickness = 1F;
+            this.cuiCheckbox4.Rounding = 5;
+            this.cuiCheckbox4.ShowSymbols = true;
+            this.cuiCheckbox4.Size = new System.Drawing.Size(127, 25);
+            this.cuiCheckbox4.TabIndex = 17;
+            this.cuiCheckbox4.UncheckedForeground = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.cuiCheckbox4.UncheckedOutlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.cuiCheckbox4.UncheckedSymbolColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            // 
+            // cuiCheckbox5
+            // 
+            this.cuiCheckbox5.Checked = false;
+            this.cuiCheckbox5.CheckedForeground = System.Drawing.SystemColors.MenuHighlight;
+            this.cuiCheckbox5.CheckedOutlineColor = System.Drawing.SystemColors.Highlight;
+            this.cuiCheckbox5.CheckedSymbolColor = System.Drawing.Color.White;
+            this.cuiCheckbox5.Content = "Shoulders";
+            this.cuiCheckbox5.Font = new System.Drawing.Font("SansSerif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiCheckbox5.ForeColor = System.Drawing.Color.White;
+            this.cuiCheckbox5.Location = new System.Drawing.Point(143, 35);
+            this.cuiCheckbox5.MinimumSize = new System.Drawing.Size(16, 16);
+            this.cuiCheckbox5.Name = "cuiCheckbox5";
+            this.cuiCheckbox5.OutlineStyle = true;
+            this.cuiCheckbox5.OutlineThickness = 1F;
+            this.cuiCheckbox5.Rounding = 5;
+            this.cuiCheckbox5.ShowSymbols = true;
+            this.cuiCheckbox5.Size = new System.Drawing.Size(127, 25);
+            this.cuiCheckbox5.TabIndex = 16;
+            this.cuiCheckbox5.UncheckedForeground = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.cuiCheckbox5.UncheckedOutlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.cuiCheckbox5.UncheckedSymbolColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            // 
+            // cuiCheckbox6
+            // 
+            this.cuiCheckbox6.Checked = false;
+            this.cuiCheckbox6.CheckedForeground = System.Drawing.SystemColors.MenuHighlight;
+            this.cuiCheckbox6.CheckedOutlineColor = System.Drawing.SystemColors.Highlight;
+            this.cuiCheckbox6.CheckedSymbolColor = System.Drawing.Color.White;
+            this.cuiCheckbox6.Content = "Arms";
+            this.cuiCheckbox6.Font = new System.Drawing.Font("SansSerif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiCheckbox6.ForeColor = System.Drawing.Color.White;
+            this.cuiCheckbox6.Location = new System.Drawing.Point(143, 10);
+            this.cuiCheckbox6.MinimumSize = new System.Drawing.Size(16, 16);
+            this.cuiCheckbox6.Name = "cuiCheckbox6";
+            this.cuiCheckbox6.OutlineStyle = true;
+            this.cuiCheckbox6.OutlineThickness = 1F;
+            this.cuiCheckbox6.Rounding = 5;
+            this.cuiCheckbox6.ShowSymbols = true;
+            this.cuiCheckbox6.Size = new System.Drawing.Size(127, 25);
+            this.cuiCheckbox6.TabIndex = 15;
+            this.cuiCheckbox6.UncheckedForeground = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.cuiCheckbox6.UncheckedOutlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.cuiCheckbox6.UncheckedSymbolColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            // 
+            // cuiCheckbox3
+            // 
+            this.cuiCheckbox3.Checked = false;
+            this.cuiCheckbox3.CheckedForeground = System.Drawing.SystemColors.MenuHighlight;
+            this.cuiCheckbox3.CheckedOutlineColor = System.Drawing.SystemColors.Highlight;
+            this.cuiCheckbox3.CheckedSymbolColor = System.Drawing.Color.White;
+            this.cuiCheckbox3.Content = "Olympic";
+            this.cuiCheckbox3.Font = new System.Drawing.Font("SansSerif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiCheckbox3.ForeColor = System.Drawing.Color.White;
+            this.cuiCheckbox3.Location = new System.Drawing.Point(21, 60);
+            this.cuiCheckbox3.MinimumSize = new System.Drawing.Size(16, 16);
+            this.cuiCheckbox3.Name = "cuiCheckbox3";
+            this.cuiCheckbox3.OutlineStyle = true;
+            this.cuiCheckbox3.OutlineThickness = 1F;
+            this.cuiCheckbox3.Rounding = 5;
+            this.cuiCheckbox3.ShowSymbols = true;
+            this.cuiCheckbox3.Size = new System.Drawing.Size(111, 25);
+            this.cuiCheckbox3.TabIndex = 14;
+            this.cuiCheckbox3.UncheckedForeground = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.cuiCheckbox3.UncheckedOutlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.cuiCheckbox3.UncheckedSymbolColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            // 
+            // cuiCheckbox2
+            // 
+            this.cuiCheckbox2.Checked = false;
+            this.cuiCheckbox2.CheckedForeground = System.Drawing.SystemColors.MenuHighlight;
+            this.cuiCheckbox2.CheckedOutlineColor = System.Drawing.SystemColors.Highlight;
+            this.cuiCheckbox2.CheckedSymbolColor = System.Drawing.Color.White;
+            this.cuiCheckbox2.Content = "Legs";
+            this.cuiCheckbox2.Font = new System.Drawing.Font("SansSerif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiCheckbox2.ForeColor = System.Drawing.Color.White;
+            this.cuiCheckbox2.Location = new System.Drawing.Point(21, 35);
+            this.cuiCheckbox2.MinimumSize = new System.Drawing.Size(16, 16);
+            this.cuiCheckbox2.Name = "cuiCheckbox2";
+            this.cuiCheckbox2.OutlineStyle = true;
+            this.cuiCheckbox2.OutlineThickness = 1F;
+            this.cuiCheckbox2.Rounding = 5;
+            this.cuiCheckbox2.ShowSymbols = true;
+            this.cuiCheckbox2.Size = new System.Drawing.Size(111, 25);
+            this.cuiCheckbox2.TabIndex = 13;
+            this.cuiCheckbox2.UncheckedForeground = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.cuiCheckbox2.UncheckedOutlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.cuiCheckbox2.UncheckedSymbolColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            // 
+            // cuiCheckbox1
+            // 
+            this.cuiCheckbox1.Checked = false;
+            this.cuiCheckbox1.CheckedForeground = System.Drawing.SystemColors.MenuHighlight;
+            this.cuiCheckbox1.CheckedOutlineColor = System.Drawing.SystemColors.Highlight;
+            this.cuiCheckbox1.CheckedSymbolColor = System.Drawing.Color.White;
+            this.cuiCheckbox1.Content = "Core";
+            this.cuiCheckbox1.Font = new System.Drawing.Font("SansSerif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiCheckbox1.ForeColor = System.Drawing.Color.White;
+            this.cuiCheckbox1.Location = new System.Drawing.Point(21, 10);
+            this.cuiCheckbox1.MinimumSize = new System.Drawing.Size(16, 16);
+            this.cuiCheckbox1.Name = "cuiCheckbox1";
+            this.cuiCheckbox1.OutlineStyle = true;
+            this.cuiCheckbox1.OutlineThickness = 1F;
+            this.cuiCheckbox1.Rounding = 5;
+            this.cuiCheckbox1.ShowSymbols = true;
+            this.cuiCheckbox1.Size = new System.Drawing.Size(111, 25);
+            this.cuiCheckbox1.TabIndex = 12;
+            this.cuiCheckbox1.UncheckedForeground = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.cuiCheckbox1.UncheckedOutlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
+            this.cuiCheckbox1.UncheckedSymbolColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            // 
+            // cuiGradientBorder1
+            // 
+            this.cuiGradientBorder1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cuiGradientBorder1.GradientAngle = -90F;
+            this.cuiGradientBorder1.Location = new System.Drawing.Point(0, 0);
+            this.cuiGradientBorder1.Margin = new System.Windows.Forms.Padding(0);
+            this.cuiGradientBorder1.Name = "cuiGradientBorder1";
+            this.cuiGradientBorder1.OutlineThickness = 0F;
+            this.cuiGradientBorder1.PanelColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder1.PanelColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.cuiGradientBorder1.PanelOutlineColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder1.PanelOutlineColor2 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder1.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiGradientBorder1.Size = new System.Drawing.Size(513, 10);
+            this.cuiGradientBorder1.TabIndex = 22;
+            // 
+            // cuiGradientBorder2
+            // 
+            this.cuiGradientBorder2.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.cuiGradientBorder2.GradientAngle = -270F;
+            this.cuiGradientBorder2.Location = new System.Drawing.Point(0, 90);
+            this.cuiGradientBorder2.Margin = new System.Windows.Forms.Padding(0);
+            this.cuiGradientBorder2.Name = "cuiGradientBorder2";
+            this.cuiGradientBorder2.OutlineThickness = 0F;
+            this.cuiGradientBorder2.PanelColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder2.PanelColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.cuiGradientBorder2.PanelOutlineColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder2.PanelOutlineColor2 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder2.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiGradientBorder2.Size = new System.Drawing.Size(513, 10);
+            this.cuiGradientBorder2.TabIndex = 23;
+            // 
+            // cuiGradientBorder3
+            // 
+            this.cuiGradientBorder3.Dock = System.Windows.Forms.DockStyle.Right;
+            this.cuiGradientBorder3.GradientAngle = 0F;
+            this.cuiGradientBorder3.Location = new System.Drawing.Point(503, 10);
+            this.cuiGradientBorder3.Margin = new System.Windows.Forms.Padding(0);
+            this.cuiGradientBorder3.Name = "cuiGradientBorder3";
+            this.cuiGradientBorder3.OutlineThickness = 0F;
+            this.cuiGradientBorder3.PanelColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder3.PanelColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.cuiGradientBorder3.PanelOutlineColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder3.PanelOutlineColor2 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder3.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiGradientBorder3.Size = new System.Drawing.Size(10, 80);
+            this.cuiGradientBorder3.TabIndex = 24;
+            // 
+            // cuiGradientBorder4
+            // 
+            this.cuiGradientBorder4.Dock = System.Windows.Forms.DockStyle.Left;
+            this.cuiGradientBorder4.GradientAngle = -270F;
+            this.cuiGradientBorder4.Location = new System.Drawing.Point(0, 10);
+            this.cuiGradientBorder4.Margin = new System.Windows.Forms.Padding(0);
+            this.cuiGradientBorder4.Name = "cuiGradientBorder4";
+            this.cuiGradientBorder4.OutlineThickness = 0F;
+            this.cuiGradientBorder4.PanelColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder4.PanelColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.cuiGradientBorder4.PanelOutlineColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder4.PanelOutlineColor2 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder4.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiGradientBorder4.Size = new System.Drawing.Size(10, 80);
+            this.cuiGradientBorder4.TabIndex = 25;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -2668,6 +2995,7 @@
             this.panel_Measure_Title.PerformLayout();
             this.flowLayoutPanel_Measure.ResumeLayout(false);
             this.flowLayoutPanel_Measure.PerformLayout();
+            this.cuiBorder_Exercises_Filter.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2778,5 +3106,20 @@
         private System.Windows.Forms.Panel panel_Exercises_Search;
         private CuoreUI.Controls.cuiButton cuiButton_Exercises_GoBack;
         private CuoreUI.Controls.cuiTextBox2 cuiTextBox_Exercises_Search;
+        private CuoreUI.Controls.cuiBorder cuiBorder_Exercises_Filter;
+        private CuoreUI.Controls.cuiCheckbox cuiCheckbox10;
+        private CuoreUI.Controls.cuiCheckbox cuiCheckbox7;
+        private CuoreUI.Controls.cuiCheckbox cuiCheckbox8;
+        private CuoreUI.Controls.cuiCheckbox cuiCheckbox9;
+        private CuoreUI.Controls.cuiCheckbox cuiCheckbox4;
+        private CuoreUI.Controls.cuiCheckbox cuiCheckbox5;
+        private CuoreUI.Controls.cuiCheckbox cuiCheckbox6;
+        private CuoreUI.Controls.cuiCheckbox cuiCheckbox3;
+        private CuoreUI.Controls.cuiCheckbox cuiCheckbox2;
+        private CuoreUI.Controls.cuiCheckbox cuiCheckbox1;
+        private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder4;
+        private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder3;
+        private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder2;
+        private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder1;
     }
 }
