@@ -148,7 +148,7 @@
             this.cuiButton_Measure_RightThigh = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Measure_LeftCalf = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Measure_RightCalf = new CuoreUI.Controls.cuiButton();
-            this.panel_ExerciseDescription = new System.Windows.Forms.Panel();
+            this.panel_ExerciseDetails = new System.Windows.Forms.Panel();
             this.cuiGradientBorder_ExerciseDetails = new CuoreUI.Controls.cuiGradientBorder();
             this.panel_ExerciseDetails_Name = new System.Windows.Forms.Panel();
             this.label_ExerciseDetails_Name = new System.Windows.Forms.Label();
@@ -163,9 +163,8 @@
             this.cuiBorder_ExerciseDetail_History = new CuoreUI.Controls.cuiBorder();
             this.cuiBorder_ExerciseDetail_Charts = new CuoreUI.Controls.cuiBorder();
             this.cuiBorder_ExerciseDetail_Records = new CuoreUI.Controls.cuiBorder();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox_ExerciseDetails_Instructions = new System.Windows.Forms.TextBox();
             this.label_ExerciseDetails_Instruction = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel_Menus.SuspendLayout();
             this.panel_Form_Title.SuspendLayout();
             this.panel_Measurement.SuspendLayout();
@@ -193,7 +192,7 @@
             this.panel_Menu_Measure.SuspendLayout();
             this.panel_Measure_Title.SuspendLayout();
             this.flowLayoutPanel_Measure.SuspendLayout();
-            this.panel_ExerciseDescription.SuspendLayout();
+            this.panel_ExerciseDetails.SuspendLayout();
             this.panel_ExerciseDetails_Name.SuspendLayout();
             this.flowLayoutPanel_ExerciseDetails.SuspendLayout();
             this.panel_ExerciseDetails_Buttons.SuspendLayout();
@@ -2920,18 +2919,18 @@
             this.cuiButton_Measure_RightCalf.TabIndex = 31;
             this.cuiButton_Measure_RightCalf.TextOffset = new System.Drawing.Point(-124, 1);
             // 
-            // panel_ExerciseDescription
+            // panel_ExerciseDetails
             // 
-            this.panel_ExerciseDescription.Controls.Add(this.cuiGradientBorder_ExerciseDetails);
-            this.panel_ExerciseDescription.Controls.Add(this.panel_ExerciseDetails_Buttons);
-            this.panel_ExerciseDescription.Controls.Add(this.panel_ExerciseDetails_Name);
-            this.panel_ExerciseDescription.Controls.Add(this.flowLayoutPanel_ExerciseDetails);
-            this.panel_ExerciseDescription.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel_ExerciseDescription.Location = new System.Drawing.Point(0, 35);
-            this.panel_ExerciseDescription.Margin = new System.Windows.Forms.Padding(0);
-            this.panel_ExerciseDescription.Name = "panel_ExerciseDescription";
-            this.panel_ExerciseDescription.Size = new System.Drawing.Size(513, 661);
-            this.panel_ExerciseDescription.TabIndex = 23;
+            this.panel_ExerciseDetails.Controls.Add(this.cuiGradientBorder_ExerciseDetails);
+            this.panel_ExerciseDetails.Controls.Add(this.panel_ExerciseDetails_Buttons);
+            this.panel_ExerciseDetails.Controls.Add(this.panel_ExerciseDetails_Name);
+            this.panel_ExerciseDetails.Controls.Add(this.flowLayoutPanel_ExerciseDetails);
+            this.panel_ExerciseDetails.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel_ExerciseDetails.Location = new System.Drawing.Point(0, 35);
+            this.panel_ExerciseDetails.Margin = new System.Windows.Forms.Padding(0);
+            this.panel_ExerciseDetails.Name = "panel_ExerciseDetails";
+            this.panel_ExerciseDetails.Size = new System.Drawing.Size(513, 661);
+            this.panel_ExerciseDetails.TabIndex = 23;
             // 
             // cuiGradientBorder_ExerciseDetails
             // 
@@ -2978,8 +2977,7 @@
             // 
             this.flowLayoutPanel_ExerciseDetails.AutoScroll = true;
             this.flowLayoutPanel_ExerciseDetails.Controls.Add(this.label_ExerciseDetails_Instruction);
-            this.flowLayoutPanel_ExerciseDetails.Controls.Add(this.textBox2);
-            this.flowLayoutPanel_ExerciseDetails.Controls.Add(this.richTextBox1);
+            this.flowLayoutPanel_ExerciseDetails.Controls.Add(this.textBox_ExerciseDetails_Instructions);
             this.flowLayoutPanel_ExerciseDetails.Cursor = System.Windows.Forms.Cursors.Default;
             this.flowLayoutPanel_ExerciseDetails.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel_ExerciseDetails.Location = new System.Drawing.Point(0, 161);
@@ -3024,6 +3022,7 @@
             this.cuiButton_ExerciseDetails_GoBack.Size = new System.Drawing.Size(102, 80);
             this.cuiButton_ExerciseDetails_GoBack.TabIndex = 11;
             this.cuiButton_ExerciseDetails_GoBack.TextOffset = new System.Drawing.Point(0, 15);
+            this.cuiButton_ExerciseDetails_GoBack.Click += new System.EventHandler(this.cuiButton_Menu_Exercises_Click);
             // 
             // panel_ExerciseDetails_Buttons
             // 
@@ -3081,7 +3080,7 @@
             // 
             // cuiButton7
             // 
-            this.cuiButton7.CheckButton = true;
+            this.cuiButton7.CheckButton = false;
             this.cuiButton7.Checked = false;
             this.cuiButton7.CheckedBackground = System.Drawing.Color.Transparent;
             this.cuiButton7.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
@@ -3118,7 +3117,7 @@
             // 
             // cuiButton8
             // 
-            this.cuiButton8.CheckButton = true;
+            this.cuiButton8.CheckButton = false;
             this.cuiButton8.Checked = false;
             this.cuiButton8.CheckedBackground = System.Drawing.Color.Transparent;
             this.cuiButton8.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
@@ -3155,7 +3154,7 @@
             // 
             // cuiButton9
             // 
-            this.cuiButton9.CheckButton = true;
+            this.cuiButton9.CheckButton = false;
             this.cuiButton9.Checked = false;
             this.cuiButton9.CheckedBackground = System.Drawing.Color.Transparent;
             this.cuiButton9.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
@@ -3241,20 +3240,20 @@
             this.cuiBorder_ExerciseDetail_Records.TabIndex = 13;
             this.cuiBorder_ExerciseDetail_Records.Visible = false;
             // 
-            // textBox2
+            // textBox_ExerciseDetails_Instructions
             // 
-            this.textBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox2.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.textBox2.ForeColor = System.Drawing.Color.White;
-            this.textBox2.Location = new System.Drawing.Point(25, 70);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(25, 3, 3, 3);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.ReadOnly = true;
-            this.textBox2.Size = new System.Drawing.Size(463, 67);
-            this.textBox2.TabIndex = 13;
-            this.textBox2.Text = "@";
+            this.textBox_ExerciseDetails_Instructions.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.textBox_ExerciseDetails_Instructions.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox_ExerciseDetails_Instructions.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.textBox_ExerciseDetails_Instructions.ForeColor = System.Drawing.Color.White;
+            this.textBox_ExerciseDetails_Instructions.Location = new System.Drawing.Point(25, 70);
+            this.textBox_ExerciseDetails_Instructions.Margin = new System.Windows.Forms.Padding(25, 3, 3, 0);
+            this.textBox_ExerciseDetails_Instructions.Multiline = true;
+            this.textBox_ExerciseDetails_Instructions.Name = "textBox_ExerciseDetails_Instructions";
+            this.textBox_ExerciseDetails_Instructions.ReadOnly = true;
+            this.textBox_ExerciseDetails_Instructions.Size = new System.Drawing.Size(463, 520);
+            this.textBox_ExerciseDetails_Instructions.TabIndex = 13;
+            this.textBox_ExerciseDetails_Instructions.Text = "@";
             // 
             // label_ExerciseDetails_Instruction
             // 
@@ -3271,27 +3270,13 @@
             this.label_ExerciseDetails_Instruction.Text = "Instructions";
             this.label_ExerciseDetails_Instruction.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // richTextBox1
-            // 
-            this.richTextBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.richTextBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.richTextBox1.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.richTextBox1.ForeColor = System.Drawing.Color.White;
-            this.richTextBox1.Location = new System.Drawing.Point(25, 143);
-            this.richTextBox1.Margin = new System.Windows.Forms.Padding(25, 3, 3, 3);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ReadOnly = true;
-            this.richTextBox1.Size = new System.Drawing.Size(463, 76);
-            this.richTextBox1.TabIndex = 15;
-            this.richTextBox1.Text = "@";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.ClientSize = new System.Drawing.Size(513, 788);
-            this.Controls.Add(this.panel_ExerciseDescription);
+            this.Controls.Add(this.panel_ExerciseDetails);
             this.Controls.Add(this.panel_Menu_Measure);
             this.Controls.Add(this.panel_Menu_Workout);
             this.Controls.Add(this.panel_Menu_Exercises);
@@ -3345,7 +3330,7 @@
             this.panel_Measure_Title.PerformLayout();
             this.flowLayoutPanel_Measure.ResumeLayout(false);
             this.flowLayoutPanel_Measure.PerformLayout();
-            this.panel_ExerciseDescription.ResumeLayout(false);
+            this.panel_ExerciseDetails.ResumeLayout(false);
             this.panel_ExerciseDetails_Name.ResumeLayout(false);
             this.panel_ExerciseDetails_Name.PerformLayout();
             this.flowLayoutPanel_ExerciseDetails.ResumeLayout(false);
@@ -3474,7 +3459,7 @@
         private CuoreUI.Controls.cuiCheckbox cuiCheckbox_Filter_Chest;
         private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder2;
         private System.Windows.Forms.Label label_Exercises_ExercisesCount;
-        private System.Windows.Forms.Panel panel_ExerciseDescription;
+        private System.Windows.Forms.Panel panel_ExerciseDetails;
         private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder_ExerciseDetails;
         private System.Windows.Forms.Panel panel_ExerciseDetails_Name;
         private System.Windows.Forms.Label label_ExerciseDetails_Name;
@@ -3490,7 +3475,6 @@
         private CuoreUI.Controls.cuiBorder cuiBorder_ExerciseDetail_Charts;
         private CuoreUI.Controls.cuiBorder cuiBorder_ExerciseDetail_History;
         private System.Windows.Forms.Label label_ExerciseDetails_Instruction;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.TextBox textBox_ExerciseDetails_Instructions;
     }
 }

@@ -200,6 +200,14 @@ namespace TrainSMARTApp
         }
 
 
+            // EXERCISE DETAILS
+
+        private void cuiButton_ExerciseDetails_GoBack_Click(object sender, EventArgs e)
+        {
+            ShowMenu(panel_Menu_Exercises);
+        }
+
+
         // MEASURE MENU
 
 
@@ -241,12 +249,15 @@ namespace TrainSMARTApp
             {
                 panel_Menu_Profile,
                 panel_Menu_History,
+
                 panel_Menu_Workout,
+                panel_WorkoutCreation,
+
                 panel_Menu_Exercises,
+                panel_ExerciseDetails,
+
                 panel_Menu_Measure,
                 panel_Measurement,
-
-                panel_WorkoutCreation,
             };
 
             foreach (var pnl in panels)
@@ -283,6 +294,32 @@ namespace TrainSMARTApp
             //flowLayoutPanel.Height = (isFilterShown) ? 370 : 460;
         }
 
+        private void ShowExerciseDetails(Object sender, EventArgs e)
+        {
+            var btn = sender as cuiButton;
+            int exerciseId = (int)btn.Tag;
+
+            string query = "SELECT * FROM Exercises WHERE ExerciseID = @ExerciseID";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@ExerciseID", exerciseId);
+
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    label_ExerciseDetails_Name.Text = reader["ExerciseName"].ToString();
+                    textBox_ExerciseDetails_Instructions.Text = reader["Instructions"].ToString();
+                    //cuiTextBox_ExerciseDetails_Instructions.Content = reader["Instructions"].ToString();
+
+                    ShowMenu(panel_ExerciseDetails);
+                }
+            }
+        }
+
         private void LoadExerciseButtons(string search, List<string> muscleGroups)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -297,6 +334,8 @@ namespace TrainSMARTApp
                     var groupConditions = string.Join(" OR ", muscleGroups.Select((g, i) => $"MuscleGroup = @Group{i}"));
                     query += $" AND ({groupConditions})";
                 }
+
+                query += "ORDER BY ExerciseName ASC";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
 
@@ -318,16 +357,18 @@ namespace TrainSMARTApp
 
                     while (reader.Read())
                     {
-                        int id = reader.GetInt32(0);
-                        string name = reader.GetString(1);
+                        int exerciseId = reader.GetInt32(0);
+                        string exerciseName = reader.GetString(1);
                         string muscleGroup = reader.IsDBNull(2) ? " " : reader.GetString(2);
 
                         cuiButton btn = new cuiButton
                         {
-                            Content = $"{name}\n({muscleGroup})",
+                            // TODO: Clean this up
+
+                            Content = $"{exerciseName}\n({muscleGroup})",
                             Width = 360,
                             Height = 85,
-                            Tag = id, // Store the ID in case you need it later
+                            Tag = exerciseId, // Store the ID in case you need it later
                             Font = new Font("SansSerif", 13.8f, FontStyle.Bold),
                             TextOffset = new Point(0, -10),
                             RightToLeft = RightToLeft.Yes,
@@ -361,11 +402,7 @@ namespace TrainSMARTApp
                         //    ForeColor = Color.White,
                         //};
 
-                        btn.Click += (s, e) =>
-                        {
-                            // TODO: Enhance the button click event to show more details
-                            MessageBox.Show($"Exercise: {name}\nMuscle Group: {muscleGroup}", "Exercise Info");
-                        };
+                        btn.Click += ShowExerciseDetails;
 
                         flowLayoutPanel_Exercises.Controls.Add(btn);
                     }
@@ -400,6 +437,6 @@ namespace TrainSMARTApp
             LoadExerciseButtons(searchText, selectedGroups);
         }
 
-
+        
     }
 }
