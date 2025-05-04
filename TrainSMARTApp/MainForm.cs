@@ -22,7 +22,7 @@ namespace TrainSMARTApp
         // sql connection string
         private string connectionString = "Data Source=LAPTOP-R9RSTS0G\\SQLEXPRESS;Initial Catalog=UserDB;Integrated Security=True;TrustServerCertificate=True;Encrypt=True";
 
-        private bool areFiltersShown = false;
+        private bool isFilterShown = false;
 
 
 
@@ -45,9 +45,33 @@ namespace TrainSMARTApp
             this.panel_Form_Title.MouseMove += this.MouseMove;
             this.panel_Form_Title.MouseUp += this.MouseUp;
 
+            LoadExerciseButtons(null, null);
+
+
+
+            
+
+            var filterCheckboxes = new List<cuiCheckbox>
+            {
+                cuiCheckbox_Filter_Chest,
+                cuiCheckbox_Filter_Back,
+                cuiCheckbox_Filter_Legs,
+                cuiCheckbox_Filter_Shoulders,
+                cuiCheckbox_Filter_Arms,
+                cuiCheckbox_Filter_Core,
+                cuiCheckbox_Filter_Olympic,
+                cuiCheckbox_Filter_Cardio,
+                cuiCheckbox_Filter_FullBody,
+                cuiCheckbox_Filter_Other,
+            };
+
+            foreach (var cb in filterCheckboxes)
+            {
+                cb.CheckedChanged += DynamicExerciseSearchAndFilter;
+            }
+
             cuiTextBox_Exercises_Search.ContentChanged += DynamicExerciseSearchAndFilter;
 
-            //LoadExerciseButtons();
 
         }
 
@@ -103,7 +127,7 @@ namespace TrainSMARTApp
         private void cuiButton_Menu_Exercises_Click(object sender, EventArgs e)
         {
             ShowMenu(panel_Menu_Exercises);
-            LoadExerciseButtons();
+            //LoadExerciseButtons(null, null);
         }
 
         private void cuiButton_Menu_Measure_Click(object sender, EventArgs e)
@@ -232,7 +256,10 @@ namespace TrainSMARTApp
             }
 
             if (panel == panel_Menu_Exercises)
+            {
                 ShowHideSearchBar(panel_Exercises_Search, false);
+                ShowHideFilter(cuiBorder_Exercises_Filter, flowLayoutPanel_Exercises, "true");
+            }
         }
 
         private void ShowMeasurementPanel()
@@ -243,17 +270,20 @@ namespace TrainSMARTApp
         private void ShowHideSearchBar(Panel panel, bool isShown)
         {
             panel.Width = (isShown) ? 321 : 0;
+            panel.BringToFront();
         }
 
-        private void ShowHideFilter(cuiBorder border, FlowLayoutPanel flowLayoutPanel)
+        private void ShowHideFilter(cuiBorder border, FlowLayoutPanel flowLayoutPanel, string isShown = "")
         {
-            areFiltersShown = !areFiltersShown;
-            border.Height = (areFiltersShown) ? 100 : 0;
-            flowLayoutPanel.Height = (areFiltersShown) ? 300 : 500;
+            if (!string.IsNullOrWhiteSpace(isShown))
+                isFilterShown = Convert.ToBoolean(isShown);
+            isFilterShown = !isFilterShown;
+            border.Height = (isFilterShown) ? 81 : 0;
+            //flowLayoutPanel.Height = (isFilterShown) ? 370 : 460;
 
         }
 
-        private void LoadExerciseButtons(string search = "", string muscleGroupFilter = "")
+        private void LoadExerciseButtons(string search, List<string> muscleGroups)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -262,16 +292,22 @@ namespace TrainSMARTApp
                 if (!string.IsNullOrEmpty(search))
                     query += " AND ExerciseName LIKE @Search";
 
-                if (!string.IsNullOrEmpty(muscleGroupFilter) && muscleGroupFilter != "All")
-                    query += " AND MuscleGroup = @MuscleGroup";
+                if (muscleGroups != null && muscleGroups.Count > 0)
+                {
+                    var groupConditions = string.Join(" OR ", muscleGroups.Select((g, i) => $"MuscleGroup = @Group{i}"));
+                    query += $" AND ({groupConditions})";
+                }
 
                 SqlCommand cmd = new SqlCommand(query, conn);
 
                 if (!string.IsNullOrEmpty(search))
                     cmd.Parameters.AddWithValue("@Search", $"%{search}%");
 
-                if (!string.IsNullOrEmpty(muscleGroupFilter) && muscleGroupFilter != "All")
-                    cmd.Parameters.AddWithValue("@MuscleGroup", muscleGroupFilter);
+                if (muscleGroups != null && muscleGroups.Count > 0)
+                {
+                    for (int i = 0; i < muscleGroups.Count; i++)
+                        cmd.Parameters.AddWithValue($"@Group{i}", muscleGroups[i]);
+                }
 
                 try
                 {
@@ -341,13 +377,29 @@ namespace TrainSMARTApp
                     MessageBox.Show("Error loading exercises: " + ex.Message);
                 }
             }
+
+            label_Exercises_ExercisesCount.Text = "(" + flowLayoutPanel_Exercises.Controls.Count.ToString() + ")";
         }
 
         private void DynamicExerciseSearchAndFilter(object sender, EventArgs e)
         {
             string searchText = cuiTextBox_Exercises_Search.Content;
-            string muscleGroupFilter = ""; // TODO: Get the selected muscle group filter
-            LoadExerciseButtons(searchText, muscleGroupFilter);
+            var selectedGroups = new List<string>();
+
+            if (cuiCheckbox_Filter_Chest.Checked) selectedGroups.Add("Chest");
+            if (cuiCheckbox_Filter_Back.Checked) selectedGroups.Add("Back");
+            if (cuiCheckbox_Filter_Legs.Checked) selectedGroups.Add("Legs");
+            if (cuiCheckbox_Filter_Shoulders.Checked) selectedGroups.Add("Shoulders");
+            if (cuiCheckbox_Filter_Arms.Checked) selectedGroups.Add("Arms");
+            if (cuiCheckbox_Filter_Core.Checked) selectedGroups.Add("Core");
+            if (cuiCheckbox_Filter_Olympic.Checked) selectedGroups.Add("Olympic");
+            if (cuiCheckbox_Filter_Cardio.Checked) selectedGroups.Add("Cardio");
+            if (cuiCheckbox_Filter_FullBody.Checked) selectedGroups.Add("Full body");
+            if (cuiCheckbox_Filter_Other.Checked) selectedGroups.Add("Other");
+
+            LoadExerciseButtons(searchText, selectedGroups);
         }
+
+
     }
 }
