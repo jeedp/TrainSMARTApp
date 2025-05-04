@@ -238,6 +238,20 @@
   <metadata name="cuiFormRounder.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
   </metadata>
+  <data name="cuiButton_ExerciseDetails_GoBack.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DAAACwwBP0AiyAAAAcZJREFUeF7t3LFOFFEUgGEqwc4AjRTQIRWNlZ32tvhEBB7AWMM7ELSFRp+AB5Cg
+        hdDTSH5ykzExZ1iYGe+dnMT/S6bbe4vzJzuzu9m7tCRJkiRJkiRJkiRJkiRJkv4dsAEcAzfALXAOvIuv
+        0wyAV8AP+n4DH+Lr1VAX42cs8Zdr4HlcpwYGxPjDt67WRsQo3sf1qmhkjHIfeRn3UCUjYxQf4x6qZEKM
+        E+BZ3EcVANsLHm0X+QysxH1UgTESMUYixkjEGIkYI5GJMZbjPqrAGIkYIxFjJGKMRIyRCLAz8ovCC+AN
+        8Npr4bULrMZZP2lCDA13B3wBtuLcHwSsA5dxF1VXZrwe598DHMaVauYgzr8H+BZXqZmvcf49BpnVoCAH
+        cZWa2Y/z7/GmPpvvwFqc/4N87G2qPPaeAptx7o+aEMUPhk9f5YPhizjrwSZ+deIPUS0ZJSGjJGSUhIyS
+        kFESMkpCE6KU3wCM0pJREjJKQkZJyCgJ+Ze2hCZE+RT3UGUjo5S/RW/EPVTZyCgeHDCHEVHexrVqZECU
+        Xx4+M7MuylUs0d0/9uLrNYPuALOj7jimcoDZmacASZIkSZIkSZIkSZIkSZL0n7kHq5w1YSOR/coAAAAA
+        SUVORK5CYII=
+</value>
+  </data>
   <data name="cuiButton_Workout_AddTemplate.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL

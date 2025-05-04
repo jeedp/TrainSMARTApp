@@ -73,7 +73,8 @@ CREATE TABLE dbo.Exercises
 (
     ExerciseID          INT                     IDENTITY(1,1) PRIMARY KEY,
     ExerciseName        NVARCHAR(100)           NOT NULL UNIQUE,
-    MuscleGroup         NVARCHAR(50)    -- e.g., Chest, Legs
+    MuscleGroup         NVARCHAR(50),    -- e.g., Chest, Legs
+    Instructions        NVARCHAR(MAX)
 );
 GO
 

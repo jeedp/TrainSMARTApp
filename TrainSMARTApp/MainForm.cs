@@ -211,7 +211,7 @@ namespace TrainSMARTApp
 
 
 
-        // HELPER METHODS 
+        // METHODS & FUNCTIONS
 
         // for dragging the form
         private new void MouseDown(object sender, MouseEventArgs e)
@@ -244,7 +244,7 @@ namespace TrainSMARTApp
                 panel_Menu_Workout,
                 panel_Menu_Exercises,
                 panel_Menu_Measure,
-                panel_Measurement_Menu,
+                panel_Measurement,
 
                 panel_WorkoutCreation,
             };
@@ -269,7 +269,7 @@ namespace TrainSMARTApp
 
         private void ShowHideSearchBar(Panel panel, bool isShown)
         {
-            panel.Width = (isShown) ? 321 : 0;
+            panel.Width = (isShown) ? 321 : 0;  // width in design is 441
             panel.BringToFront();
         }
 
@@ -278,9 +278,9 @@ namespace TrainSMARTApp
             if (!string.IsNullOrWhiteSpace(isShown))
                 isFilterShown = Convert.ToBoolean(isShown);
             isFilterShown = !isFilterShown;
-            border.Height = (isFilterShown) ? 81 : 0;
+            border.Height = (isFilterShown) ? 75 : 0;   // height in design is 93
+            border.BringToFront();
             //flowLayoutPanel.Height = (isFilterShown) ? 370 : 460;
-
         }
 
         private void LoadExerciseButtons(string search, List<string> muscleGroups)
