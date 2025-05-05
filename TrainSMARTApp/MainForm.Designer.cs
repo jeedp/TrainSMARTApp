@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel_Menus = new System.Windows.Forms.Panel();
             this.cuiButton_Menu_Measure = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Menu_Exercises = new CuoreUI.Controls.cuiButton();
@@ -952,7 +952,7 @@
             this.panel_WorkoutCreation.Location = new System.Drawing.Point(0, 35);
             this.panel_WorkoutCreation.Margin = new System.Windows.Forms.Padding(0);
             this.panel_WorkoutCreation.Name = "panel_WorkoutCreation";
-            this.panel_WorkoutCreation.Size = new System.Drawing.Size(513, 661);
+            this.panel_WorkoutCreation.Size = new System.Drawing.Size(513, 0);
             this.panel_WorkoutCreation.TabIndex = 17;
             // 
             // panel_Menu_Profile
@@ -1137,16 +1137,16 @@
             this.chart_Profile_WorkoutCount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.chart_Profile_WorkoutCount.BorderlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.chart_Profile_WorkoutCount.BorderSkin.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
-            chartArea3.BackColor = System.Drawing.Color.Transparent;
-            chartArea3.BorderWidth = 0;
-            chartArea3.Name = "ChartArea1";
-            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea3);
+            chartArea6.BackColor = System.Drawing.Color.Transparent;
+            chartArea6.BorderWidth = 0;
+            chartArea6.Name = "ChartArea1";
+            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea6);
             this.chart_Profile_WorkoutCount.Location = new System.Drawing.Point(51, 17);
             this.chart_Profile_WorkoutCount.Name = "chart_Profile_WorkoutCount";
             this.chart_Profile_WorkoutCount.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series3.ChartArea = "ChartArea1";
-            series3.Name = "Series1";
-            this.chart_Profile_WorkoutCount.Series.Add(series3);
+            series6.ChartArea = "ChartArea1";
+            series6.Name = "Series1";
+            this.chart_Profile_WorkoutCount.Series.Add(series6);
             this.chart_Profile_WorkoutCount.Size = new System.Drawing.Size(400, 300);
             this.chart_Profile_WorkoutCount.TabIndex = 0;
             this.chart_Profile_WorkoutCount.Text = "chart1";
@@ -2927,10 +2927,10 @@
             this.panel_ExerciseDetails.Controls.Add(this.panel_ExerciseDetails_Name);
             this.panel_ExerciseDetails.Controls.Add(this.flowLayoutPanel_ExerciseDetails);
             this.panel_ExerciseDetails.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel_ExerciseDetails.Location = new System.Drawing.Point(0, 696);
+            this.panel_ExerciseDetails.Location = new System.Drawing.Point(0, 35);
             this.panel_ExerciseDetails.Margin = new System.Windows.Forms.Padding(0);
             this.panel_ExerciseDetails.Name = "panel_ExerciseDetails";
-            this.panel_ExerciseDetails.Size = new System.Drawing.Size(513, 0);
+            this.panel_ExerciseDetails.Size = new System.Drawing.Size(513, 661);
             this.panel_ExerciseDetails.TabIndex = 23;
             // 
             // cuiGradientBorder_ExerciseDetails
@@ -3246,12 +3246,12 @@
             this.label_ExerciseDetails_Instruction.AutoSize = true;
             this.label_ExerciseDetails_Instruction.BackColor = System.Drawing.Color.Transparent;
             this.label_ExerciseDetails_Instruction.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_ExerciseDetails_Instruction.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label_ExerciseDetails_Instruction.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label_ExerciseDetails_Instruction.ForeColor = System.Drawing.Color.White;
-            this.label_ExerciseDetails_Instruction.Location = new System.Drawing.Point(25, 22);
-            this.label_ExerciseDetails_Instruction.Margin = new System.Windows.Forms.Padding(25, 22, 25, 22);
+            this.label_ExerciseDetails_Instruction.Location = new System.Drawing.Point(25, 20);
+            this.label_ExerciseDetails_Instruction.Margin = new System.Windows.Forms.Padding(25, 20, 25, 5);
             this.label_ExerciseDetails_Instruction.Name = "label_ExerciseDetails_Instruction";
-            this.label_ExerciseDetails_Instruction.Size = new System.Drawing.Size(125, 23);
+            this.label_ExerciseDetails_Instruction.Size = new System.Drawing.Size(144, 27);
             this.label_ExerciseDetails_Instruction.TabIndex = 14;
             this.label_ExerciseDetails_Instruction.Text = "Instructions";
             this.label_ExerciseDetails_Instruction.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -3262,8 +3262,8 @@
             this.textBox_ExerciseDetails_Instructions.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox_ExerciseDetails_Instructions.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.textBox_ExerciseDetails_Instructions.ForeColor = System.Drawing.Color.White;
-            this.textBox_ExerciseDetails_Instructions.Location = new System.Drawing.Point(25, 70);
-            this.textBox_ExerciseDetails_Instructions.Margin = new System.Windows.Forms.Padding(25, 3, 3, 0);
+            this.textBox_ExerciseDetails_Instructions.Location = new System.Drawing.Point(25, 52);
+            this.textBox_ExerciseDetails_Instructions.Margin = new System.Windows.Forms.Padding(25, 0, 3, 0);
             this.textBox_ExerciseDetails_Instructions.Multiline = true;
             this.textBox_ExerciseDetails_Instructions.Name = "textBox_ExerciseDetails_Instructions";
             this.textBox_ExerciseDetails_Instructions.ReadOnly = true;
