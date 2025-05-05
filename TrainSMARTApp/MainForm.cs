@@ -175,7 +175,8 @@ namespace TrainSMARTApp
 
         private void cuiButton_WorkoutCreation_AddExercise_Click(object sender, EventArgs e)
         {
-
+            LoadExerciseSelectionButtons();
+            ShowMenu(panel_AddExercises);
         }
 
 
@@ -257,6 +258,7 @@ namespace TrainSMARTApp
 
                 panel_Menu_Workout,
                 panel_WorkoutCreation,
+                panel_AddExercises,
 
                 panel_Menu_Exercises,
                 panel_ExerciseDetails,
@@ -268,6 +270,7 @@ namespace TrainSMARTApp
             var longPanels = new HashSet<Panel>
             {
                 panel_WorkoutCreation,
+                panel_AddExercises,
                 panel_ExerciseDetails,
             };
 
@@ -448,6 +451,54 @@ namespace TrainSMARTApp
             LoadExerciseButtons(searchText, selectedGroups);
         }
 
-        
+        List<int> selectedExerciseIDs = new List<int>();
+
+        void LoadExerciseSelectionButtons()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                flowLayoutPanel_AddExercises.Controls.Clear();
+
+                string query = "SELECT ExerciseID, ExerciseName FROM Exercises ORDER BY ExerciseName ASC";
+                SqlCommand cmd = new SqlCommand(query, conn);
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adapter.Fill(dt);
+
+                foreach (DataRow row in dt.Rows)
+                {
+                    int id = Convert.ToInt32(row["ExerciseID"]);
+                    string name = row["ExerciseName"].ToString();
+
+                    Button btn = new Button();
+                    btn.Text = name;
+                    btn.Tag = id; // store ExerciseID
+                    btn.AutoSize = true;
+                    btn.BackColor = Color.LightGray;
+                    btn.Click += ExerciseSelectToggle_Click;
+
+                    flowLayoutPanel_AddExercises.Controls.Add(btn);
+                }
+            }
+        }
+
+        private void ExerciseSelectToggle_Click(object sender, EventArgs e)
+        {
+            Button btn = sender as Button;
+            int id = (int)btn.Tag;
+
+            if (selectedExerciseIDs.Contains(id))
+            {
+                selectedExerciseIDs.Remove(id);
+                btn.BackColor = Color.LightGray;
+            }
+            else
+            {
+                selectedExerciseIDs.Add(id);
+                btn.BackColor = Color.LightGreen;
+            }
+        }
+
+
     }
 }
