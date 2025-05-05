@@ -179,16 +179,16 @@ VALUES
 ('Strict Military Press (Barbell)', 'Shoulders'),
 
     -- Biceps
-('Bicep Curl (Barbell)', 'Biceps'),
-('Hammer Curl (Dumbbell)', 'Biceps'),
-('Preacher Curl (Machine)', 'Biceps'),
-('Concentration Curl (Dumbbell)', 'Biceps'),
+('Bicep Curl (Barbell)', 'Arms'),
+('Hammer Curl (Dumbbell)', 'Arms'),
+('Preacher Curl (Machine)', 'Arms'),
+('Concentration Curl (Dumbbell)', 'Arms'),
 
     -- Triceps
-('Dips', 'Triceps'),
-('Skullcrusher (Barbell)', 'Triceps'),
-('Triceps Pushdown (Cable)', 'Triceps'),
-('Overhead Triceps Extension (Dumbbell)', 'Triceps'),
+('Dips', 'Arms'),
+('Skullcrusher (Barbell)', 'Arms'),
+('Triceps Pushdown (Cable)', 'Arms'),
+('Overhead Triceps Extension (Dumbbell)', 'Arms'),
 
     -- Core
 ('Plank', 'Core'),

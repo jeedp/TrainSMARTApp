@@ -260,10 +260,16 @@ namespace TrainSMARTApp
                 panel_Measurement,
             };
 
+            var longPanels = new HashSet<Panel>
+            {
+                panel_WorkoutCreation,
+                panel_ExerciseDetails,
+            };
+
             foreach (var pnl in panels)
             {
                 pnl.Visible = pnl == panel;
-                pnl.Height = (pnl == panel) ? (pnl == panel_WorkoutCreation) ? 611 : 537 : 0;
+                pnl.Height = (pnl == panel) ? (longPanels.Contains(pnl)) ? 611 : 537 : 0;
             }
 
             if (panel == panel_Menu_Exercises)
