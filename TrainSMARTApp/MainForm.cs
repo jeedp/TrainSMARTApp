@@ -173,6 +173,11 @@ namespace TrainSMARTApp
 
         }
 
+        private void cuiButton_WorkoutCreation_AddExercise_Click(object sender, EventArgs e)
+        {
+
+        }
+
 
 
 
@@ -341,7 +346,7 @@ namespace TrainSMARTApp
                     query += $" AND ({groupConditions})";
                 }
 
-                query += "ORDER BY ExerciseName ASC";
+                query += " ORDER BY ExerciseName ASC";
 
                 SqlCommand cmd = new SqlCommand(query, conn);
 
