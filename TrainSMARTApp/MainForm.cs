@@ -25,6 +25,8 @@ namespace TrainSMARTApp
         private bool isFilterShown;
         private bool isAddingExercises;
 
+        List<int> selectedExerciseIDs = new List<int>();
+
 
 
         public MainForm()
@@ -153,8 +155,8 @@ namespace TrainSMARTApp
 
         private void cuiButton_Workout_AddTemplate_Click(object sender, EventArgs e)
         {
-            ShowMenu(panel_WorkoutCreation);
             isAddingExercises = false;
+            ShowMenu(panel_WorkoutCreation);
         }
 
 
@@ -177,10 +179,10 @@ namespace TrainSMARTApp
 
         private void cuiButton_WorkoutCreation_AddExercise_Click(object sender, EventArgs e)
         {
+            isAddingExercises = true;
             ShowMenu(panel_Menu_Exercises);
             ShowHideSearchBar(panel_Exercises_Search, false);
             LoadExerciseButtons(null, null);
-            isAddingExercises = true;
         }
 
 
@@ -279,20 +281,15 @@ namespace TrainSMARTApp
             foreach (var pnl in panels)
             {
                 pnl.Visible = pnl == panel;
-                pnl.Height = (pnl == panel) ? (longPanels.Contains(pnl)) ? 611 : 537 : 0;
+                pnl.Height = (pnl == panel) ? (longPanels.Contains(pnl) || (isAddingExercises && pnl == panel_Menu_Exercises)) ? 611 : 537 : 0;
 
             }
-            //panel_Menus.Height = (isAddingExercises) ? 0 : 68;
 
             if (panel == panel_Menu_Exercises)
             {
                 ShowHideSearchBar(panel_Exercises_Search, false);
                 ShowHideFilter(cuiBorder_Exercises_Filter, flowLayoutPanel_Exercises, "true");
             }
-
-
-
-
 
             var controls = new List<Control>
             {
@@ -307,9 +304,9 @@ namespace TrainSMARTApp
             foreach (var cntrl in controls)
             {
                 if (cntrl.Name.Contains("Add"))
-                    cntrl.Visible = !isAddingExercises;
-                else
                     cntrl.Visible = isAddingExercises;
+                else
+                    cntrl.Visible = !isAddingExercises;
                 cntrl.BringToFront();
             }
         }
@@ -407,24 +404,22 @@ namespace TrainSMARTApp
 
                         var btn = new cuiButton
                         {
-                            // TODO: Clean this up
+                            Content           = $"{exerciseName}\n({muscleGroup})",
+                            Width             = 360,
+                            Height            = 85,
+                            Tag               = exerciseId, 
+                            Font              = new Font("SansSerif", 13.8f, FontStyle.Bold),
+                            TextOffset        = new Point(0, -10),
+                            Margin            = new Padding(3, 0, 3, 0),
 
-                            Content = $"{exerciseName}\n({muscleGroup})",
-                            Width = 360,
-                            Height = 85,
-                            Tag = exerciseId, // Store the ID in case you need it later
-                            Font = new Font("SansSerif", 13.8f, FontStyle.Bold),
-                            TextOffset = new Point(0, -10),
-                            RightToLeft = RightToLeft.Yes,
-                            Margin = new Padding(3, 0, 3, 0),
-                            BackColor = Color.Transparent,
-                            ForeColor = Color.White,
-                            HoverBackground = Color.Transparent,
-                            HoverForeColor = Color.DimGray,
-                            NormalBackground = Color.Transparent,
-                            NormalForeColor = Color.White,
+                            BackColor         = Color.Transparent,
+                            ForeColor         = Color.White,
+                            HoverBackground   = Color.Transparent,
+                            HoverForeColor    = Color.DimGray,
+                            NormalBackground  = Color.Transparent,
+                            NormalForeColor   = Color.White,
                             PressedBackground = Color.FromArgb(84, 91, 94),
-                            PressedForeColor = Color.White,
+                            PressedForeColor  = Color.White,
                         };
 
 
@@ -486,37 +481,6 @@ namespace TrainSMARTApp
             LoadExerciseButtons(searchText, selectedGroups);
         }
 
-        List<int> selectedExerciseIDs = new List<int>();
-
-        void LoadExerciseSelectionButtons()
-        {
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                //flowLayoutPanel_AddExercises.Controls.Clear();
-
-                string query = "SELECT ExerciseID, ExerciseName FROM Exercises ORDER BY ExerciseName ASC";
-                SqlCommand cmd = new SqlCommand(query, conn);
-                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                adapter.Fill(dt);
-
-                foreach (DataRow row in dt.Rows)
-                {
-                    int id = Convert.ToInt32(row["ExerciseID"]);
-                    string name = row["ExerciseName"].ToString();
-
-                    Button btn = new Button();
-                    btn.Text = name;
-                    btn.Tag = id; // store ExerciseID
-                    btn.AutoSize = true;
-                    btn.BackColor = Color.LightGray;
-                    btn.Click += ExerciseSelectToggle;
-
-                    //flowLayoutPanel_AddExercises.Controls.Add(btn);
-                }
-            }
-        }
-
         private void ExerciseSelectToggle(object sender, EventArgs e)
         {
             var btn = sender as cuiButton;
@@ -534,6 +498,7 @@ namespace TrainSMARTApp
                 btn.NormalBackground = Color.FromArgb(44, 79, 104);
                 btn.HoverBackground = Color.FromArgb(44, 79, 104);
             }
+            label_AddExercises_Count.Text = "(" + selectedExerciseIDs.Count + ")";
         }
 
 
