@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel_Menus = new System.Windows.Forms.Panel();
             this.cuiButton_Menu_Measure = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Menu_Exercises = new CuoreUI.Controls.cuiButton();
@@ -98,7 +98,7 @@
             this.cuiCheckbox_Filter_Chest = new CuoreUI.Controls.cuiCheckbox();
             this.cuiGradientBorder_Exercises = new CuoreUI.Controls.cuiGradientBorder();
             this.panel_Exercises_Title = new System.Windows.Forms.Panel();
-            this.label_Exercises_ExercisesCount = new System.Windows.Forms.Label();
+            this.label_Exercises_Count = new System.Windows.Forms.Label();
             this.panel_Exercises_Search = new System.Windows.Forms.Panel();
             this.cuiTextBox_Exercises_Search = new CuoreUI.Controls.cuiTextBox2();
             this.cuiButton_Exercises_GoBack = new CuoreUI.Controls.cuiButton();
@@ -165,14 +165,9 @@
             this.flowLayoutPanel_ExerciseDetails = new System.Windows.Forms.FlowLayoutPanel();
             this.label_ExerciseDetails_Instruction = new System.Windows.Forms.Label();
             this.textBox_ExerciseDetails_Instructions = new System.Windows.Forms.TextBox();
-            this.panel_AddExercises = new System.Windows.Forms.Panel();
-            this.cuiGradientBorder_AddExercises = new CuoreUI.Controls.cuiGradientBorder();
-            this.panel_AddExercises_Title = new System.Windows.Forms.Panel();
             this.cuiButton_AddExercises_Exit = new CuoreUI.Controls.cuiButton();
+            this.label_AddExercises_Count = new System.Windows.Forms.Label();
             this.label_AddExercises_Title = new System.Windows.Forms.Label();
-            this.flowLayoutPanel_AddExercises = new System.Windows.Forms.FlowLayoutPanel();
-            this.cuiButton_AddExercises_Filter = new CuoreUI.Controls.cuiButton();
-            this.cuiButton_AddExercises_Search = new CuoreUI.Controls.cuiButton();
             this.panel_Menus.SuspendLayout();
             this.panel_Form_Title.SuspendLayout();
             this.panel_Measurement.SuspendLayout();
@@ -204,8 +199,6 @@
             this.panel_ExerciseDetails_Buttons.SuspendLayout();
             this.panel_ExerciseDetails_Name.SuspendLayout();
             this.flowLayoutPanel_ExerciseDetails.SuspendLayout();
-            this.panel_AddExercises.SuspendLayout();
-            this.panel_AddExercises_Title.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_Menus
@@ -1147,16 +1140,16 @@
             this.chart_Profile_WorkoutCount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.chart_Profile_WorkoutCount.BorderlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.chart_Profile_WorkoutCount.BorderSkin.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
-            chartArea3.BackColor = System.Drawing.Color.Transparent;
-            chartArea3.BorderWidth = 0;
-            chartArea3.Name = "ChartArea1";
-            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea3);
+            chartArea4.BackColor = System.Drawing.Color.Transparent;
+            chartArea4.BorderWidth = 0;
+            chartArea4.Name = "ChartArea1";
+            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea4);
             this.chart_Profile_WorkoutCount.Location = new System.Drawing.Point(51, 17);
             this.chart_Profile_WorkoutCount.Name = "chart_Profile_WorkoutCount";
             this.chart_Profile_WorkoutCount.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series3.ChartArea = "ChartArea1";
-            series3.Name = "Series1";
-            this.chart_Profile_WorkoutCount.Series.Add(series3);
+            series4.ChartArea = "ChartArea1";
+            series4.Name = "Series1";
+            this.chart_Profile_WorkoutCount.Series.Add(series4);
             this.chart_Profile_WorkoutCount.Size = new System.Drawing.Size(400, 300);
             this.chart_Profile_WorkoutCount.TabIndex = 0;
             this.chart_Profile_WorkoutCount.Text = "chart1";
@@ -1268,10 +1261,10 @@
             this.panel_Menu_Exercises.Controls.Add(this.panel_Exercises_Title);
             this.panel_Menu_Exercises.Controls.Add(this.flowLayoutPanel_Exercises);
             this.panel_Menu_Exercises.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel_Menu_Exercises.Location = new System.Drawing.Point(0, 696);
+            this.panel_Menu_Exercises.Location = new System.Drawing.Point(0, 35);
             this.panel_Menu_Exercises.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Menu_Exercises.Name = "panel_Menu_Exercises";
-            this.panel_Menu_Exercises.Size = new System.Drawing.Size(513, 0);
+            this.panel_Menu_Exercises.Size = new System.Drawing.Size(513, 661);
             this.panel_Menu_Exercises.TabIndex = 20;
             // 
             // cuiBorder_Exercises_Filter
@@ -1551,7 +1544,10 @@
             // panel_Exercises_Title
             // 
             this.panel_Exercises_Title.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(51)))), ((int)(((byte)(55)))));
-            this.panel_Exercises_Title.Controls.Add(this.label_Exercises_ExercisesCount);
+            this.panel_Exercises_Title.Controls.Add(this.label_AddExercises_Count);
+            this.panel_Exercises_Title.Controls.Add(this.label_AddExercises_Title);
+            this.panel_Exercises_Title.Controls.Add(this.cuiButton_AddExercises_Exit);
+            this.panel_Exercises_Title.Controls.Add(this.label_Exercises_Count);
             this.panel_Exercises_Title.Controls.Add(this.panel_Exercises_Search);
             this.panel_Exercises_Title.Controls.Add(this.cuiButton_Exercises_Search);
             this.panel_Exercises_Title.Controls.Add(this.cuiButton_Exercises_Filter);
@@ -1562,19 +1558,20 @@
             this.panel_Exercises_Title.Size = new System.Drawing.Size(513, 80);
             this.panel_Exercises_Title.TabIndex = 7;
             // 
-            // label_Exercises_ExercisesCount
+            // label_Exercises_Count
             // 
-            this.label_Exercises_ExercisesCount.AutoSize = true;
-            this.label_Exercises_ExercisesCount.BackColor = System.Drawing.Color.Transparent;
-            this.label_Exercises_ExercisesCount.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Exercises_ExercisesCount.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label_Exercises_ExercisesCount.ForeColor = System.Drawing.Color.White;
-            this.label_Exercises_ExercisesCount.Location = new System.Drawing.Point(170, 27);
-            this.label_Exercises_ExercisesCount.Name = "label_Exercises_ExercisesCount";
-            this.label_Exercises_ExercisesCount.Size = new System.Drawing.Size(67, 27);
-            this.label_Exercises_ExercisesCount.TabIndex = 12;
-            this.label_Exercises_ExercisesCount.Text = "(200)";
-            this.label_Exercises_ExercisesCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Exercises_Count.AutoSize = true;
+            this.label_Exercises_Count.BackColor = System.Drawing.Color.Transparent;
+            this.label_Exercises_Count.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_Exercises_Count.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label_Exercises_Count.ForeColor = System.Drawing.Color.White;
+            this.label_Exercises_Count.Location = new System.Drawing.Point(170, 27);
+            this.label_Exercises_Count.Name = "label_Exercises_Count";
+            this.label_Exercises_Count.Size = new System.Drawing.Size(67, 27);
+            this.label_Exercises_Count.TabIndex = 12;
+            this.label_Exercises_Count.Text = "(200)";
+            this.label_Exercises_Count.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Exercises_Count.Visible = false;
             // 
             // panel_Exercises_Search
             // 
@@ -1741,12 +1738,13 @@
             this.label_Exercises_Title.TabIndex = 7;
             this.label_Exercises_Title.Text = "Exercises";
             this.label_Exercises_Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_Exercises_Title.Visible = false;
             // 
             // flowLayoutPanel_Exercises
             // 
             this.flowLayoutPanel_Exercises.AutoScroll = true;
             this.flowLayoutPanel_Exercises.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel_Exercises.Location = new System.Drawing.Point(0, -566);
+            this.flowLayoutPanel_Exercises.Location = new System.Drawing.Point(0, 95);
             this.flowLayoutPanel_Exercises.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel_Exercises.Name = "flowLayoutPanel_Exercises";
             this.flowLayoutPanel_Exercises.Size = new System.Drawing.Size(513, 566);
@@ -1758,7 +1756,7 @@
             this.panel_Menu_Workout.Controls.Add(this.panel_Workout_Title);
             this.panel_Menu_Workout.Controls.Add(this.flowLayoutPanel_Workout);
             this.panel_Menu_Workout.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel_Menu_Workout.Location = new System.Drawing.Point(0, 696);
+            this.panel_Menu_Workout.Location = new System.Drawing.Point(0, 35);
             this.panel_Menu_Workout.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Menu_Workout.Name = "panel_Menu_Workout";
             this.panel_Menu_Workout.Size = new System.Drawing.Size(513, 0);
@@ -2158,7 +2156,7 @@
             this.panel_Menu_Measure.Controls.Add(this.panel_Measure_Title);
             this.panel_Menu_Measure.Controls.Add(this.flowLayoutPanel_Measure);
             this.panel_Menu_Measure.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel_Menu_Measure.Location = new System.Drawing.Point(0, 696);
+            this.panel_Menu_Measure.Location = new System.Drawing.Point(0, 35);
             this.panel_Menu_Measure.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Menu_Measure.Name = "panel_Menu_Measure";
             this.panel_Menu_Measure.Size = new System.Drawing.Size(513, 0);
@@ -3281,47 +3279,6 @@
             this.textBox_ExerciseDetails_Instructions.TabIndex = 13;
             this.textBox_ExerciseDetails_Instructions.Text = "@";
             // 
-            // panel_AddExercises
-            // 
-            this.panel_AddExercises.Controls.Add(this.cuiGradientBorder_AddExercises);
-            this.panel_AddExercises.Controls.Add(this.panel_AddExercises_Title);
-            this.panel_AddExercises.Controls.Add(this.flowLayoutPanel_AddExercises);
-            this.panel_AddExercises.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel_AddExercises.Location = new System.Drawing.Point(0, 35);
-            this.panel_AddExercises.Margin = new System.Windows.Forms.Padding(0);
-            this.panel_AddExercises.Name = "panel_AddExercises";
-            this.panel_AddExercises.Size = new System.Drawing.Size(513, 661);
-            this.panel_AddExercises.TabIndex = 24;
-            // 
-            // cuiGradientBorder_AddExercises
-            // 
-            this.cuiGradientBorder_AddExercises.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cuiGradientBorder_AddExercises.GradientAngle = -90F;
-            this.cuiGradientBorder_AddExercises.Location = new System.Drawing.Point(0, 80);
-            this.cuiGradientBorder_AddExercises.Margin = new System.Windows.Forms.Padding(0);
-            this.cuiGradientBorder_AddExercises.Name = "cuiGradientBorder_AddExercises";
-            this.cuiGradientBorder_AddExercises.OutlineThickness = 0F;
-            this.cuiGradientBorder_AddExercises.PanelColor1 = System.Drawing.Color.Transparent;
-            this.cuiGradientBorder_AddExercises.PanelColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.cuiGradientBorder_AddExercises.PanelOutlineColor1 = System.Drawing.Color.Transparent;
-            this.cuiGradientBorder_AddExercises.PanelOutlineColor2 = System.Drawing.Color.Transparent;
-            this.cuiGradientBorder_AddExercises.Rounding = new System.Windows.Forms.Padding(8);
-            this.cuiGradientBorder_AddExercises.Size = new System.Drawing.Size(513, 10);
-            this.cuiGradientBorder_AddExercises.TabIndex = 8;
-            // 
-            // panel_AddExercises_Title
-            // 
-            this.panel_AddExercises_Title.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(51)))), ((int)(((byte)(55)))));
-            this.panel_AddExercises_Title.Controls.Add(this.cuiButton_AddExercises_Search);
-            this.panel_AddExercises_Title.Controls.Add(this.cuiButton_AddExercises_Filter);
-            this.panel_AddExercises_Title.Controls.Add(this.cuiButton_AddExercises_Exit);
-            this.panel_AddExercises_Title.Controls.Add(this.label_AddExercises_Title);
-            this.panel_AddExercises_Title.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel_AddExercises_Title.Location = new System.Drawing.Point(0, 0);
-            this.panel_AddExercises_Title.Name = "panel_AddExercises_Title";
-            this.panel_AddExercises_Title.Size = new System.Drawing.Size(513, 80);
-            this.panel_AddExercises_Title.TabIndex = 7;
-            // 
             // cuiButton_AddExercises_Exit
             // 
             this.cuiButton_AddExercises_Exit.CheckButton = false;
@@ -3341,7 +3298,7 @@
             this.cuiButton_AddExercises_Exit.HoverOutline = System.Drawing.Color.Empty;
             this.cuiButton_AddExercises_Exit.Image = ((System.Drawing.Image)(resources.GetObject("cuiButton_AddExercises_Exit.Image")));
             this.cuiButton_AddExercises_Exit.ImageAutoCenter = true;
-            this.cuiButton_AddExercises_Exit.ImageExpand = new System.Drawing.Point(4, 4);
+            this.cuiButton_AddExercises_Exit.ImageExpand = new System.Drawing.Point(3, 3);
             this.cuiButton_AddExercises_Exit.ImageOffset = new System.Drawing.Point(4, 0);
             this.cuiButton_AddExercises_Exit.Location = new System.Drawing.Point(0, 0);
             this.cuiButton_AddExercises_Exit.Name = "cuiButton_AddExercises_Exit";
@@ -3356,9 +3313,24 @@
             this.cuiButton_AddExercises_Exit.PressedOutline = System.Drawing.Color.Empty;
             this.cuiButton_AddExercises_Exit.Rounding = new System.Windows.Forms.Padding(8);
             this.cuiButton_AddExercises_Exit.Size = new System.Drawing.Size(80, 80);
-            this.cuiButton_AddExercises_Exit.TabIndex = 16;
+            this.cuiButton_AddExercises_Exit.TabIndex = 17;
             this.cuiButton_AddExercises_Exit.TextOffset = new System.Drawing.Point(0, 0);
-            this.cuiButton_AddExercises_Exit.Click += new System.EventHandler(this.cuiButton_WorkoutCreation_AddExercise_Click);
+            this.cuiButton_AddExercises_Exit.Click += new System.EventHandler(this.cuiButton_Workout_AddTemplate_Click);
+            // 
+            // label_AddExercises_Count
+            // 
+            this.label_AddExercises_Count.AutoSize = true;
+            this.label_AddExercises_Count.BackColor = System.Drawing.Color.Transparent;
+            this.label_AddExercises_Count.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_AddExercises_Count.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label_AddExercises_Count.ForeColor = System.Drawing.Color.White;
+            this.label_AddExercises_Count.Location = new System.Drawing.Point(277, 27);
+            this.label_AddExercises_Count.Name = "label_AddExercises_Count";
+            this.label_AddExercises_Count.Size = new System.Drawing.Size(67, 27);
+            this.label_AddExercises_Count.TabIndex = 19;
+            this.label_AddExercises_Count.Text = "(200)";
+            this.label_AddExercises_Count.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_AddExercises_Count.Visible = false;
             // 
             // label_AddExercises_Title
             // 
@@ -3367,97 +3339,13 @@
             this.label_AddExercises_Title.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label_AddExercises_Title.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label_AddExercises_Title.ForeColor = System.Drawing.Color.White;
-            this.label_AddExercises_Title.Location = new System.Drawing.Point(112, 27);
+            this.label_AddExercises_Title.Location = new System.Drawing.Point(99, 27);
             this.label_AddExercises_Title.Name = "label_AddExercises_Title";
             this.label_AddExercises_Title.Size = new System.Drawing.Size(159, 27);
-            this.label_AddExercises_Title.TabIndex = 7;
+            this.label_AddExercises_Title.TabIndex = 18;
             this.label_AddExercises_Title.Text = "Add exercises";
             this.label_AddExercises_Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // flowLayoutPanel_AddExercises
-            // 
-            this.flowLayoutPanel_AddExercises.AutoScroll = true;
-            this.flowLayoutPanel_AddExercises.Cursor = System.Windows.Forms.Cursors.Default;
-            this.flowLayoutPanel_AddExercises.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flowLayoutPanel_AddExercises.Location = new System.Drawing.Point(0, 90);
-            this.flowLayoutPanel_AddExercises.Margin = new System.Windows.Forms.Padding(0);
-            this.flowLayoutPanel_AddExercises.Name = "flowLayoutPanel_AddExercises";
-            this.flowLayoutPanel_AddExercises.Size = new System.Drawing.Size(513, 663);
-            this.flowLayoutPanel_AddExercises.TabIndex = 6;
-            // 
-            // cuiButton_AddExercises_Filter
-            // 
-            this.cuiButton_AddExercises_Filter.CheckButton = false;
-            this.cuiButton_AddExercises_Filter.Checked = false;
-            this.cuiButton_AddExercises_Filter.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_AddExercises_Filter.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_AddExercises_Filter.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_AddExercises_Filter.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_AddExercises_Filter.Content = "";
-            this.cuiButton_AddExercises_Filter.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.cuiButton_AddExercises_Filter.Dock = System.Windows.Forms.DockStyle.Right;
-            this.cuiButton_AddExercises_Filter.Font = new System.Drawing.Font("SansSerif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cuiButton_AddExercises_Filter.ForeColor = System.Drawing.Color.White;
-            this.cuiButton_AddExercises_Filter.HoverBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_AddExercises_Filter.HoveredImageTint = System.Drawing.Color.White;
-            this.cuiButton_AddExercises_Filter.HoverForeColor = System.Drawing.Color.White;
-            this.cuiButton_AddExercises_Filter.HoverOutline = System.Drawing.Color.Empty;
-            this.cuiButton_AddExercises_Filter.Image = ((System.Drawing.Image)(resources.GetObject("cuiButton_AddExercises_Filter.Image")));
-            this.cuiButton_AddExercises_Filter.ImageAutoCenter = true;
-            this.cuiButton_AddExercises_Filter.ImageExpand = new System.Drawing.Point(4, 4);
-            this.cuiButton_AddExercises_Filter.ImageOffset = new System.Drawing.Point(-1, 0);
-            this.cuiButton_AddExercises_Filter.Location = new System.Drawing.Point(441, 0);
-            this.cuiButton_AddExercises_Filter.Name = "cuiButton_AddExercises_Filter";
-            this.cuiButton_AddExercises_Filter.NormalBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_AddExercises_Filter.NormalForeColor = System.Drawing.Color.White;
-            this.cuiButton_AddExercises_Filter.NormalImageTint = System.Drawing.Color.White;
-            this.cuiButton_AddExercises_Filter.NormalOutline = System.Drawing.Color.Empty;
-            this.cuiButton_AddExercises_Filter.OutlineThickness = 0F;
-            this.cuiButton_AddExercises_Filter.PressedBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_AddExercises_Filter.PressedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_AddExercises_Filter.PressedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_AddExercises_Filter.PressedOutline = System.Drawing.Color.Empty;
-            this.cuiButton_AddExercises_Filter.Rounding = new System.Windows.Forms.Padding(8);
-            this.cuiButton_AddExercises_Filter.Size = new System.Drawing.Size(72, 80);
-            this.cuiButton_AddExercises_Filter.TabIndex = 17;
-            this.cuiButton_AddExercises_Filter.TextOffset = new System.Drawing.Point(0, 0);
-            // 
-            // cuiButton_AddExercises_Search
-            // 
-            this.cuiButton_AddExercises_Search.CheckButton = false;
-            this.cuiButton_AddExercises_Search.Checked = false;
-            this.cuiButton_AddExercises_Search.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_AddExercises_Search.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_AddExercises_Search.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_AddExercises_Search.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_AddExercises_Search.Content = "";
-            this.cuiButton_AddExercises_Search.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.cuiButton_AddExercises_Search.Dock = System.Windows.Forms.DockStyle.Right;
-            this.cuiButton_AddExercises_Search.Font = new System.Drawing.Font("SansSerif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cuiButton_AddExercises_Search.ForeColor = System.Drawing.Color.White;
-            this.cuiButton_AddExercises_Search.HoverBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_AddExercises_Search.HoveredImageTint = System.Drawing.Color.White;
-            this.cuiButton_AddExercises_Search.HoverForeColor = System.Drawing.Color.White;
-            this.cuiButton_AddExercises_Search.HoverOutline = System.Drawing.Color.Empty;
-            this.cuiButton_AddExercises_Search.Image = ((System.Drawing.Image)(resources.GetObject("cuiButton_AddExercises_Search.Image")));
-            this.cuiButton_AddExercises_Search.ImageAutoCenter = true;
-            this.cuiButton_AddExercises_Search.ImageExpand = new System.Drawing.Point(4, 4);
-            this.cuiButton_AddExercises_Search.ImageOffset = new System.Drawing.Point(0, 0);
-            this.cuiButton_AddExercises_Search.Location = new System.Drawing.Point(369, 0);
-            this.cuiButton_AddExercises_Search.Name = "cuiButton_AddExercises_Search";
-            this.cuiButton_AddExercises_Search.NormalBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_AddExercises_Search.NormalForeColor = System.Drawing.Color.White;
-            this.cuiButton_AddExercises_Search.NormalImageTint = System.Drawing.Color.White;
-            this.cuiButton_AddExercises_Search.NormalOutline = System.Drawing.Color.Empty;
-            this.cuiButton_AddExercises_Search.OutlineThickness = 0F;
-            this.cuiButton_AddExercises_Search.PressedBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_AddExercises_Search.PressedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_AddExercises_Search.PressedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_AddExercises_Search.PressedOutline = System.Drawing.Color.Empty;
-            this.cuiButton_AddExercises_Search.Rounding = new System.Windows.Forms.Padding(8);
-            this.cuiButton_AddExercises_Search.Size = new System.Drawing.Size(72, 80);
-            this.cuiButton_AddExercises_Search.TabIndex = 18;
-            this.cuiButton_AddExercises_Search.TextOffset = new System.Drawing.Point(0, 0);
+            this.label_AddExercises_Title.Visible = false;
             // 
             // MainForm
             // 
@@ -3465,7 +3353,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.ClientSize = new System.Drawing.Size(513, 788);
-            this.Controls.Add(this.panel_AddExercises);
             this.Controls.Add(this.panel_ExerciseDetails);
             this.Controls.Add(this.panel_Menu_Measure);
             this.Controls.Add(this.panel_Menu_Workout);
@@ -3526,9 +3413,6 @@
             this.panel_ExerciseDetails_Name.PerformLayout();
             this.flowLayoutPanel_ExerciseDetails.ResumeLayout(false);
             this.flowLayoutPanel_ExerciseDetails.PerformLayout();
-            this.panel_AddExercises.ResumeLayout(false);
-            this.panel_AddExercises_Title.ResumeLayout(false);
-            this.panel_AddExercises_Title.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3651,7 +3535,7 @@
         private CuoreUI.Controls.cuiCheckbox cuiCheckbox_Filter_Shoulders;
         private CuoreUI.Controls.cuiCheckbox cuiCheckbox_Filter_Chest;
         private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder2;
-        private System.Windows.Forms.Label label_Exercises_ExercisesCount;
+        private System.Windows.Forms.Label label_Exercises_Count;
         private System.Windows.Forms.Panel panel_ExerciseDetails;
         private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder_ExerciseDetails;
         private System.Windows.Forms.Panel panel_ExerciseDetails_Name;
@@ -3669,13 +3553,8 @@
         private CuoreUI.Controls.cuiBorder cuiBorder_ExerciseDetail_History;
         private System.Windows.Forms.Label label_ExerciseDetails_Instruction;
         private System.Windows.Forms.TextBox textBox_ExerciseDetails_Instructions;
-        private System.Windows.Forms.Panel panel_AddExercises;
-        private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder_AddExercises;
-        private System.Windows.Forms.Panel panel_AddExercises_Title;
-        private CuoreUI.Controls.cuiButton cuiButton_AddExercises_Exit;
+        private System.Windows.Forms.Label label_AddExercises_Count;
         private System.Windows.Forms.Label label_AddExercises_Title;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_AddExercises;
-        private CuoreUI.Controls.cuiButton cuiButton_AddExercises_Search;
-        private CuoreUI.Controls.cuiButton cuiButton_AddExercises_Filter;
+        private CuoreUI.Controls.cuiButton cuiButton_AddExercises_Exit;
     }
 }
