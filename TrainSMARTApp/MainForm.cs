@@ -186,6 +186,14 @@ namespace TrainSMARTApp
         }
 
 
+            // ADDING EXERCISES
+
+        private void cuiButton_AddExercise_ConfirmAdd_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
 
 
 
@@ -291,8 +299,11 @@ namespace TrainSMARTApp
                 ShowHideFilter(cuiBorder_Exercises_Filter, flowLayoutPanel_Exercises, "true");
             }
 
+
+
             var controls = new List<Control>
             {
+                cuiButton_AddExercise_ConfirmAdd,
                 cuiButton_AddExercises_Exit,
                 label_AddExercises_Title,
                 label_AddExercises_Count,
@@ -303,10 +314,7 @@ namespace TrainSMARTApp
 
             foreach (var cntrl in controls)
             {
-                if (cntrl.Name.Contains("Add"))
-                    cntrl.Visible = isAddingExercises;
-                else
-                    cntrl.Visible = !isAddingExercises;
+                cntrl.Visible = cntrl.Name.Contains("Add") ? isAddingExercises : !isAddingExercises;
                 cntrl.BringToFront();
             }
         }
@@ -335,7 +343,7 @@ namespace TrainSMARTApp
             //flowLayoutPanel.Height = (isFilterShown) ? 370 : 460;
         }
 
-        private void ShowExerciseDetails(Object sender, EventArgs e)
+        private void ShowExerciseDetails(object sender, EventArgs e)
         {
             var btn = sender as cuiButton;
             int exerciseId = (int)btn.Tag;
@@ -501,6 +509,6 @@ namespace TrainSMARTApp
             label_AddExercises_Count.Text = "(" + selectedExerciseIDs.Count + ")";
         }
 
-
+        
     }
 }

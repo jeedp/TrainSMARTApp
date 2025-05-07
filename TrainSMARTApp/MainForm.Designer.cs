@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea11 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel_Menus = new System.Windows.Forms.Panel();
             this.cuiButton_Menu_Measure = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Menu_Exercises = new CuoreUI.Controls.cuiButton();
@@ -168,6 +168,7 @@
             this.flowLayoutPanel_ExerciseDetails = new System.Windows.Forms.FlowLayoutPanel();
             this.label_ExerciseDetails_Instruction = new System.Windows.Forms.Label();
             this.textBox_ExerciseDetails_Instructions = new System.Windows.Forms.TextBox();
+            this.cuiButton_AddExercise_ConfirmAdd = new CuoreUI.Controls.cuiButton();
             this.panel_Menus.SuspendLayout();
             this.panel_Form_Title.SuspendLayout();
             this.panel_Measurement.SuspendLayout();
@@ -1140,16 +1141,16 @@
             this.chart_Profile_WorkoutCount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.chart_Profile_WorkoutCount.BorderlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.chart_Profile_WorkoutCount.BorderSkin.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
-            chartArea3.BackColor = System.Drawing.Color.Transparent;
-            chartArea3.BorderWidth = 0;
-            chartArea3.Name = "ChartArea1";
-            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea3);
+            chartArea11.BackColor = System.Drawing.Color.Transparent;
+            chartArea11.BorderWidth = 0;
+            chartArea11.Name = "ChartArea1";
+            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea11);
             this.chart_Profile_WorkoutCount.Location = new System.Drawing.Point(51, 17);
             this.chart_Profile_WorkoutCount.Name = "chart_Profile_WorkoutCount";
             this.chart_Profile_WorkoutCount.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series3.ChartArea = "ChartArea1";
-            series3.Name = "Series1";
-            this.chart_Profile_WorkoutCount.Series.Add(series3);
+            series11.ChartArea = "ChartArea1";
+            series11.Name = "Series1";
+            this.chart_Profile_WorkoutCount.Series.Add(series11);
             this.chart_Profile_WorkoutCount.Size = new System.Drawing.Size(400, 300);
             this.chart_Profile_WorkoutCount.TabIndex = 0;
             this.chart_Profile_WorkoutCount.Text = "chart1";
@@ -3346,12 +3347,51 @@
             this.textBox_ExerciseDetails_Instructions.TabIndex = 13;
             this.textBox_ExerciseDetails_Instructions.Text = "@";
             // 
+            // cuiButton_AddExercise_ConfirmAdd
+            // 
+            this.cuiButton_AddExercise_ConfirmAdd.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.cuiButton_AddExercise_ConfirmAdd.CheckButton = false;
+            this.cuiButton_AddExercise_ConfirmAdd.Checked = false;
+            this.cuiButton_AddExercise_ConfirmAdd.CheckedBackground = System.Drawing.Color.Transparent;
+            this.cuiButton_AddExercise_ConfirmAdd.CheckedForeColor = System.Drawing.Color.White;
+            this.cuiButton_AddExercise_ConfirmAdd.CheckedImageTint = System.Drawing.Color.White;
+            this.cuiButton_AddExercise_ConfirmAdd.CheckedOutline = System.Drawing.Color.Transparent;
+            this.cuiButton_AddExercise_ConfirmAdd.Content = "";
+            this.cuiButton_AddExercise_ConfirmAdd.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.cuiButton_AddExercise_ConfirmAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            this.cuiButton_AddExercise_ConfirmAdd.ForeColor = System.Drawing.Color.White;
+            this.cuiButton_AddExercise_ConfirmAdd.HoverBackground = System.Drawing.Color.White;
+            this.cuiButton_AddExercise_ConfirmAdd.HoveredImageTint = System.Drawing.Color.DeepSkyBlue;
+            this.cuiButton_AddExercise_ConfirmAdd.HoverForeColor = System.Drawing.Color.White;
+            this.cuiButton_AddExercise_ConfirmAdd.HoverOutline = System.Drawing.Color.Empty;
+            this.cuiButton_AddExercise_ConfirmAdd.Image = ((System.Drawing.Image)(resources.GetObject("cuiButton_AddExercise_ConfirmAdd.Image")));
+            this.cuiButton_AddExercise_ConfirmAdd.ImageAutoCenter = true;
+            this.cuiButton_AddExercise_ConfirmAdd.ImageExpand = new System.Drawing.Point(35, 35);
+            this.cuiButton_AddExercise_ConfirmAdd.ImageOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_AddExercise_ConfirmAdd.Location = new System.Drawing.Point(390, 674);
+            this.cuiButton_AddExercise_ConfirmAdd.Name = "cuiButton_AddExercise_ConfirmAdd";
+            this.cuiButton_AddExercise_ConfirmAdd.NormalBackground = System.Drawing.Color.White;
+            this.cuiButton_AddExercise_ConfirmAdd.NormalForeColor = System.Drawing.Color.White;
+            this.cuiButton_AddExercise_ConfirmAdd.NormalImageTint = System.Drawing.Color.White;
+            this.cuiButton_AddExercise_ConfirmAdd.NormalOutline = System.Drawing.Color.Empty;
+            this.cuiButton_AddExercise_ConfirmAdd.OutlineThickness = 0F;
+            this.cuiButton_AddExercise_ConfirmAdd.PressedBackground = System.Drawing.Color.White;
+            this.cuiButton_AddExercise_ConfirmAdd.PressedForeColor = System.Drawing.Color.White;
+            this.cuiButton_AddExercise_ConfirmAdd.PressedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(154)))), ((int)(((byte)(211)))), ((int)(((byte)(255)))));
+            this.cuiButton_AddExercise_ConfirmAdd.PressedOutline = System.Drawing.Color.Empty;
+            this.cuiButton_AddExercise_ConfirmAdd.Rounding = new System.Windows.Forms.Padding(40);
+            this.cuiButton_AddExercise_ConfirmAdd.Size = new System.Drawing.Size(100, 100);
+            this.cuiButton_AddExercise_ConfirmAdd.TabIndex = 0;
+            this.cuiButton_AddExercise_ConfirmAdd.TextOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_AddExercise_ConfirmAdd.Click += new System.EventHandler(this.cuiButton_AddExercise_ConfirmAdd_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.ClientSize = new System.Drawing.Size(513, 788);
+            this.Controls.Add(this.cuiButton_AddExercise_ConfirmAdd);
             this.Controls.Add(this.panel_ExerciseDetails);
             this.Controls.Add(this.panel_Menu_Measure);
             this.Controls.Add(this.panel_Menu_Workout);
@@ -3555,5 +3595,6 @@
         private System.Windows.Forms.Label label_AddExercises_Count;
         private System.Windows.Forms.Label label_AddExercises_Title;
         private CuoreUI.Controls.cuiButton cuiButton_AddExercises_Exit;
+        private CuoreUI.Controls.cuiButton cuiButton_AddExercise_ConfirmAdd;
     }
 }
