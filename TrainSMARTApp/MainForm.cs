@@ -25,7 +25,7 @@ namespace TrainSMARTApp
         private bool isFilterShown;
         private bool isAddingExercises;
 
-        List<int> selectedExerciseIDs = new List<int>();
+        private List<int> selectedExerciseIDs = new List<int>();
 
 
 
@@ -49,6 +49,7 @@ namespace TrainSMARTApp
             this.panel_Form_Title.MouseUp += this.MouseUp;
 
             LoadExerciseButtons(null, null);
+            ShowMenu(panel_Menu_Profile);
 
 
 
@@ -124,7 +125,9 @@ namespace TrainSMARTApp
 
         private void cuiButton_Menu_Workout_Click(object sender, EventArgs e)
         {
+            isAddingExercises = false;
             ShowMenu(panel_Menu_Workout);
+            ClearDynamicExercisePanels();
         }
 
         private void cuiButton_Menu_Exercises_Click(object sender, EventArgs e)
@@ -157,6 +160,7 @@ namespace TrainSMARTApp
         {
             isAddingExercises = false;
             ShowMenu(panel_WorkoutCreation);
+            selectedExerciseIDs.Clear();
         }
 
 
@@ -169,7 +173,8 @@ namespace TrainSMARTApp
 
         private void cuiButton_WorkoutCreation_Save_Click(object sender, EventArgs e)
         {
-
+            isAddingExercises = false;
+            ClearDynamicExercisePanels();
         }
 
         private void cuiButton_WorkoutCreation_EditName_Click(object sender, EventArgs e)
@@ -190,7 +195,9 @@ namespace TrainSMARTApp
 
         private void cuiButton_AddExercise_ConfirmAdd_Click(object sender, EventArgs e)
         {
-
+            isAddingExercises = false;
+            ShowMenu(panel_WorkoutCreation);
+            ExerciseConfirmAdd();
         }
 
 
@@ -222,10 +229,6 @@ namespace TrainSMARTApp
 
             // EXERCISE DETAILS
 
-        private void cuiButton_ExerciseDetails_GoBack_Click(object sender, EventArgs e)
-        {
-            ShowMenu(panel_Menu_Exercises);
-        }
 
 
         // MEASURE MENU
@@ -263,6 +266,7 @@ namespace TrainSMARTApp
             _mouseDown = false;
         }
 
+
         private void ShowMenu(Panel panel)
         {
             var panels = new List<Panel>
@@ -299,8 +303,6 @@ namespace TrainSMARTApp
                 ShowHideFilter(cuiBorder_Exercises_Filter, flowLayoutPanel_Exercises, "true");
             }
 
-
-
             var controls = new List<Control>
             {
                 cuiButton_AddExercise_ConfirmAdd,
@@ -319,10 +321,12 @@ namespace TrainSMARTApp
             }
         }
 
+
         private void ShowMeasurementPanel()
         {
             // TODO: implementation
         }
+
 
         private void ShowHideSearchBar(Panel panel, bool isShown)
         {
@@ -333,6 +337,7 @@ namespace TrainSMARTApp
             cuiButton_AddExercises_Exit.Width = !isShown ? 80 : 0;
         }
 
+
         private void ShowHideFilter(cuiBorder border, FlowLayoutPanel flowLayoutPanel, string isShown = "")
         {
             if (!string.IsNullOrWhiteSpace(isShown))
@@ -342,6 +347,7 @@ namespace TrainSMARTApp
             border.BringToFront();
             //flowLayoutPanel.Height = (isFilterShown) ? 370 : 460;
         }
+
 
         private void ShowExerciseDetails(object sender, EventArgs e)
         {
@@ -362,12 +368,12 @@ namespace TrainSMARTApp
                 {
                     label_ExerciseDetails_Name.Text = reader["ExerciseName"].ToString();
                     textBox_ExerciseDetails_Instructions.Text = reader["Instructions"].ToString();
-                    //cuiTextBox_ExerciseDetails_Instructions.Content = reader["Instructions"].ToString();
 
                     ShowMenu(panel_ExerciseDetails);
                 }
             }
         }
+
 
         private void LoadExerciseButtons(string search, List<string> muscleGroups)
         {
@@ -430,27 +436,6 @@ namespace TrainSMARTApp
                             PressedForeColor  = Color.White,
                         };
 
-
-
-                        //Button btn = new Button
-                        //{
-                        //    Text = $"{name}\n({muscleGroup})",
-                        //    Width = 360,
-                        //    Height = 85,
-                        //    Tag = id, // Store the ID in case you need it later
-                        //    Font = new Font("SansSerif", 12.0f, FontStyle.Regular),
-                        //    Margin = new Padding(3, 0, 3, 0),
-                        //    TextAlign = ContentAlignment.MiddleLeft,
-                        //    FlatStyle = FlatStyle.Flat,
-                        //    FlatAppearance =
-                        //    {
-                        //        MouseDownBackColor = Color.FromArgb(84, 91, 94), BorderSize = 0,
-                        //        MouseOverBackColor = Color.DimGray, BorderColor = Color.FromArgb(41, 50, 54),
-                        //    },
-                        //    BackColor = Color.Transparent,
-                        //    ForeColor = Color.White,
-                        //};
-
                         if (isAddingExercises)
                             btn.Click += ExerciseSelectToggle; // TODO: add exercise to workout
                         else
@@ -467,8 +452,10 @@ namespace TrainSMARTApp
                 }
             }
 
-            label_Exercises_Count.Text = "(" + flowLayoutPanel_Exercises.Controls.Count.ToString() + ")";
+            var lbl = (isAddingExercises) ? label_AddExercises_Count : label_Exercises_Count;
+            lbl.Text = (isAddingExercises) ? "(" + selectedExerciseIDs.Count.ToString() + ")" : "(" + flowLayoutPanel_Exercises.Controls.Count.ToString() + ")";
         }
+
 
         private void DynamicExerciseSearchAndFilter(object sender, EventArgs e)
         {
@@ -488,6 +475,7 @@ namespace TrainSMARTApp
 
             LoadExerciseButtons(searchText, selectedGroups);
         }
+
 
         private void ExerciseSelectToggle(object sender, EventArgs e)
         {
@@ -509,6 +497,150 @@ namespace TrainSMARTApp
             label_AddExercises_Count.Text = "(" + selectedExerciseIDs.Count + ")";
         }
 
-        
+        private void ExerciseConfirmAdd()
+        {
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                foreach (int exerciseId in selectedExerciseIDs)
+                {
+                    string query = "SELECT ExerciseName FROM Exercises WHERE ExerciseID = @ExerciseID";
+                    SqlCommand cmd = new SqlCommand(query, conn);
+                    cmd.Parameters.AddWithValue("@ExerciseID", exerciseId);
+
+                    object result = cmd.ExecuteScalar();
+                    string exerciseName = result?.ToString() ?? "Unknown Exercise";
+
+                    var panelExercise = new Panel
+                    {
+                        Width = 360,
+                        Height = 150,
+                        BackColor = Color.Transparent,
+                        Margin = new Padding(3, 5, 3, 5),
+                        Tag = exerciseId,
+
+                        BorderStyle = BorderStyle.FixedSingle,
+                    };
+
+                    var cuiButtonExerciseName = new cuiButton
+                    {
+                        Content = exerciseName,
+                        Font = new Font("SansSerif", 14),// FontStyle.Bold),
+                        ForeColor = Color.FromArgb(53, 167, 255),
+                        Dock = DockStyle.Top,
+                        Height = 60,
+                        Tag = exerciseId,
+
+                        BackColor = Color.Transparent,
+                        HoverBackground = Color.Transparent,
+                        HoverForeColor = Color.LightSkyBlue,
+                        NormalBackground = Color.Transparent,
+                        NormalForeColor = Color.FromArgb(53, 167, 255),
+                        PressedBackground = Color.FromArgb(84, 91, 94),
+                        PressedForeColor = Color.White,
+                    };
+                    cuiButtonExerciseName.Click += ShowExerciseDetails;
+
+                    panelExercise.Controls.Add(cuiButtonExerciseName);
+
+                    AddExerciseSetRow(panelExercise);
+
+                    var cuiButtonAddSet = new cuiButton
+                    {
+                        Content = "Add Set",
+                        Font = new Font("SansSerif", 12), //FontStyle.Bold),
+                        Dock = DockStyle.Bottom,
+                        Height = 30,
+                        Tag = panelExercise,
+                        Margin = new Padding(3, 4, 3, 4),
+
+                        BackColor = Color.Transparent,
+                        ForeColor = Color.FromArgb(53, 167, 255),
+                        HoverBackground = Color.Transparent,
+                        HoverForeColor = Color.LightSkyBlue,
+                        NormalBackground = Color.Transparent,
+                        NormalForeColor = Color.FromArgb(53, 167, 255),
+                        PressedBackground = Color.FromArgb(42, 64, 78),
+                        PressedForeColor = Color.White,
+                    };
+                    cuiButtonAddSet.Click += (s, e) =>
+                    {
+                        var parent = (Panel)((cuiButton)s).Tag;
+                        AddExerciseSetRow(parent);
+                        panelExercise.Height += 30; 
+                    };
+                    panelExercise.Controls.Add(cuiButtonAddSet);
+
+                    flowLayoutPanel_WorkoutCreation.Controls.Add(panelExercise);
+                    flowLayoutPanel_WorkoutCreation.Controls.SetChildIndex(panelExercise, flowLayoutPanel_WorkoutCreation.Controls.Count - 2); // Add above "Add Exercise" button
+                }
+            }
+            selectedExerciseIDs.Clear();
+            label_AddExercises_Count.Text = "(" + selectedExerciseIDs.Count + ")";
+        }
+
+
+        private void AddExerciseSetRow(Panel parent)
+        {
+            int setNumber = parent.Controls.OfType<Panel>().Count() + 1;
+
+            var setRow = new Panel
+            {
+                Height = 30,
+                Width = parent.Width,
+                Dock = DockStyle.Bottom
+            };
+
+            var lblSet = new Label
+            {
+                Text = setNumber.ToString(),
+                Width = 30,
+                ForeColor = Color.White
+            };
+
+            var txtWeight = new TextBox
+            {
+                Width = 60,
+                Dock = DockStyle.Right,
+
+            };
+
+            var txtReps = new TextBox
+            {
+                Width = 60,
+                Dock = DockStyle.Right,
+            };
+
+            setRow.Controls.Add(lblSet);
+            setRow.Controls.Add(txtWeight);
+            setRow.Controls.Add(txtReps);
+            setRow.Padding = new Padding(0, 5, 0,5);
+            setRow.BackColor = Color.FromArgb(50, 50, 50);
+
+            parent.Controls.Add(setRow);
+            parent.Controls.SetChildIndex(setRow, parent.Controls.Count - 2); // Add above "Add Set" button
+        }
+
+
+        private void ClearDynamicExercisePanels()
+        {
+            var toRemove = new List<Control>();
+
+            foreach (Control ctrl in flowLayoutPanel_WorkoutCreation.Controls)
+            {
+                if (ctrl is Panel panel && panel.Tag is int)
+                {
+                    toRemove.Add(panel);
+                }
+            }
+
+            foreach (var ctrl in toRemove)
+            {
+                flowLayoutPanel_WorkoutCreation.Controls.Remove(ctrl);
+                ctrl.Dispose(); 
+            }
+        }
+
     }
 }

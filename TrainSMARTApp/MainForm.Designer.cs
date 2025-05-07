@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea11 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel_Menus = new System.Windows.Forms.Panel();
             this.cuiButton_Menu_Measure = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Menu_Exercises = new CuoreUI.Controls.cuiButton();
@@ -685,7 +685,6 @@
             this.flowLayoutPanel_WorkoutCreation.Controls.Add(this.panel_WorkoutCreation_TemplateName);
             this.flowLayoutPanel_WorkoutCreation.Controls.Add(this.cuiButton_WorkoutCreation_AddExercise);
             this.flowLayoutPanel_WorkoutCreation.Cursor = System.Windows.Forms.Cursors.Default;
-            this.flowLayoutPanel_WorkoutCreation.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
             this.flowLayoutPanel_WorkoutCreation.Location = new System.Drawing.Point(0, 90);
             this.flowLayoutPanel_WorkoutCreation.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel_WorkoutCreation.Name = "flowLayoutPanel_WorkoutCreation";
@@ -698,8 +697,9 @@
             this.panel_WorkoutCreation_TemplateName.Controls.Add(this.cuiButton_WorkoutCreation_EditName);
             this.panel_WorkoutCreation_TemplateName.Controls.Add(this.cuiTextBox_WorkoutCreation_TemplateName);
             this.panel_WorkoutCreation_TemplateName.Location = new System.Drawing.Point(3, 3);
+            this.panel_WorkoutCreation_TemplateName.Margin = new System.Windows.Forms.Padding(3, 3, 3, 1);
             this.panel_WorkoutCreation_TemplateName.Name = "panel_WorkoutCreation_TemplateName";
-            this.panel_WorkoutCreation_TemplateName.Size = new System.Drawing.Size(507, 220);
+            this.panel_WorkoutCreation_TemplateName.Size = new System.Drawing.Size(484, 220);
             this.panel_WorkoutCreation_TemplateName.TabIndex = 10;
             // 
             // cuiTextBox_WorkoutCreation_Note
@@ -714,7 +714,7 @@
             this.cuiTextBox_WorkoutCreation_Note.FocusBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.cuiTextBox_WorkoutCreation_Note.Font = new System.Drawing.Font("SansSerif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.cuiTextBox_WorkoutCreation_Note.ForeColor = System.Drawing.Color.White;
-            this.cuiTextBox_WorkoutCreation_Note.Location = new System.Drawing.Point(24, 143);
+            this.cuiTextBox_WorkoutCreation_Note.Location = new System.Drawing.Point(15, 143);
             this.cuiTextBox_WorkoutCreation_Note.Margin = new System.Windows.Forms.Padding(24, 24, 24, 20);
             this.cuiTextBox_WorkoutCreation_Note.Multiline = false;
             this.cuiTextBox_WorkoutCreation_Note.Name = "cuiTextBox_WorkoutCreation_Note";
@@ -748,7 +748,7 @@
             this.cuiButton_WorkoutCreation_EditName.ImageAutoCenter = true;
             this.cuiButton_WorkoutCreation_EditName.ImageExpand = new System.Drawing.Point(4, 4);
             this.cuiButton_WorkoutCreation_EditName.ImageOffset = new System.Drawing.Point(0, 0);
-            this.cuiButton_WorkoutCreation_EditName.Location = new System.Drawing.Point(432, 22);
+            this.cuiButton_WorkoutCreation_EditName.Location = new System.Drawing.Point(445, 22);
             this.cuiButton_WorkoutCreation_EditName.Name = "cuiButton_WorkoutCreation_EditName";
             this.cuiButton_WorkoutCreation_EditName.NormalBackground = System.Drawing.Color.Transparent;
             this.cuiButton_WorkoutCreation_EditName.NormalForeColor = System.Drawing.Color.White;
@@ -760,7 +760,7 @@
             this.cuiButton_WorkoutCreation_EditName.PressedImageTint = System.Drawing.Color.DeepSkyBlue;
             this.cuiButton_WorkoutCreation_EditName.PressedOutline = System.Drawing.Color.Empty;
             this.cuiButton_WorkoutCreation_EditName.Rounding = new System.Windows.Forms.Padding(8);
-            this.cuiButton_WorkoutCreation_EditName.Size = new System.Drawing.Size(72, 45);
+            this.cuiButton_WorkoutCreation_EditName.Size = new System.Drawing.Size(35, 45);
             this.cuiButton_WorkoutCreation_EditName.TabIndex = 9;
             this.cuiButton_WorkoutCreation_EditName.TextOffset = new System.Drawing.Point(0, 0);
             this.cuiButton_WorkoutCreation_EditName.Click += new System.EventHandler(this.cuiButton_WorkoutCreation_EditName_Click);
@@ -811,7 +811,7 @@
             this.cuiButton_WorkoutCreation_AddExercise.ImageAutoCenter = false;
             this.cuiButton_WorkoutCreation_AddExercise.ImageExpand = new System.Drawing.Point(0, 0);
             this.cuiButton_WorkoutCreation_AddExercise.ImageOffset = new System.Drawing.Point(0, 0);
-            this.cuiButton_WorkoutCreation_AddExercise.Location = new System.Drawing.Point(3, 230);
+            this.cuiButton_WorkoutCreation_AddExercise.Location = new System.Drawing.Point(3, 228);
             this.cuiButton_WorkoutCreation_AddExercise.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.cuiButton_WorkoutCreation_AddExercise.Name = "cuiButton_WorkoutCreation_AddExercise";
             this.cuiButton_WorkoutCreation_AddExercise.NormalBackground = System.Drawing.Color.Transparent;
@@ -824,7 +824,7 @@
             this.cuiButton_WorkoutCreation_AddExercise.PressedImageTint = System.Drawing.Color.White;
             this.cuiButton_WorkoutCreation_AddExercise.PressedOutline = System.Drawing.Color.Transparent;
             this.cuiButton_WorkoutCreation_AddExercise.Rounding = new System.Windows.Forms.Padding(8);
-            this.cuiButton_WorkoutCreation_AddExercise.Size = new System.Drawing.Size(507, 50);
+            this.cuiButton_WorkoutCreation_AddExercise.Size = new System.Drawing.Size(484, 50);
             this.cuiButton_WorkoutCreation_AddExercise.TabIndex = 22;
             this.cuiButton_WorkoutCreation_AddExercise.TextOffset = new System.Drawing.Point(0, 0);
             this.cuiButton_WorkoutCreation_AddExercise.Click += new System.EventHandler(this.cuiButton_WorkoutCreation_AddExercise_Click);
@@ -956,7 +956,7 @@
             this.panel_WorkoutCreation.Location = new System.Drawing.Point(0, 35);
             this.panel_WorkoutCreation.Margin = new System.Windows.Forms.Padding(0);
             this.panel_WorkoutCreation.Name = "panel_WorkoutCreation";
-            this.panel_WorkoutCreation.Size = new System.Drawing.Size(513, 0);
+            this.panel_WorkoutCreation.Size = new System.Drawing.Size(513, 661);
             this.panel_WorkoutCreation.TabIndex = 17;
             // 
             // panel_Menu_Profile
@@ -1141,16 +1141,16 @@
             this.chart_Profile_WorkoutCount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.chart_Profile_WorkoutCount.BorderlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.chart_Profile_WorkoutCount.BorderSkin.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
-            chartArea11.BackColor = System.Drawing.Color.Transparent;
-            chartArea11.BorderWidth = 0;
-            chartArea11.Name = "ChartArea1";
-            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea11);
+            chartArea8.BackColor = System.Drawing.Color.Transparent;
+            chartArea8.BorderWidth = 0;
+            chartArea8.Name = "ChartArea1";
+            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea8);
             this.chart_Profile_WorkoutCount.Location = new System.Drawing.Point(51, 17);
             this.chart_Profile_WorkoutCount.Name = "chart_Profile_WorkoutCount";
             this.chart_Profile_WorkoutCount.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series11.ChartArea = "ChartArea1";
-            series11.Name = "Series1";
-            this.chart_Profile_WorkoutCount.Series.Add(series11);
+            series8.ChartArea = "ChartArea1";
+            series8.Name = "Series1";
+            this.chart_Profile_WorkoutCount.Series.Add(series8);
             this.chart_Profile_WorkoutCount.Size = new System.Drawing.Size(400, 300);
             this.chart_Profile_WorkoutCount.TabIndex = 0;
             this.chart_Profile_WorkoutCount.Text = "chart1";
@@ -1262,10 +1262,10 @@
             this.panel_Menu_Exercises.Controls.Add(this.panel_Exercises_Title);
             this.panel_Menu_Exercises.Controls.Add(this.flowLayoutPanel_Exercises);
             this.panel_Menu_Exercises.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel_Menu_Exercises.Location = new System.Drawing.Point(0, 35);
+            this.panel_Menu_Exercises.Location = new System.Drawing.Point(0, 696);
             this.panel_Menu_Exercises.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Menu_Exercises.Name = "panel_Menu_Exercises";
-            this.panel_Menu_Exercises.Size = new System.Drawing.Size(513, 661);
+            this.panel_Menu_Exercises.Size = new System.Drawing.Size(513, 0);
             this.panel_Menu_Exercises.TabIndex = 20;
             // 
             // cuiBorder_Exercises_Filter
@@ -3379,7 +3379,7 @@
             this.cuiButton_AddExercise_ConfirmAdd.PressedForeColor = System.Drawing.Color.White;
             this.cuiButton_AddExercise_ConfirmAdd.PressedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(154)))), ((int)(((byte)(211)))), ((int)(((byte)(255)))));
             this.cuiButton_AddExercise_ConfirmAdd.PressedOutline = System.Drawing.Color.Empty;
-            this.cuiButton_AddExercise_ConfirmAdd.Rounding = new System.Windows.Forms.Padding(40);
+            this.cuiButton_AddExercise_ConfirmAdd.Rounding = new System.Windows.Forms.Padding(36);
             this.cuiButton_AddExercise_ConfirmAdd.Size = new System.Drawing.Size(100, 100);
             this.cuiButton_AddExercise_ConfirmAdd.TabIndex = 0;
             this.cuiButton_AddExercise_ConfirmAdd.TextOffset = new System.Drawing.Point(0, 0);
