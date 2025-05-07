@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea8 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel_Menus = new System.Windows.Forms.Panel();
             this.cuiButton_Menu_Measure = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Menu_Exercises = new CuoreUI.Controls.cuiButton();
@@ -1141,16 +1141,16 @@
             this.chart_Profile_WorkoutCount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.chart_Profile_WorkoutCount.BorderlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.chart_Profile_WorkoutCount.BorderSkin.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
-            chartArea8.BackColor = System.Drawing.Color.Transparent;
-            chartArea8.BorderWidth = 0;
-            chartArea8.Name = "ChartArea1";
-            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea8);
+            chartArea2.BackColor = System.Drawing.Color.Transparent;
+            chartArea2.BorderWidth = 0;
+            chartArea2.Name = "ChartArea1";
+            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea2);
             this.chart_Profile_WorkoutCount.Location = new System.Drawing.Point(51, 17);
             this.chart_Profile_WorkoutCount.Name = "chart_Profile_WorkoutCount";
             this.chart_Profile_WorkoutCount.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series8.ChartArea = "ChartArea1";
-            series8.Name = "Series1";
-            this.chart_Profile_WorkoutCount.Series.Add(series8);
+            series2.ChartArea = "ChartArea1";
+            series2.Name = "Series1";
+            this.chart_Profile_WorkoutCount.Series.Add(series2);
             this.chart_Profile_WorkoutCount.Size = new System.Drawing.Size(400, 300);
             this.chart_Profile_WorkoutCount.TabIndex = 0;
             this.chart_Profile_WorkoutCount.Text = "chart1";

@@ -58,7 +58,7 @@ namespace TrainSMARTApp
             // panel sizes in design is 513, 753
             // pictureBox_Background location in design is -49, 0
 
-            MainForm nextForm = new MainForm();
+            MainForm nextForm = new MainForm();     // TODO: REMOVE AFTER TESTING
             nextForm.Show();
 
             // TODO: if user has not signed out, auto log in

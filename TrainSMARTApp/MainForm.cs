@@ -132,7 +132,9 @@ namespace TrainSMARTApp
 
         private void cuiButton_Menu_Exercises_Click(object sender, EventArgs e)
         {
-            ShowMenu(panel_Menu_Exercises);
+            var pnl = isAddingExercises ? panel_WorkoutCreation : panel_ExerciseDetails; // TODO: FIX EXERCISE DETAILS NOT GOING BACK when in adding exercises menu
+            ShowMenu(pnl);
+            if (isAddingExercises) return;
             LoadExerciseButtons(null, null);
         }
 
@@ -531,6 +533,7 @@ namespace TrainSMARTApp
                         Dock = DockStyle.Top,
                         Height = 60,
                         Tag = exerciseId,
+                        TextOffset = new Point(-180 + (exerciseName.Length * 6), 0),
 
                         BackColor = Color.Transparent,
                         HoverBackground = Color.Transparent,
@@ -542,7 +545,39 @@ namespace TrainSMARTApp
                     };
                     cuiButtonExerciseName.Click += ShowExerciseDetails;
 
+                    var lblWeight = new Label
+                    {
+                        Text = "Weight",
+                        Width = 60,
+                        ForeColor = Color.White,
+                        Dock = DockStyle.Right,
+                        TextAlign = ContentAlignment.MiddleCenter,
+                    };
+
+                    var lblReps = new Label
+                    {
+                        Text = "Reps",
+                        Width = 60,
+                        ForeColor = Color.White,
+                        Dock = DockStyle.Right,
+                        TextAlign = ContentAlignment.MiddleCenter,
+                    };
+
+                    var lblSet = new Label
+                    {
+                        Text = "Sets",
+                        Width = 30,
+                        ForeColor = Color.White,
+                        Dock = DockStyle.Left,
+                        TextAlign = ContentAlignment.MiddleCenter,
+                    };
+
+
+
                     panelExercise.Controls.Add(cuiButtonExerciseName);
+                    //panelExercise.Controls.Add(lblSet);
+                    //panelExercise.Controls.Add(lblWeight);
+                    //panelExercise.Controls.Add(lblReps);
 
                     AddExerciseSetRow(panelExercise);
 
@@ -554,6 +589,7 @@ namespace TrainSMARTApp
                         Height = 30,
                         Tag = panelExercise,
                         Margin = new Padding(3, 4, 3, 4),
+                        Rounding = new Padding(4),
 
                         BackColor = Color.Transparent,
                         ForeColor = Color.FromArgb(53, 167, 255),
@@ -567,8 +603,8 @@ namespace TrainSMARTApp
                     cuiButtonAddSet.Click += (s, e) =>
                     {
                         var parent = (Panel)((cuiButton)s).Tag;
-                        AddExerciseSetRow(parent);
-                        panelExercise.Height += 30; 
+                        var addedRowHeight = AddExerciseSetRow(parent);
+                        panelExercise.Height += addedRowHeight; 
                     };
                     panelExercise.Controls.Add(cuiButtonAddSet);
 
@@ -581,13 +617,13 @@ namespace TrainSMARTApp
         }
 
 
-        private void AddExerciseSetRow(Panel parent)
+        private int AddExerciseSetRow(Panel parent)
         {
-            int setNumber = parent.Controls.OfType<Panel>().Count() + 1;
+            var setNumber = parent.Controls.OfType<Panel>().Count() + 1;
 
             var setRow = new Panel
             {
-                Height = 30,
+                Height = 50,
                 Width = parent.Width,
                 Dock = DockStyle.Bottom
             };
@@ -596,21 +632,49 @@ namespace TrainSMARTApp
             {
                 Text = setNumber.ToString(),
                 Width = 30,
-                ForeColor = Color.White
+                Dock = DockStyle.Left,
+                Font = new Font("SansSerif", 11),
+                ForeColor = Color.FromArgb(53, 167, 255),
+                TextAlign = ContentAlignment.MiddleCenter,
             };
 
-            var txtWeight = new TextBox
+            var txtWeight = new cuiTextBox2
             {
-                Width = 60,
-                Dock = DockStyle.Right,
-
+                Width                = 62,
+                Height               = 40,
+                Location             = new Point(180, 4), 
+                Font                 = new Font("SansSerif", 12),
+                Rounding             = new Padding(8),
+                Margin               = new Padding(20,0,20,0),
+                ForeColor            = Color.White,
+                BackColor            = Color.FromArgb(61, 70, 73),
+                BackgroundColor      = Color.FromArgb(61, 70, 73),
+                BorderColor          = Color.FromArgb(61, 70, 73),
+                BorderSize           = 0,
+                FocusBackgroundColor = Color.FromArgb(61, 70, 73),
+                FocusBorderColor     = Color.FromArgb(61, 70, 73),
+                PlaceholderColor     = Color.FromArgb(158, 163, 164),
             };
+            txtWeight.KeyPress += KeyPressDigitOnly;
 
-            var txtReps = new TextBox
+            var txtReps = new cuiTextBox2
             {
-                Width = 60,
-                Dock = DockStyle.Right,
+                Width                = txtWeight.Width,
+                Height               = txtWeight.Height,
+                Location             = new Point(txtWeight.Location.X + 70, txtWeight.Location.Y),
+                Font                 = txtWeight.Font,
+                Rounding             = txtWeight.Rounding,
+                Margin               = txtWeight.Margin,
+                ForeColor            = txtWeight.ForeColor,
+                BackColor            = txtWeight.BackColor,
+                BackgroundColor      = txtWeight.BackgroundColor,
+                BorderColor          = txtWeight.BorderColor,
+                BorderSize           = txtWeight.BorderSize,
+                FocusBackgroundColor = txtWeight.FocusBackgroundColor,
+                FocusBorderColor     = txtWeight.FocusBorderColor,
+                PlaceholderColor     = txtWeight.PlaceholderColor,
             };
+            txtReps.KeyPress += KeyPressDigitOnly;
 
             setRow.Controls.Add(lblSet);
             setRow.Controls.Add(txtWeight);
@@ -620,6 +684,8 @@ namespace TrainSMARTApp
 
             parent.Controls.Add(setRow);
             parent.Controls.SetChildIndex(setRow, parent.Controls.Count - 2); // Add above "Add Set" button
+
+            return setRow.Height; 
         }
 
 
@@ -642,5 +708,16 @@ namespace TrainSMARTApp
             }
         }
 
+        private void KeyPressDigitOnly(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+            if (e.KeyChar == '.' && ((cuiTextBox2)sender).Text.IndexOf('.') > -1)   // prevents multiple decimal points
+            {
+                e.Handled = true;
+            }
+        }
     }
 }
