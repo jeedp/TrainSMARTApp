@@ -24,6 +24,7 @@ namespace TrainSMARTApp
 
         private bool isFilterShown;
         private bool isAddingExercises;
+        private bool isCreatingWorkoutTemplate;
 
         private List<int> selectedExerciseIDs = new List<int>();
 
@@ -49,7 +50,7 @@ namespace TrainSMARTApp
             this.panel_Form_Title.MouseUp += this.MouseUp;
 
             LoadExerciseButtons(null, null);
-            ShowMenu(panel_Menu_Profile);
+            ShowMenu(panel_Menu_Profile, cuiButton_Menu_Profile);
 
 
 
@@ -115,32 +116,34 @@ namespace TrainSMARTApp
 
         private void cuiButton_Menu_Profile_Click(object sender, EventArgs e)
         {
-            ShowMenu(panel_Menu_Profile);
+            ShowMenu(panel_Menu_Profile, cuiButton_Menu_Profile);
         }
 
         private void cuiButton_Menu_History_Click(object sender, EventArgs e)
         {
-            ShowMenu(panel_Menu_History);
+            ShowMenu(panel_Menu_History, cuiButton_Menu_History);
         }
 
         private void cuiButton_Menu_Workout_Click(object sender, EventArgs e)
         {
             isAddingExercises = false;
-            ShowMenu(panel_Menu_Workout);
+            isCreatingWorkoutTemplate = false;
+            ShowMenu(panel_Menu_Workout, cuiButton_Menu_Workout);
             ClearDynamicExercisePanels();
         }
 
         private void cuiButton_Menu_Exercises_Click(object sender, EventArgs e)
         {
-            var pnl = isAddingExercises ? panel_WorkoutCreation : panel_ExerciseDetails; // TODO: FIX EXERCISE DETAILS NOT GOING BACK when in adding exercises menu
-            ShowMenu(pnl);
+            var pnl = isCreatingWorkoutTemplate ? panel_WorkoutCreation : panel_Menu_Exercises;
+            var btn = isAddingExercises ? cuiButton_Menu_Workout : cuiButton_Menu_Exercises;
+            ShowMenu(pnl, btn);
             if (isAddingExercises) return;
             LoadExerciseButtons(null, null);
         }
 
         private void cuiButton_Menu_Measure_Click(object sender, EventArgs e)
         {
-            ShowMenu(panel_Menu_Measure);
+            ShowMenu(panel_Menu_Measure, cuiButton_Menu_Measure);
         }
 
 
@@ -161,7 +164,8 @@ namespace TrainSMARTApp
         private void cuiButton_Workout_AddTemplate_Click(object sender, EventArgs e)
         {
             isAddingExercises = false;
-            ShowMenu(panel_WorkoutCreation);
+            isCreatingWorkoutTemplate = true;
+            ShowMenu(panel_WorkoutCreation, cuiButton_Menu_Workout);
             selectedExerciseIDs.Clear();
         }
 
@@ -170,7 +174,7 @@ namespace TrainSMARTApp
 
         private void cuiButton_WorkoutCreation_Exit_Click(object sender, EventArgs e)
         {
-            ShowMenu(panel_Menu_Workout);
+            ShowMenu(panel_Menu_Workout, cuiButton_Menu_Workout);
         }
 
         private void cuiButton_WorkoutCreation_Save_Click(object sender, EventArgs e)
@@ -187,8 +191,8 @@ namespace TrainSMARTApp
         private void cuiButton_WorkoutCreation_AddExercise_Click(object sender, EventArgs e)
         {
             isAddingExercises = true;
-            ShowMenu(panel_Menu_Exercises);
-            ShowHideSearchBar(panel_Exercises_Search, false);
+            ShowMenu(panel_Menu_Exercises, cuiButton_Menu_Exercises);
+            ShowHideExerciseSearchBar(panel_Exercises_Search, false);
             LoadExerciseButtons(null, null);
         }
 
@@ -198,7 +202,7 @@ namespace TrainSMARTApp
         private void cuiButton_AddExercise_ConfirmAdd_Click(object sender, EventArgs e)
         {
             isAddingExercises = false;
-            ShowMenu(panel_WorkoutCreation);
+            ShowMenu(panel_WorkoutCreation, cuiButton_Menu_Workout);
             ExerciseConfirmAdd();
         }
 
@@ -215,17 +219,17 @@ namespace TrainSMARTApp
 
         private void cuiButton_Exercises_Search_Click(object sender, EventArgs e)
         {
-            ShowHideSearchBar(panel_Exercises_Search, true);
+            ShowHideExerciseSearchBar(panel_Exercises_Search, true);
         }
 
         private void cuiButton_Exercises_GoBack_Click(object sender, EventArgs e)
         {
-            ShowHideSearchBar(panel_Exercises_Search, false);
+            ShowHideExerciseSearchBar(panel_Exercises_Search, false);
         }
 
         private void cuiButton_Exercises_Filter_Click(object sender, EventArgs e)
         {
-            ShowHideFilter(cuiBorder_Exercises_Filter, flowLayoutPanel_Exercises);
+            ShowHideExerciseFilter(cuiBorder_Exercises_Filter, flowLayoutPanel_Exercises);
         }
 
 
@@ -269,7 +273,7 @@ namespace TrainSMARTApp
         }
 
 
-        private void ShowMenu(Panel panel)
+        private void ShowMenu(Panel panel, cuiButton button)
         {
             var panels = new List<Panel>
             {
@@ -296,30 +300,27 @@ namespace TrainSMARTApp
             {
                 pnl.Visible = pnl == panel;
                 pnl.Height = (pnl == panel) ? (longPanels.Contains(pnl) || (isAddingExercises && pnl == panel_Menu_Exercises)) ? 611 : 537 : 0;
-
             }
 
             if (panel == panel_Menu_Exercises)
             {
-                ShowHideSearchBar(panel_Exercises_Search, false);
-                ShowHideFilter(cuiBorder_Exercises_Filter, flowLayoutPanel_Exercises, "true");
+                ShowHideExerciseFilter(cuiBorder_Exercises_Filter, flowLayoutPanel_Exercises, "true");
+                ShowHideExerciseSearchBar(panel_Exercises_Search, false);
             }
+            ShowHideExerciseLabelsAndButtons();
 
-            var controls = new List<Control>
+            var menuButtons = new List<cuiButton>
             {
-                cuiButton_AddExercise_ConfirmAdd,
-                cuiButton_AddExercises_Exit,
-                label_AddExercises_Title,
-                label_AddExercises_Count,
-
-                label_Exercises_Title,
-                label_Exercises_Count,
+                cuiButton_Menu_Profile,
+                cuiButton_Menu_History,
+                cuiButton_Menu_Workout,
+                cuiButton_Menu_Exercises,
+                cuiButton_Menu_Measure,
             };
 
-            foreach (var cntrl in controls)
+            foreach (var btn in menuButtons)
             {
-                cntrl.Visible = cntrl.Name.Contains("Add") ? isAddingExercises : !isAddingExercises;
-                cntrl.BringToFront();
+                (btn.NormalForeColor, btn.NormalImageTint) = (btn == button) ? (Color.White, Color.White) : (Color.FromArgb(127, 132, 134), Color.FromArgb(127, 132, 134));
             }
         }
 
@@ -330,24 +331,45 @@ namespace TrainSMARTApp
         }
 
 
-        private void ShowHideSearchBar(Panel panel, bool isShown)
+        private void ShowHideExerciseSearchBar(Panel panel, bool isShown)
         {
             panel.Width = (isShown) ? 321 : 0;  // width in design is 441
             panel.BringToFront();
 
-            cuiButton_AddExercises_Exit.Visible = !isShown;
-            cuiButton_AddExercises_Exit.Width = !isShown ? 80 : 0;
+            var cuiBtn = cuiButton_AddExercises_Exit;
+            cuiBtn.Visible = !isShown;
+            cuiBtn.Width = !isShown ? 80 : 0;
         }
 
 
-        private void ShowHideFilter(cuiBorder border, FlowLayoutPanel flowLayoutPanel, string isShown = "")
+        private void ShowHideExerciseFilter(cuiBorder border, FlowLayoutPanel flowLayoutPanel, string isShown = "")
         {
             if (!string.IsNullOrWhiteSpace(isShown))
                 isFilterShown = Convert.ToBoolean(isShown);
             isFilterShown = !isFilterShown;
             border.Height = (isFilterShown) ? 75 : 0;   // height in design is 93
             border.BringToFront();
-            //flowLayoutPanel.Height = (isFilterShown) ? 370 : 460;
+        }
+
+
+        private void ShowHideExerciseLabelsAndButtons()
+        {
+            var exerciseMenuControls = new List<Control>
+            {
+                cuiButton_AddExercise_ConfirmAdd,
+                cuiButton_AddExercises_Exit,
+                label_AddExercises_Title,
+                label_AddExercises_Count,
+
+                label_Exercises_Title,
+                label_Exercises_Count,
+            };
+
+            foreach (var ctrl in exerciseMenuControls)
+            {
+                ctrl.Visible = ctrl.Name.Contains("Add") ? isAddingExercises : !isAddingExercises;
+                ctrl.BringToFront();
+            }
         }
 
 
@@ -371,7 +393,7 @@ namespace TrainSMARTApp
                     label_ExerciseDetails_Name.Text = reader["ExerciseName"].ToString();
                     textBox_ExerciseDetails_Instructions.Text = reader["Instructions"].ToString();
 
-                    ShowMenu(panel_ExerciseDetails);
+                    ShowMenu(panel_ExerciseDetails, cuiButton_Menu_Exercises);
                 }
             }
         }

@@ -3206,7 +3206,7 @@
             // 
             // cuiButton_ExerciseDetails_About
             // 
-            this.cuiButton_ExerciseDetails_About.CheckButton = true;
+            this.cuiButton_ExerciseDetails_About.CheckButton = false;
             this.cuiButton_ExerciseDetails_About.Checked = false;
             this.cuiButton_ExerciseDetails_About.CheckedBackground = System.Drawing.Color.Transparent;
             this.cuiButton_ExerciseDetails_About.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
@@ -3383,6 +3383,7 @@
             this.cuiButton_AddExercise_ConfirmAdd.Size = new System.Drawing.Size(100, 100);
             this.cuiButton_AddExercise_ConfirmAdd.TabIndex = 0;
             this.cuiButton_AddExercise_ConfirmAdd.TextOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_AddExercise_ConfirmAdd.Visible = false;
             this.cuiButton_AddExercise_ConfirmAdd.Click += new System.EventHandler(this.cuiButton_AddExercise_ConfirmAdd_Click);
             // 
             // MainForm

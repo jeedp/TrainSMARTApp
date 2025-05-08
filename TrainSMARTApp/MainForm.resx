@@ -241,7 +241,7 @@
   <data name="cuiButton_AddExercise_ConfirmAdd.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DwAACw8BkvkDpQAABn9JREFUeF7tnVmIXEUUhicv4i4oLij6bkSJdFVnEtSouCG4gLih4PoQoyI+K/HJ
+        DgAACw4BQL7hQQAABn9JREFUeF7tnVmIXEUUhicv4i4oLij6bkSJdFVnEtSouCG4gLih4PoQoyI+K/HJ
         JYqCT1Fw7Zk+1TQoQR+UiEqMaKL45II++ybquCQ6Rp1fTs0dcznV09NL1e2q2/XBDyHpW+fUqdy6dU8t
         d2Ymk8lkMplMJpPJZDKr0ujiLNXBZaqNbcpguzLYoQkvKkKbZf9ssMP+G/+Gf2twpiwnMwLntXCMJlxl
         g26wXxsc0AYYUXztPltWG1dy2dJepgfNORyvCHcrwgfa4FCPwPrSIWXwvurgLrYp/Zh6VBtblAEpwh89
@@ -270,43 +270,6 @@
         sLt9J7Pui7dazAVfHZIifHonv/3yGYVBP5+0XPZuHmgEW8RWNziVzcfi8UlsfPgXb3hxAjug+Foug7cE
         cJnRpMlTZ7aLM5qES7XBfbyjVRGe4ncc7u6KAw5esH/Hy00JW/m3fI0sJ5PJZDKZTCaTyWQyh/kPhRvO
         u+ex9Z4AAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="cuiButton_WorkoutCreation_Exit.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DAAACwwBP0AiyAAAAr9JREFUeF7t3U1u1TAUhuHCBhBCggHqTmCCugZoxY8QiAlIFPYIE342A0zhRa5y
-        pHJ0w40TO7FPvmdaO7L7Ns1VFdUnJyIiIiIiIiIiIiIiV4CHwDvgKXDHfz0q4C7wErgEzoCbfsyqgHvA
-        Z/71I4XxY6MBngO/3N6/A/f92FUAN4BPbkHmD/DGz4ki7W3Y4yFfNrlTgAd+JU7IKEdimEd+XnXDM+OY
-        UFEmxkje+7nVAed+FSNCRMmIkaz/DAVuDQ/wKbqOkhkjfU9u+2usAnicsdAuo2TGSOOe+GusCngF/PYr
-        G5EW/NZfo1XA6y73FjFKtzFMpCjdxzARooSJYXqOEi6G6TFK2BimpyjhY5geouwmhmk5yu5imBaj7DaG
-        aSnK7mOYFqIohrNlFMUYsUUUxThizSiKMdEaURQjU80oijFTjSiKsVDJKIpRSIkoilHYkiiKUcmcKIpR
-        2YzXb3LGdvc6UhMy75QpdGcsVTCKYpRSIIpilLYgimLUMiOKYtSU+dE2UZBaZsQwilLaghhGUUopEMMo
-        ylIFYxhFmUt/OmlI5p1x9VOf+ZFYd8pUc2Jcm6soJS2Jce0ailJCiRhGURYqGcMoykw1YhhFyVQzhlGU
-        idaIYRTliDVjGEUZsUUMoyjOljGMogxaiGF2H6WlGGa3UVqMYXYXpeUYZjdReohhwkfpKYYJG6XHGCZc
-        lJ5jmDBRIsQw3UeJFMN0GyViDNNdFOBiWMgUaVx3r9/MeB3pwl9jFenglgPnZ4zpMobJjPJzk381Drzw
-        KxnRdQyTGeWZn18d8NGv4oAQMUxGlEs/t7rhzKX/CRXDTIxy5udVl471Ab75lQxCxjBHonzd5MijBDg9
-        ECU91M792GiGA23SXq9LMU792FUNd0r69fVhODZv/U8YG0l7Hfac9r79sXkiIiIiIiIiIiIi0oi/iYCj
-        TqP6tYMAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="cuiButton_WorkoutCreation_EditName.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DAAACwwBP0AiyAAAAvFJREFUeF7t3cmqFEkUh3EHHJYqqJt2HhZqL6S36sJWbIetIo6oT6D0Mzi8gvoS
-        okuHB2jUVbe2rp26Qd044fDJgbhQHK+XzMioe+/i+0FCUpXxX5wkp6isiDlzJEmSJEmSJI0dsBI4Clwo
-        S6yvyNtpzIBfgVvAV34Un90EtuV2GgPgHPAp74VJxDZnc3s1BJzMVe/geM5RA8Aa4EOudgfvgdU5TwMB
-        13Ole7iW8zQAsAB4k6vcw1tgYc5VJeC3XOEK23OuKgGHcnUrHMy5qgTsydWtsDvnqhKwMVe3wvqcqwGA
-        f3OFe3ia8zRQ6auqdT7naSBgEfBPrnQHf0fbnKcGgE3Af7niU3gV15+co4aAdcD9XPlJ/AWsze01BsC8
-        0tF4B/g8shNi/TZwIrbJ7TQNSrfKL2VZkL+XJEmSJEmSZoPSybgNOFCWWLdTcboBy4DLwIuRnt4Jz4FL
-        wNLcTmMA7Or4I1X8OLUzt1dDZWd0efN9QmzrThmHcprqcmRkcaR4+moNuJIr3cOlnKcByt3UZBfwrl56
-        99VQ+QvbUFtzrioB+3N1K/yRc1UpipmrW2FfzlWl8gQ+lKesVspFPZ7Aaz0D5uZcDVC6Q2pdzHkaKB7u
-        ykNeX3HLuyTnqYHoBunZdfIR2JFz1FDZKV2OlDgy3BnToZy+4poy2YU+LuAXPU3NgHL3tbU8OMayxbsp
-        SZIkSZIkzVZlUJpVZXFcxZkAzAdOA/eALyM9vTG0xl3glO9hTZMYGQ54OLITfuZBDFST26shYDPwf678
-        FOJd4M05Rw0Ai4HHueIdPHIAszEA/syV7uFCztNAwJNc5R4cBLOlMrTfUBtyrioBe3N1K/yec1XJocZn
-        GQfjn2XKuIqvc4V7iKkuHI+xpYETulzNeRoopi0q0xf19S46HnOeGgAOA99yxacQ2x7LOWoopsLr+AZ8
-        vPl+JrfXGJS/uMXkkaNd7xPisxv+hW0GAMuBIzEdRVlifXneTpIkSZIkSVJ73wFk7WegUEPlngAAAABJ
-        RU5ErkJggg==
 </value>
   </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
@@ -503,6 +466,43 @@
         kFESMkpCE6KU3wCM0pJREjJKQkZJyCgJ+Ze2hCZE+RT3UGUjo5S/RW/EPVTZyCgeHDCHEVHexrVqZECU
         Xx4+M7MuylUs0d0/9uLrNYPuALOj7jimcoDZmacASZIkSZIkSZIkSZIkSZL0n7kHq5w1YSOR/coAAAAA
         SUVORK5CYII=
+</value>
+  </data>
+  <data name="cuiButton_WorkoutCreation_EditName.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DAAACwwBP0AiyAAAAvFJREFUeF7t3cmqFEkUh3EHHJYqqJt2HhZqL6S36sJWbIetIo6oT6D0Mzi8gvoS
+        okuHB2jUVbe2rp26Qd044fDJgbhQHK+XzMioe+/i+0FCUpXxX5wkp6isiDlzJEmSJEmSJI0dsBI4Clwo
+        S6yvyNtpzIBfgVvAV34Un90EtuV2GgPgHPAp74VJxDZnc3s1BJzMVe/geM5RA8Aa4EOudgfvgdU5TwMB
+        13Ole7iW8zQAsAB4k6vcw1tgYc5VJeC3XOEK23OuKgGHcnUrHMy5qgTsydWtsDvnqhKwMVe3wvqcqwGA
+        f3OFe3ia8zRQ6auqdT7naSBgEfBPrnQHf0fbnKcGgE3Af7niU3gV15+co4aAdcD9XPlJ/AWsze01BsC8
+        0tF4B/g8shNi/TZwIrbJ7TQNSrfKL2VZkL+XJEmSJEmSZoPSybgNOFCWWLdTcboBy4DLwIuRnt4Jz4FL
+        wNLcTmMA7Or4I1X8OLUzt1dDZWd0efN9QmzrThmHcprqcmRkcaR4+moNuJIr3cOlnKcByt3UZBfwrl56
+        99VQ+QvbUFtzrioB+3N1K/yRc1UpipmrW2FfzlWl8gQ+lKesVspFPZ7Aaz0D5uZcDVC6Q2pdzHkaKB7u
+        ykNeX3HLuyTnqYHoBunZdfIR2JFz1FDZKV2OlDgy3BnToZy+4poy2YU+LuAXPU3NgHL3tbU8OMayxbsp
+        SZIkSZIkzVZlUJpVZXFcxZkAzAdOA/eALyM9vTG0xl3glO9hTZMYGQ54OLITfuZBDFST26shYDPwf678
+        FOJd4M05Rw0Ai4HHueIdPHIAszEA/syV7uFCztNAwJNc5R4cBLOlMrTfUBtyrioBe3N1K/yec1XJocZn
+        GQfjn2XKuIqvc4V7iKkuHI+xpYETulzNeRoopi0q0xf19S46HnOeGgAOA99yxacQ2x7LOWoopsLr+AZ8
+        vPl+JrfXGJS/uMXkkaNd7xPisxv+hW0GAMuBIzEdRVlifXneTpIkSZIkSVJ73wFk7WegUEPlngAAAABJ
+        RU5ErkJggg==
+</value>
+  </data>
+  <data name="cuiButton_WorkoutCreation_Exit.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
+        DAAACwwBP0AiyAAAAr9JREFUeF7t3U1u1TAUhuHCBhBCggHqTmCCugZoxY8QiAlIFPYIE342A0zhRa5y
+        pHJ0w40TO7FPvmdaO7L7Ns1VFdUnJyIiIiIiIiIiIiIiV4CHwDvgKXDHfz0q4C7wErgEzoCbfsyqgHvA
+        Z/71I4XxY6MBngO/3N6/A/f92FUAN4BPbkHmD/DGz4ki7W3Y4yFfNrlTgAd+JU7IKEdimEd+XnXDM+OY
+        UFEmxkje+7nVAed+FSNCRMmIkaz/DAVuDQ/wKbqOkhkjfU9u+2usAnicsdAuo2TGSOOe+GusCngF/PYr
+        G5EW/NZfo1XA6y73FjFKtzFMpCjdxzARooSJYXqOEi6G6TFK2BimpyjhY5geouwmhmk5yu5imBaj7DaG
+        aSnK7mOYFqIohrNlFMUYsUUUxThizSiKMdEaURQjU80oijFTjSiKsVDJKIpRSIkoilHYkiiKUcmcKIpR
+        2YzXb3LGdvc6UhMy75QpdGcsVTCKYpRSIIpilLYgimLUMiOKYtSU+dE2UZBaZsQwilLaghhGUUopEMMo
+        ylIFYxhFmUt/OmlI5p1x9VOf+ZFYd8pUc2Jcm6soJS2Jce0ailJCiRhGURYqGcMoykw1YhhFyVQzhlGU
+        idaIYRTliDVjGEUZsUUMoyjOljGMogxaiGF2H6WlGGa3UVqMYXYXpeUYZjdReohhwkfpKYYJG6XHGCZc
+        lJ5jmDBRIsQw3UeJFMN0GyViDNNdFOBiWMgUaVx3r9/MeB3pwl9jFenglgPnZ4zpMobJjPJzk381Drzw
+        KxnRdQyTGeWZn18d8NGv4oAQMUxGlEs/t7rhzKX/CRXDTIxy5udVl471Ab75lQxCxjBHonzd5MijBDg9
+        ECU91M792GiGA23SXq9LMU792FUNd0r69fVhODZv/U8YG0l7Hfac9r79sXkiIiIiIiIiIiIi0oi/iYCj
+        TqP6tYMAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="cuiButton_Profile_Settings.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
