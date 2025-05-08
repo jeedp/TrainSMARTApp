@@ -509,14 +509,12 @@ namespace TrainSMARTApp
             if (selectedExerciseIDs.Contains(id))
             {
                 selectedExerciseIDs.Remove(id);
-                btn.NormalBackground = Color.Transparent;
-                btn.HoverBackground = Color.Transparent;
+                (btn.NormalBackground, btn.HoverBackground) = (Color.Transparent, Color.Transparent);
             }
             else
             {
                 selectedExerciseIDs.Add(id);
-                btn.NormalBackground = Color.FromArgb(44, 79, 104);
-                btn.HoverBackground = Color.FromArgb(44, 79, 104);
+                (btn.NormalBackground, btn.HoverBackground) = (Color.FromArgb(44, 79, 104), Color.FromArgb(44, 79, 104));
             }
             label_AddExercises_Count.Text = "(" + selectedExerciseIDs.Count + ")";
         }
@@ -555,7 +553,25 @@ namespace TrainSMARTApp
                         Dock = DockStyle.Top,
                         Height = 60,
                         Tag = exerciseId,
-                        TextOffset = new Point(-180 + (exerciseName.Length * 6), 0),
+                        TextOffset = new Point  // TODO: FIX
+                        (
+                            -180 + (exerciseName.Length > 35
+                                        ? exerciseName.Length
+                                        : exerciseName.Length > 21
+                                            ? exerciseName.Length * 1
+                                            : exerciseName.Length > 27
+                                                ? exerciseName.Length * 2
+                                                : exerciseName.Length > 23 
+                                                    ? exerciseName.Length * 3 
+                                                    : exerciseName.Length > 19
+                                                        ? exerciseName.Length * 4
+                                                        : exerciseName.Length > 15
+                                                            ? exerciseName.Length * 5
+                                                            : exerciseName.Length > 10
+                                                                ? exerciseName.Length * 6
+                                                                : exerciseName.Length * 7), 
+                            0
+                        ),
 
                         BackColor = Color.Transparent,
                         HoverBackground = Color.Transparent,
@@ -566,6 +582,24 @@ namespace TrainSMARTApp
                         PressedForeColor = Color.White,
                     };
                     cuiButtonExerciseName.Click += ShowExerciseDetails;
+
+                    var lblSet = new Label
+                    {
+                        Text = "Sets",
+                        Width = 30,
+                        ForeColor = Color.White,
+                        Dock = DockStyle.Left,
+                        TextAlign = ContentAlignment.MiddleCenter,
+                    };
+
+                    var lblPrevious = new Label
+                    {
+                        Text = "Previous",
+                        Width = 60,
+                        ForeColor = Color.White,
+                        Dock = DockStyle.Left,
+                        TextAlign = ContentAlignment.MiddleCenter,
+                    };
 
                     var lblWeight = new Label
                     {
@@ -578,23 +612,12 @@ namespace TrainSMARTApp
 
                     var lblReps = new Label
                     {
-                        Text = "Reps",
-                        Width = 60,
-                        ForeColor = Color.White,
-                        Dock = DockStyle.Right,
-                        TextAlign = ContentAlignment.MiddleCenter,
+                        Text = lblWeight.Text,
+                        Width = lblWeight.Width,
+                        ForeColor = lblWeight.ForeColor,
+                        Dock = lblWeight.Dock,
+                        TextAlign = lblWeight.TextAlign,
                     };
-
-                    var lblSet = new Label
-                    {
-                        Text = "Sets",
-                        Width = 30,
-                        ForeColor = Color.White,
-                        Dock = DockStyle.Left,
-                        TextAlign = ContentAlignment.MiddleCenter,
-                    };
-
-
 
                     panelExercise.Controls.Add(cuiButtonExerciseName);
                     //panelExercise.Controls.Add(lblSet);
