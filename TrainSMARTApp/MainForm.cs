@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -54,7 +55,7 @@ namespace TrainSMARTApp
 
 
 
-            
+
 
             var filterCheckboxes = new List<cuiCheckbox>
             {
@@ -301,6 +302,7 @@ namespace TrainSMARTApp
                 pnl.Visible = pnl == panel;
                 pnl.Height = (pnl == panel) ? (longPanels.Contains(pnl) || (isAddingExercises && pnl == panel_Menu_Exercises)) ? 611 : 537 : 0;
             }
+            //panel_Menus.Height = (longPanels.Contains(panel)) ? 0 : 67;
 
             if (panel == panel_Menu_Exercises)
             {
@@ -394,6 +396,7 @@ namespace TrainSMARTApp
                     textBox_ExerciseDetails_Instructions.Text = reader["Instructions"].ToString();
 
                     ShowMenu(panel_ExerciseDetails, cuiButton_Menu_Exercises);
+                    ResizeTextBoxToFitContents(textBox_ExerciseDetails_Instructions);
                 }
             }
         }
@@ -536,114 +539,123 @@ namespace TrainSMARTApp
 
                     var panelExercise = new Panel
                     {
-                        Width = 360,
-                        Height = 150,
+                        Width     = 360,
+                        Height    = 165,
                         BackColor = Color.Transparent,
-                        Margin = new Padding(3, 5, 3, 5),
-                        Tag = exerciseId,
+                        Margin    = new Padding(3, 5, 3, 5),
+                        Tag       = exerciseId,
 
                         BorderStyle = BorderStyle.FixedSingle,
                     };
 
                     var cuiButtonExerciseName = new cuiButton
                     {
-                        Content = exerciseName,
-                        Font = new Font("SansSerif", 14),// FontStyle.Bold),
-                        ForeColor = Color.FromArgb(53, 167, 255),
-                        Dock = DockStyle.Top,
-                        Height = 60,
-                        Tag = exerciseId,
-                        TextOffset = new Point  // TODO: FIX
-                        (
-                            -180 + (exerciseName.Length > 35
-                                        ? exerciseName.Length
-                                        : exerciseName.Length > 21
-                                            ? exerciseName.Length * 1
-                                            : exerciseName.Length > 27
-                                                ? exerciseName.Length * 2
-                                                : exerciseName.Length > 23 
-                                                    ? exerciseName.Length * 3 
-                                                    : exerciseName.Length > 19
-                                                        ? exerciseName.Length * 4
-                                                        : exerciseName.Length > 15
-                                                            ? exerciseName.Length * 5
-                                                            : exerciseName.Length > 10
-                                                                ? exerciseName.Length * 6
-                                                                : exerciseName.Length * 7), 
-                            0
-                        ),
+                        Content           = exerciseName,
+                        Font              = new Font("SansSerif", 14),// FontStyle.Bold),
+                        ForeColor         = Color.FromArgb(53, 167, 255),
+                        Dock              = DockStyle.Top,
+                        Height            = 60,
+                        Tag               = exerciseId,
+                        //TextOffset        = new Point  // TODO: FIX
+                        //(
+                        //    -180 + (exerciseName.Length > 31
+                        //                ? exerciseName.Length * 5 + 2
+                        //                : exerciseName.Length > 24
+                        //                    ? exerciseName.Length * 5
+                        //                    : exerciseName.Length < 24 && exerciseName.Length > 20 
+                        //                        ? exerciseName.Length * 5 + 4
+                        //                        : exerciseName.Length > 19
+                        //                            ? (exerciseName.Length * 5) - 4
+                        //                            : exerciseName.Length > 15
+                        //                                ? (exerciseName.Length * 5) + 4
+                        //                                : exerciseName.Length > 10
+                        //                                    ? exerciseName.Length * 6
+                        //                                    : exerciseName.Length > 9
+                        //                                        ? exerciseName.Length * 7
+                        //                                        : exerciseName.Length * 8), 
+                        //    0
+                        //),
 
-                        BackColor = Color.Transparent,
-                        HoverBackground = Color.Transparent,
-                        HoverForeColor = Color.LightSkyBlue,
-                        NormalBackground = Color.Transparent,
-                        NormalForeColor = Color.FromArgb(53, 167, 255),
+                        BackColor         = Color.Transparent,
+                        HoverBackground   = Color.Transparent,
+                        HoverForeColor    = Color.LightSkyBlue,
+                        NormalBackground  = Color.Transparent,
+                        NormalForeColor   = Color.FromArgb(53, 167, 255),
                         PressedBackground = Color.FromArgb(84, 91, 94),
-                        PressedForeColor = Color.White,
+                        PressedForeColor  = Color.White,
                     };
                     cuiButtonExerciseName.Click += ShowExerciseDetails;
 
                     var lblSet = new Label
                     {
-                        Text = "Sets",
-                        Width = 30,
+                        Text      = "Sets",
+                        Width     = 30,
+                        Height    = 15,
                         ForeColor = Color.White,
-                        Dock = DockStyle.Left,
+                        //Dock      = DockStyle.Left,
                         TextAlign = ContentAlignment.MiddleCenter,
+                        Location  = new Point(5, 65),
                     };
 
                     var lblPrevious = new Label
                     {
-                        Text = "Previous",
-                        Width = 60,
-                        ForeColor = Color.White,
-                        Dock = DockStyle.Left,
-                        TextAlign = ContentAlignment.MiddleCenter,
+                        Text      = "Previous",
+                        Width     = lblSet.Width + 20,
+                        Height    = lblSet.Height,
+                        ForeColor = lblSet.ForeColor,
+                        Dock      = lblSet.Dock,
+                        TextAlign = lblSet.TextAlign,
+                        Location  = new Point(lblSet.Location.X + 75, lblSet.Location.Y),
                     };
 
                     var lblWeight = new Label
                     {
-                        Text = "Weight",
-                        Width = 60,
-                        ForeColor = Color.White,
-                        Dock = DockStyle.Right,
-                        TextAlign = ContentAlignment.MiddleCenter,
+                        Text      = "Weight",
+                        Width     = lblPrevious.Width,
+                        Height    = lblPrevious.Height,
+                        ForeColor = lblPrevious.ForeColor,
+                        Dock      = lblPrevious.Dock,
+                        TextAlign = lblPrevious.TextAlign,
+                        Location  = new Point(lblPrevious.Location.X + 107, lblPrevious.Location.Y),
                     };
 
                     var lblReps = new Label
                     {
-                        Text = lblWeight.Text,
-                        Width = lblWeight.Width,
+                        Text      = "Reps",
+                        Width     = lblWeight.Width,
+                        Height    = lblWeight.Height,
                         ForeColor = lblWeight.ForeColor,
-                        Dock = lblWeight.Dock,
+                        Dock      = lblWeight.Dock,
                         TextAlign = lblWeight.TextAlign,
+                        Location  = new Point(lblWeight.Location.X + 69, lblWeight.Location.Y),
                     };
 
                     panelExercise.Controls.Add(cuiButtonExerciseName);
-                    //panelExercise.Controls.Add(lblSet);
-                    //panelExercise.Controls.Add(lblWeight);
-                    //panelExercise.Controls.Add(lblReps);
+                    panelExercise.Controls.Add(lblSet);
+                    panelExercise.Controls.Add(lblPrevious);
+                    panelExercise.Controls.Add(lblWeight);
+                    panelExercise.Controls.Add(lblReps);
 
                     AddExerciseSetRow(panelExercise);
 
                     var cuiButtonAddSet = new cuiButton
                     {
-                        Content = "Add Set",
-                        Font = new Font("SansSerif", 12), //FontStyle.Bold),
-                        Dock = DockStyle.Bottom,
-                        Height = 30,
-                        Tag = panelExercise,
-                        Margin = new Padding(3, 4, 3, 4),
-                        Rounding = new Padding(4),
+                        Content           = "Add Set",
+                        Font              = new Font("SansSerif", 12), //FontStyle.Bold),
+                        Dock              = DockStyle.Bottom,
+                        Height            = 30,
+                        Tag               = panelExercise,
+                        Margin            = new Padding(3, 4, 3, 4),
+                        Rounding          = new Padding(4),
 
-                        BackColor = Color.Transparent,
-                        ForeColor = Color.FromArgb(53, 167, 255),
-                        HoverBackground = Color.Transparent,
-                        HoverForeColor = Color.LightSkyBlue,
-                        NormalBackground = Color.Transparent,
-                        NormalForeColor = Color.FromArgb(53, 167, 255),
+                        BackColor         = Color.Transparent,
+                        ForeColor         = Color.FromArgb(53, 167, 255),
+                        HoverBackground   = Color.Transparent,
+                        HoverForeColor    = Color.LightSkyBlue,
+                        NormalBackground  = Color.Transparent,
+                        NormalForeColor   = Color.FromArgb(53, 167, 255),
                         PressedBackground = Color.FromArgb(42, 64, 78),
-                        PressedForeColor = Color.White,
+                        PressedForeColor  = Color.White,
                     };
                     cuiButtonAddSet.Click += (s, e) =>
                     {
@@ -672,13 +684,14 @@ namespace TrainSMARTApp
                 Width = parent.Width,
                 Dock = DockStyle.Bottom
             };
+            // TODO: add 'remove set' feature
 
             var lblSet = new Label
             {
-                Text = setNumber.ToString(),
-                Width = 30,
-                Dock = DockStyle.Left,
-                Font = new Font("SansSerif", 11),
+                Text      = setNumber.ToString(),
+                Width     = 30,
+                Dock      = DockStyle.Left,
+                Font      = new Font("SansSerif", 11),
                 ForeColor = Color.FromArgb(53, 167, 255),
                 TextAlign = ContentAlignment.MiddleCenter,
             };
@@ -699,6 +712,7 @@ namespace TrainSMARTApp
                 FocusBackgroundColor = Color.FromArgb(61, 70, 73),
                 FocusBorderColor     = Color.FromArgb(61, 70, 73),
                 PlaceholderColor     = Color.FromArgb(158, 163, 164),
+                Enabled = false,
             };
             txtWeight.KeyPress += KeyPressDigitOnly;
 
@@ -718,6 +732,7 @@ namespace TrainSMARTApp
                 FocusBackgroundColor = txtWeight.FocusBackgroundColor,
                 FocusBorderColor     = txtWeight.FocusBorderColor,
                 PlaceholderColor     = txtWeight.PlaceholderColor,
+                Enabled = false,
             };
             txtReps.KeyPress += KeyPressDigitOnly;
 
@@ -764,5 +779,38 @@ namespace TrainSMARTApp
                 e.Handled = true;
             }
         }
+
+        private void ResizeTextBoxToFitContents(TextBox textBox)
+        {
+            var size = TextRenderer.MeasureText(textBox.Text, textBox.Font);
+            textBox.Height = size.Height + 10;
+        }
+
+        // TEST METHOD
+        private void button_TEST_MASTER_Click(object sender, EventArgs e)
+        {
+            foreach (Control ctrl in flowLayoutPanel_Exercises.Controls)
+            {
+                if (ctrl is cuiButton btn)
+                {
+                    int id = (int)btn.Tag;
+
+                    if (selectedExerciseIDs.Contains(id))
+                    {
+                        selectedExerciseIDs.Remove(id);
+                        (btn.NormalBackground, btn.HoverBackground) = (Color.Transparent, Color.Transparent);
+                    }
+                    else
+                    {
+                        selectedExerciseIDs.Add(id);
+                        (btn.NormalBackground, btn.HoverBackground) = (Color.FromArgb(44, 79, 104), Color.FromArgb(44, 79, 104));
+                    }
+                }
+            }
+
+            label_AddExercises_Count.Text = "(" + selectedExerciseIDs.Count + ")";
+        }
+
+
     }
 }

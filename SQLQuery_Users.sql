@@ -1649,7 +1649,7 @@ SET Instructions = N'
     controlled motion to the starting
     position.
 8. Repeat for the desired number of 
-repetitions.'
+    repetitions.'
 WHERE ExerciseName = 'High Pull (Barbell)';
 
 
@@ -1717,7 +1717,7 @@ SET Instructions = N'
 6. Explosively jump into the air,
     reaching your arms overhead.
 7. Land softly and immediately begin the 
-next repetition.'
+    next repetition.'
 WHERE ExerciseName = 'Burpee';
 
 
@@ -1803,7 +1803,7 @@ SET Instructions = N'
 5. Drop back into a squat and repeat the 
     motion, throwing the ball again.
 6. Continue for the desired number of 
-repetitions.'
+    repetitions.'
 WHERE ExerciseName = 'Wall Ball';
 
 
@@ -1854,7 +1854,7 @@ SET Instructions = N'
     to lower the weight back to the
     floor.
 6. Repeat for the desired number of 
-repetitions.'
+    repetitions.'
 WHERE ExerciseName = 'Deadlift to Press';
 
 
