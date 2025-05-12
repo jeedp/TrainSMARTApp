@@ -642,16 +642,17 @@ namespace TrainSMARTApp
                     var cuiButtonAddSet = new cuiButton
                     {
                         Content           = "ADD SET",
-                        Font              = new Font("SansSerif", 11),// FontStyle.Bold),
-                        Dock              = DockStyle.Bottom,
                         Height            = 48,
                         Tag               = panelExercise,
+                        Dock              = DockStyle.Bottom,
+                        Font              = new Font("SansSerif", 11),// FontStyle.Bold),
                         Margin            = new Padding(3, 4, 3, 4),
                         Rounding          = new Padding(4),
+                        TextOffset        = new Point(0, 4),
 
                         BackColor         = Color.Transparent,
                         ForeColor         = Color.FromArgb(53, 167, 255),
-                        HoverBackground   = Color.FromArgb(53, 167, 255),
+                        HoverBackground   = Color.Transparent,
                         HoverForeColor    = Color.LightSkyBlue,
                         NormalBackground  = Color.Transparent,
                         NormalForeColor   = Color.FromArgb(53, 167, 255),
@@ -697,7 +698,7 @@ namespace TrainSMARTApp
                 TextAlign = ContentAlignment.MiddleRight,
             };
 
-            var lblPrevious = new Label()
+            var lblPrevious = new Label
             {
                 Text      = "100 lbs × 12",
                 Width     = 120,
