@@ -130,7 +130,7 @@ namespace TrainSMARTApp
             isAddingExercises = false;
             isCreatingWorkoutTemplate = false;
             ShowMenu(panel_Menu_Workout, cuiButton_Menu_Workout);
-            ClearDynamicExercisePanels();
+            ClearWorkoutCreationTemplates();
         }
 
         private void cuiButton_Menu_Exercises_Click(object sender, EventArgs e)
@@ -181,7 +181,7 @@ namespace TrainSMARTApp
         private void cuiButton_WorkoutCreation_Save_Click(object sender, EventArgs e)
         {
             isAddingExercises = false;
-            ClearDynamicExercisePanels();
+            ClearWorkoutCreationTemplates();
         }
 
         private void cuiButton_WorkoutCreation_EditName_Click(object sender, EventArgs e)
@@ -540,9 +540,9 @@ namespace TrainSMARTApp
                     var panelExercise = new Panel
                     {
                         Width     = 360,
-                        Height    = 165,
+                        Height    = 211,
                         BackColor = Color.Transparent,
-                        Margin    = new Padding(3, 5, 3, 5),
+                        Margin    = new Padding(3, 5, 3, 10),
                         Tag       = exerciseId,
 
                         BorderStyle = BorderStyle.FixedSingle,
@@ -556,6 +556,7 @@ namespace TrainSMARTApp
                         Dock              = DockStyle.Top,
                         Height            = 60,
                         Tag               = exerciseId,
+                        TextOffset        = new Point(0, -1), 
                         //TextOffset        = new Point  // TODO: FIX
                         //(
                         //    -180 + (exerciseName.Length > 31
@@ -588,46 +589,46 @@ namespace TrainSMARTApp
 
                     var lblSet = new Label
                     {
-                        Text      = "Sets",
+                        Text      = "SET",
+                        Font      = new Font("SansSerif", 9), //FontStyle.Bold),
                         Width     = 30,
                         Height    = 15,
                         ForeColor = Color.White,
-                        //Dock      = DockStyle.Left,
                         TextAlign = ContentAlignment.MiddleCenter,
-                        Location  = new Point(5, 65),
+                        Location  = new Point(10, 73),
                     };
 
                     var lblPrevious = new Label
                     {
-                        Text      = "Previous",
-                        Width     = lblSet.Width + 20,
+                        Text      = "PREVIOUS",
+                        Font      = lblSet.Font, 
+                        Width     = lblSet.Width + 40,
                         Height    = lblSet.Height,
                         ForeColor = lblSet.ForeColor,
-                        Dock      = lblSet.Dock,
                         TextAlign = lblSet.TextAlign,
-                        Location  = new Point(lblSet.Location.X + 75, lblSet.Location.Y),
+                        Location  = new Point(lblSet.Location.X + 57, lblSet.Location.Y),
                     };
 
                     var lblWeight = new Label
                     {
-                        Text      = "Weight",
-                        Width     = lblPrevious.Width,
-                        Height    = lblPrevious.Height,
-                        ForeColor = lblPrevious.ForeColor,
-                        Dock      = lblPrevious.Dock,
-                        TextAlign = lblPrevious.TextAlign,
-                        Location  = new Point(lblPrevious.Location.X + 107, lblPrevious.Location.Y),
+                        Text      = "LBS",
+                        Font      = lblSet.Font,
+                        Width     = lblSet.Width,
+                        Height    = lblSet.Height,
+                        ForeColor = lblSet.ForeColor,
+                        TextAlign = lblSet.TextAlign,
+                        Location  = new Point(lblPrevious.Location.X + 125, lblPrevious.Location.Y),
                     };
 
                     var lblReps = new Label
                     {
-                        Text      = "Reps",
-                        Width     = lblWeight.Width,
+                        Text      = "REPS",
+                        Font      = lblWeight.Font,
+                        Width     = lblWeight.Width + 10,
                         Height    = lblWeight.Height,
                         ForeColor = lblWeight.ForeColor,
-                        Dock      = lblWeight.Dock,
                         TextAlign = lblWeight.TextAlign,
-                        Location  = new Point(lblWeight.Location.X + 69, lblWeight.Location.Y),
+                        Location  = new Point(lblWeight.Location.X + 66, lblWeight.Location.Y),
                     };
 
                     panelExercise.Controls.Add(cuiButtonExerciseName);
@@ -640,17 +641,17 @@ namespace TrainSMARTApp
 
                     var cuiButtonAddSet = new cuiButton
                     {
-                        Content           = "Add Set",
-                        Font              = new Font("SansSerif", 12), //FontStyle.Bold),
+                        Content           = "ADD SET",
+                        Font              = new Font("SansSerif", 11),// FontStyle.Bold),
                         Dock              = DockStyle.Bottom,
-                        Height            = 30,
+                        Height            = 48,
                         Tag               = panelExercise,
                         Margin            = new Padding(3, 4, 3, 4),
                         Rounding          = new Padding(4),
 
                         BackColor         = Color.Transparent,
                         ForeColor         = Color.FromArgb(53, 167, 255),
-                        HoverBackground   = Color.Transparent,
+                        HoverBackground   = Color.FromArgb(53, 167, 255),
                         HoverForeColor    = Color.LightSkyBlue,
                         NormalBackground  = Color.Transparent,
                         NormalForeColor   = Color.FromArgb(53, 167, 255),
@@ -680,27 +681,37 @@ namespace TrainSMARTApp
 
             var setRow = new Panel
             {
-                Height = 50,
-                Width = parent.Width,
-                Dock = DockStyle.Bottom
+                Height = 58,
+                Width  = parent.Width,
+                Dock   = DockStyle.Bottom,
             };
             // TODO: add 'remove set' feature
 
             var lblSet = new Label
             {
                 Text      = setNumber.ToString(),
-                Width     = 30,
-                Dock      = DockStyle.Left,
-                Font      = new Font("SansSerif", 11),
+                Width     = 35,
+                Location  = new Point(0,15),
+                Font      = new Font("SansSerif", 13),
                 ForeColor = Color.FromArgb(53, 167, 255),
-                TextAlign = ContentAlignment.MiddleCenter,
+                TextAlign = ContentAlignment.MiddleRight,
             };
 
-            var txtWeight = new cuiTextBox2
+            var lblPrevious = new Label()
+            {
+                Text      = "100 lbs × 12",
+                Width     = 120,
+                Location  = new Point(55, 16),
+                Font      = new Font("SansSerif", 12),
+                ForeColor = Color.FromArgb(191, 194, 195),
+                TextAlign = ContentAlignment.MiddleLeft,
+            };
+
+            var txtBxWeight = new cuiTextBox2
             {
                 Width                = 62,
                 Height               = 40,
-                Location             = new Point(180, 4), 
+                Location             = new Point(179, 6), 
                 Font                 = new Font("SansSerif", 12),
                 Rounding             = new Padding(8),
                 Margin               = new Padding(20,0,20,0),
@@ -712,34 +723,34 @@ namespace TrainSMARTApp
                 FocusBackgroundColor = Color.FromArgb(61, 70, 73),
                 FocusBorderColor     = Color.FromArgb(61, 70, 73),
                 PlaceholderColor     = Color.FromArgb(158, 163, 164),
-                Enabled = false,
+                Enabled              = false,
             };
-            txtWeight.KeyPress += KeyPressDigitOnly;
+            txtBxWeight.KeyPress += KeyPressDigitOnly;
 
-            var txtReps = new cuiTextBox2
+            var txtBxReps = new cuiTextBox2
             {
-                Width                = txtWeight.Width,
-                Height               = txtWeight.Height,
-                Location             = new Point(txtWeight.Location.X + 70, txtWeight.Location.Y),
-                Font                 = txtWeight.Font,
-                Rounding             = txtWeight.Rounding,
-                Margin               = txtWeight.Margin,
-                ForeColor            = txtWeight.ForeColor,
-                BackColor            = txtWeight.BackColor,
-                BackgroundColor      = txtWeight.BackgroundColor,
-                BorderColor          = txtWeight.BorderColor,
-                BorderSize           = txtWeight.BorderSize,
-                FocusBackgroundColor = txtWeight.FocusBackgroundColor,
-                FocusBorderColor     = txtWeight.FocusBorderColor,
-                PlaceholderColor     = txtWeight.PlaceholderColor,
-                Enabled = false,
+                Width                = txtBxWeight.Width,
+                Height               = txtBxWeight.Height,
+                Location             = new Point(txtBxWeight.Location.X + 70, txtBxWeight.Location.Y),
+                Font                 = txtBxWeight.Font,
+                Rounding             = txtBxWeight.Rounding,
+                Margin               = txtBxWeight.Margin,
+                ForeColor            = txtBxWeight.ForeColor,
+                BackColor            = txtBxWeight.BackColor,
+                BackgroundColor      = txtBxWeight.BackgroundColor,
+                BorderColor          = txtBxWeight.BorderColor,
+                BorderSize           = txtBxWeight.BorderSize,
+                FocusBackgroundColor = txtBxWeight.FocusBackgroundColor,
+                FocusBorderColor     = txtBxWeight.FocusBorderColor,
+                PlaceholderColor     = txtBxWeight.PlaceholderColor,
+                Enabled              = txtBxWeight.Enabled,
             };
-            txtReps.KeyPress += KeyPressDigitOnly;
+            txtBxReps.KeyPress += KeyPressDigitOnly;
 
             setRow.Controls.Add(lblSet);
-            setRow.Controls.Add(txtWeight);
-            setRow.Controls.Add(txtReps);
-            setRow.Padding = new Padding(0, 5, 0,5);
+            setRow.Controls.Add(lblPrevious);
+            setRow.Controls.Add(txtBxWeight);
+            setRow.Controls.Add(txtBxReps);
             setRow.BackColor = Color.FromArgb(50, 50, 50);
 
             parent.Controls.Add(setRow);
@@ -749,7 +760,7 @@ namespace TrainSMARTApp
         }
 
 
-        private void ClearDynamicExercisePanels()
+        private void ClearWorkoutCreationTemplates()
         {
             var toRemove = new List<Control>();
 
