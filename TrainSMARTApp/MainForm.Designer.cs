@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel_Menus = new System.Windows.Forms.Panel();
             this.cuiButton_Menu_Measure = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Menu_Exercises = new CuoreUI.Controls.cuiButton();
@@ -41,17 +41,6 @@
             this.button_Exit = new System.Windows.Forms.Button();
             this.cuiGradientBorder_AboveMenu = new CuoreUI.Controls.cuiGradientBorder();
             this.cuiFormRounder = new CuoreUI.Components.cuiFormRounder();
-            this.panel_Measurement = new System.Windows.Forms.Panel();
-            this.cuiDataGridView_Measurement_WeightHistory = new CuoreUI.Controls.cuiDataGridView();
-            this.cuiButton_Measurement_AddHistory = new CuoreUI.Controls.cuiButton();
-            this.textBox_Measurement_ChartName = new System.Windows.Forms.TextBox();
-            this.label_Measurement_History = new System.Windows.Forms.Label();
-            this.cuiChartLine_Measurement_Weight = new CuoreUI.Controls.Charts.cuiChartLine();
-            this.cuiGradientBorder_Measurement_ChartLineBorder = new CuoreUI.Controls.cuiGradientBorder();
-            this.cuiGradientBorder_Measurement = new CuoreUI.Controls.cuiGradientBorder();
-            this.panel_Measurement_Title = new System.Windows.Forms.Panel();
-            this.cuiButton_Measure_GoBack = new CuoreUI.Controls.cuiButton();
-            this.label_Measurement_Name = new System.Windows.Forms.Label();
             this.flowLayoutPanel_WorkoutCreation = new System.Windows.Forms.FlowLayoutPanel();
             this.panel_WorkoutCreation_TemplateName = new System.Windows.Forms.Panel();
             this.cuiTextBox_WorkoutCreation_Note = new CuoreUI.Controls.cuiTextBox2();
@@ -170,10 +159,30 @@
             this.label_ExerciseDetails_Instruction = new System.Windows.Forms.Label();
             this.textBox_ExerciseDetails_Instructions = new System.Windows.Forms.TextBox();
             this.cuiButton_AddExercise_ConfirmAdd = new CuoreUI.Controls.cuiButton();
+            this.panel_Measurement = new System.Windows.Forms.Panel();
+            this.panel_Measurement_AddingMeasurement = new System.Windows.Forms.Panel();
+            this.cuiTextBox_Measurement_AddingMeasurement = new CuoreUI.Controls.cuiTextBox2();
+            this.cuiButton_AddingMeasurement_Save = new CuoreUI.Controls.cuiButton();
+            this.cuiButton_AddingMeasurement_Cancel = new CuoreUI.Controls.cuiButton();
+            this.label_AddingMeasurement_CurrentDate = new System.Windows.Forms.Label();
+            this.label_AddingMeasurement_Name = new System.Windows.Forms.Label();
+            this.cuiGradientBorder_AddingMeasurement_5 = new CuoreUI.Controls.cuiGradientBorder();
+            this.cuiGradientBorder_AddingMeasurement_4 = new CuoreUI.Controls.cuiGradientBorder();
+            this.cuiGradientBorder_AddingMeasurement_3 = new CuoreUI.Controls.cuiGradientBorder();
+            this.cuiGradientBorder_AddingMeasurement_1 = new CuoreUI.Controls.cuiGradientBorder();
+            this.flowLayoutPanel_Measurement = new System.Windows.Forms.FlowLayoutPanel();
+            this.panel_Measurement_Chart = new System.Windows.Forms.Panel();
+            this.textBox_Measurement_ChartName = new System.Windows.Forms.TextBox();
+            this.cuiChartLine_Measurement_Weight = new CuoreUI.Controls.Charts.cuiChartLine();
+            this.cuiButton_Measurement_AddMeasurement = new CuoreUI.Controls.cuiButton();
+            this.cuiGradientBorder_Measurement_ChartLineBorder = new CuoreUI.Controls.cuiGradientBorder();
+            this.label_Measurement_History = new System.Windows.Forms.Label();
+            this.cuiGradientBorder_Measurement = new CuoreUI.Controls.cuiGradientBorder();
+            this.panel_Measurement_Title = new System.Windows.Forms.Panel();
+            this.cuiButton_Measure_GoBack = new CuoreUI.Controls.cuiButton();
+            this.label_Measurement_Name = new System.Windows.Forms.Label();
             this.panel_Menus.SuspendLayout();
             this.panel_Form_Title.SuspendLayout();
-            this.panel_Measurement.SuspendLayout();
-            this.panel_Measurement_Title.SuspendLayout();
             this.flowLayoutPanel_WorkoutCreation.SuspendLayout();
             this.panel_WorkoutCreation_TemplateName.SuspendLayout();
             this.panel_WorkoutCreation_Title.SuspendLayout();
@@ -201,6 +210,11 @@
             this.panel_ExerciseDetails_Buttons.SuspendLayout();
             this.panel_ExerciseDetails_Name.SuspendLayout();
             this.flowLayoutPanel_ExerciseDetails.SuspendLayout();
+            this.panel_Measurement.SuspendLayout();
+            this.panel_Measurement_AddingMeasurement.SuspendLayout();
+            this.flowLayoutPanel_Measurement.SuspendLayout();
+            this.panel_Measurement_Chart.SuspendLayout();
+            this.panel_Measurement_Title.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_Menus
@@ -457,228 +471,6 @@
             this.cuiFormRounder.OutlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.cuiFormRounder.Rounding = 6;
             this.cuiFormRounder.TargetForm = this;
-            // 
-            // panel_Measurement
-            // 
-            this.panel_Measurement.Controls.Add(this.cuiDataGridView_Measurement_WeightHistory);
-            this.panel_Measurement.Controls.Add(this.cuiButton_Measurement_AddHistory);
-            this.panel_Measurement.Controls.Add(this.textBox_Measurement_ChartName);
-            this.panel_Measurement.Controls.Add(this.label_Measurement_History);
-            this.panel_Measurement.Controls.Add(this.cuiChartLine_Measurement_Weight);
-            this.panel_Measurement.Controls.Add(this.cuiGradientBorder_Measurement_ChartLineBorder);
-            this.panel_Measurement.Controls.Add(this.cuiGradientBorder_Measurement);
-            this.panel_Measurement.Controls.Add(this.panel_Measurement_Title);
-            this.panel_Measurement.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel_Measurement.Location = new System.Drawing.Point(0, 706);
-            this.panel_Measurement.Margin = new System.Windows.Forms.Padding(0);
-            this.panel_Measurement.Name = "panel_Measurement";
-            this.panel_Measurement.Size = new System.Drawing.Size(513, 0);
-            this.panel_Measurement.TabIndex = 14;
-            // 
-            // cuiDataGridView_Measurement_WeightHistory
-            // 
-            this.cuiDataGridView_Measurement_WeightHistory.AutoScroll = true;
-            this.cuiDataGridView_Measurement_WeightHistory.Cell = System.Drawing.Color.Transparent;
-            this.cuiDataGridView_Measurement_WeightHistory.Cell2 = System.Drawing.Color.Transparent;
-            this.cuiDataGridView_Measurement_WeightHistory.CellBorder = System.Drawing.Color.Transparent;
-            this.cuiDataGridView_Measurement_WeightHistory.CellHover = System.Drawing.Color.Transparent;
-            this.cuiDataGridView_Measurement_WeightHistory.CellSelect = System.Drawing.Color.Transparent;
-            this.cuiDataGridView_Measurement_WeightHistory.DataSource = null;
-            this.cuiDataGridView_Measurement_WeightHistory.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cuiDataGridView_Measurement_WeightHistory.ForeColor = System.Drawing.Color.White;
-            this.cuiDataGridView_Measurement_WeightHistory.HeaderColor = System.Drawing.Color.Transparent;
-            this.cuiDataGridView_Measurement_WeightHistory.Location = new System.Drawing.Point(25, 527);
-            this.cuiDataGridView_Measurement_WeightHistory.Name = "cuiDataGridView_Measurement_WeightHistory";
-            this.cuiDataGridView_Measurement_WeightHistory.Rounding = 4;
-            this.cuiDataGridView_Measurement_WeightHistory.Size = new System.Drawing.Size(462, 128);
-            this.cuiDataGridView_Measurement_WeightHistory.TabIndex = 17;
-            // 
-            // cuiButton_Measurement_AddHistory
-            // 
-            this.cuiButton_Measurement_AddHistory.CheckButton = false;
-            this.cuiButton_Measurement_AddHistory.Checked = false;
-            this.cuiButton_Measurement_AddHistory.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Measurement_AddHistory.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Measurement_AddHistory.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Measurement_AddHistory.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Measurement_AddHistory.Content = "";
-            this.cuiButton_Measurement_AddHistory.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.cuiButton_Measurement_AddHistory.Font = new System.Drawing.Font("SansSerif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cuiButton_Measurement_AddHistory.ForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measurement_AddHistory.HoverBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Measurement_AddHistory.HoveredImageTint = System.Drawing.Color.DarkGray;
-            this.cuiButton_Measurement_AddHistory.HoverForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measurement_AddHistory.HoverOutline = System.Drawing.Color.Empty;
-            this.cuiButton_Measurement_AddHistory.Image = ((System.Drawing.Image)(resources.GetObject("cuiButton_Measurement_AddHistory.Image")));
-            this.cuiButton_Measurement_AddHistory.ImageAutoCenter = true;
-            this.cuiButton_Measurement_AddHistory.ImageExpand = new System.Drawing.Point(2, 2);
-            this.cuiButton_Measurement_AddHistory.ImageOffset = new System.Drawing.Point(0, 0);
-            this.cuiButton_Measurement_AddHistory.Location = new System.Drawing.Point(445, 480);
-            this.cuiButton_Measurement_AddHistory.Name = "cuiButton_Measurement_AddHistory";
-            this.cuiButton_Measurement_AddHistory.NormalBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_Measurement_AddHistory.NormalForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measurement_AddHistory.NormalImageTint = System.Drawing.Color.White;
-            this.cuiButton_Measurement_AddHistory.NormalOutline = System.Drawing.Color.Empty;
-            this.cuiButton_Measurement_AddHistory.OutlineThickness = 0F;
-            this.cuiButton_Measurement_AddHistory.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Measurement_AddHistory.PressedForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measurement_AddHistory.PressedImageTint = System.Drawing.Color.DimGray;
-            this.cuiButton_Measurement_AddHistory.PressedOutline = System.Drawing.Color.Empty;
-            this.cuiButton_Measurement_AddHistory.Rounding = new System.Windows.Forms.Padding(8);
-            this.cuiButton_Measurement_AddHistory.Size = new System.Drawing.Size(43, 41);
-            this.cuiButton_Measurement_AddHistory.TabIndex = 16;
-            this.cuiButton_Measurement_AddHistory.TextOffset = new System.Drawing.Point(0, 15);
-            // 
-            // textBox_Measurement_ChartName
-            // 
-            this.textBox_Measurement_ChartName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.textBox_Measurement_ChartName.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox_Measurement_ChartName.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.textBox_Measurement_ChartName.ForeColor = System.Drawing.Color.White;
-            this.textBox_Measurement_ChartName.Location = new System.Drawing.Point(77, 123);
-            this.textBox_Measurement_ChartName.Name = "textBox_Measurement_ChartName";
-            this.textBox_Measurement_ChartName.ReadOnly = true;
-            this.textBox_Measurement_ChartName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.textBox_Measurement_ChartName.Size = new System.Drawing.Size(377, 27);
-            this.textBox_Measurement_ChartName.TabIndex = 12;
-            this.textBox_Measurement_ChartName.Text = "Weight (lbs)";
-            // 
-            // label_Measurement_History
-            // 
-            this.label_Measurement_History.AutoSize = true;
-            this.label_Measurement_History.BackColor = System.Drawing.Color.Transparent;
-            this.label_Measurement_History.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Measurement_History.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label_Measurement_History.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(194)))), ((int)(((byte)(195)))));
-            this.label_Measurement_History.Location = new System.Drawing.Point(22, 497);
-            this.label_Measurement_History.Name = "label_Measurement_History";
-            this.label_Measurement_History.Size = new System.Drawing.Size(75, 17);
-            this.label_Measurement_History.TabIndex = 13;
-            this.label_Measurement_History.Text = "HISTORY";
-            this.label_Measurement_History.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // cuiChartLine_Measurement_Weight
-            // 
-            this.cuiChartLine_Measurement_Weight.AutoMaxValue = false;
-            this.cuiChartLine_Measurement_Weight.AxisColor = System.Drawing.Color.Gray;
-            this.cuiChartLine_Measurement_Weight.ChartLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(89)))), ((int)(((byte)(43)))), ((int)(((byte)(154)))));
-            this.cuiChartLine_Measurement_Weight.ChartPadding = 40;
-            this.cuiChartLine_Measurement_Weight.CustomXAxis = new string[0];
-            this.cuiChartLine_Measurement_Weight.DataPoints = new float[] {
-        100F,
-        90F,
-        80F,
-        75F,
-        70F,
-        65F,
-        60F};
-            this.cuiChartLine_Measurement_Weight.DayColor = System.Drawing.Color.DarkGray;
-            this.cuiChartLine_Measurement_Weight.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F);
-            this.cuiChartLine_Measurement_Weight.GradientBackground = true;
-            this.cuiChartLine_Measurement_Weight.Location = new System.Drawing.Point(40, 109);
-            this.cuiChartLine_Measurement_Weight.Margin = new System.Windows.Forms.Padding(10);
-            this.cuiChartLine_Measurement_Weight.MaxValue = 250F;
-            this.cuiChartLine_Measurement_Weight.Name = "cuiChartLine_Measurement_Weight";
-            this.cuiChartLine_Measurement_Weight.PointColor = System.Drawing.Color.FromArgb(((int)(((byte)(89)))), ((int)(((byte)(43)))), ((int)(((byte)(154)))));
-            this.cuiChartLine_Measurement_Weight.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.cuiChartLine_Measurement_Weight.ShortDates = true;
-            this.cuiChartLine_Measurement_Weight.Size = new System.Drawing.Size(440, 309);
-            this.cuiChartLine_Measurement_Weight.TabIndex = 11;
-            this.cuiChartLine_Measurement_Weight.UseBezier = false;
-            this.cuiChartLine_Measurement_Weight.UsePercent = false;
-            // 
-            // cuiGradientBorder_Measurement_ChartLineBorder
-            // 
-            this.cuiGradientBorder_Measurement_ChartLineBorder.GradientAngle = 0F;
-            this.cuiGradientBorder_Measurement_ChartLineBorder.Location = new System.Drawing.Point(24, 105);
-            this.cuiGradientBorder_Measurement_ChartLineBorder.Margin = new System.Windows.Forms.Padding(0);
-            this.cuiGradientBorder_Measurement_ChartLineBorder.Name = "cuiGradientBorder_Measurement_ChartLineBorder";
-            this.cuiGradientBorder_Measurement_ChartLineBorder.OutlineThickness = 1F;
-            this.cuiGradientBorder_Measurement_ChartLineBorder.PanelColor1 = System.Drawing.Color.Transparent;
-            this.cuiGradientBorder_Measurement_ChartLineBorder.PanelColor2 = System.Drawing.Color.Transparent;
-            this.cuiGradientBorder_Measurement_ChartLineBorder.PanelOutlineColor1 = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(102)))), ((int)(((byte)(105)))));
-            this.cuiGradientBorder_Measurement_ChartLineBorder.PanelOutlineColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(102)))), ((int)(((byte)(105)))));
-            this.cuiGradientBorder_Measurement_ChartLineBorder.Rounding = new System.Windows.Forms.Padding(8);
-            this.cuiGradientBorder_Measurement_ChartLineBorder.Size = new System.Drawing.Size(463, 318);
-            this.cuiGradientBorder_Measurement_ChartLineBorder.TabIndex = 10;
-            // 
-            // cuiGradientBorder_Measurement
-            // 
-            this.cuiGradientBorder_Measurement.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cuiGradientBorder_Measurement.GradientAngle = -90F;
-            this.cuiGradientBorder_Measurement.Location = new System.Drawing.Point(0, 80);
-            this.cuiGradientBorder_Measurement.Margin = new System.Windows.Forms.Padding(0);
-            this.cuiGradientBorder_Measurement.Name = "cuiGradientBorder_Measurement";
-            this.cuiGradientBorder_Measurement.OutlineThickness = 0F;
-            this.cuiGradientBorder_Measurement.PanelColor1 = System.Drawing.Color.Transparent;
-            this.cuiGradientBorder_Measurement.PanelColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
-            this.cuiGradientBorder_Measurement.PanelOutlineColor1 = System.Drawing.Color.Transparent;
-            this.cuiGradientBorder_Measurement.PanelOutlineColor2 = System.Drawing.Color.Transparent;
-            this.cuiGradientBorder_Measurement.Rounding = new System.Windows.Forms.Padding(8);
-            this.cuiGradientBorder_Measurement.Size = new System.Drawing.Size(513, 10);
-            this.cuiGradientBorder_Measurement.TabIndex = 8;
-            // 
-            // panel_Measurement_Title
-            // 
-            this.panel_Measurement_Title.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(51)))), ((int)(((byte)(55)))));
-            this.panel_Measurement_Title.Controls.Add(this.cuiButton_Measure_GoBack);
-            this.panel_Measurement_Title.Controls.Add(this.label_Measurement_Name);
-            this.panel_Measurement_Title.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel_Measurement_Title.Location = new System.Drawing.Point(0, 0);
-            this.panel_Measurement_Title.Name = "panel_Measurement_Title";
-            this.panel_Measurement_Title.Size = new System.Drawing.Size(513, 80);
-            this.panel_Measurement_Title.TabIndex = 7;
-            // 
-            // cuiButton_Measure_GoBack
-            // 
-            this.cuiButton_Measure_GoBack.CheckButton = false;
-            this.cuiButton_Measure_GoBack.Checked = false;
-            this.cuiButton_Measure_GoBack.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Measure_GoBack.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Measure_GoBack.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Measure_GoBack.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Measure_GoBack.Content = "";
-            this.cuiButton_Measure_GoBack.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.cuiButton_Measure_GoBack.Dock = System.Windows.Forms.DockStyle.Left;
-            this.cuiButton_Measure_GoBack.Font = new System.Drawing.Font("SansSerif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cuiButton_Measure_GoBack.ForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measure_GoBack.HoverBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Measure_GoBack.HoveredImageTint = System.Drawing.Color.DarkGray;
-            this.cuiButton_Measure_GoBack.HoverForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measure_GoBack.HoverOutline = System.Drawing.Color.Empty;
-            this.cuiButton_Measure_GoBack.Image = ((System.Drawing.Image)(resources.GetObject("cuiButton_Measure_GoBack.Image")));
-            this.cuiButton_Measure_GoBack.ImageAutoCenter = true;
-            this.cuiButton_Measure_GoBack.ImageExpand = new System.Drawing.Point(6, 6);
-            this.cuiButton_Measure_GoBack.ImageOffset = new System.Drawing.Point(-2, 0);
-            this.cuiButton_Measure_GoBack.Location = new System.Drawing.Point(0, 0);
-            this.cuiButton_Measure_GoBack.Name = "cuiButton_Measure_GoBack";
-            this.cuiButton_Measure_GoBack.NormalBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_Measure_GoBack.NormalForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measure_GoBack.NormalImageTint = System.Drawing.Color.White;
-            this.cuiButton_Measure_GoBack.NormalOutline = System.Drawing.Color.Empty;
-            this.cuiButton_Measure_GoBack.OutlineThickness = 0F;
-            this.cuiButton_Measure_GoBack.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Measure_GoBack.PressedForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measure_GoBack.PressedImageTint = System.Drawing.Color.DimGray;
-            this.cuiButton_Measure_GoBack.PressedOutline = System.Drawing.Color.Empty;
-            this.cuiButton_Measure_GoBack.Rounding = new System.Windows.Forms.Padding(8);
-            this.cuiButton_Measure_GoBack.Size = new System.Drawing.Size(102, 80);
-            this.cuiButton_Measure_GoBack.TabIndex = 8;
-            this.cuiButton_Measure_GoBack.TextOffset = new System.Drawing.Point(0, 15);
-            // 
-            // label_Measurement_Name
-            // 
-            this.label_Measurement_Name.AutoSize = true;
-            this.label_Measurement_Name.BackColor = System.Drawing.Color.Transparent;
-            this.label_Measurement_Name.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Measurement_Name.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label_Measurement_Name.ForeColor = System.Drawing.Color.White;
-            this.label_Measurement_Name.Location = new System.Drawing.Point(116, 27);
-            this.label_Measurement_Name.Name = "label_Measurement_Name";
-            this.label_Measurement_Name.Size = new System.Drawing.Size(106, 27);
-            this.label_Measurement_Name.TabIndex = 7;
-            this.label_Measurement_Name.Text = "Measure";
-            this.label_Measurement_Name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // flowLayoutPanel_WorkoutCreation
             // 
@@ -1142,16 +934,16 @@
             this.chart_Profile_WorkoutCount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.chart_Profile_WorkoutCount.BorderlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.chart_Profile_WorkoutCount.BorderSkin.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
-            chartArea2.BackColor = System.Drawing.Color.Transparent;
-            chartArea2.BorderWidth = 0;
-            chartArea2.Name = "ChartArea1";
-            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea2);
+            chartArea3.BackColor = System.Drawing.Color.Transparent;
+            chartArea3.BorderWidth = 0;
+            chartArea3.Name = "ChartArea1";
+            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea3);
             this.chart_Profile_WorkoutCount.Location = new System.Drawing.Point(51, 17);
             this.chart_Profile_WorkoutCount.Name = "chart_Profile_WorkoutCount";
             this.chart_Profile_WorkoutCount.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series2.ChartArea = "ChartArea1";
-            series2.Name = "Series1";
-            this.chart_Profile_WorkoutCount.Series.Add(series2);
+            series3.ChartArea = "ChartArea1";
+            series3.Name = "Series1";
+            this.chart_Profile_WorkoutCount.Series.Add(series3);
             this.chart_Profile_WorkoutCount.Size = new System.Drawing.Size(400, 300);
             this.chart_Profile_WorkoutCount.TabIndex = 0;
             this.chart_Profile_WorkoutCount.Text = "chart1";
@@ -1266,7 +1058,7 @@
             this.panel_Menu_Exercises.Location = new System.Drawing.Point(0, 35);
             this.panel_Menu_Exercises.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Menu_Exercises.Name = "panel_Menu_Exercises";
-            this.panel_Menu_Exercises.Size = new System.Drawing.Size(513, 661);
+            this.panel_Menu_Exercises.Size = new System.Drawing.Size(513, 0);
             this.panel_Menu_Exercises.TabIndex = 20;
             // 
             // cuiBorder_Exercises_Filter
@@ -2363,6 +2155,7 @@
             this.cuiButton_Measure_Weight.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_Weight.TabIndex = 13;
             this.cuiButton_Measure_Weight.TextOffset = new System.Drawing.Point(-134, 1);
+            this.cuiButton_Measure_Weight.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
             // cuiButton_Measure_BodyFatPercentage
             // 
@@ -2400,6 +2193,7 @@
             this.cuiButton_Measure_BodyFatPercentage.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_BodyFatPercentage.TabIndex = 14;
             this.cuiButton_Measure_BodyFatPercentage.TextOffset = new System.Drawing.Point(-75, 1);
+            this.cuiButton_Measure_BodyFatPercentage.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
             // cuiButton_Measure_CaloricIntake
             // 
@@ -2437,6 +2231,7 @@
             this.cuiButton_Measure_CaloricIntake.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_CaloricIntake.TabIndex = 15;
             this.cuiButton_Measure_CaloricIntake.TextOffset = new System.Drawing.Point(-103, 1);
+            this.cuiButton_Measure_CaloricIntake.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
             // label_Measurement_BodyPart
             // 
@@ -2489,6 +2284,7 @@
             this.cuiButton_Measure_Neck.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_Neck.TabIndex = 17;
             this.cuiButton_Measure_Neck.TextOffset = new System.Drawing.Point(-143, 1);
+            this.cuiButton_Measure_Neck.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
             // cuiButton_Measure_Shoulders
             // 
@@ -2526,6 +2322,7 @@
             this.cuiButton_Measure_Shoulders.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_Shoulders.TabIndex = 18;
             this.cuiButton_Measure_Shoulders.TextOffset = new System.Drawing.Point(-120, 1);
+            this.cuiButton_Measure_Shoulders.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
             // cuiButton_Measure_Chest
             // 
@@ -2563,6 +2360,7 @@
             this.cuiButton_Measure_Chest.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_Chest.TabIndex = 19;
             this.cuiButton_Measure_Chest.TextOffset = new System.Drawing.Point(-140, 1);
+            this.cuiButton_Measure_Chest.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
             // cuiButton_Measure_LeftBicep
             // 
@@ -2600,6 +2398,7 @@
             this.cuiButton_Measure_LeftBicep.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_LeftBicep.TabIndex = 20;
             this.cuiButton_Measure_LeftBicep.TextOffset = new System.Drawing.Point(-122, 1);
+            this.cuiButton_Measure_LeftBicep.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
             // cuiButton_Measure_RightBicep
             // 
@@ -2637,6 +2436,7 @@
             this.cuiButton_Measure_RightBicep.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_RightBicep.TabIndex = 21;
             this.cuiButton_Measure_RightBicep.TextOffset = new System.Drawing.Point(-115, 1);
+            this.cuiButton_Measure_RightBicep.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
             // cuiButton_Measure_LeftForearm
             // 
@@ -2674,6 +2474,7 @@
             this.cuiButton_Measure_LeftForearm.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_LeftForearm.TabIndex = 22;
             this.cuiButton_Measure_LeftForearm.TextOffset = new System.Drawing.Point(-111, 1);
+            this.cuiButton_Measure_LeftForearm.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
             // cuiButton_Measure_RightForearm
             // 
@@ -2711,6 +2512,7 @@
             this.cuiButton_Measure_RightForearm.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_RightForearm.TabIndex = 23;
             this.cuiButton_Measure_RightForearm.TextOffset = new System.Drawing.Point(-104, 1);
+            this.cuiButton_Measure_RightForearm.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
             // cuiButton_Measure_UpperAbs
             // 
@@ -2748,6 +2550,7 @@
             this.cuiButton_Measure_UpperAbs.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_UpperAbs.TabIndex = 24;
             this.cuiButton_Measure_UpperAbs.TextOffset = new System.Drawing.Point(-120, 1);
+            this.cuiButton_Measure_UpperAbs.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
             // cuiButton_Measure_Waist
             // 
@@ -2785,6 +2588,7 @@
             this.cuiButton_Measure_Waist.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_Waist.TabIndex = 25;
             this.cuiButton_Measure_Waist.TextOffset = new System.Drawing.Point(-140, 1);
+            this.cuiButton_Measure_Waist.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
             // cuiButton_Measure_LowerAbs
             // 
@@ -2822,6 +2626,7 @@
             this.cuiButton_Measure_LowerAbs.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_LowerAbs.TabIndex = 26;
             this.cuiButton_Measure_LowerAbs.TextOffset = new System.Drawing.Point(-120, 1);
+            this.cuiButton_Measure_LowerAbs.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
             // cuiButton_Measure_Hips
             // 
@@ -2859,6 +2664,7 @@
             this.cuiButton_Measure_Hips.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_Hips.TabIndex = 27;
             this.cuiButton_Measure_Hips.TextOffset = new System.Drawing.Point(-146, 1);
+            this.cuiButton_Measure_Hips.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
             // cuiButton_Measure_LeftThigh
             // 
@@ -2896,6 +2702,7 @@
             this.cuiButton_Measure_LeftThigh.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_LeftThigh.TabIndex = 28;
             this.cuiButton_Measure_LeftThigh.TextOffset = new System.Drawing.Point(-124, 1);
+            this.cuiButton_Measure_LeftThigh.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
             // cuiButton_Measure_RightThigh
             // 
@@ -2933,6 +2740,7 @@
             this.cuiButton_Measure_RightThigh.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_RightThigh.TabIndex = 29;
             this.cuiButton_Measure_RightThigh.TextOffset = new System.Drawing.Point(-116, 1);
+            this.cuiButton_Measure_RightThigh.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
             // cuiButton_Measure_LeftCalf
             // 
@@ -2970,6 +2778,7 @@
             this.cuiButton_Measure_LeftCalf.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_LeftCalf.TabIndex = 30;
             this.cuiButton_Measure_LeftCalf.TextOffset = new System.Drawing.Point(-130, 1);
+            this.cuiButton_Measure_LeftCalf.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
             // cuiButton_Measure_RightCalf
             // 
@@ -3007,6 +2816,7 @@
             this.cuiButton_Measure_RightCalf.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_RightCalf.TabIndex = 31;
             this.cuiButton_Measure_RightCalf.TextOffset = new System.Drawing.Point(-124, 1);
+            this.cuiButton_Measure_RightCalf.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
             // panel_ExerciseDetails
             // 
@@ -3015,7 +2825,7 @@
             this.panel_ExerciseDetails.Controls.Add(this.panel_ExerciseDetails_Name);
             this.panel_ExerciseDetails.Controls.Add(this.flowLayoutPanel_ExerciseDetails);
             this.panel_ExerciseDetails.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel_ExerciseDetails.Location = new System.Drawing.Point(0, 696);
+            this.panel_ExerciseDetails.Location = new System.Drawing.Point(0, 35);
             this.panel_ExerciseDetails.Margin = new System.Windows.Forms.Padding(0);
             this.panel_ExerciseDetails.Name = "panel_ExerciseDetails";
             this.panel_ExerciseDetails.Size = new System.Drawing.Size(513, 0);
@@ -3397,13 +3207,446 @@
             this.cuiButton_AddExercise_ConfirmAdd.Visible = false;
             this.cuiButton_AddExercise_ConfirmAdd.Click += new System.EventHandler(this.cuiButton_AddExercise_ConfirmAdd_Click);
             // 
+            // panel_Measurement
+            // 
+            this.panel_Measurement.Controls.Add(this.panel_Measurement_AddingMeasurement);
+            this.panel_Measurement.Controls.Add(this.flowLayoutPanel_Measurement);
+            this.panel_Measurement.Controls.Add(this.cuiGradientBorder_Measurement);
+            this.panel_Measurement.Controls.Add(this.panel_Measurement_Title);
+            this.panel_Measurement.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel_Measurement.Location = new System.Drawing.Point(0, 35);
+            this.panel_Measurement.Margin = new System.Windows.Forms.Padding(0);
+            this.panel_Measurement.Name = "panel_Measurement";
+            this.panel_Measurement.Size = new System.Drawing.Size(513, 661);
+            this.panel_Measurement.TabIndex = 24;
+            // 
+            // panel_Measurement_AddingMeasurement
+            // 
+            this.panel_Measurement_AddingMeasurement.Controls.Add(this.cuiTextBox_Measurement_AddingMeasurement);
+            this.panel_Measurement_AddingMeasurement.Controls.Add(this.cuiButton_AddingMeasurement_Save);
+            this.panel_Measurement_AddingMeasurement.Controls.Add(this.cuiButton_AddingMeasurement_Cancel);
+            this.panel_Measurement_AddingMeasurement.Controls.Add(this.label_AddingMeasurement_CurrentDate);
+            this.panel_Measurement_AddingMeasurement.Controls.Add(this.label_AddingMeasurement_Name);
+            this.panel_Measurement_AddingMeasurement.Controls.Add(this.cuiGradientBorder_AddingMeasurement_5);
+            this.panel_Measurement_AddingMeasurement.Controls.Add(this.cuiGradientBorder_AddingMeasurement_4);
+            this.panel_Measurement_AddingMeasurement.Controls.Add(this.cuiGradientBorder_AddingMeasurement_3);
+            this.panel_Measurement_AddingMeasurement.Controls.Add(this.cuiGradientBorder_AddingMeasurement_1);
+            this.panel_Measurement_AddingMeasurement.Location = new System.Drawing.Point(43, 241);
+            this.panel_Measurement_AddingMeasurement.Name = "panel_Measurement_AddingMeasurement";
+            this.panel_Measurement_AddingMeasurement.Size = new System.Drawing.Size(425, 270);
+            this.panel_Measurement_AddingMeasurement.TabIndex = 17;
+            // 
+            // cuiTextBox_Measurement_AddingMeasurement
+            // 
+            this.cuiTextBox_Measurement_AddingMeasurement.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
+            this.cuiTextBox_Measurement_AddingMeasurement.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
+            this.cuiTextBox_Measurement_AddingMeasurement.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
+            this.cuiTextBox_Measurement_AddingMeasurement.BorderSize = 1;
+            this.cuiTextBox_Measurement_AddingMeasurement.Content = "";
+            this.cuiTextBox_Measurement_AddingMeasurement.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cuiTextBox_Measurement_AddingMeasurement.FocusBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
+            this.cuiTextBox_Measurement_AddingMeasurement.FocusBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
+            this.cuiTextBox_Measurement_AddingMeasurement.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiTextBox_Measurement_AddingMeasurement.ForeColor = System.Drawing.Color.White;
+            this.cuiTextBox_Measurement_AddingMeasurement.Location = new System.Drawing.Point(46, 122);
+            this.cuiTextBox_Measurement_AddingMeasurement.Margin = new System.Windows.Forms.Padding(4);
+            this.cuiTextBox_Measurement_AddingMeasurement.Multiline = false;
+            this.cuiTextBox_Measurement_AddingMeasurement.Name = "cuiTextBox_Measurement_AddingMeasurement";
+            this.cuiTextBox_Measurement_AddingMeasurement.Padding = new System.Windows.Forms.Padding(27, 11, 27, 0);
+            this.cuiTextBox_Measurement_AddingMeasurement.PasswordChar = false;
+            this.cuiTextBox_Measurement_AddingMeasurement.PlaceholderColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(127)))), ((int)(((byte)(128)))));
+            this.cuiTextBox_Measurement_AddingMeasurement.PlaceholderText = "";
+            this.cuiTextBox_Measurement_AddingMeasurement.Rounding = new System.Windows.Forms.Padding(10);
+            this.cuiTextBox_Measurement_AddingMeasurement.Size = new System.Drawing.Size(330, 49);
+            this.cuiTextBox_Measurement_AddingMeasurement.TabIndex = 25;
+            this.cuiTextBox_Measurement_AddingMeasurement.TextOffset = new System.Drawing.Size(0, 0);
+            this.cuiTextBox_Measurement_AddingMeasurement.UnderlinedStyle = false;
+            // 
+            // cuiButton_AddingMeasurement_Save
+            // 
+            this.cuiButton_AddingMeasurement_Save.CheckButton = false;
+            this.cuiButton_AddingMeasurement_Save.Checked = false;
+            this.cuiButton_AddingMeasurement_Save.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_AddingMeasurement_Save.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_AddingMeasurement_Save.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_AddingMeasurement_Save.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_AddingMeasurement_Save.Content = "SAVE";
+            this.cuiButton_AddingMeasurement_Save.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.cuiButton_AddingMeasurement_Save.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiButton_AddingMeasurement_Save.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
+            this.cuiButton_AddingMeasurement_Save.HoverBackground = System.Drawing.Color.Transparent;
+            this.cuiButton_AddingMeasurement_Save.HoveredImageTint = System.Drawing.Color.White;
+            this.cuiButton_AddingMeasurement_Save.HoverForeColor = System.Drawing.Color.LightSkyBlue;
+            this.cuiButton_AddingMeasurement_Save.HoverOutline = System.Drawing.Color.Transparent;
+            this.cuiButton_AddingMeasurement_Save.Image = null;
+            this.cuiButton_AddingMeasurement_Save.ImageAutoCenter = false;
+            this.cuiButton_AddingMeasurement_Save.ImageExpand = new System.Drawing.Point(0, 0);
+            this.cuiButton_AddingMeasurement_Save.ImageOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_AddingMeasurement_Save.Location = new System.Drawing.Point(310, 200);
+            this.cuiButton_AddingMeasurement_Save.Margin = new System.Windows.Forms.Padding(3, 16, 3, 4);
+            this.cuiButton_AddingMeasurement_Save.Name = "cuiButton_AddingMeasurement_Save";
+            this.cuiButton_AddingMeasurement_Save.NormalBackground = System.Drawing.Color.Transparent;
+            this.cuiButton_AddingMeasurement_Save.NormalForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
+            this.cuiButton_AddingMeasurement_Save.NormalImageTint = System.Drawing.Color.White;
+            this.cuiButton_AddingMeasurement_Save.NormalOutline = System.Drawing.Color.Transparent;
+            this.cuiButton_AddingMeasurement_Save.OutlineThickness = 1.5F;
+            this.cuiButton_AddingMeasurement_Save.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(64)))), ((int)(((byte)(78)))));
+            this.cuiButton_AddingMeasurement_Save.PressedForeColor = System.Drawing.Color.White;
+            this.cuiButton_AddingMeasurement_Save.PressedImageTint = System.Drawing.Color.White;
+            this.cuiButton_AddingMeasurement_Save.PressedOutline = System.Drawing.Color.Transparent;
+            this.cuiButton_AddingMeasurement_Save.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiButton_AddingMeasurement_Save.Size = new System.Drawing.Size(90, 50);
+            this.cuiButton_AddingMeasurement_Save.TabIndex = 24;
+            this.cuiButton_AddingMeasurement_Save.TextOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_AddingMeasurement_Save.Click += new System.EventHandler(this.cuiButton_AddingMeasurement_Save_Click);
+            // 
+            // cuiButton_AddingMeasurement_Cancel
+            // 
+            this.cuiButton_AddingMeasurement_Cancel.CheckButton = false;
+            this.cuiButton_AddingMeasurement_Cancel.Checked = false;
+            this.cuiButton_AddingMeasurement_Cancel.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_AddingMeasurement_Cancel.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_AddingMeasurement_Cancel.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_AddingMeasurement_Cancel.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_AddingMeasurement_Cancel.Content = "CANCEL";
+            this.cuiButton_AddingMeasurement_Cancel.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.cuiButton_AddingMeasurement_Cancel.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiButton_AddingMeasurement_Cancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
+            this.cuiButton_AddingMeasurement_Cancel.HoverBackground = System.Drawing.Color.Transparent;
+            this.cuiButton_AddingMeasurement_Cancel.HoveredImageTint = System.Drawing.Color.White;
+            this.cuiButton_AddingMeasurement_Cancel.HoverForeColor = System.Drawing.Color.LightSkyBlue;
+            this.cuiButton_AddingMeasurement_Cancel.HoverOutline = System.Drawing.Color.Transparent;
+            this.cuiButton_AddingMeasurement_Cancel.Image = null;
+            this.cuiButton_AddingMeasurement_Cancel.ImageAutoCenter = false;
+            this.cuiButton_AddingMeasurement_Cancel.ImageExpand = new System.Drawing.Point(0, 0);
+            this.cuiButton_AddingMeasurement_Cancel.ImageOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_AddingMeasurement_Cancel.Location = new System.Drawing.Point(174, 200);
+            this.cuiButton_AddingMeasurement_Cancel.Margin = new System.Windows.Forms.Padding(3, 16, 3, 4);
+            this.cuiButton_AddingMeasurement_Cancel.Name = "cuiButton_AddingMeasurement_Cancel";
+            this.cuiButton_AddingMeasurement_Cancel.NormalBackground = System.Drawing.Color.Transparent;
+            this.cuiButton_AddingMeasurement_Cancel.NormalForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
+            this.cuiButton_AddingMeasurement_Cancel.NormalImageTint = System.Drawing.Color.White;
+            this.cuiButton_AddingMeasurement_Cancel.NormalOutline = System.Drawing.Color.Transparent;
+            this.cuiButton_AddingMeasurement_Cancel.OutlineThickness = 1.5F;
+            this.cuiButton_AddingMeasurement_Cancel.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(64)))), ((int)(((byte)(78)))));
+            this.cuiButton_AddingMeasurement_Cancel.PressedForeColor = System.Drawing.Color.White;
+            this.cuiButton_AddingMeasurement_Cancel.PressedImageTint = System.Drawing.Color.White;
+            this.cuiButton_AddingMeasurement_Cancel.PressedOutline = System.Drawing.Color.Transparent;
+            this.cuiButton_AddingMeasurement_Cancel.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiButton_AddingMeasurement_Cancel.Size = new System.Drawing.Size(100, 50);
+            this.cuiButton_AddingMeasurement_Cancel.TabIndex = 23;
+            this.cuiButton_AddingMeasurement_Cancel.TextOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_AddingMeasurement_Cancel.Click += new System.EventHandler(this.cuiButton_AddingMeasurement_Click);
+            // 
+            // label_AddingMeasurement_CurrentDate
+            // 
+            this.label_AddingMeasurement_CurrentDate.AutoSize = true;
+            this.label_AddingMeasurement_CurrentDate.BackColor = System.Drawing.Color.Transparent;
+            this.label_AddingMeasurement_CurrentDate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_AddingMeasurement_CurrentDate.Font = new System.Drawing.Font("SansSerif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label_AddingMeasurement_CurrentDate.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
+            this.label_AddingMeasurement_CurrentDate.Location = new System.Drawing.Point(268, 55);
+            this.label_AddingMeasurement_CurrentDate.Name = "label_AddingMeasurement_CurrentDate";
+            this.label_AddingMeasurement_CurrentDate.Size = new System.Drawing.Size(84, 26);
+            this.label_AddingMeasurement_CurrentDate.TabIndex = 14;
+            this.label_AddingMeasurement_CurrentDate.Text = "5/12/25";
+            this.label_AddingMeasurement_CurrentDate.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label_AddingMeasurement_Name
+            // 
+            this.label_AddingMeasurement_Name.AutoSize = true;
+            this.label_AddingMeasurement_Name.BackColor = System.Drawing.Color.Transparent;
+            this.label_AddingMeasurement_Name.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_AddingMeasurement_Name.Font = new System.Drawing.Font("SansSerif", 16.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label_AddingMeasurement_Name.ForeColor = System.Drawing.Color.White;
+            this.label_AddingMeasurement_Name.Location = new System.Drawing.Point(42, 50);
+            this.label_AddingMeasurement_Name.Name = "label_AddingMeasurement_Name";
+            this.label_AddingMeasurement_Name.Size = new System.Drawing.Size(107, 32);
+            this.label_AddingMeasurement_Name.TabIndex = 13;
+            this.label_AddingMeasurement_Name.Text = "Weight";
+            this.label_AddingMeasurement_Name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cuiGradientBorder_AddingMeasurement_5
+            // 
+            this.cuiGradientBorder_AddingMeasurement_5.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.cuiGradientBorder_AddingMeasurement_5.GradientAngle = 270F;
+            this.cuiGradientBorder_AddingMeasurement_5.Location = new System.Drawing.Point(10, 260);
+            this.cuiGradientBorder_AddingMeasurement_5.Margin = new System.Windows.Forms.Padding(0);
+            this.cuiGradientBorder_AddingMeasurement_5.Name = "cuiGradientBorder_AddingMeasurement_5";
+            this.cuiGradientBorder_AddingMeasurement_5.OutlineThickness = 0F;
+            this.cuiGradientBorder_AddingMeasurement_5.PanelColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_AddingMeasurement_5.PanelColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.cuiGradientBorder_AddingMeasurement_5.PanelOutlineColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_AddingMeasurement_5.PanelOutlineColor2 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_AddingMeasurement_5.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiGradientBorder_AddingMeasurement_5.Size = new System.Drawing.Size(405, 10);
+            this.cuiGradientBorder_AddingMeasurement_5.TabIndex = 12;
+            // 
+            // cuiGradientBorder_AddingMeasurement_4
+            // 
+            this.cuiGradientBorder_AddingMeasurement_4.Dock = System.Windows.Forms.DockStyle.Right;
+            this.cuiGradientBorder_AddingMeasurement_4.GradientAngle = 180F;
+            this.cuiGradientBorder_AddingMeasurement_4.Location = new System.Drawing.Point(415, 10);
+            this.cuiGradientBorder_AddingMeasurement_4.Margin = new System.Windows.Forms.Padding(0);
+            this.cuiGradientBorder_AddingMeasurement_4.Name = "cuiGradientBorder_AddingMeasurement_4";
+            this.cuiGradientBorder_AddingMeasurement_4.OutlineThickness = 0F;
+            this.cuiGradientBorder_AddingMeasurement_4.PanelColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_AddingMeasurement_4.PanelColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.cuiGradientBorder_AddingMeasurement_4.PanelOutlineColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_AddingMeasurement_4.PanelOutlineColor2 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_AddingMeasurement_4.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiGradientBorder_AddingMeasurement_4.Size = new System.Drawing.Size(10, 260);
+            this.cuiGradientBorder_AddingMeasurement_4.TabIndex = 11;
+            // 
+            // cuiGradientBorder_AddingMeasurement_3
+            // 
+            this.cuiGradientBorder_AddingMeasurement_3.Dock = System.Windows.Forms.DockStyle.Left;
+            this.cuiGradientBorder_AddingMeasurement_3.GradientAngle = 0F;
+            this.cuiGradientBorder_AddingMeasurement_3.Location = new System.Drawing.Point(0, 10);
+            this.cuiGradientBorder_AddingMeasurement_3.Margin = new System.Windows.Forms.Padding(0);
+            this.cuiGradientBorder_AddingMeasurement_3.Name = "cuiGradientBorder_AddingMeasurement_3";
+            this.cuiGradientBorder_AddingMeasurement_3.OutlineThickness = 0F;
+            this.cuiGradientBorder_AddingMeasurement_3.PanelColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_AddingMeasurement_3.PanelColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.cuiGradientBorder_AddingMeasurement_3.PanelOutlineColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_AddingMeasurement_3.PanelOutlineColor2 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_AddingMeasurement_3.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiGradientBorder_AddingMeasurement_3.Size = new System.Drawing.Size(10, 260);
+            this.cuiGradientBorder_AddingMeasurement_3.TabIndex = 10;
+            // 
+            // cuiGradientBorder_AddingMeasurement_1
+            // 
+            this.cuiGradientBorder_AddingMeasurement_1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cuiGradientBorder_AddingMeasurement_1.GradientAngle = 90F;
+            this.cuiGradientBorder_AddingMeasurement_1.Location = new System.Drawing.Point(0, 0);
+            this.cuiGradientBorder_AddingMeasurement_1.Margin = new System.Windows.Forms.Padding(0);
+            this.cuiGradientBorder_AddingMeasurement_1.Name = "cuiGradientBorder_AddingMeasurement_1";
+            this.cuiGradientBorder_AddingMeasurement_1.OutlineThickness = 0F;
+            this.cuiGradientBorder_AddingMeasurement_1.PanelColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_AddingMeasurement_1.PanelColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.cuiGradientBorder_AddingMeasurement_1.PanelOutlineColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_AddingMeasurement_1.PanelOutlineColor2 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_AddingMeasurement_1.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiGradientBorder_AddingMeasurement_1.Size = new System.Drawing.Size(425, 10);
+            this.cuiGradientBorder_AddingMeasurement_1.TabIndex = 9;
+            // 
+            // flowLayoutPanel_Measurement
+            // 
+            this.flowLayoutPanel_Measurement.AutoScroll = true;
+            this.flowLayoutPanel_Measurement.Controls.Add(this.panel_Measurement_Chart);
+            this.flowLayoutPanel_Measurement.Location = new System.Drawing.Point(0, 86);
+            this.flowLayoutPanel_Measurement.Name = "flowLayoutPanel_Measurement";
+            this.flowLayoutPanel_Measurement.Size = new System.Drawing.Size(513, 575);
+            this.flowLayoutPanel_Measurement.TabIndex = 17;
+            // 
+            // panel_Measurement_Chart
+            // 
+            this.panel_Measurement_Chart.Controls.Add(this.textBox_Measurement_ChartName);
+            this.panel_Measurement_Chart.Controls.Add(this.cuiChartLine_Measurement_Weight);
+            this.panel_Measurement_Chart.Controls.Add(this.cuiButton_Measurement_AddMeasurement);
+            this.panel_Measurement_Chart.Controls.Add(this.cuiGradientBorder_Measurement_ChartLineBorder);
+            this.panel_Measurement_Chart.Controls.Add(this.label_Measurement_History);
+            this.panel_Measurement_Chart.Location = new System.Drawing.Point(3, 3);
+            this.panel_Measurement_Chart.Name = "panel_Measurement_Chart";
+            this.panel_Measurement_Chart.Size = new System.Drawing.Size(485, 450);
+            this.panel_Measurement_Chart.TabIndex = 0;
+            // 
+            // textBox_Measurement_ChartName
+            // 
+            this.textBox_Measurement_ChartName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.textBox_Measurement_ChartName.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox_Measurement_ChartName.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.textBox_Measurement_ChartName.ForeColor = System.Drawing.Color.White;
+            this.textBox_Measurement_ChartName.Location = new System.Drawing.Point(63, 34);
+            this.textBox_Measurement_ChartName.Name = "textBox_Measurement_ChartName";
+            this.textBox_Measurement_ChartName.ReadOnly = true;
+            this.textBox_Measurement_ChartName.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.textBox_Measurement_ChartName.Size = new System.Drawing.Size(377, 27);
+            this.textBox_Measurement_ChartName.TabIndex = 12;
+            this.textBox_Measurement_ChartName.Text = "Weight (lbs)";
+            // 
+            // cuiChartLine_Measurement_Weight
+            // 
+            this.cuiChartLine_Measurement_Weight.AutoMaxValue = false;
+            this.cuiChartLine_Measurement_Weight.AxisColor = System.Drawing.Color.Gray;
+            this.cuiChartLine_Measurement_Weight.ChartLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(89)))), ((int)(((byte)(43)))), ((int)(((byte)(154)))));
+            this.cuiChartLine_Measurement_Weight.ChartPadding = 40;
+            this.cuiChartLine_Measurement_Weight.CustomXAxis = new string[0];
+            this.cuiChartLine_Measurement_Weight.DataPoints = new float[] {
+        100F,
+        90F,
+        80F,
+        75F,
+        70F,
+        65F,
+        60F};
+            this.cuiChartLine_Measurement_Weight.DayColor = System.Drawing.Color.DarkGray;
+            this.cuiChartLine_Measurement_Weight.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F);
+            this.cuiChartLine_Measurement_Weight.GradientBackground = true;
+            this.cuiChartLine_Measurement_Weight.Location = new System.Drawing.Point(26, 20);
+            this.cuiChartLine_Measurement_Weight.Margin = new System.Windows.Forms.Padding(10);
+            this.cuiChartLine_Measurement_Weight.MaxValue = 250F;
+            this.cuiChartLine_Measurement_Weight.Name = "cuiChartLine_Measurement_Weight";
+            this.cuiChartLine_Measurement_Weight.PointColor = System.Drawing.Color.FromArgb(((int)(((byte)(89)))), ((int)(((byte)(43)))), ((int)(((byte)(154)))));
+            this.cuiChartLine_Measurement_Weight.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.cuiChartLine_Measurement_Weight.ShortDates = true;
+            this.cuiChartLine_Measurement_Weight.Size = new System.Drawing.Size(440, 309);
+            this.cuiChartLine_Measurement_Weight.TabIndex = 11;
+            this.cuiChartLine_Measurement_Weight.UseBezier = false;
+            this.cuiChartLine_Measurement_Weight.UsePercent = false;
+            // 
+            // cuiButton_Measurement_AddMeasurement
+            // 
+            this.cuiButton_Measurement_AddMeasurement.CheckButton = false;
+            this.cuiButton_Measurement_AddMeasurement.Checked = false;
+            this.cuiButton_Measurement_AddMeasurement.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_Measurement_AddMeasurement.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_Measurement_AddMeasurement.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_Measurement_AddMeasurement.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_Measurement_AddMeasurement.Content = "";
+            this.cuiButton_Measurement_AddMeasurement.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.cuiButton_Measurement_AddMeasurement.Font = new System.Drawing.Font("SansSerif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiButton_Measurement_AddMeasurement.ForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measurement_AddMeasurement.HoverBackground = System.Drawing.Color.Transparent;
+            this.cuiButton_Measurement_AddMeasurement.HoveredImageTint = System.Drawing.Color.DarkGray;
+            this.cuiButton_Measurement_AddMeasurement.HoverForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measurement_AddMeasurement.HoverOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Measurement_AddMeasurement.Image = ((System.Drawing.Image)(resources.GetObject("cuiButton_Measurement_AddMeasurement.Image")));
+            this.cuiButton_Measurement_AddMeasurement.ImageAutoCenter = true;
+            this.cuiButton_Measurement_AddMeasurement.ImageExpand = new System.Drawing.Point(2, 2);
+            this.cuiButton_Measurement_AddMeasurement.ImageOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_Measurement_AddMeasurement.Location = new System.Drawing.Point(430, 396);
+            this.cuiButton_Measurement_AddMeasurement.Name = "cuiButton_Measurement_AddMeasurement";
+            this.cuiButton_Measurement_AddMeasurement.NormalBackground = System.Drawing.Color.Transparent;
+            this.cuiButton_Measurement_AddMeasurement.NormalForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measurement_AddMeasurement.NormalImageTint = System.Drawing.Color.White;
+            this.cuiButton_Measurement_AddMeasurement.NormalOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Measurement_AddMeasurement.OutlineThickness = 0F;
+            this.cuiButton_Measurement_AddMeasurement.PressedBackground = System.Drawing.Color.Transparent;
+            this.cuiButton_Measurement_AddMeasurement.PressedForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measurement_AddMeasurement.PressedImageTint = System.Drawing.Color.DimGray;
+            this.cuiButton_Measurement_AddMeasurement.PressedOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Measurement_AddMeasurement.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiButton_Measurement_AddMeasurement.Size = new System.Drawing.Size(43, 41);
+            this.cuiButton_Measurement_AddMeasurement.TabIndex = 16;
+            this.cuiButton_Measurement_AddMeasurement.TextOffset = new System.Drawing.Point(0, 15);
+            this.cuiButton_Measurement_AddMeasurement.Click += new System.EventHandler(this.cuiButton_AddingMeasurement_Click);
+            // 
+            // cuiGradientBorder_Measurement_ChartLineBorder
+            // 
+            this.cuiGradientBorder_Measurement_ChartLineBorder.GradientAngle = 0F;
+            this.cuiGradientBorder_Measurement_ChartLineBorder.Location = new System.Drawing.Point(10, 16);
+            this.cuiGradientBorder_Measurement_ChartLineBorder.Margin = new System.Windows.Forms.Padding(0);
+            this.cuiGradientBorder_Measurement_ChartLineBorder.Name = "cuiGradientBorder_Measurement_ChartLineBorder";
+            this.cuiGradientBorder_Measurement_ChartLineBorder.OutlineThickness = 1F;
+            this.cuiGradientBorder_Measurement_ChartLineBorder.PanelColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_Measurement_ChartLineBorder.PanelColor2 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_Measurement_ChartLineBorder.PanelOutlineColor1 = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(102)))), ((int)(((byte)(105)))));
+            this.cuiGradientBorder_Measurement_ChartLineBorder.PanelOutlineColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(102)))), ((int)(((byte)(105)))));
+            this.cuiGradientBorder_Measurement_ChartLineBorder.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiGradientBorder_Measurement_ChartLineBorder.Size = new System.Drawing.Size(463, 318);
+            this.cuiGradientBorder_Measurement_ChartLineBorder.TabIndex = 10;
+            // 
+            // label_Measurement_History
+            // 
+            this.label_Measurement_History.AutoSize = true;
+            this.label_Measurement_History.BackColor = System.Drawing.Color.Transparent;
+            this.label_Measurement_History.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_Measurement_History.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label_Measurement_History.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(194)))), ((int)(((byte)(195)))));
+            this.label_Measurement_History.Location = new System.Drawing.Point(22, 408);
+            this.label_Measurement_History.Name = "label_Measurement_History";
+            this.label_Measurement_History.Size = new System.Drawing.Size(75, 17);
+            this.label_Measurement_History.TabIndex = 13;
+            this.label_Measurement_History.Text = "HISTORY";
+            this.label_Measurement_History.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cuiGradientBorder_Measurement
+            // 
+            this.cuiGradientBorder_Measurement.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cuiGradientBorder_Measurement.GradientAngle = -90F;
+            this.cuiGradientBorder_Measurement.Location = new System.Drawing.Point(0, 80);
+            this.cuiGradientBorder_Measurement.Margin = new System.Windows.Forms.Padding(0);
+            this.cuiGradientBorder_Measurement.Name = "cuiGradientBorder_Measurement";
+            this.cuiGradientBorder_Measurement.OutlineThickness = 0F;
+            this.cuiGradientBorder_Measurement.PanelColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_Measurement.PanelColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.cuiGradientBorder_Measurement.PanelOutlineColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_Measurement.PanelOutlineColor2 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_Measurement.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiGradientBorder_Measurement.Size = new System.Drawing.Size(513, 10);
+            this.cuiGradientBorder_Measurement.TabIndex = 8;
+            // 
+            // panel_Measurement_Title
+            // 
+            this.panel_Measurement_Title.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(51)))), ((int)(((byte)(55)))));
+            this.panel_Measurement_Title.Controls.Add(this.cuiButton_Measure_GoBack);
+            this.panel_Measurement_Title.Controls.Add(this.label_Measurement_Name);
+            this.panel_Measurement_Title.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel_Measurement_Title.Location = new System.Drawing.Point(0, 0);
+            this.panel_Measurement_Title.Name = "panel_Measurement_Title";
+            this.panel_Measurement_Title.Size = new System.Drawing.Size(513, 80);
+            this.panel_Measurement_Title.TabIndex = 7;
+            // 
+            // cuiButton_Measure_GoBack
+            // 
+            this.cuiButton_Measure_GoBack.CheckButton = false;
+            this.cuiButton_Measure_GoBack.Checked = false;
+            this.cuiButton_Measure_GoBack.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_Measure_GoBack.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_Measure_GoBack.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_Measure_GoBack.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_Measure_GoBack.Content = "";
+            this.cuiButton_Measure_GoBack.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.cuiButton_Measure_GoBack.Dock = System.Windows.Forms.DockStyle.Left;
+            this.cuiButton_Measure_GoBack.Font = new System.Drawing.Font("SansSerif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiButton_Measure_GoBack.ForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measure_GoBack.HoverBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_Measure_GoBack.HoveredImageTint = System.Drawing.Color.DarkGray;
+            this.cuiButton_Measure_GoBack.HoverForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measure_GoBack.HoverOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Measure_GoBack.Image = ((System.Drawing.Image)(resources.GetObject("cuiButton_Measure_GoBack.Image")));
+            this.cuiButton_Measure_GoBack.ImageAutoCenter = true;
+            this.cuiButton_Measure_GoBack.ImageExpand = new System.Drawing.Point(6, 6);
+            this.cuiButton_Measure_GoBack.ImageOffset = new System.Drawing.Point(-2, 0);
+            this.cuiButton_Measure_GoBack.Location = new System.Drawing.Point(0, 0);
+            this.cuiButton_Measure_GoBack.Name = "cuiButton_Measure_GoBack";
+            this.cuiButton_Measure_GoBack.NormalBackground = System.Drawing.Color.Transparent;
+            this.cuiButton_Measure_GoBack.NormalForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measure_GoBack.NormalImageTint = System.Drawing.Color.White;
+            this.cuiButton_Measure_GoBack.NormalOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Measure_GoBack.OutlineThickness = 0F;
+            this.cuiButton_Measure_GoBack.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_Measure_GoBack.PressedForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measure_GoBack.PressedImageTint = System.Drawing.Color.DimGray;
+            this.cuiButton_Measure_GoBack.PressedOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Measure_GoBack.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiButton_Measure_GoBack.Size = new System.Drawing.Size(102, 80);
+            this.cuiButton_Measure_GoBack.TabIndex = 8;
+            this.cuiButton_Measure_GoBack.TextOffset = new System.Drawing.Point(0, 15);
+            this.cuiButton_Measure_GoBack.Click += new System.EventHandler(this.cuiButton_Menu_Measure_Click);
+            // 
+            // label_Measurement_Name
+            // 
+            this.label_Measurement_Name.AutoSize = true;
+            this.label_Measurement_Name.BackColor = System.Drawing.Color.Transparent;
+            this.label_Measurement_Name.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_Measurement_Name.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label_Measurement_Name.ForeColor = System.Drawing.Color.White;
+            this.label_Measurement_Name.Location = new System.Drawing.Point(116, 27);
+            this.label_Measurement_Name.Name = "label_Measurement_Name";
+            this.label_Measurement_Name.Size = new System.Drawing.Size(89, 27);
+            this.label_Measurement_Name.TabIndex = 7;
+            this.label_Measurement_Name.Text = "Weight";
+            this.label_Measurement_Name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.ClientSize = new System.Drawing.Size(513, 788);
-            this.Controls.Add(this.cuiButton_AddExercise_ConfirmAdd);
+            this.Controls.Add(this.panel_Measurement);
             this.Controls.Add(this.panel_ExerciseDetails);
             this.Controls.Add(this.panel_Menu_Measure);
             this.Controls.Add(this.panel_Menu_Workout);
@@ -3412,19 +3655,15 @@
             this.Controls.Add(this.panel_Menu_Profile);
             this.Controls.Add(this.panel_WorkoutCreation);
             this.Controls.Add(this.cuiGradientBorder_AboveMenu);
-            this.Controls.Add(this.panel_Measurement);
             this.Controls.Add(this.panel_Form_Title);
             this.Controls.Add(this.panel_Menus);
+            this.Controls.Add(this.cuiButton_AddExercise_ConfirmAdd);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.panel_Menus.ResumeLayout(false);
             this.panel_Form_Title.ResumeLayout(false);
-            this.panel_Measurement.ResumeLayout(false);
-            this.panel_Measurement.PerformLayout();
-            this.panel_Measurement_Title.ResumeLayout(false);
-            this.panel_Measurement_Title.PerformLayout();
             this.flowLayoutPanel_WorkoutCreation.ResumeLayout(false);
             this.panel_WorkoutCreation_TemplateName.ResumeLayout(false);
             this.panel_WorkoutCreation_Title.ResumeLayout(false);
@@ -3464,6 +3703,14 @@
             this.panel_ExerciseDetails_Name.PerformLayout();
             this.flowLayoutPanel_ExerciseDetails.ResumeLayout(false);
             this.flowLayoutPanel_ExerciseDetails.PerformLayout();
+            this.panel_Measurement.ResumeLayout(false);
+            this.panel_Measurement_AddingMeasurement.ResumeLayout(false);
+            this.panel_Measurement_AddingMeasurement.PerformLayout();
+            this.flowLayoutPanel_Measurement.ResumeLayout(false);
+            this.panel_Measurement_Chart.ResumeLayout(false);
+            this.panel_Measurement_Chart.PerformLayout();
+            this.panel_Measurement_Title.ResumeLayout(false);
+            this.panel_Measurement_Title.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3480,17 +3727,6 @@
         private CuoreUI.Controls.cuiButton cuiButton_Menu_Workout;
         private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder_AboveMenu;
         private CuoreUI.Components.cuiFormRounder cuiFormRounder;
-        private System.Windows.Forms.Panel panel_Measurement;
-        private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder_Measurement;
-        private System.Windows.Forms.Panel panel_Measurement_Title;
-        private System.Windows.Forms.Label label_Measurement_Name;
-        private CuoreUI.Controls.cuiButton cuiButton_Measure_GoBack;
-        private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder_Measurement_ChartLineBorder;
-        private CuoreUI.Controls.Charts.cuiChartLine cuiChartLine_Measurement_Weight;
-        private System.Windows.Forms.TextBox textBox_Measurement_ChartName;
-        private System.Windows.Forms.Label label_Measurement_History;
-        private CuoreUI.Controls.cuiButton cuiButton_Measurement_AddHistory;
-        private CuoreUI.Controls.cuiDataGridView cuiDataGridView_Measurement_WeightHistory;
         private System.Windows.Forms.Panel panel_WorkoutCreation;
         private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder_WorkoutCreation;
         private System.Windows.Forms.Panel panel_WorkoutCreation_Title;
@@ -3609,5 +3845,27 @@
         private CuoreUI.Controls.cuiButton cuiButton_AddExercises_Exit;
         private CuoreUI.Controls.cuiButton cuiButton_AddExercise_ConfirmAdd;
         private System.Windows.Forms.Button button_TEST_MASTER;
+        private System.Windows.Forms.Panel panel_Measurement;
+        private CuoreUI.Controls.cuiButton cuiButton_Measurement_AddMeasurement;
+        private System.Windows.Forms.TextBox textBox_Measurement_ChartName;
+        private System.Windows.Forms.Label label_Measurement_History;
+        private CuoreUI.Controls.Charts.cuiChartLine cuiChartLine_Measurement_Weight;
+        private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder_Measurement_ChartLineBorder;
+        private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder_Measurement;
+        private System.Windows.Forms.Panel panel_Measurement_Title;
+        private CuoreUI.Controls.cuiButton cuiButton_Measure_GoBack;
+        private System.Windows.Forms.Label label_Measurement_Name;
+        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_Measurement;
+        private System.Windows.Forms.Panel panel_Measurement_Chart;
+        private System.Windows.Forms.Panel panel_Measurement_AddingMeasurement;
+        private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder_AddingMeasurement_5;
+        private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder_AddingMeasurement_4;
+        private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder_AddingMeasurement_3;
+        private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder_AddingMeasurement_1;
+        private System.Windows.Forms.Label label_AddingMeasurement_Name;
+        private CuoreUI.Controls.cuiButton cuiButton_AddingMeasurement_Save;
+        private CuoreUI.Controls.cuiButton cuiButton_AddingMeasurement_Cancel;
+        private System.Windows.Forms.Label label_AddingMeasurement_CurrentDate;
+        private CuoreUI.Controls.cuiTextBox2 cuiTextBox_Measurement_AddingMeasurement;
     }
 }

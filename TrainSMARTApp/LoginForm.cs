@@ -296,8 +296,8 @@ namespace TrainSMARTApp
                 return;
             }
 
-            //string hashedPassword = ComputeSha256Hash(password); // Hashing method below
-            string hashedPassword = password; // For testing purposes, use plain text password
+            //string hashedPassword = ComputeSha256Hash(password);      // Hashing method below
+            string hashedPassword = password;                           // For testing purposes, use plain text password
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {

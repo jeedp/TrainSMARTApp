@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -25,6 +26,7 @@ namespace TrainSMARTApp
 
         private bool isFilterShown;
         private bool isAddingExercises;
+        private bool isAddingMeasurement;
         private bool isCreatingWorkoutTemplate;
 
         private List<int> selectedExerciseIDs = new List<int>();
@@ -54,7 +56,7 @@ namespace TrainSMARTApp
             ShowMenu(panel_Menu_Profile, cuiButton_Menu_Profile);
 
 
-
+            
 
 
             var filterCheckboxes = new List<cuiCheckbox>
@@ -193,7 +195,7 @@ namespace TrainSMARTApp
         {
             isAddingExercises = true;
             ShowMenu(panel_Menu_Exercises, cuiButton_Menu_Exercises);
-            ShowHideExerciseSearchBar(panel_Exercises_Search, false);
+            ShowHideExerciseSearchBar(false);
             LoadExerciseButtons(null, null);
         }
 
@@ -220,17 +222,17 @@ namespace TrainSMARTApp
 
         private void cuiButton_Exercises_Search_Click(object sender, EventArgs e)
         {
-            ShowHideExerciseSearchBar(panel_Exercises_Search, true);
+            ShowHideExerciseSearchBar(true);
         }
 
         private void cuiButton_Exercises_GoBack_Click(object sender, EventArgs e)
         {
-            ShowHideExerciseSearchBar(panel_Exercises_Search, false);
+            ShowHideExerciseSearchBar(false);
         }
 
         private void cuiButton_Exercises_Filter_Click(object sender, EventArgs e)
         {
-            ShowHideExerciseFilter(cuiBorder_Exercises_Filter, flowLayoutPanel_Exercises);
+            ShowHideExerciseFilter();
         }
 
 
@@ -239,6 +241,31 @@ namespace TrainSMARTApp
 
 
         // MEASURE MENU
+        private void cuiButton_Measure_Measurements_Click(object sender, EventArgs e)
+        {
+            ShowMenu(panel_Measurement, cuiButton_Menu_Measure);
+            RenameTitleAndChart(sender, e);
+            ShowHideAddingMeasurementPanel(sender, e);
+        }
+
+            // MEASUREMENT MENU
+        private void cuiButton_AddingMeasurement_Click(object sender, EventArgs e)
+        {
+            //isAddingMeasurement = true;
+            ShowHideAddingMeasurementPanel(sender, e);
+        }
+
+                // ADDING MEASUREMENT
+        private void cuiButton_AddingMeasurement_Save_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cuiButton_AddingMeasurement_Cancel_Click(object sender, EventArgs e)
+        {
+            //isAddingMeasurement = false;
+            ShowHideAddingMeasurementPanel(sender, e);
+        }
 
 
 
@@ -251,7 +278,7 @@ namespace TrainSMARTApp
 
         // METHODS & FUNCTIONS
 
-        // for dragging the form
+            // for dragging the form
         private new void MouseDown(object sender, MouseEventArgs e)
         {
             _mouseDown = true;
@@ -306,8 +333,8 @@ namespace TrainSMARTApp
 
             if (panel == panel_Menu_Exercises)
             {
-                ShowHideExerciseFilter(cuiBorder_Exercises_Filter, flowLayoutPanel_Exercises, "true");
-                ShowHideExerciseSearchBar(panel_Exercises_Search, false);
+                ShowHideExerciseFilter("true");
+                ShowHideExerciseSearchBar(false);
             }
             ShowHideExerciseLabelsAndButtons();
 
@@ -327,14 +354,25 @@ namespace TrainSMARTApp
         }
 
 
-        private void ShowMeasurementPanel()
+        private void ShowHideAddingMeasurementPanel(object sender, EventArgs e)
         {
-            // TODO: implementation
+            var currentDate = DateTime.Today;
+
+            label_AddingMeasurement_CurrentDate.Text = currentDate.ToString("MM/dd/yy");
+
+            var btn = sender as cuiButton;
+            var panel = panel_Measurement_AddingMeasurement;
+            isAddingMeasurement = btn == cuiButton_Measurement_AddMeasurement;
+            panel.Width = (isAddingMeasurement) ? 319 : 0;
+            panel.Height = (isAddingMeasurement) ? 219 : 0;
+            if (isAddingMeasurement) panel.BringToFront();
+            else panel.SendToBack();
         }
 
 
-        private void ShowHideExerciseSearchBar(Panel panel, bool isShown)
+        private void ShowHideExerciseSearchBar(bool isShown)
         {
+            var panel = panel_Exercises_Search;
             panel.Width = (isShown) ? 321 : 0;  // width in design is 441
             panel.BringToFront();
 
@@ -344,8 +382,9 @@ namespace TrainSMARTApp
         }
 
 
-        private void ShowHideExerciseFilter(cuiBorder border, FlowLayoutPanel flowLayoutPanel, string isShown = "")
+        private void ShowHideExerciseFilter(string isShown = "")
         {
+            var border = cuiBorder_Exercises_Filter;
             if (!string.IsNullOrWhiteSpace(isShown))
                 isFilterShown = Convert.ToBoolean(isShown);
             isFilterShown = !isFilterShown;
@@ -522,6 +561,7 @@ namespace TrainSMARTApp
             label_AddExercises_Count.Text = "(" + selectedExerciseIDs.Count + ")";
         }
 
+
         private void ExerciseConfirmAdd()
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -631,14 +671,6 @@ namespace TrainSMARTApp
                         Location  = new Point(lblWeight.Location.X + 66, lblWeight.Location.Y),
                     };
 
-                    panelExercise.Controls.Add(cuiButtonExerciseName);
-                    panelExercise.Controls.Add(lblSet);
-                    panelExercise.Controls.Add(lblPrevious);
-                    panelExercise.Controls.Add(lblWeight);
-                    panelExercise.Controls.Add(lblReps);
-
-                    AddExerciseSetRow(panelExercise);
-
                     var cuiButtonAddSet = new cuiButton
                     {
                         Content           = "ADD SET",
@@ -665,7 +697,24 @@ namespace TrainSMARTApp
                         var addedRowHeight = AddExerciseSetRow(parent);
                         panelExercise.Height += addedRowHeight; 
                     };
-                    panelExercise.Controls.Add(cuiButtonAddSet);
+
+
+
+                    // adding controls
+                    var controls = new List<Control>
+                    {
+                        cuiButtonExerciseName,
+                        lblSet,
+                        lblPrevious,
+                        lblWeight,
+                        lblReps,
+                        cuiButtonAddSet,
+                    };
+                    foreach (var ctrl in controls)
+                    {
+                        panelExercise.Controls.Add(ctrl);    
+                    }
+                    AddExerciseSetRow(panelExercise);
 
                     flowLayoutPanel_WorkoutCreation.Controls.Add(panelExercise);
                     flowLayoutPanel_WorkoutCreation.Controls.SetChildIndex(panelExercise, flowLayoutPanel_WorkoutCreation.Controls.Count - 2); // Add above "Add Exercise" button
@@ -748,10 +797,20 @@ namespace TrainSMARTApp
             };
             txtBxReps.KeyPress += KeyPressDigitOnly;
 
-            setRow.Controls.Add(lblSet);
-            setRow.Controls.Add(lblPrevious);
-            setRow.Controls.Add(txtBxWeight);
-            setRow.Controls.Add(txtBxReps);
+
+
+            // adding the controls
+            var controls = new List<Control>
+            {
+                lblSet,
+                lblPrevious,
+                txtBxWeight,
+                txtBxReps,
+            };
+            foreach (var ctrl in controls)
+            {
+                setRow.Controls.Add(ctrl);
+            }
             setRow.BackColor = Color.FromArgb(50, 50, 50);
 
             parent.Controls.Add(setRow);
@@ -780,6 +839,7 @@ namespace TrainSMARTApp
             }
         }
 
+
         private void KeyPressDigitOnly(object sender, KeyPressEventArgs e)
         {
             if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
@@ -792,11 +852,40 @@ namespace TrainSMARTApp
             }
         }
 
+
         private void ResizeTextBoxToFitContents(TextBox textBox)
         {
             var size = TextRenderer.MeasureText(textBox.Text, textBox.Font);
             textBox.Height = size.Height + 10;
         }
+
+
+        private void RenameTitleAndChart(object sender, EventArgs e)
+        {
+            var btn = sender as cuiButton;
+            var controls = new List<Control> { label_Measurement_Name, textBox_Measurement_ChartName, label_AddingMeasurement_Name };
+            var noUnit = new List<Control> { cuiButton_Measure_BodyFatPercentage, cuiButton_Measure_CaloricIntake };
+            foreach (var ctrl in controls)
+            {
+                ctrl.Text = btn.Content + ((noUnit.Contains(btn) || ctrl == label_AddingMeasurement_Name) ? "" : (btn.Content.Contains("Weight")) ? " (lbs)" : " (cm)");
+                if (ctrl == label_AddingMeasurement_Name && btn.Content.Contains("percentage"))
+                    ctrl.Text = btn.Content.Replace("percentage", "%");
+            }
+        }
+
+        private void AddMeasurement()
+        {
+            
+        }
+
+
+
+
+
+
+
+
+
 
         // TEST METHOD
         private void button_TEST_MASTER_Click(object sender, EventArgs e)
@@ -819,10 +908,9 @@ namespace TrainSMARTApp
                     }
                 }
             }
-
             label_AddExercises_Count.Text = "(" + selectedExerciseIDs.Count + ")";
         }
 
-
+        
     }
 }
