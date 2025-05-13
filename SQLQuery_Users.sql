@@ -9,28 +9,28 @@ USE [UserDB];
 GO
 
 
-DROP TABLE IF EXISTS dbo.Users;
-GO
+--DROP TABLE IF EXISTS dbo.Users;
+--GO
 
 
-DROP TABLE IF EXISTS dbo.Workouts;
-GO
+--DROP TABLE IF EXISTS dbo.Workouts;
+--GO
 
 
-DROP TABLE IF EXISTS dbo.WorkoutTemplates;
-GO
+--DROP TABLE IF EXISTS dbo.WorkoutTemplates;
+--GO
 
 
-DROP TABLE IF EXISTS dbo.WorkoutTemplateExercises;
-GO
+--DROP TABLE IF EXISTS dbo.WorkoutTemplateExercises;
+--GO
 
 
-DROP TABLE IF EXISTS dbo.Exercises;
-GO
+--DROP TABLE IF EXISTS dbo.Exercises;
+--GO
 
 
-DROP TABLE IF EXISTS dbo.Measurements;
-GO
+--DROP TABLE IF EXISTS dbo.Measurements;
+--GO
 
 
 

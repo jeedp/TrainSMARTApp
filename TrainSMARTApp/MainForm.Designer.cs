@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel_Menus = new System.Windows.Forms.Panel();
             this.cuiButton_Menu_Measure = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Menu_Exercises = new CuoreUI.Controls.cuiButton();
@@ -65,7 +65,6 @@
             this.label_Profile_Username = new System.Windows.Forms.Label();
             this.cuiPictureBox_Profile_User = new CuoreUI.Controls.cuiPictureBox();
             this.panel_Profile_WorkoutCount = new System.Windows.Forms.Panel();
-            this.chart_Profile_WorkoutCount = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel_Menu_History = new System.Windows.Forms.Panel();
             this.cuiGradientBorder_History = new CuoreUI.Controls.cuiGradientBorder();
             this.panel_History_Title = new System.Windows.Forms.Panel();
@@ -173,7 +172,7 @@
             this.flowLayoutPanel_Measurement = new System.Windows.Forms.FlowLayoutPanel();
             this.panel_Measurement_Chart = new System.Windows.Forms.Panel();
             this.textBox_Measurement_ChartName = new System.Windows.Forms.TextBox();
-            this.cuiChartLine_Measurement_Weight = new CuoreUI.Controls.Charts.cuiChartLine();
+            this.cuiChartLine_Measurement = new CuoreUI.Controls.Charts.cuiChartLine();
             this.cuiButton_Measurement_AddMeasurement = new CuoreUI.Controls.cuiButton();
             this.cuiGradientBorder_Measurement_ChartLineBorder = new CuoreUI.Controls.cuiGradientBorder();
             this.label_Measurement_History = new System.Windows.Forms.Label();
@@ -181,6 +180,9 @@
             this.panel_Measurement_Title = new System.Windows.Forms.Panel();
             this.cuiButton_Measure_GoBack = new CuoreUI.Controls.cuiButton();
             this.label_Measurement_Name = new System.Windows.Forms.Label();
+            this.cuiBorder1 = new CuoreUI.Controls.cuiBorder();
+            this.chart_Profile_WorkoutCount = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label_Profile_ChartName = new System.Windows.Forms.Label();
             this.panel_Menus.SuspendLayout();
             this.panel_Form_Title.SuspendLayout();
             this.flowLayoutPanel_WorkoutCreation.SuspendLayout();
@@ -192,7 +194,6 @@
             this.flowLayoutPanel_Profile.SuspendLayout();
             this.panel_Profile_User.SuspendLayout();
             this.panel_Profile_WorkoutCount.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart_Profile_WorkoutCount)).BeginInit();
             this.panel_Menu_History.SuspendLayout();
             this.panel_History_Title.SuspendLayout();
             this.panel_Menu_Exercises.SuspendLayout();
@@ -215,6 +216,8 @@
             this.flowLayoutPanel_Measurement.SuspendLayout();
             this.panel_Measurement_Chart.SuspendLayout();
             this.panel_Measurement_Title.SuspendLayout();
+            this.cuiBorder1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_Profile_WorkoutCount)).BeginInit();
             this.SuspendLayout();
             // 
             // panel_Menus
@@ -758,10 +761,10 @@
             this.panel_Menu_Profile.Controls.Add(this.panel_Profile_Title);
             this.panel_Menu_Profile.Controls.Add(this.flowLayoutPanel_Profile);
             this.panel_Menu_Profile.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel_Menu_Profile.Location = new System.Drawing.Point(0, 696);
+            this.panel_Menu_Profile.Location = new System.Drawing.Point(0, 35);
             this.panel_Menu_Profile.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Menu_Profile.Name = "panel_Menu_Profile";
-            this.panel_Menu_Profile.Size = new System.Drawing.Size(513, 0);
+            this.panel_Menu_Profile.Size = new System.Drawing.Size(513, 661);
             this.panel_Menu_Profile.TabIndex = 18;
             // 
             // cuiGradientBorder_Profile
@@ -848,7 +851,7 @@
             this.flowLayoutPanel_Profile.Controls.Add(this.panel_Profile_User);
             this.flowLayoutPanel_Profile.Controls.Add(this.panel_Profile_WorkoutCount);
             this.flowLayoutPanel_Profile.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel_Profile.Location = new System.Drawing.Point(0, -566);
+            this.flowLayoutPanel_Profile.Location = new System.Drawing.Point(0, 95);
             this.flowLayoutPanel_Profile.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel_Profile.Name = "flowLayoutPanel_Profile";
             this.flowLayoutPanel_Profile.Size = new System.Drawing.Size(513, 566);
@@ -923,30 +926,11 @@
             // 
             // panel_Profile_WorkoutCount
             // 
-            this.panel_Profile_WorkoutCount.Controls.Add(this.chart_Profile_WorkoutCount);
+            this.panel_Profile_WorkoutCount.Controls.Add(this.cuiBorder1);
             this.panel_Profile_WorkoutCount.Location = new System.Drawing.Point(3, 159);
             this.panel_Profile_WorkoutCount.Name = "panel_Profile_WorkoutCount";
             this.panel_Profile_WorkoutCount.Size = new System.Drawing.Size(507, 401);
             this.panel_Profile_WorkoutCount.TabIndex = 12;
-            // 
-            // chart_Profile_WorkoutCount
-            // 
-            this.chart_Profile_WorkoutCount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.chart_Profile_WorkoutCount.BorderlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.chart_Profile_WorkoutCount.BorderSkin.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
-            chartArea3.BackColor = System.Drawing.Color.Transparent;
-            chartArea3.BorderWidth = 0;
-            chartArea3.Name = "ChartArea1";
-            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea3);
-            this.chart_Profile_WorkoutCount.Location = new System.Drawing.Point(51, 17);
-            this.chart_Profile_WorkoutCount.Name = "chart_Profile_WorkoutCount";
-            this.chart_Profile_WorkoutCount.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series3.ChartArea = "ChartArea1";
-            series3.Name = "Series1";
-            this.chart_Profile_WorkoutCount.Series.Add(series3);
-            this.chart_Profile_WorkoutCount.Size = new System.Drawing.Size(400, 300);
-            this.chart_Profile_WorkoutCount.TabIndex = 0;
-            this.chart_Profile_WorkoutCount.Text = "chart1";
             // 
             // panel_Menu_History
             // 
@@ -954,7 +938,7 @@
             this.panel_Menu_History.Controls.Add(this.panel_History_Title);
             this.panel_Menu_History.Controls.Add(this.flowLayoutPanel_History);
             this.panel_Menu_History.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel_Menu_History.Location = new System.Drawing.Point(0, 696);
+            this.panel_Menu_History.Location = new System.Drawing.Point(0, 35);
             this.panel_Menu_History.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Menu_History.Name = "panel_Menu_History";
             this.panel_Menu_History.Size = new System.Drawing.Size(513, 0);
@@ -1628,7 +1612,7 @@
             this.panel_Menu_Workout.Controls.Add(this.panel_Workout_Title);
             this.panel_Menu_Workout.Controls.Add(this.flowLayoutPanel_Workout);
             this.panel_Menu_Workout.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel_Menu_Workout.Location = new System.Drawing.Point(0, 696);
+            this.panel_Menu_Workout.Location = new System.Drawing.Point(0, 35);
             this.panel_Menu_Workout.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Menu_Workout.Name = "panel_Menu_Workout";
             this.panel_Menu_Workout.Size = new System.Drawing.Size(513, 0);
@@ -2028,7 +2012,7 @@
             this.panel_Menu_Measure.Controls.Add(this.panel_Measure_Title);
             this.panel_Menu_Measure.Controls.Add(this.flowLayoutPanel_Measure);
             this.panel_Menu_Measure.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel_Menu_Measure.Location = new System.Drawing.Point(0, 696);
+            this.panel_Menu_Measure.Location = new System.Drawing.Point(0, 35);
             this.panel_Menu_Measure.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Menu_Measure.Name = "panel_Menu_Measure";
             this.panel_Menu_Measure.Size = new System.Drawing.Size(513, 0);
@@ -3217,7 +3201,7 @@
             this.panel_Measurement.Location = new System.Drawing.Point(0, 35);
             this.panel_Measurement.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Measurement.Name = "panel_Measurement";
-            this.panel_Measurement.Size = new System.Drawing.Size(513, 661);
+            this.panel_Measurement.Size = new System.Drawing.Size(513, 0);
             this.panel_Measurement.TabIndex = 24;
             // 
             // panel_Measurement_AddingMeasurement
@@ -3442,7 +3426,7 @@
             // panel_Measurement_Chart
             // 
             this.panel_Measurement_Chart.Controls.Add(this.textBox_Measurement_ChartName);
-            this.panel_Measurement_Chart.Controls.Add(this.cuiChartLine_Measurement_Weight);
+            this.panel_Measurement_Chart.Controls.Add(this.cuiChartLine_Measurement);
             this.panel_Measurement_Chart.Controls.Add(this.cuiButton_Measurement_AddMeasurement);
             this.panel_Measurement_Chart.Controls.Add(this.cuiGradientBorder_Measurement_ChartLineBorder);
             this.panel_Measurement_Chart.Controls.Add(this.label_Measurement_History);
@@ -3465,14 +3449,14 @@
             this.textBox_Measurement_ChartName.TabIndex = 12;
             this.textBox_Measurement_ChartName.Text = "Weight (lbs)";
             // 
-            // cuiChartLine_Measurement_Weight
+            // cuiChartLine_Measurement
             // 
-            this.cuiChartLine_Measurement_Weight.AutoMaxValue = false;
-            this.cuiChartLine_Measurement_Weight.AxisColor = System.Drawing.Color.Gray;
-            this.cuiChartLine_Measurement_Weight.ChartLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(89)))), ((int)(((byte)(43)))), ((int)(((byte)(154)))));
-            this.cuiChartLine_Measurement_Weight.ChartPadding = 40;
-            this.cuiChartLine_Measurement_Weight.CustomXAxis = new string[0];
-            this.cuiChartLine_Measurement_Weight.DataPoints = new float[] {
+            this.cuiChartLine_Measurement.AutoMaxValue = false;
+            this.cuiChartLine_Measurement.AxisColor = System.Drawing.Color.Gray;
+            this.cuiChartLine_Measurement.ChartLineColor = System.Drawing.Color.FromArgb(((int)(((byte)(89)))), ((int)(((byte)(43)))), ((int)(((byte)(154)))));
+            this.cuiChartLine_Measurement.ChartPadding = 40;
+            this.cuiChartLine_Measurement.CustomXAxis = new string[0];
+            this.cuiChartLine_Measurement.DataPoints = new float[] {
         100F,
         90F,
         80F,
@@ -3480,20 +3464,20 @@
         70F,
         65F,
         60F};
-            this.cuiChartLine_Measurement_Weight.DayColor = System.Drawing.Color.DarkGray;
-            this.cuiChartLine_Measurement_Weight.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F);
-            this.cuiChartLine_Measurement_Weight.GradientBackground = true;
-            this.cuiChartLine_Measurement_Weight.Location = new System.Drawing.Point(26, 20);
-            this.cuiChartLine_Measurement_Weight.Margin = new System.Windows.Forms.Padding(10);
-            this.cuiChartLine_Measurement_Weight.MaxValue = 250F;
-            this.cuiChartLine_Measurement_Weight.Name = "cuiChartLine_Measurement_Weight";
-            this.cuiChartLine_Measurement_Weight.PointColor = System.Drawing.Color.FromArgb(((int)(((byte)(89)))), ((int)(((byte)(43)))), ((int)(((byte)(154)))));
-            this.cuiChartLine_Measurement_Weight.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.cuiChartLine_Measurement_Weight.ShortDates = true;
-            this.cuiChartLine_Measurement_Weight.Size = new System.Drawing.Size(440, 309);
-            this.cuiChartLine_Measurement_Weight.TabIndex = 11;
-            this.cuiChartLine_Measurement_Weight.UseBezier = false;
-            this.cuiChartLine_Measurement_Weight.UsePercent = false;
+            this.cuiChartLine_Measurement.DayColor = System.Drawing.Color.DarkGray;
+            this.cuiChartLine_Measurement.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F);
+            this.cuiChartLine_Measurement.GradientBackground = true;
+            this.cuiChartLine_Measurement.Location = new System.Drawing.Point(26, 20);
+            this.cuiChartLine_Measurement.Margin = new System.Windows.Forms.Padding(10);
+            this.cuiChartLine_Measurement.MaxValue = 250F;
+            this.cuiChartLine_Measurement.Name = "cuiChartLine_Measurement";
+            this.cuiChartLine_Measurement.PointColor = System.Drawing.Color.FromArgb(((int)(((byte)(89)))), ((int)(((byte)(43)))), ((int)(((byte)(154)))));
+            this.cuiChartLine_Measurement.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.cuiChartLine_Measurement.ShortDates = true;
+            this.cuiChartLine_Measurement.Size = new System.Drawing.Size(440, 309);
+            this.cuiChartLine_Measurement.TabIndex = 11;
+            this.cuiChartLine_Measurement.UseBezier = false;
+            this.cuiChartLine_Measurement.UsePercent = false;
             // 
             // cuiButton_Measurement_AddMeasurement
             // 
@@ -3640,6 +3624,54 @@
             this.label_Measurement_Name.Text = "Weight";
             this.label_Measurement_Name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // cuiBorder1
+            // 
+            this.cuiBorder1.Controls.Add(this.label_Profile_ChartName);
+            this.cuiBorder1.Controls.Add(this.chart_Profile_WorkoutCount);
+            this.cuiBorder1.Location = new System.Drawing.Point(22, 8);
+            this.cuiBorder1.Name = "cuiBorder1";
+            this.cuiBorder1.OutlineThickness = 2F;
+            this.cuiBorder1.PanelColor = System.Drawing.Color.Transparent;
+            this.cuiBorder1.PanelOutlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(102)))), ((int)(((byte)(105)))));
+            this.cuiBorder1.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiBorder1.Size = new System.Drawing.Size(464, 314);
+            this.cuiBorder1.TabIndex = 1;
+            // 
+            // chart_Profile_WorkoutCount
+            // 
+            this.chart_Profile_WorkoutCount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.chart_Profile_WorkoutCount.BorderlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.chart_Profile_WorkoutCount.BorderlineWidth = 0;
+            this.chart_Profile_WorkoutCount.BorderSkin.BackColor = System.Drawing.Color.Transparent;
+            this.chart_Profile_WorkoutCount.BorderSkin.BorderColor = System.Drawing.Color.Transparent;
+            chartArea2.BackColor = System.Drawing.Color.Transparent;
+            chartArea2.BorderWidth = 0;
+            chartArea2.Name = "ChartArea1";
+            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea2);
+            this.chart_Profile_WorkoutCount.Location = new System.Drawing.Point(11, 60);
+            this.chart_Profile_WorkoutCount.Name = "chart_Profile_WorkoutCount";
+            this.chart_Profile_WorkoutCount.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
+            series2.ChartArea = "ChartArea1";
+            series2.Name = "Series1";
+            this.chart_Profile_WorkoutCount.Series.Add(series2);
+            this.chart_Profile_WorkoutCount.Size = new System.Drawing.Size(440, 245);
+            this.chart_Profile_WorkoutCount.TabIndex = 1;
+            this.chart_Profile_WorkoutCount.Text = "chart1";
+            // 
+            // label_Profile_ChartName
+            // 
+            this.label_Profile_ChartName.AutoSize = true;
+            this.label_Profile_ChartName.BackColor = System.Drawing.Color.Transparent;
+            this.label_Profile_ChartName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_Profile_ChartName.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label_Profile_ChartName.ForeColor = System.Drawing.Color.White;
+            this.label_Profile_ChartName.Location = new System.Drawing.Point(22, 28);
+            this.label_Profile_ChartName.Name = "label_Profile_ChartName";
+            this.label_Profile_ChartName.Size = new System.Drawing.Size(224, 27);
+            this.label_Profile_ChartName.TabIndex = 10;
+            this.label_Profile_ChartName.Text = "Workouts per week";
+            this.label_Profile_ChartName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -3676,7 +3708,6 @@
             this.panel_Profile_User.ResumeLayout(false);
             this.panel_Profile_User.PerformLayout();
             this.panel_Profile_WorkoutCount.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.chart_Profile_WorkoutCount)).EndInit();
             this.panel_Menu_History.ResumeLayout(false);
             this.panel_History_Title.ResumeLayout(false);
             this.panel_History_Title.PerformLayout();
@@ -3711,6 +3742,9 @@
             this.panel_Measurement_Chart.PerformLayout();
             this.panel_Measurement_Title.ResumeLayout(false);
             this.panel_Measurement_Title.PerformLayout();
+            this.cuiBorder1.ResumeLayout(false);
+            this.cuiBorder1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_Profile_WorkoutCount)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -3751,7 +3785,6 @@
         private System.Windows.Forms.Label label_Profile_Username;
         private CuoreUI.Controls.cuiPictureBox cuiPictureBox_Profile_User;
         private System.Windows.Forms.Panel panel_Profile_WorkoutCount;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart_Profile_WorkoutCount;
         private System.Windows.Forms.Panel panel_Menu_Measure;
         private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder_Measure;
         private System.Windows.Forms.Panel panel_Measure_Title;
@@ -3849,7 +3882,7 @@
         private CuoreUI.Controls.cuiButton cuiButton_Measurement_AddMeasurement;
         private System.Windows.Forms.TextBox textBox_Measurement_ChartName;
         private System.Windows.Forms.Label label_Measurement_History;
-        private CuoreUI.Controls.Charts.cuiChartLine cuiChartLine_Measurement_Weight;
+        private CuoreUI.Controls.Charts.cuiChartLine cuiChartLine_Measurement;
         private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder_Measurement_ChartLineBorder;
         private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder_Measurement;
         private System.Windows.Forms.Panel panel_Measurement_Title;
@@ -3867,5 +3900,8 @@
         private CuoreUI.Controls.cuiButton cuiButton_AddingMeasurement_Cancel;
         private System.Windows.Forms.Label label_AddingMeasurement_CurrentDate;
         private CuoreUI.Controls.cuiTextBox2 cuiTextBox_Measurement_AddingMeasurement;
+        private CuoreUI.Controls.cuiBorder cuiBorder1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart_Profile_WorkoutCount;
+        private System.Windows.Forms.Label label_Profile_ChartName;
     }
 }

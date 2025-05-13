@@ -6,12 +6,18 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.Remoting.Channels;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using CuoreUI.Controls;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static TrainSMARTApp.ValidationHelper;
+using static TrainSMARTApp.User;
+using System.Runtime.Remoting.Messaging;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ListView;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace TrainSMARTApp
 {
@@ -58,8 +64,12 @@ namespace TrainSMARTApp
             // panel sizes in design is 513, 753
             // pictureBox_Background location in design is -49, 0
 
-            MainForm nextForm = new MainForm();     // TODO: REMOVE AFTER TESTING
-            nextForm.Show();
+            // TODO: REMOVE AFTER TESTING
+            cuiTextBox_Login_Username.Content = "testUser";
+            cuiTextBox_Login_Password.Content = "testPassword";
+
+            var s = new object(); var e = EventArgs.Empty;
+            cuiButton_Login_Login_Click(s, e);
 
             // TODO: if user has not signed out, auto log in
         }
@@ -184,44 +194,61 @@ namespace TrainSMARTApp
 
             if (!InputValidation()) return;
 
-            //string passwordHash = ComputeSha256Hash(password); // 🔒 hash the password
-            string passwordHash = password; // For testing purposes, use plain text password
+            //string passwordHash = ComputeSha256Hash(password);        // 🔒 hash the password
+            string passwordHash = password;                             // For testing purposes, use plain text password
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = "INSERT INTO Users (Username, PasswordHash, Email) VALUES (@Username, @PasswordHash, @Email)";
-                using (SqlCommand cmd = new SqlCommand(query, conn))
+                try
                 {
-                    cmd.Parameters.AddWithValue("@Username", username);
-                    cmd.Parameters.AddWithValue("@PasswordHash", passwordHash);
-                    cmd.Parameters.AddWithValue("@Email", email);
+                    conn.Open();
 
-                    try
+                    DuplicateCheck(conn, username, email);
+
+                    // ✅ Insert new user
+                    string insertQuery = @"
+                        INSERT INTO Users (Username, PasswordHash, Email) 
+                        OUTPUT INSERTED.UserID, INSERTED.Username, INSERTED.Email, INSERTED.WorkoutCount
+                        VALUES (@Username, @PasswordHash, @Email)";
+
+                    using (SqlCommand insertCmd = new SqlCommand(insertQuery, conn))
                     {
-                        conn.Open();
-                        int rowsAffected = cmd.ExecuteNonQuery();
+                        insertCmd.Parameters.AddWithValue("@Username", username);
+                        insertCmd.Parameters.AddWithValue("@PasswordHash", passwordHash);
+                        insertCmd.Parameters.AddWithValue("@Email", email);
 
-                        if (rowsAffected > 0)
+                        using (SqlDataReader reader = insertCmd.ExecuteReader())
                         {
-                            MessageBox.Show("Registration successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            if (reader.Read())
+                            {
+                                var user = new User
+                                {
+                                    UserID = reader.GetInt32(reader.GetOrdinal("UserID")),
+                                    Username = reader.GetString(reader.GetOrdinal("Username")),
+                                    Email = reader.GetString(reader.GetOrdinal("Email")),
+                                    WorkoutCount = reader.GetInt32(reader.GetOrdinal("WorkoutCount"))
+                                };
 
-                            cuiTextBox_Register_Username.Content = "";
-                            cuiTextBox_Register_Password.Content = "";
-                            cuiTextBox_Register_Email.Content = "";
+                                MessageBox.Show("Registration successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                            this.Hide();
-                            MainForm nextForm = new MainForm();
-                            nextForm.Show();
-                        }
-                        else
-                        {
-                            MessageBox.Show("Registration failed. Try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                cuiTextBox_Register_Username.Content = "";
+                                cuiTextBox_Register_Password.Content = "";
+                                cuiTextBox_Register_Email.Content = "";
+
+                                this.Hide();
+                                MainForm nextForm = new MainForm(user);
+                                nextForm.Show();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Registration failed. Try again.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
                     }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Database error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Database error: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
@@ -281,10 +308,10 @@ namespace TrainSMARTApp
         }
 
 
-        // TODO: enhance where user is able to also log in using email
+            // TODO: enhance where user is able to also log in using email
         private void cuiButton_Login_Login_Click(object sender, EventArgs e)
         {
-            string username = cuiTextBox_Login_Username.Content.Trim();
+            string identifier = cuiTextBox_Login_Username.Content.Trim();
             string password = cuiTextBox_Login_Password.Content.Trim();
 
             if (!InputValidation())
@@ -301,25 +328,37 @@ namespace TrainSMARTApp
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                string query = "SELECT COUNT(*) FROM Users WHERE Username = @Username AND PasswordHash = @PasswordHash";
+                string query = @"
+                    SELECT TOP 1 UserID, Username, Email, WorkoutCount
+                    FROM Users
+                    WHERE (Username = @Identifier OR Email = @Identifier) AND PasswordHash = @PasswordHash";
+
                 SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@Username", username);
+                cmd.Parameters.AddWithValue("@Identifier", identifier);
                 cmd.Parameters.AddWithValue("@PasswordHash", hashedPassword);
 
                 try
                 {
                     conn.Open();
-                    int count = (int)cmd.ExecuteScalar();
+                    SqlDataReader reader = cmd.ExecuteReader();
 
-                    if (count == 1)
+                    if (reader.Read())
                     {
+                        var user = new User
+                        {
+                            UserID = reader.GetInt32(reader.GetOrdinal("UserID")),
+                            Username = reader.GetString(reader.GetOrdinal("Username")),
+                            Email = reader.GetString(reader.GetOrdinal("Email")),
+                            WorkoutCount = reader.GetInt32(reader.GetOrdinal("WorkoutCount"))
+                        };
+
                         this.Hide();
-                        MainForm nextForm = new MainForm();
+                        MainForm nextForm = new MainForm(user);
                         nextForm.Show();
                     }
                     else
                     {
-                        MessageBox.Show("Invalid username or password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Invalid username/email or password.", "Login Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         // TODO: enhance
                     }
                 }
@@ -331,7 +370,7 @@ namespace TrainSMARTApp
         }
 
 
-
+         
 
 
 
@@ -518,6 +557,25 @@ namespace TrainSMARTApp
             return true;
 
         }
+
+
+        private void DuplicateCheck(SqlConnection conn, string username, string email)
+        {
+            string checkQuery = "SELECT COUNT(*) FROM Users WHERE Username = @Username OR Email = @Email";
+            using (SqlCommand checkCmd = new SqlCommand(checkQuery, conn))
+            {
+                checkCmd.Parameters.AddWithValue("@Username", username);
+                checkCmd.Parameters.AddWithValue("@Email", email);
+
+                int count = (int)checkCmd.ExecuteScalar();
+                if (count > 0)
+                {
+                    MessageBox.Show("Username or email already exists.", "Registration Failed", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+        }
+
 
         private void HideTxtBoxError(object sender, EventArgs e)
         {

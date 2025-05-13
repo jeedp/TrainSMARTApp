@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using CuoreUI;
 using CuoreUI.Controls;
+using static TrainSMARTApp.User;
 
 namespace TrainSMARTApp
 {
@@ -31,11 +32,16 @@ namespace TrainSMARTApp
 
         private List<int> selectedExerciseIDs = new List<int>();
 
+        private readonly User _loggedInUser;
 
 
-        public MainForm()
+
+
+
+        public MainForm(User user)
         {
             InitializeComponent();
+            _loggedInUser = user;
 
             // menu panels size in design (513, 661)
             // panel size in code (0, 537)
@@ -43,7 +49,6 @@ namespace TrainSMARTApp
             // cuiGradientBorder_AboveMenu size (513, 10)
             // panel_Menus size (513, 82)
 
-            // TODO: add duplicate check
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -80,7 +85,8 @@ namespace TrainSMARTApp
 
             cuiTextBox_Exercises_Search.ContentChanged += DynamicExerciseSearchAndFilter;
 
-
+            label_Profile_Username.Text = _loggedInUser.Username;
+            label_Profile_WorkoutCount.Text = _loggedInUser.WorkoutCount + (_loggedInUser.WorkoutCount > 0 ? " workout" : " workouts");
         }
 
 
@@ -356,9 +362,8 @@ namespace TrainSMARTApp
 
         private void ShowHideAddingMeasurementPanel(object sender, EventArgs e)
         {
-            var currentDate = DateTime.Today;
-
-            label_AddingMeasurement_CurrentDate.Text = currentDate.ToString("MM/dd/yy");
+            var label = label_AddingMeasurement_CurrentDate;
+            label.Text = DateTime.Today.ToString("MM/dd/yy");
 
             var btn = sender as cuiButton;
             var panel = panel_Measurement_AddingMeasurement;
@@ -367,6 +372,8 @@ namespace TrainSMARTApp
             panel.Height = (isAddingMeasurement) ? 219 : 0;
             if (isAddingMeasurement) panel.BringToFront();
             else panel.SendToBack();
+
+            DarkenBackground();
         }
 
 
@@ -868,15 +875,47 @@ namespace TrainSMARTApp
             foreach (var ctrl in controls)
             {
                 ctrl.Text = btn.Content + ((noUnit.Contains(btn) || ctrl == label_AddingMeasurement_Name) ? "" : (btn.Content.Contains("Weight")) ? " (lbs)" : " (cm)");
-                if (ctrl == label_AddingMeasurement_Name && btn.Content.Contains("percentage"))
+                if (ctrl == label_AddingMeasurement_Name && btn.Content.Contains("percentage")) 
                     ctrl.Text = btn.Content.Replace("percentage", "%");
             }
         }
 
+
         private void AddMeasurement()
         {
-            
+            // TODO: IMPLEMENTATION
         }
+
+
+        private void DarkenBackground()
+        {
+            var controls = new List<Control>
+            {
+                button_Exit,
+                textBox_Measurement_ChartName,
+                flowLayoutPanel_Measurement,
+                panel_Measurement_Title,
+                panel_Form_Title,
+                panel_Menus,
+                cuiChartLine_Measurement,
+                cuiGradientBorder_AboveMenu,
+                cuiGradientBorder_Measurement,
+            };
+            foreach (var ctrl in controls)
+            {
+                if (isAddingMeasurement)
+                {
+                    ctrl.BackColor = Color.FromArgb(17, 20, 22);
+                    if (ctrl is cuiGradientBorder cuiGb) cuiGb.PanelColor2 = Color.FromArgb(17, 20, 22);
+                }
+                else
+                {
+                    ctrl.BackColor = Color.FromArgb(41, 50, 54);
+                    if (ctrl is cuiGradientBorder cuiGb) cuiGb.PanelColor2 = Color.FromArgb(35, 43, 47);
+                }
+            }
+        }
+
 
 
 
