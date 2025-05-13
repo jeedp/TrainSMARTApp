@@ -257,7 +257,6 @@ namespace TrainSMARTApp
             // MEASUREMENT MENU
         private void cuiButton_AddingMeasurement_Click(object sender, EventArgs e)
         {
-            //isAddingMeasurement = true;
             ShowHideAddingMeasurementPanel(sender, e);
         }
 
@@ -265,12 +264,6 @@ namespace TrainSMARTApp
         private void cuiButton_AddingMeasurement_Save_Click(object sender, EventArgs e)
         {
 
-        }
-
-        private void cuiButton_AddingMeasurement_Cancel_Click(object sender, EventArgs e)
-        {
-            //isAddingMeasurement = false;
-            ShowHideAddingMeasurementPanel(sender, e);
         }
 
 
@@ -373,7 +366,8 @@ namespace TrainSMARTApp
             if (isAddingMeasurement) panel.BringToFront();
             else panel.SendToBack();
 
-            DarkenBackground();
+            DarkenBackground(isAddingMeasurement);
+            DisableEnableControls(isAddingMeasurement);
         }
 
 
@@ -439,7 +433,7 @@ namespace TrainSMARTApp
                 if (reader.Read())
                 {
                     label_ExerciseDetails_Name.Text = reader["ExerciseName"].ToString();
-                    textBox_ExerciseDetails_Instructions.Text = reader["Instructions"].ToString();
+                    textBox_ExerciseDetails_Instructions.Text =  reader["Instructions"].ToString();
 
                     ShowMenu(panel_ExerciseDetails, cuiButton_Menu_Exercises);
                     ResizeTextBoxToFitContents(textBox_ExerciseDetails_Instructions);
@@ -870,14 +864,25 @@ namespace TrainSMARTApp
         private void RenameTitleAndChart(object sender, EventArgs e)
         {
             var btn = sender as cuiButton;
-            var controls = new List<Control> { label_Measurement_Name, textBox_Measurement_ChartName, label_AddingMeasurement_Name };
-            var noUnit = new List<Control> { cuiButton_Measure_BodyFatPercentage, cuiButton_Measure_CaloricIntake };
+            var controls = new List<Control>
+            {
+                label_Measurement_Name, 
+                label_AddingMeasurement_Name,
+                textBox_Measurement_ChartName, 
+            };
+            var noUnit = new List<Control>
+            {
+                cuiButton_Measure_BodyFatPercentage, 
+                cuiButton_Measure_CaloricIntake
+            };
             foreach (var ctrl in controls)
             {
                 ctrl.Text = btn.Content + ((noUnit.Contains(btn) || ctrl == label_AddingMeasurement_Name) ? "" : (btn.Content.Contains("Weight")) ? " (lbs)" : " (cm)");
                 if (ctrl == label_AddingMeasurement_Name && btn.Content.Contains("percentage")) 
                     ctrl.Text = btn.Content.Replace("percentage", "%");
             }
+            var txtBx = cuiTextBox_Measurement_AddingMeasurement;
+            txtBx.PlaceholderText = (btn.Content.Contains("Body")) ? "%" : (btn.Content.Contains("Caloric")) ? "kcal" : (btn.Content.Contains("Weight")) ? "lbs" : "cm";
         }
 
 
@@ -887,7 +892,7 @@ namespace TrainSMARTApp
         }
 
 
-        private void DarkenBackground()
+        private void DarkenBackground(bool flag)
         {
             var controls = new List<Control>
             {
@@ -903,16 +908,34 @@ namespace TrainSMARTApp
             };
             foreach (var ctrl in controls)
             {
-                if (isAddingMeasurement)
-                {
-                    ctrl.BackColor = Color.FromArgb(17, 20, 22);
-                    if (ctrl is cuiGradientBorder cuiGb) cuiGb.PanelColor2 = Color.FromArgb(17, 20, 22);
-                }
-                else
-                {
-                    ctrl.BackColor = Color.FromArgb(41, 50, 54);
-                    if (ctrl is cuiGradientBorder cuiGb) cuiGb.PanelColor2 = Color.FromArgb(35, 43, 47);
-                }
+                ctrl.BackColor = (flag) ? Color.FromArgb(17, 20, 22) : Color.FromArgb(41, 50, 54); ;
+                if (ctrl is cuiGradientBorder border) 
+                    border.PanelColor2 = (flag) ? Color.FromArgb(17, 20, 22): Color.FromArgb(35, 43, 47);
+            }
+        }
+
+
+        private void DisableEnableControls(bool flag)
+        {
+            var panel = panel_Measurement;
+            var controls = (panel.Height > 0)
+            ? new List<Control> { cuiButton_Measurement_GoBack }
+            : new List<Control>
+            {
+                cuiButton_WorkoutCreation_Exit,
+                cuiButton_WorkoutCreation_Save,
+                cuiButton_WorkoutCreation_AddExercise,
+            };
+            //var controls = new List<Control>();
+
+            foreach (var ctrl in controls)
+            {
+                ctrl.Enabled = !flag;
+            }
+
+            foreach (cuiButton ctrl in panel_Menus.Controls)
+            {
+                ctrl.Enabled = !flag;
             }
         }
 

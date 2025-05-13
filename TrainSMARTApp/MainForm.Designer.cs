@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel_Menus = new System.Windows.Forms.Panel();
             this.cuiButton_Menu_Measure = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Menu_Exercises = new CuoreUI.Controls.cuiButton();
@@ -178,7 +178,7 @@
             this.label_Measurement_History = new System.Windows.Forms.Label();
             this.cuiGradientBorder_Measurement = new CuoreUI.Controls.cuiGradientBorder();
             this.panel_Measurement_Title = new System.Windows.Forms.Panel();
-            this.cuiButton_Measure_GoBack = new CuoreUI.Controls.cuiButton();
+            this.cuiButton_Measurement_GoBack = new CuoreUI.Controls.cuiButton();
             this.label_Measurement_Name = new System.Windows.Forms.Label();
             this.cuiBorder1 = new CuoreUI.Controls.cuiBorder();
             this.chart_Profile_WorkoutCount = new System.Windows.Forms.DataVisualization.Charting.Chart();
@@ -752,7 +752,7 @@
             this.panel_WorkoutCreation.Location = new System.Drawing.Point(0, 35);
             this.panel_WorkoutCreation.Margin = new System.Windows.Forms.Padding(0);
             this.panel_WorkoutCreation.Name = "panel_WorkoutCreation";
-            this.panel_WorkoutCreation.Size = new System.Drawing.Size(513, 0);
+            this.panel_WorkoutCreation.Size = new System.Drawing.Size(513, 661);
             this.panel_WorkoutCreation.TabIndex = 17;
             // 
             // panel_Menu_Profile
@@ -761,10 +761,10 @@
             this.panel_Menu_Profile.Controls.Add(this.panel_Profile_Title);
             this.panel_Menu_Profile.Controls.Add(this.flowLayoutPanel_Profile);
             this.panel_Menu_Profile.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel_Menu_Profile.Location = new System.Drawing.Point(0, 35);
+            this.panel_Menu_Profile.Location = new System.Drawing.Point(0, 696);
             this.panel_Menu_Profile.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Menu_Profile.Name = "panel_Menu_Profile";
-            this.panel_Menu_Profile.Size = new System.Drawing.Size(513, 661);
+            this.panel_Menu_Profile.Size = new System.Drawing.Size(513, 0);
             this.panel_Menu_Profile.TabIndex = 18;
             // 
             // cuiGradientBorder_Profile
@@ -851,7 +851,7 @@
             this.flowLayoutPanel_Profile.Controls.Add(this.panel_Profile_User);
             this.flowLayoutPanel_Profile.Controls.Add(this.panel_Profile_WorkoutCount);
             this.flowLayoutPanel_Profile.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.flowLayoutPanel_Profile.Location = new System.Drawing.Point(0, 95);
+            this.flowLayoutPanel_Profile.Location = new System.Drawing.Point(0, -566);
             this.flowLayoutPanel_Profile.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel_Profile.Name = "flowLayoutPanel_Profile";
             this.flowLayoutPanel_Profile.Size = new System.Drawing.Size(513, 566);
@@ -938,7 +938,7 @@
             this.panel_Menu_History.Controls.Add(this.panel_History_Title);
             this.panel_Menu_History.Controls.Add(this.flowLayoutPanel_History);
             this.panel_Menu_History.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel_Menu_History.Location = new System.Drawing.Point(0, 35);
+            this.panel_Menu_History.Location = new System.Drawing.Point(0, 696);
             this.panel_Menu_History.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Menu_History.Name = "panel_Menu_History";
             this.panel_Menu_History.Size = new System.Drawing.Size(513, 0);
@@ -1039,7 +1039,7 @@
             this.panel_Menu_Exercises.Controls.Add(this.panel_Exercises_Title);
             this.panel_Menu_Exercises.Controls.Add(this.flowLayoutPanel_Exercises);
             this.panel_Menu_Exercises.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel_Menu_Exercises.Location = new System.Drawing.Point(0, 35);
+            this.panel_Menu_Exercises.Location = new System.Drawing.Point(0, 696);
             this.panel_Menu_Exercises.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Menu_Exercises.Name = "panel_Menu_Exercises";
             this.panel_Menu_Exercises.Size = new System.Drawing.Size(513, 0);
@@ -1612,7 +1612,7 @@
             this.panel_Menu_Workout.Controls.Add(this.panel_Workout_Title);
             this.panel_Menu_Workout.Controls.Add(this.flowLayoutPanel_Workout);
             this.panel_Menu_Workout.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel_Menu_Workout.Location = new System.Drawing.Point(0, 35);
+            this.panel_Menu_Workout.Location = new System.Drawing.Point(0, 696);
             this.panel_Menu_Workout.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Menu_Workout.Name = "panel_Menu_Workout";
             this.panel_Menu_Workout.Size = new System.Drawing.Size(513, 0);
@@ -2012,7 +2012,7 @@
             this.panel_Menu_Measure.Controls.Add(this.panel_Measure_Title);
             this.panel_Menu_Measure.Controls.Add(this.flowLayoutPanel_Measure);
             this.panel_Menu_Measure.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel_Menu_Measure.Location = new System.Drawing.Point(0, 35);
+            this.panel_Menu_Measure.Location = new System.Drawing.Point(0, 696);
             this.panel_Menu_Measure.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Menu_Measure.Name = "panel_Menu_Measure";
             this.panel_Menu_Measure.Size = new System.Drawing.Size(513, 0);
@@ -2809,7 +2809,7 @@
             this.panel_ExerciseDetails.Controls.Add(this.panel_ExerciseDetails_Name);
             this.panel_ExerciseDetails.Controls.Add(this.flowLayoutPanel_ExerciseDetails);
             this.panel_ExerciseDetails.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel_ExerciseDetails.Location = new System.Drawing.Point(0, 35);
+            this.panel_ExerciseDetails.Location = new System.Drawing.Point(0, 696);
             this.panel_ExerciseDetails.Margin = new System.Windows.Forms.Padding(0);
             this.panel_ExerciseDetails.Name = "panel_ExerciseDetails";
             this.panel_ExerciseDetails.Size = new System.Drawing.Size(513, 0);
@@ -3198,7 +3198,7 @@
             this.panel_Measurement.Controls.Add(this.cuiGradientBorder_Measurement);
             this.panel_Measurement.Controls.Add(this.panel_Measurement_Title);
             this.panel_Measurement.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel_Measurement.Location = new System.Drawing.Point(0, 35);
+            this.panel_Measurement.Location = new System.Drawing.Point(0, 696);
             this.panel_Measurement.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Measurement.Name = "panel_Measurement";
             this.panel_Measurement.Size = new System.Drawing.Size(513, 0);
@@ -3238,7 +3238,7 @@
             this.cuiTextBox_Measurement_AddingMeasurement.Name = "cuiTextBox_Measurement_AddingMeasurement";
             this.cuiTextBox_Measurement_AddingMeasurement.Padding = new System.Windows.Forms.Padding(27, 11, 27, 0);
             this.cuiTextBox_Measurement_AddingMeasurement.PasswordChar = false;
-            this.cuiTextBox_Measurement_AddingMeasurement.PlaceholderColor = System.Drawing.Color.FromArgb(((int)(((byte)(121)))), ((int)(((byte)(127)))), ((int)(((byte)(128)))));
+            this.cuiTextBox_Measurement_AddingMeasurement.PlaceholderColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(200)))), ((int)(((byte)(201)))));
             this.cuiTextBox_Measurement_AddingMeasurement.PlaceholderText = "";
             this.cuiTextBox_Measurement_AddingMeasurement.Rounding = new System.Windows.Forms.Padding(10);
             this.cuiTextBox_Measurement_AddingMeasurement.Size = new System.Drawing.Size(330, 49);
@@ -3564,7 +3564,7 @@
             // panel_Measurement_Title
             // 
             this.panel_Measurement_Title.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(51)))), ((int)(((byte)(55)))));
-            this.panel_Measurement_Title.Controls.Add(this.cuiButton_Measure_GoBack);
+            this.panel_Measurement_Title.Controls.Add(this.cuiButton_Measurement_GoBack);
             this.panel_Measurement_Title.Controls.Add(this.label_Measurement_Name);
             this.panel_Measurement_Title.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel_Measurement_Title.Location = new System.Drawing.Point(0, 0);
@@ -3572,43 +3572,43 @@
             this.panel_Measurement_Title.Size = new System.Drawing.Size(513, 80);
             this.panel_Measurement_Title.TabIndex = 7;
             // 
-            // cuiButton_Measure_GoBack
+            // cuiButton_Measurement_GoBack
             // 
-            this.cuiButton_Measure_GoBack.CheckButton = false;
-            this.cuiButton_Measure_GoBack.Checked = false;
-            this.cuiButton_Measure_GoBack.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Measure_GoBack.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Measure_GoBack.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Measure_GoBack.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Measure_GoBack.Content = "";
-            this.cuiButton_Measure_GoBack.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.cuiButton_Measure_GoBack.Dock = System.Windows.Forms.DockStyle.Left;
-            this.cuiButton_Measure_GoBack.Font = new System.Drawing.Font("SansSerif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cuiButton_Measure_GoBack.ForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measure_GoBack.HoverBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Measure_GoBack.HoveredImageTint = System.Drawing.Color.DarkGray;
-            this.cuiButton_Measure_GoBack.HoverForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measure_GoBack.HoverOutline = System.Drawing.Color.Empty;
-            this.cuiButton_Measure_GoBack.Image = ((System.Drawing.Image)(resources.GetObject("cuiButton_Measure_GoBack.Image")));
-            this.cuiButton_Measure_GoBack.ImageAutoCenter = true;
-            this.cuiButton_Measure_GoBack.ImageExpand = new System.Drawing.Point(6, 6);
-            this.cuiButton_Measure_GoBack.ImageOffset = new System.Drawing.Point(-2, 0);
-            this.cuiButton_Measure_GoBack.Location = new System.Drawing.Point(0, 0);
-            this.cuiButton_Measure_GoBack.Name = "cuiButton_Measure_GoBack";
-            this.cuiButton_Measure_GoBack.NormalBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_Measure_GoBack.NormalForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measure_GoBack.NormalImageTint = System.Drawing.Color.White;
-            this.cuiButton_Measure_GoBack.NormalOutline = System.Drawing.Color.Empty;
-            this.cuiButton_Measure_GoBack.OutlineThickness = 0F;
-            this.cuiButton_Measure_GoBack.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Measure_GoBack.PressedForeColor = System.Drawing.Color.White;
-            this.cuiButton_Measure_GoBack.PressedImageTint = System.Drawing.Color.DimGray;
-            this.cuiButton_Measure_GoBack.PressedOutline = System.Drawing.Color.Empty;
-            this.cuiButton_Measure_GoBack.Rounding = new System.Windows.Forms.Padding(8);
-            this.cuiButton_Measure_GoBack.Size = new System.Drawing.Size(102, 80);
-            this.cuiButton_Measure_GoBack.TabIndex = 8;
-            this.cuiButton_Measure_GoBack.TextOffset = new System.Drawing.Point(0, 15);
-            this.cuiButton_Measure_GoBack.Click += new System.EventHandler(this.cuiButton_Menu_Measure_Click);
+            this.cuiButton_Measurement_GoBack.CheckButton = false;
+            this.cuiButton_Measurement_GoBack.Checked = false;
+            this.cuiButton_Measurement_GoBack.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_Measurement_GoBack.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_Measurement_GoBack.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_Measurement_GoBack.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_Measurement_GoBack.Content = "";
+            this.cuiButton_Measurement_GoBack.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.cuiButton_Measurement_GoBack.Dock = System.Windows.Forms.DockStyle.Left;
+            this.cuiButton_Measurement_GoBack.Font = new System.Drawing.Font("SansSerif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiButton_Measurement_GoBack.ForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measurement_GoBack.HoverBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_Measurement_GoBack.HoveredImageTint = System.Drawing.Color.DarkGray;
+            this.cuiButton_Measurement_GoBack.HoverForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measurement_GoBack.HoverOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Measurement_GoBack.Image = ((System.Drawing.Image)(resources.GetObject("cuiButton_Measurement_GoBack.Image")));
+            this.cuiButton_Measurement_GoBack.ImageAutoCenter = true;
+            this.cuiButton_Measurement_GoBack.ImageExpand = new System.Drawing.Point(6, 6);
+            this.cuiButton_Measurement_GoBack.ImageOffset = new System.Drawing.Point(-2, 0);
+            this.cuiButton_Measurement_GoBack.Location = new System.Drawing.Point(0, 0);
+            this.cuiButton_Measurement_GoBack.Name = "cuiButton_Measurement_GoBack";
+            this.cuiButton_Measurement_GoBack.NormalBackground = System.Drawing.Color.Transparent;
+            this.cuiButton_Measurement_GoBack.NormalForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measurement_GoBack.NormalImageTint = System.Drawing.Color.White;
+            this.cuiButton_Measurement_GoBack.NormalOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Measurement_GoBack.OutlineThickness = 0F;
+            this.cuiButton_Measurement_GoBack.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_Measurement_GoBack.PressedForeColor = System.Drawing.Color.White;
+            this.cuiButton_Measurement_GoBack.PressedImageTint = System.Drawing.Color.DimGray;
+            this.cuiButton_Measurement_GoBack.PressedOutline = System.Drawing.Color.Empty;
+            this.cuiButton_Measurement_GoBack.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiButton_Measurement_GoBack.Size = new System.Drawing.Size(102, 80);
+            this.cuiButton_Measurement_GoBack.TabIndex = 8;
+            this.cuiButton_Measurement_GoBack.TextOffset = new System.Drawing.Point(0, 15);
+            this.cuiButton_Measurement_GoBack.Click += new System.EventHandler(this.cuiButton_Menu_Measure_Click);
             // 
             // label_Measurement_Name
             // 
@@ -3644,16 +3644,16 @@
             this.chart_Profile_WorkoutCount.BorderlineWidth = 0;
             this.chart_Profile_WorkoutCount.BorderSkin.BackColor = System.Drawing.Color.Transparent;
             this.chart_Profile_WorkoutCount.BorderSkin.BorderColor = System.Drawing.Color.Transparent;
-            chartArea2.BackColor = System.Drawing.Color.Transparent;
-            chartArea2.BorderWidth = 0;
-            chartArea2.Name = "ChartArea1";
-            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea2);
+            chartArea4.BackColor = System.Drawing.Color.Transparent;
+            chartArea4.BorderWidth = 0;
+            chartArea4.Name = "ChartArea1";
+            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea4);
             this.chart_Profile_WorkoutCount.Location = new System.Drawing.Point(11, 60);
             this.chart_Profile_WorkoutCount.Name = "chart_Profile_WorkoutCount";
             this.chart_Profile_WorkoutCount.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series2.ChartArea = "ChartArea1";
-            series2.Name = "Series1";
-            this.chart_Profile_WorkoutCount.Series.Add(series2);
+            series4.ChartArea = "ChartArea1";
+            series4.Name = "Series1";
+            this.chart_Profile_WorkoutCount.Series.Add(series4);
             this.chart_Profile_WorkoutCount.Size = new System.Drawing.Size(440, 245);
             this.chart_Profile_WorkoutCount.TabIndex = 1;
             this.chart_Profile_WorkoutCount.Text = "chart1";
@@ -3886,7 +3886,7 @@
         private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder_Measurement_ChartLineBorder;
         private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder_Measurement;
         private System.Windows.Forms.Panel panel_Measurement_Title;
-        private CuoreUI.Controls.cuiButton cuiButton_Measure_GoBack;
+        private CuoreUI.Controls.cuiButton cuiButton_Measurement_GoBack;
         private System.Windows.Forms.Label label_Measurement_Name;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_Measurement;
         private System.Windows.Forms.Panel panel_Measurement_Chart;
