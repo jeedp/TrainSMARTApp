@@ -158,6 +158,10 @@ VALUES
 ('Incline Dumbbell Press', 'Chest'),
 ('Decline Dumbbell Press', 'Chest'),
 ('Pec Deck Machine', 'Chest'),
+('Single Arm Chest Press (Cable)', 'Chest'),
+('Incline Chest Fly (Dumbbell)', 'Chest'),
+('Decline Chest Fly (Dumbbell)', 'Chest'),
+('Isometric Chest Squeeze', 'Chest'),
 
 -- Back
 ('Pull-Up', 'Back'),
@@ -170,6 +174,11 @@ VALUES
 ('Straight Arm Pulldown (Cable)', 'Back'),
 ('Single Arm Row (Dumbbell)', 'Back'),
 ('Inverted Row', 'Back'),
+('Reverse Grip Lat Pulldown', 'Back'),
+('Meadow Row', 'Back'),
+('Chest Supported Row (Machine)', 'Back'),
+('Cable Row with Rope', 'Back'),
+('Resistance Band Row', 'Back'),
 
 -- Legs
 ('Squat (Barbell)', 'Legs'),
@@ -182,6 +191,10 @@ VALUES
 ('Sumo Squat (Dumbbell)', 'Legs'),
 ('Step-Up (Dumbbell)', 'Legs'),
 ('Bulgarian Split Squat', 'Legs'),
+('Hip Thrust (Barbell)', 'Legs'),
+('Glute Bridge', 'Legs'),
+('Box Squat', 'Legs'),
+('Wall Sit', 'Legs'),
 
 -- Shoulders
 ('Upright Row (Barbell)', 'Shoulders'),
@@ -194,6 +207,9 @@ VALUES
 ('Arnold Press (Dumbbell)', 'Shoulders'),
 ('Cable Lateral Raise', 'Shoulders'),
 ('Face Pull (Cable)', 'Shoulders'),
+('Cable Front Raise', 'Shoulders'),
+('Landmine Press', 'Shoulders'),
+('One-Arm Overhead Press (Dumbbell)', 'Shoulders'),
 
 -- Biceps (under "Arms")
 ('Bicep Curl (Barbell)', 'Arms'),
@@ -202,6 +218,11 @@ VALUES
 ('Concentration Curl (Dumbbell)', 'Arms'),
 ('Cable Curl', 'Arms'),
 ('EZ Bar Curl', 'Arms'),
+('Incline Dumbbell Curl', 'Arms'),
+('Cable Hammer Curl with Rope', 'Arms'),
+('Spider Curl', 'Arms'),
+('Zottman Curl', 'Arms'),
+('Reverse Curl (EZ Bar)', 'Arms'),
 
 -- Triceps (under "Arms")
 ('Dips', 'Arms'),
@@ -210,6 +231,10 @@ VALUES
 ('Overhead Triceps Extension (Dumbbell)', 'Arms'),
 ('Close Grip Bench Press (Barbell)', 'Arms'),
 ('Kickbacks (Dumbbell)', 'Arms'),
+('Overhead Cable Triceps Extension', 'Arms'),
+('Close Grip Push-Up', 'Arms'),
+('Reverse Grip Triceps Pushdown', 'Arms'),
+('Single Arm Triceps Kickback', 'Arms'),
 
 -- Core
 ('Plank', 'Core'),
@@ -222,6 +247,10 @@ VALUES
 ('Mountain Climbers', 'Core'),
 ('Side Plank', 'Core'),
 ('V-Ups', 'Core'),
+('Toe Touches', 'Core'),
+('Flutter Kicks', 'Core'),
+('Weighted Sit-Up', 'Core'),
+('Hollow Body Hold', 'Core'),
 
 -- Olympic
 ('Clean and Jerk', 'Olympic'),
@@ -234,6 +263,11 @@ VALUES
 ('Power Snatch', 'Olympic'),
 ('High Pull (Barbell)', 'Olympic'),
 ('Muscle Clean', 'Olympic'),
+('Deficit Snatch', 'Olympic'),
+('Overhead Squat Snatch Grip', 'Olympic'),
+('Block Pull (Snatch or Clean)', 'Olympic'),
+('Tall Snatch', 'Olympic'),
+('Clean Pull', 'Olympic'),
 
 -- Full Body
 ('Thruster (Barbell)', 'Full Body'),
@@ -242,10 +276,9 @@ VALUES
 ('Dumbbell Snatch', 'Full Body'),
 ('Clean to Press (Dumbbell)', 'Full Body'),
 ('Wall Ball', 'Full Body'),
-('Man Maker', 'Full Body'),
 ('Deadlift to Press', 'Full Body'),
 ('Overhead Squat', 'Full Body'),
-('Bear Complex', 'Full Body'),
+('Jump Squat', 'Full Body'),
 
 -- Cardio
 ('Running (Treadmill)', 'Cardio'),
@@ -260,16 +293,6 @@ VALUES
 
 -- Other
 ('Stretching', 'Other')
---('Farmer’s Walk (Dumbbell)', 'Other'),
---('Sled Drag', 'Other'),
---('Tire Flip', 'Other'),
---('Battle Ropes', 'Other'),
---('Medicine Ball Slam', 'Other'),
---('Agility Ladder Drill', 'Other'),
---('Box Jump', 'Other'),
---('Sandbag Clean', 'Other'),
---('Trap Bar Deadlift', 'Other'),
---('Isometric Hold (Any)', 'Other')
 GO
 
 
@@ -661,9 +684,9 @@ WHERE ExerciseName = 'Overhead Press (Barbell)';
 -- 23. Strict Military Press (Barbell)
 UPDATE dbo.Exercises
 SET Instructions = N'
-1. Stand tall with your feet together and 
-    the barbell resting on your upper 
-    chest.
+1. Stand tall with your feet together 
+    and the barbell resting on your 
+    upper chest.
 2. Engage your core and press the bar 
     overhead without using your legs or 
     momentum.
@@ -893,15 +916,15 @@ WHERE ExerciseName = 'Cable Crossover';
 
 UPDATE dbo.Exercises 
 SET Instructions = N' 
-1.Lie on a flat bench with dumbbells 
-    in hand.
-2.Keep your core tight and feet flat 
-    on the floor.
-3.Press the dumbbells upward, 
-    extending your arms fully.
+1.Lie on a flat bench with dumbbells in 
+    hand.
+2.Keep your core tight and feet flat on 
+    the floor.
+3.Press the dumbbells upward, extending 
+    your arms fully.
 4.Pause for a second at the top.
-5.Lower the dumbbells slowly back to
-    your chest.
+5.Lower the dumbbells slowly back to your 
+    chest.
 6.Repeat for the desired number of 
     repetitions. '
 WHERE ExerciseName = 'Dumbbell Bench Press';
@@ -909,15 +932,15 @@ WHERE ExerciseName = 'Dumbbell Bench Press';
 
 UPDATE dbo.Exercises 
 SET Instructions = N' 
-1.Sit on an incline bench with
-    dumbbells in hand.
-2.Keep your core tight and feet flat 
-    on the floor.
-3.Press the dumbbells upward,
-    extending your arms fully.
+1.Sit on an incline bench with dumbbells 
+    in hand.
+2.Keep your core tight and feet flat on 
+    the floor.
+3.Press the dumbbells upward, extending 
+    your arms fully.
 4.Pause for a second at the top.
-5.Lower the dumbbells slowly back
-    to your chest.
+5.Lower the dumbbells slowly back to your
+    chest.
 6.Repeat for the desired number of 
     repetitions. '
 WHERE ExerciseName = 'Incline Dumbbell Press';
@@ -925,15 +948,15 @@ WHERE ExerciseName = 'Incline Dumbbell Press';
 
 UPDATE dbo.Exercises 
 SET Instructions = N' 
-1.Lie on a decline bench with 
-    dumbbells in hand.
-2.Keep your core tight and feet 
-    secured under the pads.
-3.Press the dumbbells upward, 
-    extending your arms fully.
+1.Lie on a decline bench with dumbbells 
+    in hand.
+2.Keep your core tight and feet secured 
+    under the pads.
+3.Press the dumbbells upward, extending 
+    your arms fully.
 4.Pause for a second at the top.
-5.Lower the dumbbells slowly back 
-    to your chest.
+5.Lower the dumbbells slowly back to your
+    chest.
 6.Repeat for the desired number of
     repetitions. '
 WHERE ExerciseName = 'Decline Dumbbell Press';
@@ -941,22 +964,107 @@ WHERE ExerciseName = 'Decline Dumbbell Press';
 
 UPDATE dbo.Exercises 
 SET Instructions = N' 
-1.Sit on the machine with your 
-    elbows at chest level.
-2.Keep your core tight and back
-    against the backrest.
-3.Push the handles together, 
-    squeezing your chest.
-4.Pause for a second when your hands
-    are close together.
-5.Slowly return to the starting 
-    position.
+1.Sit on the machine with your elbows at 
+    chest level.
+2.Keep your core tight and back against 
+    the backrest.
+3.Push the handles together, squeezing 
+    your chest.
+4.Pause for a second when your hands are 
+    close together.
+5.Slowly return to the starting position.
 6.Repeat for the desired number of 
-repetitions.  '
+    repetitions.  '
 WHERE ExerciseName = 'Pec Deck Machine';
 
 
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Set the cable handle at chest height 
+    and stand with your side facing the 
+    machine.
+2. Grab the handle with one hand and step 
+    forward into a split stance.
+3. Keep your core tight and your back
+    straight.
+4. Press the handle forward until your
+    arm is fully extended.
+5. Pause for a second at the end of the 
+    movement.
+6. Slowly return your hand to the starting
+    position.
+7. Repeat for the desired number of
+    repetitions, then switch arms.'
+WHERE ExerciseName = 'Single Arm Chest Press (Cable)';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Set an incline bench to about 
+    30–45 degrees and lie on it 
+    holding a dumbbell in each hand.
+2. Start with your arms extended above
+    your chest, palms facing each 
+    other, and a slight bend in your 
+    elbows.
+3. Slowly lower the dumbbells out to 
+    your sides in a wide arc, keeping 
+    the bend in your elbows.
+4. Stop when you feel a stretch in 
+    your chest (dumbbells at about 
+    chest level).
+5. Bring the dumbbells back up in the
+    same arc motion, squeezing your 
+    chest at the top.
+6. Repeat for the desired number of 
+    repetitions.'
+WHERE ExerciseName = 'Incline Chest Fly (Dumbbell)';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Set a bench to a decline position 
+    and lie down with a dumbbell in
+    each hand.
+2. Hold the dumbbells above your chest
+    with palms facing each other and 
+    a slight bend in your elbows.
+3. Slowly lower the dumbbells out to
+    your sides in a wide arc until you 
+    feel a stretch in your chest.
+4. Keep your elbows slightly bent 
+    throughout the movement.
+5. Bring the dumbbells back up in the 
+    same arc motion, squeezing your 
+    chest at the top.
+6. Repeat for the desired number of
+repetitions.'
+WHERE ExerciseName = 'Decline Chest Fly (Dumbbell)';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Stand or sit upright with your feet
+    shoulder-width apart.
+2. Hold a medicine ball or press your 
+    palms together in front of your 
+    chest.
+3. Keep your elbows bent and at chest 
+    level.
+4. Squeeze your hands or the ball as
+    hard as you can to activate your 
+    chest muscles.
+5. Hold the squeeze for 10–20 seconds 
+    while keeping your core tight and 
+    back straight.
+6. Release the tension slowly.
+7. Repeat for the desired number of 
+    sets.'
+WHERE ExerciseName = 'Isometric Chest Squeeze';
+
+
 -- Back
+
 UPDATE dbo.Exercises 
 SET Instructions = N' 
 1. Stand on the T-bar platform, holding 
@@ -1053,7 +1161,113 @@ SET Instructions = N'
 WHERE ExerciseName = 'Inverted Row';
 
 
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Sit at the lat pulldown machine and 
+    grab the bar with an underhand 
+    (palms facing you) grip, hands 
+    shoulder-width apart.
+2. Keep your chest up and your back .
+    straight.
+3. Pull the bar down toward your upper 
+    chest by bending your elbows and 
+    squeezing your shoulder blades 
+    together.
+4. Pause briefly at the bottom of the 
+    movement.
+5. Slowly return the bar to the starting 
+    position with control.
+6. Repeat for the desired number of 
+    repetitions.'
+ WHERE ExerciseName = 'Reverse Grip Lat Pulldown';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Place one end of a barbell in a 
+    landmine or corner for support and 
+    load the other end with weight.
+2. Stand beside the bar, stagger your 
+    stance, and bend at the hips while 
+    keeping your back flat.
+3. Grab the bar with the hand closest to 
+    it using a neutral grip 
+    (palm facing in).
+4. Keep your core tight and pull the bar 
+    toward your hip by driving your elbow 
+    back.
+5. Squeeze your back muscles at the top of 
+    the movement.
+6. Slowly lower the bar back to the 
+    starting position.
+7. Repeat for the desired number of reps, 
+    then switch sides.'
+WHERE ExerciseName = 'Meadow Row';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Sit on the machine and place your chest
+    against the pad.
+2. Grab the handles with both hands, 
+    keeping your arms extended.
+3. Keep your chest pressed into the pad 
+    and your core tight.
+4. Pull the handles toward your body by 
+    squeezing your shoulder blades 
+    together.
+5. Pause briefly at the top of the 
+    movement.
+6. Slowly return the handles to the 
+    starting position.
+7. Repeat for the desired number of 
+    repetitions.'
+WHERE ExerciseName = 'Chest Supported Row (Machine)';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Sit at a cable row machine and attach
+    a rope to the low pulley.
+2. Grab the rope handles with both hands,
+    palms facing each other.
+3. Sit up straight with your back flat 
+    and feet secured.
+4. Pull the rope toward your lower chest 
+    while keeping your elbows close to 
+    your body.
+5. Squeeze your shoulder blades together 
+    at the end of the pull.
+6. Slowly extend your arms to return to 
+    the starting position.
+7. Repeat for the desired number of 
+    repetitions.'
+WHERE ExerciseName = 'Cable Row with Rope';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Attach a resistance band to a sturdy 
+    object at chest height.
+2. Grab the ends of the band with both 
+    hands, palms facing each other.
+3. Step back to create tension in the 
+    band and stand with your feet 
+    shoulder-width apart.
+4. Pull the handles toward your body by 
+    bending your elbows and squeezing 
+    your shoulder blades together.
+5. Pause briefly when your hands are near 
+    your body.
+6. Slowly extend your arms back to the 
+    starting position.
+7. Repeat for the desired number of 
+    repetitions.'
+WHERE ExerciseName = 'Resistance Band Row';
+
+
 -- Legs
+
 UPDATE dbo.Exercises 
 SET Instructions = N'
 1. Stand with your feet hip-width apart 
@@ -1136,7 +1350,110 @@ SET Instructions = N'
 WHERE ExerciseName = 'Bulgarian Split Squat';
 
 
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Sit on the ground with your upper back 
+    against a bench and a barbell over 
+    your hips.
+2. Roll the barbell to rest on your hips, 
+    keeping your feet flat on the floor
+    and knees bent.
+3. Plant your feet shoulder-width apart 
+    and keep your core tight.
+4. Drive your hips upward by pressing 
+    through your heels, lifting the 
+    barbell.
+5. Squeeze your glutes at the top of the 
+    movement and hold for a second.
+6. Slowly lower your hips back to the 
+    starting position.
+7. Repeat for the desired number of 
+    repetitions.'
+WHERE ExerciseName = 'Hip Thrust (Barbell)';
+
+
+UPDATE dbo.Exercises
+SET Instructions = N'
+1. Lie flat on your back with your knees
+    bent and feet flat on the floor, 
+    hip-width apart.
+2. Keep your arms at your sides with palms
+    facing down.
+3. Drive through your heels and lift your 
+    hips toward the ceiling, squeezing 
+    your glutes at the top.
+4. Pause for a second at the top of the 
+    movement.
+5. Slowly lower your hips back to the 
+    floor.
+6. Repeat for the desired number of 
+    repetitions.'
+WHERE ExerciseName = 'Glute Bridge';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Stand in front of a box or bench with
+    your feet shoulder-width apart.
+2. Keep your chest up, core tight, and 
+    back straight.
+3. Slowly lower yourself by pushing your
+    hips back and bending your knees.
+4. Sit down gently on the box, keeping 
+    your weight on your heels.
+5. Pause for a second on the box, then 
+    push through your heels to stand back 
+    up to the starting position.
+6. Repeat for the desired number of 
+    repetitions.'
+WHERE ExerciseName = 'Box Squat';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Stand with your back against a wall, 
+    feet shoulder-width apart, and about 
+    2 feet away from the wall.
+2. Slide your back down the wall, bending 
+    your knees to about 90 degrees, like 
+    sitting in an invisible chair.
+3. Keep your knees aligned with your 
+    ankles, and your thighs parallel to 
+    the ground.
+4. Hold this position, keeping your core 
+    tight and back flat against the wall.
+5. Hold for as long as you can, then 
+    slowly stand back up to the starting 
+    position.
+6. Repeat for the desired number of 
+    repetitions or duration.'
+WHERE ExerciseName = 'Wall Sit';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Start by standing with your feet 
+    shoulder-width apart and knees 
+    slightly bent.
+2. Lower into a squat position by bending 
+    your knees and pushing your hips back, 
+    keeping your chest up and back 
+    straight.
+3. Begin walking forward while staying in 
+    the squat position, keeping your knees
+    bent and close to the ground.
+4. Take small, controlled steps, 
+    maintaining the squat form throughout.
+5. Keep your core tight and avoid letting 
+    your knees cave inward.
+6. Continue walking for a set distance or 
+    time, then stand up to the starting 
+    position.'
+WHERE ExerciseName = 'Duck Walk';
+
+
 -- Shoulders
+
 UPDATE dbo.Exercises 
 SET Instructions = N'
 1. Sit or stand with a dumbbell in each 
@@ -1206,7 +1523,116 @@ SET Instructions = N'
 WHERE ExerciseName = 'Face Pull (Cable)';
 
 
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Sit on the floor with your legs 
+    extended straight in front of you, 
+    keeping your back straight and core 
+    tight.
+2. Grip the barbell with your hands 
+    slightly wider than shoulder-width 
+    apart.
+3. Clean the barbell to shoulder height, 
+    resting it on your deltoids.
+4. Press the barbell overhead while 
+    keeping your core engaged and your 
+    back straight.
+5. Fully extend your arms at the top, 
+    squeezing your shoulders.
+6. Lower the barbell back down to shoulder
+    height in a controlled manner.
+7. Repeat for the desired number of 
+    repetitions.'
+WHERE ExerciseName = 'Z-Press (Barbell)';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Stand facing a cable machine with the 
+    pulley set at the lowest position.
+2. Attach a handle to the pulley and grip 
+    it with one hand, keeping your palm 
+    facing inward.
+3. Take a step back to create tension in 
+    the cable and stand with your feet 
+    shoulder-width apart.
+4. With a slight bend in your elbow, raise 
+    your arm straight in front of you to 
+    shoulder height.
+5. Pause for a second at the top, 
+    squeezing your shoulder muscles.
+6. Slowly lower your arm back to the 
+    starting position, controlling the 
+    cable.
+7. Repeat for the desired number of 
+    repetitions, then switch arms.'
+WHERE ExerciseName = 'Cable Front Raise';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Stand with your feet shoulder-width 
+    apart and position one end of a
+    barbell in a landmine attachment or 
+    corner.
+2. Grip the other end of the barbell with
+    both hands, keeping your elbows bent 
+    and close to your body.
+3. Press the barbell upward in a diagonal 
+    motion, extending your arms fully 
+    overhead.
+4. Pause for a second at the top, 
+    squeezing your shoulders.
+5. Slowly lower the barbell back down, 
+    controlling the movement.
+6. Repeat for the desired number of
+    repetitions.'
+WHERE ExerciseName = 'Landmine Press';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Stand with your feet shoulder-width 
+    apart, holding a dumbbell in one hand 
+    at shoulder height.
+2. Keep your core tight and your back 
+    straight.
+3. Press the dumbbell overhead, fully 
+    extending your arm while keeping your
+    elbow slightly bent at the top.
+4. Pause for a second at the top, 
+    squeezing your shoulder.
+5. Slowly lower the dumbbell back to 
+    shoulder height in a controlled
+    motion.
+6. Repeat for the desired number of
+    repetitions, then switch arms.'
+WHERE ExerciseName = 'One-Arm Overhead Press (Dumbbell)';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Stand with your feet shoulder-width 
+    apart and place the center of the 
+    resistance band under your feet.
+2. Hold the ends of the band in each hand, 
+    with your elbows bent at a 90-degree 
+    angle and palms facing forward at 
+    shoulder height.
+3. Press the band upward, fully extending 
+    your arms overhead.
+4. Pause for a second at the top, squeezing 
+    your shoulders.
+5. Slowly lower your arms back to the 
+    starting position in a controlled 
+    motion.
+6. Repeat for the desired number of
+    repetitions.'
+WHERE ExerciseName = 'Resistance Band Shoulder Press';
+
+
 -- Biceps
+
 UPDATE dbo.Exercises 
 SET Instructions = N'
 1. Set the pulley of a cable machine 
@@ -1251,6 +1677,112 @@ SET Instructions = N'
 WHERE ExerciseName = 'EZ Bar Curl';
 
 
+UPDATE dbo.Exercises
+SET Instructions = N'
+1. Sit on an incline bench with a 
+    dumbbell in each hand, arms fully 
+    extended and palms facing forward.
+2. Keep your elbows close to your body 
+    and your chest against the bench.
+3. Curl the dumbbells upward, bending your
+    elbows and squeezing your biceps at 
+    the top.
+4. Pause for a second at the top of the
+    movement.
+5. Slowly lower the dumbbells back to the 
+    starting position, fully extending 
+    your arms.
+6. Repeat for the desired number of
+    repetitions.'
+WHERE ExerciseName = 'Incline Dumbbell Curl';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Attach a rope handle to the low pulley 
+    of a cable machine.
+2. Stand with your feet shoulder-width 
+    apart, holding the rope with both 
+    hands, palms facing each other.
+3. Keep your elbows close to your body and
+    your chest up.
+4. Curl the rope upward, bending your 
+    elbows and keeping your palms facing 
+    each other throughout the movement.
+5. Squeeze your forearms and biceps at the 
+    top of the curl.
+6. Slowly lower the rope back to the 
+    starting position, fully extending
+    your arms.
+7. Repeat for the desired number of 
+    repetitions.'
+WHERE ExerciseName = 'Cable Hammer Curl with Rope';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Set an incline bench to a 45-degree
+    angle and position yourself face down
+    on the bench, with your chest against 
+    the pad.
+2. Hold a dumbbell in each hand with your 
+    palms facing upward, letting your arms 
+    hang straight down.
+3. Keep your elbows stationary and curl 
+    the dumbbells towards your shoulders,
+    focusing on squeezing your biceps at 
+    the top.
+4. Pause for a second at the peak of the 
+    movement.
+5. Slowly lower the dumbbells back to the 
+    starting position, fully extending 
+    your arms.
+6. Repeat for the desired number of 
+repetitions.'
+WHERE ExerciseName = 'Spider Curl';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Stand with a dumbbell in each hand, 
+    arms fully extended and palms facing 
+    forward.
+2. Curl the dumbbells up towards your
+    shoulders while keeping your elbows 
+    close to your body.
+3. At the top of the curl, rotate your 
+    wrists so your palms are facing 
+    downward.
+4. Slowly lower the dumbbells in a 
+    controlled motion, focusing on the 
+    eccentric phase.
+5. At the bottom, rotate your wrists back 
+    so your palms are facing upward.
+6. Repeat for the desired number of 
+    repetitions.'
+WHERE ExerciseName = 'Zottman Curl';
+
+
+UPDATE dbo.Exercises
+SET Instructions = N'
+1. Stand with your feet shoulder-width 
+    apart, holding an EZ bar with an 
+    overhand grip (palms facing down).
+2. Keep your elbows close to your body and
+    your arms fully extended.
+3. Curl the EZ bar upward by bending your 
+    elbows, focusing on keeping your 
+    wrists straight.
+4. Squeeze your forearms and biceps at the
+    top of the movement.
+5. Slowly lower the bar back to the 
+    starting position, fully extending 
+    your arms.
+6. Repeat for the desired number of 
+    repetitions.'
+WHERE ExerciseName = 'Reverse Curl (EZ Bar)';
+
+
 -- Triceps
 UPDATE dbo.Exercises
 SET Instructions = N'
@@ -1292,7 +1824,95 @@ SET Instructions = N'
 WHERE ExerciseName = 'Kickbacks (Dumbbell)';
 
 
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Attach a rope handle to the high pulley
+    on a cable machine.
+2. Stand facing away from the machine and
+    grab the rope with both hands, palms 
+    facing each other.
+3. Step forward slightly to create tension
+    in the cable and raise your arms 
+    overhead, elbows bent.
+4. Keep your upper arms stationary and 
+    extend your forearms, pushing the rope 
+    upward until your arms are fully 
+    extended.
+5. Squeeze your triceps at the top of the 
+    movement.
+6. Slowly lower the rope back to the 
+    starting position, keeping your elbows
+    close to your head.
+7. Repeat for the desired number of
+    repetitions.'
+WHERE ExerciseName = 'Overhead Cable Triceps Extension';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Start in a standard push-up position 
+    with your hands placed closer together, 
+    directly under your shoulders.
+2. Keep your body in a straight line from 
+    head to heels, engaging your core.
+3. Lower your body towards the floor by 
+    bending your elbows, keeping them 
+    close to your sides.
+4. Stop when your chest is just above 
+    the ground.
+5 .Push yourself back up to the starting 
+    position, fully extending your arms.
+6. Repeat for the desired number of 
+    repetitions.'
+WHERE ExerciseName = 'Close Grip Push-Up';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Attach a rope or bar handle to the 
+    high pulley of a cable machine.
+2. Grab the handle with an underhand grip 
+    (palms facing up), hands 
+    shoulder-width apart.
+3. Stand with your feet shoulder-width 
+    apart and pull the handle down to
+    your upper chest to create tension 
+    in the cable.
+4. Keep your elbows close to your sides 
+    and press the handle downward by 
+    extending your forearms.
+5. Squeeze your triceps at the bottom of 
+    the movement.
+6. Slowly return the handle back to the 
+    starting position, keeping tension on 
+    the cable.
+7. Repeat for the desired number of 
+    repetitions.'
+WHERE ExerciseName = 'Reverse Grip Triceps Pushdown';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Grab a dumbbell with one hand and place
+    the opposite knee and hand on a bench
+    for support.
+2. Keep your back flat and your core 
+    engaged.
+3. Hold the dumbbell with your upper arm 
+    parallel to the floor and your elbow 
+    bent at 90 degrees.
+4. Extend your arm backward, straightening 
+    your elbow and squeezing your triceps 
+    at the top.
+5. Slowly return to the starting position 
+    with control.
+6. Repeat for the desired number of 
+    repetitions, then switch arms.'
+WHERE ExerciseName = 'Single Arm Triceps Kickback';
+
+
 -- Core
+
 UPDATE dbo.Exercises
 SET Instructions = N'
 1. Hang from a pull-up bar with your 
@@ -1400,7 +2020,78 @@ repetitions.'
 WHERE ExerciseName = 'V-ups';
 
 
+UPDATE dbo.Exercises
+SET Instructions = N'
+1. Lie flat on your back with your legs 
+    extended straight up toward the 
+    ceiling.
+2. Keep your arms extended straight up 
+    toward your toes.
+3. Engage your core and lift your upper 
+    back off the floor, reaching your hands 
+    toward your toes.
+4. Pause briefly at the top and squeeze 
+    your abs.
+5. Slowly lower your upper back to the 
+    floor with control.
+6. Repeat for the desired number of
+    repetitions.'
+WHERE ExerciseName = 'Toe Touches';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Lie flat on your back with your legs 
+    extended and arms at your sides or 
+    under your glutes for support.
+2. Lift both legs a few inches off the 
+    floor.
+3. Keeping your core tight, alternate 
+    kicking your legs up and down in a
+    quick, fluttering motion.
+4. Keep your legs straight and avoid 
+    touching the floor.
+5. Continue for the desired time or number
+    of repetitions.'
+WHERE ExerciseName = 'Flutter Kicks';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Lie on your back with knees bent and 
+    feet flat on the floor.
+2. Hold a weight plate or dumbbell against 
+    your chest or extended above you.
+3. Tighten your core and slowly sit up, 
+    lifting your upper body toward your 
+    knees.
+4. Pause briefly at the top.
+5. Lower yourself back down with control.
+6. Repeat for the desired number of 
+    repetitions.'
+WHERE ExerciseName = 'Weighted Sit-Up';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Lie flat on your back with your arms 
+    extended overhead and legs straight.
+2. Engage your core by pressing your
+    lower back into the floor.
+3. Lift your shoulders, arms, and legs
+    slightly off the ground to form a
+    shallow "banana" shape.
+4. Keep your arms close to your ears and
+    legs together with toes pointed.
+5. Hold this position, maintaining tension
+    in your core throughout.
+6. Breathe steadily and hold for the
+    desired duration.'
+WHERE ExerciseName = 'Hollow Body Hold';
+
+
 -- Olympic
+
 UPDATE dbo.Exercises 
 SET Instructions = N'
 1. Stand with your feet shoulder-width 
@@ -1679,7 +2370,120 @@ SET Instructions = N'
 WHERE ExerciseName = 'Muscle Clean';
 
 
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Stand on a small platform or weight 
+    plate to create a slight deficit,
+    feet hip-width apart.
+2. Grip the barbell with a wide, snatch 
+    grip and keep your back flat and 
+    chest up.
+3. Engage your core and pull the bar from 
+    the floor with a strong and controlled
+    motion.
+4. Once the bar reaches mid-thigh, explode
+    upward by extending your hips, knees, 
+    and ankles.
+5. Pull yourself under the bar and catch 
+    it overhead in a deep squat position.
+6. Stand up fully to complete the lift.
+7. Lower the bar carefully back to the 
+    floor and repeat for the desired 
+    number of reps.'
+WHERE ExerciseName = 'Deficit Snatch';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Stand with your feet shoulder-width 
+    apart and grip the barbell with a 
+    wide snatch grip.
+2. Press or snatch the bar overhead and 
+    lock out your elbows.
+3 .Keep your chest up and core engaged 
+    as you slowly lower into a deep squat.
+4 .Make sure the bar stays in line with 
+    the middle of your feet throughout 
+    the movement.
+5. Squat down as low as your mobility 
+    allows while maintaining control.
+6. Drive through your heels to return to 
+    a standing position.
+7 .Repeat for the desired number of 
+    repetitions.'
+WHERE ExerciseName = 'Overhead Squat Snatch Grip';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Set the barbell on blocks or platforms
+    so it rests just below or at the knee 
+    level.
+2. Stand with your feet shoulder-width 
+    apart and grip the bar with either a 
+    snatch or clean grip.
+3. Keep your chest up, back flat, and core 
+    tight.
+4. Pull the bar straight up by driving 
+    through your heels and extending your
+    hips.
+5. Keep the bar close to your body 
+    throughout the lift.
+6. Once you reach full extension at the 
+    top, pause briefly.
+7. Lower the bar back to the blocks in a 
+    controlled manner.
+8. Repeat for the desired number of
+    repetitions.'
+WHERE ExerciseName = 'Block Pull (Snatch or Clean)';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Stand tall with your feet shoulder-width
+    apart, holding a barbell with a wide 
+    snatch grip.
+2. Begin with the bar at your chest or 
+    upper abdominal level, elbows high and 
+    to the sides.
+3. Without dipping or using your legs, 
+    explosively pull yourself under the 
+    bar into a squat position.
+4. Catch the bar overhead with arms fully 
+    extended and torso upright.
+5. Stand up to complete the lift.
+6. Lower the bar and reset for the next 
+    repetition.
+7. Repeat for the desired number of
+    repetitions.'
+WHERE ExerciseName = 'Tall Snatch';
+
+
+UPDATE dbo.Exercises 
+SET Instructions = N'
+1. Stand with your feet hip-width apart, 
+    barbell over midfoot, and grip it with 
+    hands just outside your knees.
+2. Keep your back flat, chest up, and arms 
+    straight as you lift the bar from the 
+    floor.
+3. Drive through your legs to extend your 
+    hips and knees simultaneously.
+4. As the bar passes your knees, 
+    explosively extend your hips and 
+    ankles, shrugging your shoulders 
+    upward.
+5. Keep the bar close to your body during 
+    the pull.
+6. Lower the bar under control to the 
+    ground.
+7. Repeat for the desired number of 
+    repetitions.'
+WHERE ExerciseName = 'Clean Pull';
+
+
 -- Full body
+
 UPDATE dbo.Exercises 
 SET Instructions = N'
 1. Stand with your feet shoulder-width 
@@ -1809,33 +2613,6 @@ WHERE ExerciseName = 'Wall Ball';
 
 UPDATE dbo.Exercises 
 SET Instructions = N'
-1. Start in a standing position, holding
-    a dumbbell in each hand.
-2. Drop into a squat and place the 
-    dumbbells on the floor.
-3. Jump your feet back to a plank 
-    position, keeping your body in a 
-    straight line.
-4. Perform a push-up while in the plank
-    position.
-5. After the push-up, row one dumbbell 
-    towards your chest, then return it 
-    to the floor.
-6. Row the other dumbbell towards your 
-    chest.
-7. Jump your feet back towards your 
-    hands to return to the squat 
-    position.
-8. Explosively stand up and press both 
-    dumbbells overhead.
-9. Lower the dumbbells back to your 
-    sides and repeat for the desired 
-    number of repetitions.'
-WHERE ExerciseName = 'Man Maker';
-
-
-UPDATE dbo.Exercises 
-SET Instructions = N'
 1. Stand with your feet shoulder-width 
     apart, holding a dumbbell or barbell 
     in front of your thighs.
@@ -1877,33 +2654,25 @@ SET Instructions = N'
     the overhead position of the weight.
 6. Repeat for the desired number of 
     repetitions.'
-
 WHERE ExerciseName = 'Overhead Squat';
 
 
-UPDATE dbo.Exercises
+UPDATE dbo.Exercises 
 SET Instructions = N'
-1. Start with a barbell on the floor in 
-    front of you, standing shoulder-width 
-    apart.
-2. Perform a deadlift to lift the barbell 
-    to your hips, then squat down to 
-    position the barbell on your 
-    shoulders (clean).
-3. From the squat position, press the
-    barbell overhead (press).
-4. Lower the barbell back to your 
-    shoulders and squat down 
-    (front squat).
-5. Perform another press, followed by a 
-    squat and overhead press again
-    (push press).
-6. Repeat the sequence for the desired 
-    number of repetitions.
-7. Perform the movement as a continuous 
-    flow, focusing on controlled 
-    transitions between each phase.'
-WHERE ExerciseName = 'Bear Complex';
+1. Stand with your feet shoulder-width 
+    apart and your toes slightly pointed
+    outward.
+2. Lower your body into a squat position, 
+    keeping your chest up and knees behind
+    your toes.
+3. Push through your heels to explosively
+    jump up, reaching for the sky.
+4. As you land, bend your knees and lower 
+    your body back into the squat position
+    to absorb the impact.
+5. Repeat the jump and squat for the 
+    desired number of repetitions.'
+WHERE ExerciseName = 'Jump Squat';
 
 
 -- Cardio
