@@ -9,28 +9,32 @@ USE [UserDB];
 GO
 
 
---DROP TABLE IF EXISTS dbo.Users;
---GO
+DROP TABLE IF EXISTS dbo.Users;
+GO
 
 
---DROP TABLE IF EXISTS dbo.Workouts;
---GO
+DROP TABLE IF EXISTS dbo.Workouts;
+GO
 
 
---DROP TABLE IF EXISTS dbo.WorkoutTemplates;
---GO
+DROP TABLE IF EXISTS dbo.WorkoutTemplates;
+GO
 
 
---DROP TABLE IF EXISTS dbo.WorkoutTemplateExercises;
---GO
+DROP TABLE IF EXISTS dbo.WorkoutTemplateExercises;
+GO
 
 
---DROP TABLE IF EXISTS dbo.Exercises;
---GO
+DROP TABLE IF EXISTS dbo.WorkoutTemplateExerciseSets;
+GO
 
 
---DROP TABLE IF EXISTS dbo.Measurements;
---GO
+DROP TABLE IF EXISTS dbo.Exercises;
+GO
+
+
+DROP TABLE IF EXISTS dbo.Measurements;
+GO
 
 
 
@@ -85,7 +89,7 @@ CREATE TABLE dbo.WorkoutTemplates
     TemplateID          INT                 IDENTITY(1,1) PRIMARY KEY,
     UserID              INT                 NOT NULL FOREIGN KEY REFERENCES dbo.Users(UserID),
     TemplateName        NVARCHAR(100)       NOT NULL,
-    Note                NVARCHAR(MAX),
+    Note                NVARCHAR(MAX)       NULL,
     DateCreated         DATETIME            DEFAULT GETDATE()
 );
 GO
@@ -94,10 +98,10 @@ GO
 CREATE TABLE dbo.WorkoutTemplateExercises
 (
     TemplateExerciseID  INT                 IDENTITY(1,1) PRIMARY KEY,
-    TemplateID          INT                 NOT NULL FOREIGN KEY REFERENCES dbo.WorkoutTemplates(TemplateID),
+    TemplateID          INT                 NOT NULL FOREIGN KEY REFERENCES dbo.WorkoutTemplates(TemplateID) ON DELETE CASCADE,
     ExerciseID          INT                 NOT NULL FOREIGN KEY REFERENCES dbo.Exercises(ExerciseID),
-    RestSeconds         INT,
-    DisplayOrder        INT,
+    RestSeconds         INT                 DEFAULT 60,     -- e.g., 60 seconds
+    DisplayOrder        INT                 NOT NULL
 );
 GO
 
@@ -105,11 +109,11 @@ GO
 CREATE TABLE dbo.WorkoutTemplateExerciseSets 
 (
     SetID               INT                 PRIMARY KEY IDENTITY(1,1),
-    TemplateExerciseID  INT                 FOREIGN KEY REFERENCES TemplateExercises(TemplateExerciseID),
+    TemplateExerciseID  INT                 NOT NULL FOREIGN KEY REFERENCES dbo.WorkoutTemplateExercises(TemplateExerciseID),
     WeightLbs           DECIMAL(5,2)        NULL,
-    Reps                DECIMAL(2)          NULL,
+    Reps                INT                 NULL,
     TimeSeconds         INT                 NULL,
-    SetOrder            INT
+    SetOrder            INT                 NOT NULL
 );
 GO
 
@@ -127,21 +131,21 @@ CREATE TABLE dbo.Measurements
     CaloricIntake       INT,                -- e.g., 2500 calories
 
     -- Body parts (in centimeters)
-    NeckCm              DECIMAL(5,2),
-    ShouldersCm         DECIMAL(5,2),
-    ChestCm             DECIMAL(5,2),
-    LeftBicepCm         DECIMAL(5,2),
-    RightBicepCm        DECIMAL(5,2),
-    LeftForearmCm       DECIMAL(5,2),
-    RightForearmCm      DECIMAL(5,2),
-    UpperAbsCm          DECIMAL(5,2),
-    WaistCm             DECIMAL(5,2),
-    LowerAbsCm          DECIMAL(5,2),
-    HipsCm              DECIMAL(5,2),
-    LeftThighCm         DECIMAL(5,2),
-    RightThighCm        DECIMAL(5,2),
-    LeftCalfCm          DECIMAL(5,2),
-    RightCalfCm         DECIMAL(5,2)
+    NeckCm              DECIMAL(5,2)        NULL,
+    ShouldersCm         DECIMAL(5,2)        NULL,
+    ChestCm             DECIMAL(5,2)        NULL,
+    LeftBicepCm         DECIMAL(5,2)        NULL,
+    RightBicepCm        DECIMAL(5,2)        NULL,
+    LeftForearmCm       DECIMAL(5,2)        NULL,
+    RightForearmCm      DECIMAL(5,2)        NULL,
+    UpperAbsCm          DECIMAL(5,2)        NULL,
+    WaistCm             DECIMAL(5,2)        NULL,
+    LowerAbsCm          DECIMAL(5,2)        NULL,
+    HipsCm              DECIMAL(5,2)        NULL,
+    LeftThighCm         DECIMAL(5,2)        NULL,
+    RightThighCm        DECIMAL(5,2)        NULL,
+    LeftCalfCm          DECIMAL(5,2)        NULL,
+    RightCalfCm         DECIMAL(5,2)        NULL
 );
 GO
 
@@ -2953,8 +2957,8 @@ SELECT * FROM dbo.Users;
 GO
 
 
-SELECT * FROM dbo.Workouts;
-GO
+--SELECT * FROM dbo.Workouts;
+--GO
 
 
 SELECT * FROM dbo.WorkoutTemplates;
@@ -2965,9 +2969,13 @@ SELECT * FROM dbo.WorkoutTemplateExercises;
 GO
 
 
+SELECT * FROM dbo.WorkoutTemplateExerciseSets;
+GO
+
+
 SELECT * FROM dbo.Exercises;
 GO  
 
 
-SELECT * FROM dbo.Measurements;
-GO
+--SELECT * FROM dbo.Measurements;
+--GO
