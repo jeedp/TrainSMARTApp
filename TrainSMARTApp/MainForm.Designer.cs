@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel_Menus = new System.Windows.Forms.Panel();
             this.cuiButton_Menu_Measure = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Menu_Exercises = new CuoreUI.Controls.cuiButton();
@@ -65,6 +65,9 @@
             this.label_Profile_Username = new System.Windows.Forms.Label();
             this.cuiPictureBox_Profile_User = new CuoreUI.Controls.cuiPictureBox();
             this.panel_Profile_WorkoutCount = new System.Windows.Forms.Panel();
+            this.cuiBorder1 = new CuoreUI.Controls.cuiBorder();
+            this.label_Profile_ChartName = new System.Windows.Forms.Label();
+            this.chart_Profile_WorkoutCount = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel_Menu_History = new System.Windows.Forms.Panel();
             this.cuiGradientBorder_History = new CuoreUI.Controls.cuiGradientBorder();
             this.panel_History_Title = new System.Windows.Forms.Panel();
@@ -180,9 +183,15 @@
             this.panel_Measurement_Title = new System.Windows.Forms.Panel();
             this.cuiButton_Measurement_GoBack = new CuoreUI.Controls.cuiButton();
             this.label_Measurement_Name = new System.Windows.Forms.Label();
-            this.cuiBorder1 = new CuoreUI.Controls.cuiBorder();
-            this.chart_Profile_WorkoutCount = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            this.label_Profile_ChartName = new System.Windows.Forms.Label();
+            this.panel_WorkoutCreation_TemplateDeletion = new System.Windows.Forms.Panel();
+            this.label_TemplateDeletion_Description = new System.Windows.Forms.Label();
+            this.cuiButton_TemplateDeletion_Delete = new CuoreUI.Controls.cuiButton();
+            this.cuiButton_TemplateDeletion_Cancel = new CuoreUI.Controls.cuiButton();
+            this.label_TemplateDeletion_Title = new System.Windows.Forms.Label();
+            this.cuiGradientBorder_TemplateDeletion_1 = new CuoreUI.Controls.cuiGradientBorder();
+            this.cuiGradientBorder_TemplateDeletion_3 = new CuoreUI.Controls.cuiGradientBorder();
+            this.cuiGradientBorder_TemplateDeletion_4 = new CuoreUI.Controls.cuiGradientBorder();
+            this.cuiGradientBorder_TemplateDeletion_2 = new CuoreUI.Controls.cuiGradientBorder();
             this.panel_Menus.SuspendLayout();
             this.panel_Form_Title.SuspendLayout();
             this.flowLayoutPanel_WorkoutCreation.SuspendLayout();
@@ -194,6 +203,8 @@
             this.flowLayoutPanel_Profile.SuspendLayout();
             this.panel_Profile_User.SuspendLayout();
             this.panel_Profile_WorkoutCount.SuspendLayout();
+            this.cuiBorder1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_Profile_WorkoutCount)).BeginInit();
             this.panel_Menu_History.SuspendLayout();
             this.panel_History_Title.SuspendLayout();
             this.panel_Menu_Exercises.SuspendLayout();
@@ -216,8 +227,7 @@
             this.flowLayoutPanel_Measurement.SuspendLayout();
             this.panel_Measurement_Chart.SuspendLayout();
             this.panel_Measurement_Title.SuspendLayout();
-            this.cuiBorder1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart_Profile_WorkoutCount)).BeginInit();
+            this.panel_WorkoutCreation_TemplateDeletion.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_Menus
@@ -711,7 +721,7 @@
             this.cuiButton_WorkoutCreation_Exit.Size = new System.Drawing.Size(80, 80);
             this.cuiButton_WorkoutCreation_Exit.TabIndex = 16;
             this.cuiButton_WorkoutCreation_Exit.TextOffset = new System.Drawing.Point(0, 0);
-            this.cuiButton_WorkoutCreation_Exit.Click += new System.EventHandler(this.cuiButton_Menu_Workout_Click);
+            this.cuiButton_WorkoutCreation_Exit.Click += new System.EventHandler(this.cuiButton_WorkoutCreation_Exit_Click);
             // 
             // label_WorkoutCreation
             // 
@@ -931,6 +941,54 @@
             this.panel_Profile_WorkoutCount.Name = "panel_Profile_WorkoutCount";
             this.panel_Profile_WorkoutCount.Size = new System.Drawing.Size(507, 401);
             this.panel_Profile_WorkoutCount.TabIndex = 12;
+            // 
+            // cuiBorder1
+            // 
+            this.cuiBorder1.Controls.Add(this.label_Profile_ChartName);
+            this.cuiBorder1.Controls.Add(this.chart_Profile_WorkoutCount);
+            this.cuiBorder1.Location = new System.Drawing.Point(22, 8);
+            this.cuiBorder1.Name = "cuiBorder1";
+            this.cuiBorder1.OutlineThickness = 2F;
+            this.cuiBorder1.PanelColor = System.Drawing.Color.Transparent;
+            this.cuiBorder1.PanelOutlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(102)))), ((int)(((byte)(105)))));
+            this.cuiBorder1.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiBorder1.Size = new System.Drawing.Size(464, 314);
+            this.cuiBorder1.TabIndex = 1;
+            // 
+            // label_Profile_ChartName
+            // 
+            this.label_Profile_ChartName.AutoSize = true;
+            this.label_Profile_ChartName.BackColor = System.Drawing.Color.Transparent;
+            this.label_Profile_ChartName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_Profile_ChartName.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label_Profile_ChartName.ForeColor = System.Drawing.Color.White;
+            this.label_Profile_ChartName.Location = new System.Drawing.Point(22, 28);
+            this.label_Profile_ChartName.Name = "label_Profile_ChartName";
+            this.label_Profile_ChartName.Size = new System.Drawing.Size(224, 27);
+            this.label_Profile_ChartName.TabIndex = 10;
+            this.label_Profile_ChartName.Text = "Workouts per week";
+            this.label_Profile_ChartName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // chart_Profile_WorkoutCount
+            // 
+            this.chart_Profile_WorkoutCount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.chart_Profile_WorkoutCount.BorderlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.chart_Profile_WorkoutCount.BorderlineWidth = 0;
+            this.chart_Profile_WorkoutCount.BorderSkin.BackColor = System.Drawing.Color.Transparent;
+            this.chart_Profile_WorkoutCount.BorderSkin.BorderColor = System.Drawing.Color.Transparent;
+            chartArea3.BackColor = System.Drawing.Color.Transparent;
+            chartArea3.BorderWidth = 0;
+            chartArea3.Name = "ChartArea1";
+            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea3);
+            this.chart_Profile_WorkoutCount.Location = new System.Drawing.Point(11, 60);
+            this.chart_Profile_WorkoutCount.Name = "chart_Profile_WorkoutCount";
+            this.chart_Profile_WorkoutCount.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
+            series3.ChartArea = "ChartArea1";
+            series3.Name = "Series1";
+            this.chart_Profile_WorkoutCount.Series.Add(series3);
+            this.chart_Profile_WorkoutCount.Size = new System.Drawing.Size(440, 245);
+            this.chart_Profile_WorkoutCount.TabIndex = 1;
+            this.chart_Profile_WorkoutCount.Text = "chart1";
             // 
             // panel_Menu_History
             // 
@@ -3624,53 +3682,189 @@
             this.label_Measurement_Name.Text = "Weight";
             this.label_Measurement_Name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // cuiBorder1
+            // panel_WorkoutCreation_TemplateDeletion
             // 
-            this.cuiBorder1.Controls.Add(this.label_Profile_ChartName);
-            this.cuiBorder1.Controls.Add(this.chart_Profile_WorkoutCount);
-            this.cuiBorder1.Location = new System.Drawing.Point(22, 8);
-            this.cuiBorder1.Name = "cuiBorder1";
-            this.cuiBorder1.OutlineThickness = 2F;
-            this.cuiBorder1.PanelColor = System.Drawing.Color.Transparent;
-            this.cuiBorder1.PanelOutlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(102)))), ((int)(((byte)(105)))));
-            this.cuiBorder1.Rounding = new System.Windows.Forms.Padding(8);
-            this.cuiBorder1.Size = new System.Drawing.Size(464, 314);
-            this.cuiBorder1.TabIndex = 1;
+            this.panel_WorkoutCreation_TemplateDeletion.Controls.Add(this.label_TemplateDeletion_Description);
+            this.panel_WorkoutCreation_TemplateDeletion.Controls.Add(this.cuiButton_TemplateDeletion_Delete);
+            this.panel_WorkoutCreation_TemplateDeletion.Controls.Add(this.cuiButton_TemplateDeletion_Cancel);
+            this.panel_WorkoutCreation_TemplateDeletion.Controls.Add(this.label_TemplateDeletion_Title);
+            this.panel_WorkoutCreation_TemplateDeletion.Controls.Add(this.cuiGradientBorder_TemplateDeletion_1);
+            this.panel_WorkoutCreation_TemplateDeletion.Controls.Add(this.cuiGradientBorder_TemplateDeletion_3);
+            this.panel_WorkoutCreation_TemplateDeletion.Controls.Add(this.cuiGradientBorder_TemplateDeletion_4);
+            this.panel_WorkoutCreation_TemplateDeletion.Controls.Add(this.cuiGradientBorder_TemplateDeletion_2);
+            this.panel_WorkoutCreation_TemplateDeletion.Location = new System.Drawing.Point(43, 241);
+            this.panel_WorkoutCreation_TemplateDeletion.Name = "panel_WorkoutCreation_TemplateDeletion";
+            this.panel_WorkoutCreation_TemplateDeletion.Size = new System.Drawing.Size(0, 0);
+            this.panel_WorkoutCreation_TemplateDeletion.TabIndex = 23;
+            this.panel_WorkoutCreation_TemplateDeletion.Visible = false;
             // 
-            // chart_Profile_WorkoutCount
+            // label_TemplateDeletion_Description
             // 
-            this.chart_Profile_WorkoutCount.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.chart_Profile_WorkoutCount.BorderlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.chart_Profile_WorkoutCount.BorderlineWidth = 0;
-            this.chart_Profile_WorkoutCount.BorderSkin.BackColor = System.Drawing.Color.Transparent;
-            this.chart_Profile_WorkoutCount.BorderSkin.BorderColor = System.Drawing.Color.Transparent;
-            chartArea4.BackColor = System.Drawing.Color.Transparent;
-            chartArea4.BorderWidth = 0;
-            chartArea4.Name = "ChartArea1";
-            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea4);
-            this.chart_Profile_WorkoutCount.Location = new System.Drawing.Point(11, 60);
-            this.chart_Profile_WorkoutCount.Name = "chart_Profile_WorkoutCount";
-            this.chart_Profile_WorkoutCount.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series4.ChartArea = "ChartArea1";
-            series4.Name = "Series1";
-            this.chart_Profile_WorkoutCount.Series.Add(series4);
-            this.chart_Profile_WorkoutCount.Size = new System.Drawing.Size(440, 245);
-            this.chart_Profile_WorkoutCount.TabIndex = 1;
-            this.chart_Profile_WorkoutCount.Text = "chart1";
+            this.label_TemplateDeletion_Description.AutoSize = true;
+            this.label_TemplateDeletion_Description.BackColor = System.Drawing.Color.Transparent;
+            this.label_TemplateDeletion_Description.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_TemplateDeletion_Description.Font = new System.Drawing.Font("SansSerif", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label_TemplateDeletion_Description.ForeColor = System.Drawing.Color.White;
+            this.label_TemplateDeletion_Description.Location = new System.Drawing.Point(42, 98);
+            this.label_TemplateDeletion_Description.Name = "label_TemplateDeletion_Description";
+            this.label_TemplateDeletion_Description.Size = new System.Drawing.Size(323, 78);
+            this.label_TemplateDeletion_Description.TabIndex = 25;
+            this.label_TemplateDeletion_Description.Text = "Are you sure you want to delete \r\nthis workout template? This \r\ncannot be undone";
+            this.label_TemplateDeletion_Description.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label_Profile_ChartName
+            // cuiButton_TemplateDeletion_Delete
             // 
-            this.label_Profile_ChartName.AutoSize = true;
-            this.label_Profile_ChartName.BackColor = System.Drawing.Color.Transparent;
-            this.label_Profile_ChartName.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.label_Profile_ChartName.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label_Profile_ChartName.ForeColor = System.Drawing.Color.White;
-            this.label_Profile_ChartName.Location = new System.Drawing.Point(22, 28);
-            this.label_Profile_ChartName.Name = "label_Profile_ChartName";
-            this.label_Profile_ChartName.Size = new System.Drawing.Size(224, 27);
-            this.label_Profile_ChartName.TabIndex = 10;
-            this.label_Profile_ChartName.Text = "Workouts per week";
-            this.label_Profile_ChartName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.cuiButton_TemplateDeletion_Delete.CheckButton = false;
+            this.cuiButton_TemplateDeletion_Delete.Checked = false;
+            this.cuiButton_TemplateDeletion_Delete.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_TemplateDeletion_Delete.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_TemplateDeletion_Delete.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_TemplateDeletion_Delete.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_TemplateDeletion_Delete.Content = "DELETE";
+            this.cuiButton_TemplateDeletion_Delete.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.cuiButton_TemplateDeletion_Delete.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiButton_TemplateDeletion_Delete.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
+            this.cuiButton_TemplateDeletion_Delete.HoverBackground = System.Drawing.Color.Transparent;
+            this.cuiButton_TemplateDeletion_Delete.HoveredImageTint = System.Drawing.Color.White;
+            this.cuiButton_TemplateDeletion_Delete.HoverForeColor = System.Drawing.Color.LightSkyBlue;
+            this.cuiButton_TemplateDeletion_Delete.HoverOutline = System.Drawing.Color.Transparent;
+            this.cuiButton_TemplateDeletion_Delete.Image = null;
+            this.cuiButton_TemplateDeletion_Delete.ImageAutoCenter = false;
+            this.cuiButton_TemplateDeletion_Delete.ImageExpand = new System.Drawing.Point(0, 0);
+            this.cuiButton_TemplateDeletion_Delete.ImageOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_TemplateDeletion_Delete.Location = new System.Drawing.Point(310, 200);
+            this.cuiButton_TemplateDeletion_Delete.Margin = new System.Windows.Forms.Padding(3, 16, 3, 4);
+            this.cuiButton_TemplateDeletion_Delete.Name = "cuiButton_TemplateDeletion_Delete";
+            this.cuiButton_TemplateDeletion_Delete.NormalBackground = System.Drawing.Color.Transparent;
+            this.cuiButton_TemplateDeletion_Delete.NormalForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
+            this.cuiButton_TemplateDeletion_Delete.NormalImageTint = System.Drawing.Color.White;
+            this.cuiButton_TemplateDeletion_Delete.NormalOutline = System.Drawing.Color.Transparent;
+            this.cuiButton_TemplateDeletion_Delete.OutlineThickness = 1.5F;
+            this.cuiButton_TemplateDeletion_Delete.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(64)))), ((int)(((byte)(78)))));
+            this.cuiButton_TemplateDeletion_Delete.PressedForeColor = System.Drawing.Color.White;
+            this.cuiButton_TemplateDeletion_Delete.PressedImageTint = System.Drawing.Color.White;
+            this.cuiButton_TemplateDeletion_Delete.PressedOutline = System.Drawing.Color.Transparent;
+            this.cuiButton_TemplateDeletion_Delete.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiButton_TemplateDeletion_Delete.Size = new System.Drawing.Size(100, 50);
+            this.cuiButton_TemplateDeletion_Delete.TabIndex = 24;
+            this.cuiButton_TemplateDeletion_Delete.TextOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_TemplateDeletion_Delete.Click += new System.EventHandler(this.cuiButton_WorkoutCreation_Exit_Click);
+            // 
+            // cuiButton_TemplateDeletion_Cancel
+            // 
+            this.cuiButton_TemplateDeletion_Cancel.CheckButton = false;
+            this.cuiButton_TemplateDeletion_Cancel.Checked = false;
+            this.cuiButton_TemplateDeletion_Cancel.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_TemplateDeletion_Cancel.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_TemplateDeletion_Cancel.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_TemplateDeletion_Cancel.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_TemplateDeletion_Cancel.Content = "CANCEL";
+            this.cuiButton_TemplateDeletion_Cancel.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.cuiButton_TemplateDeletion_Cancel.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiButton_TemplateDeletion_Cancel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
+            this.cuiButton_TemplateDeletion_Cancel.HoverBackground = System.Drawing.Color.Transparent;
+            this.cuiButton_TemplateDeletion_Cancel.HoveredImageTint = System.Drawing.Color.White;
+            this.cuiButton_TemplateDeletion_Cancel.HoverForeColor = System.Drawing.Color.LightSkyBlue;
+            this.cuiButton_TemplateDeletion_Cancel.HoverOutline = System.Drawing.Color.Transparent;
+            this.cuiButton_TemplateDeletion_Cancel.Image = null;
+            this.cuiButton_TemplateDeletion_Cancel.ImageAutoCenter = false;
+            this.cuiButton_TemplateDeletion_Cancel.ImageExpand = new System.Drawing.Point(0, 0);
+            this.cuiButton_TemplateDeletion_Cancel.ImageOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_TemplateDeletion_Cancel.Location = new System.Drawing.Point(174, 200);
+            this.cuiButton_TemplateDeletion_Cancel.Margin = new System.Windows.Forms.Padding(3, 16, 3, 4);
+            this.cuiButton_TemplateDeletion_Cancel.Name = "cuiButton_TemplateDeletion_Cancel";
+            this.cuiButton_TemplateDeletion_Cancel.NormalBackground = System.Drawing.Color.Transparent;
+            this.cuiButton_TemplateDeletion_Cancel.NormalForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
+            this.cuiButton_TemplateDeletion_Cancel.NormalImageTint = System.Drawing.Color.White;
+            this.cuiButton_TemplateDeletion_Cancel.NormalOutline = System.Drawing.Color.Transparent;
+            this.cuiButton_TemplateDeletion_Cancel.OutlineThickness = 1.5F;
+            this.cuiButton_TemplateDeletion_Cancel.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(64)))), ((int)(((byte)(78)))));
+            this.cuiButton_TemplateDeletion_Cancel.PressedForeColor = System.Drawing.Color.White;
+            this.cuiButton_TemplateDeletion_Cancel.PressedImageTint = System.Drawing.Color.White;
+            this.cuiButton_TemplateDeletion_Cancel.PressedOutline = System.Drawing.Color.Transparent;
+            this.cuiButton_TemplateDeletion_Cancel.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiButton_TemplateDeletion_Cancel.Size = new System.Drawing.Size(100, 50);
+            this.cuiButton_TemplateDeletion_Cancel.TabIndex = 23;
+            this.cuiButton_TemplateDeletion_Cancel.TextOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_TemplateDeletion_Cancel.Click += new System.EventHandler(this.cuiButton_WorkoutCreation_Exit_Click);
+            // 
+            // label_TemplateDeletion_Title
+            // 
+            this.label_TemplateDeletion_Title.AutoSize = true;
+            this.label_TemplateDeletion_Title.BackColor = System.Drawing.Color.Transparent;
+            this.label_TemplateDeletion_Title.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_TemplateDeletion_Title.Font = new System.Drawing.Font("SansSerif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label_TemplateDeletion_Title.ForeColor = System.Drawing.Color.White;
+            this.label_TemplateDeletion_Title.Location = new System.Drawing.Point(42, 50);
+            this.label_TemplateDeletion_Title.Name = "label_TemplateDeletion_Title";
+            this.label_TemplateDeletion_Title.Size = new System.Drawing.Size(210, 28);
+            this.label_TemplateDeletion_Title.TabIndex = 13;
+            this.label_TemplateDeletion_Title.Text = "Delete Template?";
+            this.label_TemplateDeletion_Title.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // cuiGradientBorder_TemplateDeletion_1
+            // 
+            this.cuiGradientBorder_TemplateDeletion_1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.cuiGradientBorder_TemplateDeletion_1.GradientAngle = 270F;
+            this.cuiGradientBorder_TemplateDeletion_1.Location = new System.Drawing.Point(10, -10);
+            this.cuiGradientBorder_TemplateDeletion_1.Margin = new System.Windows.Forms.Padding(0);
+            this.cuiGradientBorder_TemplateDeletion_1.Name = "cuiGradientBorder_TemplateDeletion_1";
+            this.cuiGradientBorder_TemplateDeletion_1.OutlineThickness = 0F;
+            this.cuiGradientBorder_TemplateDeletion_1.PanelColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_TemplateDeletion_1.PanelColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.cuiGradientBorder_TemplateDeletion_1.PanelOutlineColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_TemplateDeletion_1.PanelOutlineColor2 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_TemplateDeletion_1.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiGradientBorder_TemplateDeletion_1.Size = new System.Drawing.Size(0, 10);
+            this.cuiGradientBorder_TemplateDeletion_1.TabIndex = 12;
+            // 
+            // cuiGradientBorder_TemplateDeletion_3
+            // 
+            this.cuiGradientBorder_TemplateDeletion_3.Dock = System.Windows.Forms.DockStyle.Right;
+            this.cuiGradientBorder_TemplateDeletion_3.GradientAngle = 180F;
+            this.cuiGradientBorder_TemplateDeletion_3.Location = new System.Drawing.Point(-10, 10);
+            this.cuiGradientBorder_TemplateDeletion_3.Margin = new System.Windows.Forms.Padding(0);
+            this.cuiGradientBorder_TemplateDeletion_3.Name = "cuiGradientBorder_TemplateDeletion_3";
+            this.cuiGradientBorder_TemplateDeletion_3.OutlineThickness = 0F;
+            this.cuiGradientBorder_TemplateDeletion_3.PanelColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_TemplateDeletion_3.PanelColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.cuiGradientBorder_TemplateDeletion_3.PanelOutlineColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_TemplateDeletion_3.PanelOutlineColor2 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_TemplateDeletion_3.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiGradientBorder_TemplateDeletion_3.Size = new System.Drawing.Size(10, 0);
+            this.cuiGradientBorder_TemplateDeletion_3.TabIndex = 11;
+            // 
+            // cuiGradientBorder_TemplateDeletion_4
+            // 
+            this.cuiGradientBorder_TemplateDeletion_4.Dock = System.Windows.Forms.DockStyle.Left;
+            this.cuiGradientBorder_TemplateDeletion_4.GradientAngle = 0F;
+            this.cuiGradientBorder_TemplateDeletion_4.Location = new System.Drawing.Point(0, 10);
+            this.cuiGradientBorder_TemplateDeletion_4.Margin = new System.Windows.Forms.Padding(0);
+            this.cuiGradientBorder_TemplateDeletion_4.Name = "cuiGradientBorder_TemplateDeletion_4";
+            this.cuiGradientBorder_TemplateDeletion_4.OutlineThickness = 0F;
+            this.cuiGradientBorder_TemplateDeletion_4.PanelColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_TemplateDeletion_4.PanelColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.cuiGradientBorder_TemplateDeletion_4.PanelOutlineColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_TemplateDeletion_4.PanelOutlineColor2 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_TemplateDeletion_4.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiGradientBorder_TemplateDeletion_4.Size = new System.Drawing.Size(10, 0);
+            this.cuiGradientBorder_TemplateDeletion_4.TabIndex = 10;
+            // 
+            // cuiGradientBorder_TemplateDeletion_2
+            // 
+            this.cuiGradientBorder_TemplateDeletion_2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cuiGradientBorder_TemplateDeletion_2.GradientAngle = 90F;
+            this.cuiGradientBorder_TemplateDeletion_2.Location = new System.Drawing.Point(0, 0);
+            this.cuiGradientBorder_TemplateDeletion_2.Margin = new System.Windows.Forms.Padding(0);
+            this.cuiGradientBorder_TemplateDeletion_2.Name = "cuiGradientBorder_TemplateDeletion_2";
+            this.cuiGradientBorder_TemplateDeletion_2.OutlineThickness = 0F;
+            this.cuiGradientBorder_TemplateDeletion_2.PanelColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_TemplateDeletion_2.PanelColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(37)))), ((int)(((byte)(45)))), ((int)(((byte)(48)))));
+            this.cuiGradientBorder_TemplateDeletion_2.PanelOutlineColor1 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_TemplateDeletion_2.PanelOutlineColor2 = System.Drawing.Color.Transparent;
+            this.cuiGradientBorder_TemplateDeletion_2.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiGradientBorder_TemplateDeletion_2.Size = new System.Drawing.Size(0, 10);
+            this.cuiGradientBorder_TemplateDeletion_2.TabIndex = 9;
             // 
             // MainForm
             // 
@@ -3680,6 +3874,7 @@
             this.ClientSize = new System.Drawing.Size(513, 788);
             this.Controls.Add(this.panel_Measurement);
             this.Controls.Add(this.panel_ExerciseDetails);
+            this.Controls.Add(this.panel_WorkoutCreation_TemplateDeletion);
             this.Controls.Add(this.panel_Menu_Measure);
             this.Controls.Add(this.panel_Menu_Workout);
             this.Controls.Add(this.panel_Menu_Exercises);
@@ -3708,6 +3903,9 @@
             this.panel_Profile_User.ResumeLayout(false);
             this.panel_Profile_User.PerformLayout();
             this.panel_Profile_WorkoutCount.ResumeLayout(false);
+            this.cuiBorder1.ResumeLayout(false);
+            this.cuiBorder1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.chart_Profile_WorkoutCount)).EndInit();
             this.panel_Menu_History.ResumeLayout(false);
             this.panel_History_Title.ResumeLayout(false);
             this.panel_History_Title.PerformLayout();
@@ -3742,9 +3940,8 @@
             this.panel_Measurement_Chart.PerformLayout();
             this.panel_Measurement_Title.ResumeLayout(false);
             this.panel_Measurement_Title.PerformLayout();
-            this.cuiBorder1.ResumeLayout(false);
-            this.cuiBorder1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.chart_Profile_WorkoutCount)).EndInit();
+            this.panel_WorkoutCreation_TemplateDeletion.ResumeLayout(false);
+            this.panel_WorkoutCreation_TemplateDeletion.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -3903,5 +4100,14 @@
         private CuoreUI.Controls.cuiBorder cuiBorder1;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart_Profile_WorkoutCount;
         private System.Windows.Forms.Label label_Profile_ChartName;
+        private System.Windows.Forms.Panel panel_WorkoutCreation_TemplateDeletion;
+        private CuoreUI.Controls.cuiButton cuiButton_TemplateDeletion_Delete;
+        private CuoreUI.Controls.cuiButton cuiButton_TemplateDeletion_Cancel;
+        private System.Windows.Forms.Label label_TemplateDeletion_Title;
+        private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder_TemplateDeletion_1;
+        private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder_TemplateDeletion_3;
+        private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder_TemplateDeletion_4;
+        private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder_TemplateDeletion_2;
+        private System.Windows.Forms.Label label_TemplateDeletion_Description;
     }
 }

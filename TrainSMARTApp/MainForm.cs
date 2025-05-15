@@ -29,6 +29,7 @@ namespace TrainSMARTApp
         private bool isAddingExercises;
         private bool isAddingMeasurement;
         private bool isCreatingWorkoutTemplate;
+        private bool isDeletingWorkoutTemplate;
 
         private List<int> selectedExerciseIDs = new List<int>();
 
@@ -183,7 +184,8 @@ namespace TrainSMARTApp
 
         private void cuiButton_WorkoutCreation_Exit_Click(object sender, EventArgs e)
         {
-            ShowMenu(panel_Menu_Workout, cuiButton_Menu_Workout);
+            var btn = sender as cuiButton;
+            ShowHideTemplateDeletionPrompt(sender, e);
         }
 
         private void cuiButton_WorkoutCreation_Save_Click(object sender, EventArgs e)
@@ -206,7 +208,7 @@ namespace TrainSMARTApp
         }
 
 
-            // ADDING EXERCISES
+                // ADDING EXERCISES
 
         private void cuiButton_AddExercise_ConfirmAdd_Click(object sender, EventArgs e)
         {
@@ -215,6 +217,12 @@ namespace TrainSMARTApp
             ExerciseConfirmAdd();
         }
 
+
+            // TEMPLATE 
+        private void cuiButton_TemplateDeletion_Delete_Click(object sender, EventArgs e)
+        {
+            
+        }
 
 
 
@@ -263,7 +271,7 @@ namespace TrainSMARTApp
                 // ADDING MEASUREMENT
         private void cuiButton_AddingMeasurement_Save_Click(object sender, EventArgs e)
         {
-
+            ShowHideAddingMeasurementPanel(sender, e);
         }
 
 
@@ -353,21 +361,31 @@ namespace TrainSMARTApp
         }
 
 
+        private void ShowHideSubPanel(Panel panel, bool flag)
+        {
+            // height in design is (425, 270)
+            
+            panel.Visible = flag;
+            panel.Width = (flag) ? 319 : 0;
+            panel.Height = (flag) ? 219 : 0;
+            if (flag) 
+                panel.BringToFront();
+            else 
+                panel.SendToBack();
+
+            DarkenBackground(panel, flag);
+            DisableEnableControls(panel, flag);
+        }
+
+
         private void ShowHideAddingMeasurementPanel(object sender, EventArgs e)
         {
-            var label = label_AddingMeasurement_CurrentDate;
-            label.Text = DateTime.Today.ToString("MM/dd/yy");
+            if (!(sender is cuiButton btn)) return;
 
-            var btn = sender as cuiButton;
-            var panel = panel_Measurement_AddingMeasurement;
+            label_AddingMeasurement_CurrentDate.Text = DateTime.Today.ToString("MM/dd/yy");
             isAddingMeasurement = btn == cuiButton_Measurement_AddMeasurement;
-            panel.Width = (isAddingMeasurement) ? 319 : 0;
-            panel.Height = (isAddingMeasurement) ? 219 : 0;
-            if (isAddingMeasurement) panel.BringToFront();
-            else panel.SendToBack();
 
-            DarkenBackground(isAddingMeasurement);
-            DisableEnableControls(isAddingMeasurement);
+            ShowHideSubPanel(panel_Measurement_AddingMeasurement, isAddingMeasurement);
         }
 
 
@@ -892,20 +910,42 @@ namespace TrainSMARTApp
         }
 
 
-        private void DarkenBackground(bool flag)
+        private void DarkenBackground(Panel panel, bool flag)
         {
-            var controls = new List<Control>
+            var controls = new List<Control>();
+
+            if (panel == panel_Measurement_AddingMeasurement)
             {
-                button_Exit,
-                textBox_Measurement_ChartName,
-                flowLayoutPanel_Measurement,
-                panel_Measurement_Title,
-                panel_Form_Title,
-                panel_Menus,
-                cuiChartLine_Measurement,
+                controls =  new List<Control>
+                {
+                    textBox_Measurement_ChartName,
+                    flowLayoutPanel_Measurement,
+                    panel_Measurement_Title,
+                    cuiChartLine_Measurement,
+                    cuiGradientBorder_Measurement,
+                };
+            }
+
+            if (panel == panel_WorkoutCreation_TemplateDeletion)
+            {
+                controls = new List<Control>
+                {
+                    panel_WorkoutCreation_Title,
+                    panel_WorkoutCreation_TemplateName,
+                    flowLayoutPanel_WorkoutCreation,
+                    cuiButton_WorkoutCreation_Exit,
+                    cuiButton_WorkoutCreation_Save,
+                    cuiGradientBorder_WorkoutCreation,
+                };
+            }
+            controls.AddRange(new List<Control>
+            {
                 cuiGradientBorder_AboveMenu,
-                cuiGradientBorder_Measurement,
-            };
+                panel_Form_Title, 
+                panel_Menus, 
+                button_Exit, 
+            });
+
             foreach (var ctrl in controls)
             {
                 ctrl.BackColor = (flag) ? Color.FromArgb(17, 20, 22) : Color.FromArgb(41, 50, 54); ;
@@ -915,18 +955,23 @@ namespace TrainSMARTApp
         }
 
 
-        private void DisableEnableControls(bool flag)
+        private void DisableEnableControls(Panel panel, bool flag)
         {
-            var panel = panel_Measurement;
-            var controls = (panel.Height > 0)
-            ? new List<Control> { cuiButton_Measurement_GoBack }
-            : new List<Control>
+            var controls = new List<Control>();
+            if (panel == panel_Measurement_AddingMeasurement)
+                controls = new List<Control> { cuiButton_Measurement_GoBack };
+            if (panel == panel_WorkoutCreation_TemplateDeletion)
             {
-                cuiButton_WorkoutCreation_Exit,
-                cuiButton_WorkoutCreation_Save,
-                cuiButton_WorkoutCreation_AddExercise,
-            };
-            //var controls = new List<Control>();
+                controls = new List<Control>
+                {
+                    cuiButton_WorkoutCreation_Exit,
+                    cuiButton_WorkoutCreation_Save,
+                    cuiButton_WorkoutCreation_EditName,
+                    cuiButton_WorkoutCreation_AddExercise,
+                    cuiTextBox_WorkoutCreation_TemplateName,
+                    cuiTextBox_WorkoutCreation_Note,
+                };
+            }
 
             foreach (var ctrl in controls)
             {
@@ -937,7 +982,40 @@ namespace TrainSMARTApp
             {
                 ctrl.Enabled = !flag;
             }
+
+            InnerControls(flowLayoutPanel_WorkoutCreation);
+
+            return;
+
+            void InnerControls(Control ctrl)
+            {
+                foreach (Control innerCtrl in ctrl.Controls)
+                {
+                    switch (innerCtrl)
+                    {
+                        case Panel innerPanel:
+                            InnerControls(innerPanel);
+                            break;
+                        case cuiButton btnCtrl:
+                            btnCtrl.Enabled = !flag;
+                            break;
+                    }
+                }
+            }
         }
+
+
+        private void ShowHideTemplateDeletionPrompt(object sender, EventArgs e)
+        {
+            var btn = sender as cuiButton;
+            var hasAddedExercises = flowLayoutPanel_WorkoutCreation.Controls.Count > 2;
+            isDeletingWorkoutTemplate = hasAddedExercises && btn == cuiButton_WorkoutCreation_Exit;
+            ShowHideSubPanel(panel_WorkoutCreation_TemplateDeletion, isDeletingWorkoutTemplate);
+            if (btn == cuiButton_TemplateDeletion_Delete || (!hasAddedExercises && btn == cuiButton_WorkoutCreation_Exit))
+                cuiButton_Menu_Workout_Click(sender, e);
+            else if (btn == cuiButton_TemplateDeletion_Cancel)
+                ShowHideSubPanel(panel_WorkoutCreation_TemplateDeletion, isDeletingWorkoutTemplate);
+        } 
 
 
 
