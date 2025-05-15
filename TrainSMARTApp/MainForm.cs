@@ -192,7 +192,8 @@ namespace TrainSMARTApp
         private void cuiButton_WorkoutCreation_Save_Click(object sender, EventArgs e)
         {
             isAddingExercises = false;
-            ClearWorkoutCreationTemplates();
+            if (SaveExerciseTemplate())
+                cuiButton_Menu_Workout_Click(sender, e);
         }
 
         private void cuiButton_WorkoutCreation_EditName_Click(object sender, EventArgs e)
@@ -345,6 +346,9 @@ namespace TrainSMARTApp
                 ShowHideExerciseSearchBar(false);
             }
             ShowHideExerciseLabelsAndButtons();
+
+            if (panel == panel_WorkoutCreation)
+                ResetTextBoxes();
 
             var menuButtons = new List<cuiButton>
             {
@@ -796,7 +800,7 @@ namespace TrainSMARTApp
         public int AddExerciseSetRow(Panel parent)
         {
             var setNumber = parent.Controls.OfType<Panel>().Count();
-            var setTag = parent.Controls.OfType<Panel>().Count() + 999;
+            var setTag = (int)parent.Controls.OfType<Panel>().Count() + 999;
 
             var setRow = new Panel
             {
@@ -829,6 +833,7 @@ namespace TrainSMARTApp
 
             var txtBxWeight = new cuiTextBox2
             {
+                Name                 = "cuiTextBox_Weight",
                 Width                = 62,
                 Height               = 40,
                 Location             = new Point(179, 6), 
@@ -849,6 +854,7 @@ namespace TrainSMARTApp
 
             var txtBxReps = new cuiTextBox2
             {
+                Name                 = "cuiTextBox_Reps",
                 Width                = txtBxWeight.Width,
                 Height               = txtBxWeight.Height,
                 Location             = new Point(txtBxWeight.Location.X + 70, txtBxWeight.Location.Y),
@@ -867,6 +873,7 @@ namespace TrainSMARTApp
             };
             txtBxReps.KeyPress += KeyPressDigitOnly;
 
+            MessageBox.Show($"Adding setPanel with Tag={setTag} to exercise {parent.Tag}");
 
 
             // adding the controls
@@ -893,7 +900,10 @@ namespace TrainSMARTApp
         private int RemoveExerciseSetRow(Panel parent)
         {
             var latestPanel = parent.Controls.OfType<Panel>().OrderByDescending(p => (int)p.Tag).FirstOrDefault();
-            var x = parent.Controls.OfType<Panel>().Count() + 1;
+            var setPanels = parent.Controls.OfType<Panel>().Where(p => (int)p.Tag > 999).ToList();
+
+            if (setPanels.Count <= 1)
+                flowLayoutPanel_WorkoutCreation.Controls.Remove(parent);
 
             if (latestPanel != null)
             {
@@ -935,6 +945,13 @@ namespace TrainSMARTApp
             {
                 e.Handled = true;
             }
+        }
+
+
+        private void ResetTextBoxes()
+        {
+            cuiTextBox_WorkoutCreation_TemplateName.Content = "";
+            cuiTextBox_WorkoutCreation_Note.Content = "";
         }
 
 
@@ -1081,7 +1098,128 @@ namespace TrainSMARTApp
                 cuiButton_Menu_Workout_Click(sender, e);
             else if (btn == cuiButton_TemplateDeletion_Cancel)
                 ShowHideSubPanel(panel_WorkoutCreation_TemplateDeletion, isDeletingWorkoutTemplate);
-        } 
+        }
+
+
+        private bool SaveExerciseTemplate()
+        {
+            if (flowLayoutPanel_WorkoutCreation.Controls.OfType<Panel>().Count() < 2) return false;
+
+            var txtBoxName = cuiTextBox_WorkoutCreation_TemplateName.Content;
+            var txtBoxNote = cuiTextBox_WorkoutCreation_Note.Content;
+
+            string templateName = (!string.IsNullOrWhiteSpace(txtBoxName)) ? txtBoxName?.Trim() : "New workout template";
+            string workoutNote = (!string.IsNullOrWhiteSpace(txtBoxNote)) ? txtBoxNote?.Trim() : "";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlTransaction transaction = conn.BeginTransaction();
+
+                try
+                {
+                    // 1. Insert Workout Template
+                    string queryTemplate = @"INSERT INTO WorkoutTemplates (UserID, TemplateName, Note, DateCreated) 
+                                    OUTPUT INSERTED.TemplateID 
+                                    VALUES (@UserID, @TemplateName, @Note, @DateCreated)";
+                    SqlCommand cmdTemplate = new SqlCommand(queryTemplate, conn, transaction);
+                    cmdTemplate.Parameters.AddWithValue("@UserID", _loggedInUser.UserID);
+                    cmdTemplate.Parameters.AddWithValue("@TemplateName", templateName);
+                    cmdTemplate.Parameters.AddWithValue("@Note", workoutNote);
+                    cmdTemplate.Parameters.AddWithValue("@DateCreated", DateTime.Now);
+
+                    int templateId = (int)cmdTemplate.ExecuteScalar();
+
+                    int exerciseOrder = 0;
+                    foreach (Panel exercisePanel in flowLayoutPanel_WorkoutCreation.Controls.OfType<Panel>().Where(p => p.Height > 211))
+                    {
+                        int exerciseId = (int)exercisePanel.Tag;
+
+                        if (!(exercisePanel.Tag is int))
+                            MessageBox.Show("Exercise panel is missing a valid ExerciseID in its Tag.");
+
+
+                        int restSeconds = 60; // Default
+
+                        // TODO: read rest time from a control inside exercisePanel, if you have it
+
+                        // 2. Insert WorkoutTemplateExercise
+                        string queryExercise = @"INSERT INTO WorkoutTemplateExercises 
+                                        (TemplateID, ExerciseID, RestSeconds, DisplayOrder) 
+                                        OUTPUT INSERTED.TemplateExerciseID 
+                                        VALUES (@TemplateID, @ExerciseID, @RestSeconds, @DisplayOrder)";
+                        SqlCommand cmdExercise = new SqlCommand(queryExercise, conn, transaction);
+                        cmdExercise.Parameters.AddWithValue("@TemplateID", templateId);
+                        cmdExercise.Parameters.AddWithValue("@ExerciseID", exerciseId);
+                        cmdExercise.Parameters.AddWithValue("@RestSeconds", restSeconds);
+                        cmdExercise.Parameters.AddWithValue("@DisplayOrder", exerciseOrder++);
+
+                        int templateExerciseId = (int)cmdExercise.ExecuteScalar();
+
+                        // TEST
+                        var setPanels = exercisePanel.Controls
+                            .OfType<Panel>()
+                            .Where(p => p.Height == 58 && p.Tag is >= 1000)
+                            .ToList();
+
+                        MessageBox.Show($"Found {setPanels.Count} sets for ExerciseID {exerciseId}");
+
+                        int setOrder = 0;
+                        foreach (Panel setPanel in exercisePanel.Controls.OfType<Panel>().Where(p => p.Tag is >= 1000))
+                        {
+
+                            // TEST
+                            if (setPanel.Tag is not int tag || tag < 1000)
+                            {
+                                MessageBox.Show("Invalid set panel tag found.");
+                                continue;
+                            }
+
+
+                            //int weight = 0;
+                            //int reps = 0;
+                            //int time = 0;
+
+                            cuiTextBox2 txtWeight = setPanel.Controls.Find("cuiTextBox_Weight", true).FirstOrDefault() as cuiTextBox2;
+                            cuiTextBox2 txtReps = setPanel.Controls.Find("cuiTextBox_Reps", true).FirstOrDefault() as cuiTextBox2;
+                            cuiTextBox2 txtTime = setPanel.Controls.Find("cuiTextBox_Time", true).FirstOrDefault() as cuiTextBox2;
+
+                            object weight = decimal.TryParse(txtWeight?.Text, out var w) ? (object)w : DBNull.Value;
+                            object reps = decimal.TryParse(txtReps?.Text, out var r) ? (object)r : DBNull.Value;
+                            object time = int.TryParse(txtTime?.Text, out var t) ? (object)t : DBNull.Value;
+
+
+
+                            // 3. Insert WorkoutTemplateExerciseSets
+                            string querySet = @"INSERT INTO WorkoutTemplateExerciseSets 
+                                        (TemplateExerciseID, WeightLbs, Reps, TimeSeconds, SetOrder) 
+                                        VALUES (@TemplateExerciseID, @WeightLbs, @Reps, @TimeSeconds, @SetOrder)";
+                            SqlCommand cmdSet = new SqlCommand(querySet, conn, transaction);
+
+                            cmdSet.Parameters.AddWithValue("@TemplateExerciseID", templateExerciseId);
+                            cmdSet.Parameters.Add("@WeightLbs", SqlDbType.Decimal).Value = weight;
+                            cmdSet.Parameters.AddWithValue("@Reps", reps);
+                            cmdSet.Parameters.AddWithValue("@TimeSeconds", time);
+                            cmdSet.Parameters.AddWithValue("@SetOrder", setOrder++);
+
+                            cmdSet.ExecuteNonQuery();
+                        }
+                    }
+
+                    transaction.Commit();
+                    MessageBox.Show("Template saved successfully!");
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show("Error saving template: " + ex.Message);
+
+                    return false;
+                }
+            }
+        }
+
 
 
 
