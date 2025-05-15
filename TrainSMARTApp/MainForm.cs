@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlClient;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
@@ -604,7 +605,7 @@ namespace TrainSMARTApp
                         Margin    = new Padding(3, 5, 3, 10),
                         Tag       = exerciseId,
 
-                        BorderStyle = BorderStyle.FixedSingle,
+                        BorderStyle = BorderStyle.FixedSingle,  // TODO: remove after test
                     };
 
                     var cuiButtonExerciseName = new cuiButton
@@ -693,28 +694,66 @@ namespace TrainSMARTApp
                     var cuiButtonAddSet = new cuiButton
                     {
                         Content           = "ADD SET",
-                        Height            = 48,
+                        Width             = 180,
+                        //Height            = 48,
                         Tag               = panelExercise,
-                        Dock              = DockStyle.Bottom,
+                        Dock              = DockStyle.Right,
                         Font              = new Font("SansSerif", 11),// FontStyle.Bold),
                         Margin            = new Padding(3, 4, 3, 4),
                         Rounding          = new Padding(4),
                         TextOffset        = new Point(0, 4),
 
-                        BackColor         = Color.Transparent,
                         ForeColor         = Color.FromArgb(53, 167, 255),
-                        HoverBackground   = Color.Transparent,
-                        HoverForeColor    = Color.LightSkyBlue,
-                        NormalBackground  = Color.Transparent,
                         NormalForeColor   = Color.FromArgb(53, 167, 255),
-                        PressedBackground = Color.FromArgb(42, 64, 78),
+                        HoverForeColor    = Color.LightSkyBlue,
                         PressedForeColor  = Color.White,
+                        BackColor         = Color.Transparent,
+                        NormalBackground  = Color.Transparent,
+                        HoverBackground   = Color.Transparent,
+                        PressedBackground = Color.FromArgb(42, 64, 78),
                     };
                     cuiButtonAddSet.Click += (s, e) =>
                     {
                         var parent = (Panel)((cuiButton)s).Tag;
-                        var addedRowHeight = AddExerciseSetRow(parent);
+                        var addedRowHeight= AddExerciseSetRow(parent);
                         panelExercise.Height += addedRowHeight; 
+                    };
+
+                    var cuiButtonRemoveSet = new cuiButton
+                    {
+                        Content           = "REMOVE SET",
+                        Width             = cuiButtonAddSet.Width, 
+                        //Height            = cuiButtonAddSet.Height,
+                        Tag               = cuiButtonAddSet.Tag,
+                        Dock              = DockStyle.Left,
+                        Font              = cuiButtonAddSet.Font,
+                        Margin            = cuiButtonAddSet.Margin,
+                        Rounding          = cuiButtonAddSet.Rounding,
+                        TextOffset        = cuiButtonAddSet.TextOffset,
+
+                        ForeColor         = Color.Crimson,
+                        NormalForeColor   = Color.Crimson,
+                        HoverForeColor    = Color.Red,
+                        PressedForeColor  = cuiButtonAddSet.PressedForeColor,
+                        BackColor         = cuiButtonAddSet.BackColor,
+                        NormalBackground  = cuiButtonAddSet.NormalBackground,
+                        HoverBackground   = cuiButtonAddSet.HoverBackground,
+                        PressedBackground = Color.FromArgb(255, 89, 100),
+                    };
+                    cuiButtonRemoveSet.Click += (s, e) =>
+                    {
+                        var parent = (Panel)((cuiButton)s).Tag;
+                        var subtractedRowHeight = RemoveExerciseSetRow(parent);
+                        panelExercise.Height -= subtractedRowHeight;
+                    };
+
+                    var panelCuiButtons = new Panel
+                    {
+                        Height    = 48,
+                        BackColor = Color.Transparent,
+                        Margin    = new Padding(3, 4, 3, 4),
+                        Dock      = DockStyle.Bottom,
+                        Tag       = panelExercise.Tag,
                     };
 
 
@@ -727,11 +766,20 @@ namespace TrainSMARTApp
                         lblPrevious,
                         lblWeight,
                         lblReps,
+                        panelCuiButtons,
+                    };
+                    var cuiButtonsAddRemove = new List<Control>
+                    {
                         cuiButtonAddSet,
+                        cuiButtonRemoveSet,
                     };
                     foreach (var ctrl in controls)
                     {
                         panelExercise.Controls.Add(ctrl);    
+                    }
+                    foreach (var ctrl in cuiButtonsAddRemove)
+                    {
+                        panelCuiButtons.Controls.Add(ctrl);
                     }
                     AddExerciseSetRow(panelExercise);
 
@@ -741,18 +789,21 @@ namespace TrainSMARTApp
             }
             selectedExerciseIDs.Clear();
             label_AddExercises_Count.Text = "(" + selectedExerciseIDs.Count + ")";
+
         }
 
 
-        private int AddExerciseSetRow(Panel parent)
+        public int AddExerciseSetRow(Panel parent)
         {
-            var setNumber = parent.Controls.OfType<Panel>().Count() + 1;
+            var setNumber = parent.Controls.OfType<Panel>().Count();
+            var setTag = parent.Controls.OfType<Panel>().Count() + 1000;
 
             var setRow = new Panel
             {
                 Height = 58,
                 Width  = parent.Width,
                 Dock   = DockStyle.Bottom,
+                Tag    = setTag,
             };
             // TODO: add 'remove set' feature
 
@@ -768,7 +819,7 @@ namespace TrainSMARTApp
 
             var lblPrevious = new Label
             {
-                Text      = "100 lbs × 12",
+                Text      = "100 lbs × 12", // TODO: get previous data
                 Width     = 120,
                 Location  = new Point(55, 16),
                 Font      = new Font("SansSerif", 12),
@@ -836,6 +887,21 @@ namespace TrainSMARTApp
             parent.Controls.SetChildIndex(setRow, parent.Controls.Count - 2); // Add above "Add Set" button
 
             return setRow.Height; 
+        }
+
+
+        private int RemoveExerciseSetRow(Panel parent)
+        {
+            var latestPanel = parent.Controls.OfType<Panel>().OrderByDescending(p => (int)p.Tag).FirstOrDefault();
+            var x = parent.Controls.OfType<Panel>().Count() + 1;
+
+            if (latestPanel != null)
+            {
+                parent.Controls.Remove(latestPanel);
+                latestPanel.Dispose();
+            }
+
+            return latestPanel.Height;
         }
 
 
