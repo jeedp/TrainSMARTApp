@@ -796,7 +796,7 @@ namespace TrainSMARTApp
         public int AddExerciseSetRow(Panel parent)
         {
             var setNumber = parent.Controls.OfType<Panel>().Count();
-            var setTag = parent.Controls.OfType<Panel>().Count() + 1000;
+            var setTag = parent.Controls.OfType<Panel>().Count() + 999;
 
             var setRow = new Panel
             {
