@@ -106,8 +106,9 @@ CREATE TABLE dbo.WorkoutTemplateExerciseSets
 (
     SetID               INT                 PRIMARY KEY IDENTITY(1,1),
     TemplateExerciseID  INT                 FOREIGN KEY REFERENCES TemplateExercises(TemplateExerciseID),
-    WeightLbs           DECIMAL(5,2)        NOT NULL,
-    Reps                DECIMAL(2)          NOT NULL,
+    WeightLbs           DECIMAL(5,2)        NULL,
+    Reps                DECIMAL(2)          NULL,
+    TimeSeconds         INT                 NULL,
     SetOrder            INT
 );
 GO
