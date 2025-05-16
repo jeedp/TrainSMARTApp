@@ -346,6 +346,34 @@ namespace TrainSMARTApp
         }
 
 
+
+
+
+            // GENERAL FUNCTIONS
+
+        private void KeyPressDigitOnly(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
+            {
+                e.Handled = true;
+            }
+            if (e.KeyChar == '.' && ((cuiTextBox2)sender).Text.IndexOf('.') > -1)   // prevents multiple decimal points
+            {
+                e.Handled = true;
+            }
+        }
+
+
+        
+
+        
+
+        
+
+
+
+            // SHOWING PANELS
+
         private void ShowMenu(Panel panel, cuiButton button)
         {
             var panels = new List<Panel>
@@ -355,6 +383,7 @@ namespace TrainSMARTApp
 
                 panel_Menu_Workout,
                 panel_WorkoutCreation,
+                panel_WorkoutTemplate,
 
                 panel_Menu_Exercises,
                 panel_ExerciseDetails,
@@ -366,6 +395,7 @@ namespace TrainSMARTApp
             var longPanels = new HashSet<Panel>
             {
                 panel_WorkoutCreation,
+                panel_WorkoutTemplate,
                 panel_ExerciseDetails,
             };
 
@@ -421,7 +451,7 @@ namespace TrainSMARTApp
 
         private void ShowHideAddingMeasurementPanel(object sender, EventArgs e)
         {
-            if (!(sender is cuiButton btn)) return;
+            if (sender is not cuiButton btn) return;
 
             label_AddingMeasurement_CurrentDate.Text = DateTime.Today.ToString("MM/dd/yy");
             isAddingMeasurement = btn == cuiButton_Measurement_AddMeasurement;
@@ -508,6 +538,35 @@ namespace TrainSMARTApp
             }
         }
 
+
+        private void ShowHideTemplateDeletionPrompt(object sender, EventArgs e)
+        {
+            var btn = sender as cuiButton;
+            var hasAddedExercises = flowLayoutPanel_WorkoutCreation.Controls.Count > 2;
+            isDeletingWorkoutTemplate = hasAddedExercises && btn == cuiButton_WorkoutCreation_Exit;
+            ShowHideSubPanel(panel_WorkoutCreation_TemplateDeletion, isDeletingWorkoutTemplate);
+            if (btn == cuiButton_TemplateDeletion_Delete || (!hasAddedExercises && btn == cuiButton_WorkoutCreation_Exit))
+                cuiButton_Menu_Workout_Click(sender, e);
+            else if (btn == cuiButton_TemplateDeletion_Cancel)
+                ShowHideSubPanel(panel_WorkoutCreation_TemplateDeletion, isDeletingWorkoutTemplate);
+        }
+
+
+        private void ShowTemplateDetails()
+        {
+            ShowMenu(panel_WorkoutTemplate, cuiButton_Menu_Workout);
+        }
+
+
+
+
+
+        
+
+
+
+
+            // MAIN FUNCTIONS
 
         private void LoadExerciseButtons(string search, List<string> muscleGroups)
         {
@@ -852,7 +911,7 @@ namespace TrainSMARTApp
         }
 
 
-        public int AddExerciseSetRow(Panel parent, string exerciseName)
+        public int AddExerciseSetRow(Panel parent, string exerciseName, decimal? weight = null, decimal? reps = null, int? time = null)
         {
             var setNumber = parent.Controls.OfType<Panel>().Count();
             var setTag = (int)parent.Controls.OfType<Panel>().Count() + 999;
@@ -1037,18 +1096,313 @@ namespace TrainSMARTApp
         }
 
 
-        private void KeyPressDigitOnly(object sender, KeyPressEventArgs e)
+        private bool SaveExerciseTemplate()
         {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
+            if (flowLayoutPanel_WorkoutCreation.Controls.OfType<Panel>().Count() < 2) return false;
+
+            var txtBoxName = cuiTextBox_WorkoutCreation_TemplateName.Content;
+            var txtBoxNote = cuiTextBox_WorkoutCreation_Note.Content;
+
+            string templateName = (!string.IsNullOrWhiteSpace(txtBoxName)) ? txtBoxName?.Trim() : "New workout template";
+            string workoutNote = (!string.IsNullOrWhiteSpace(txtBoxNote)) ? txtBoxNote?.Trim() : "";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
-                e.Handled = true;
-            }
-            if (e.KeyChar == '.' && ((cuiTextBox2)sender).Text.IndexOf('.') > -1)   // prevents multiple decimal points
-            {
-                e.Handled = true;
+                conn.Open();
+                SqlTransaction transaction = conn.BeginTransaction();
+
+                try
+                {
+                    // 1. Insert Workout Template
+                    string queryTemplate = @"INSERT INTO WorkoutTemplates (UserID, TemplateName, Note, DateCreated) 
+                                    OUTPUT INSERTED.TemplateID 
+                                    VALUES (@UserID, @TemplateName, @Note, @DateCreated)";
+                    SqlCommand cmdTemplate = new SqlCommand(queryTemplate, conn, transaction);
+                    cmdTemplate.Parameters.AddWithValue("@UserID", _loggedInUser.UserID);
+                    cmdTemplate.Parameters.AddWithValue("@TemplateName", templateName);
+                    cmdTemplate.Parameters.AddWithValue("@Note", workoutNote);
+                    cmdTemplate.Parameters.AddWithValue("@DateCreated", DateTime.Now);
+
+                    int templateId = (int)cmdTemplate.ExecuteScalar();
+
+                    int exerciseOrder = 0;
+                    foreach (Panel exercisePanel in flowLayoutPanel_WorkoutCreation.Controls.OfType<Panel>().Where(p => p.Height > 211))
+                    {
+                        int exerciseId = (int)exercisePanel.Tag;
+
+                        if (!(exercisePanel.Tag is int))
+                            MessageBox.Show("Exercise panel is missing a valid ExerciseID in its Tag.");
+
+
+                        int restSeconds = 60; // Default
+
+                        // TODO: read rest time from a control inside exercisePanel, if you have it
+
+                        // 2. Insert WorkoutTemplateExercise
+                        string queryExercise = @"INSERT INTO WorkoutTemplateExercises 
+                                        (TemplateID, ExerciseID, RestSeconds, DisplayOrder) 
+                                        OUTPUT INSERTED.TemplateExerciseID 
+                                        VALUES (@TemplateID, @ExerciseID, @RestSeconds, @DisplayOrder)";
+                        SqlCommand cmdExercise = new SqlCommand(queryExercise, conn, transaction);
+                        cmdExercise.Parameters.AddWithValue("@TemplateID", templateId);
+                        cmdExercise.Parameters.AddWithValue("@ExerciseID", exerciseId);
+                        cmdExercise.Parameters.AddWithValue("@RestSeconds", restSeconds);
+                        cmdExercise.Parameters.AddWithValue("@DisplayOrder", exerciseOrder++);
+
+                        int templateExerciseId = (int)cmdExercise.ExecuteScalar();
+
+                        // TEST
+                        var setPanels = exercisePanel.Controls
+                            .OfType<Panel>()
+                            .Where(p => p.Height == 58 && p.Tag is >= 1000)
+                            .ToList();
+
+                        MessageBox.Show($"Found {setPanels.Count} sets for ExerciseID {exerciseId}");
+
+                        int setOrder = 0;
+                        foreach (Panel setPanel in exercisePanel.Controls.OfType<Panel>().Where(p => p.Tag is >= 1000))
+                        {
+
+                            // TEST
+                            if (setPanel.Tag is not int tag || tag < 1000)
+                            {
+                                MessageBox.Show("Invalid set panel tag found.");
+                                continue;
+                            }
+
+
+                            //int weight = 0;
+                            //int reps = 0;
+                            //int time = 0;
+
+                            cuiTextBox2 txtWeight = setPanel.Controls.Find("cuiTextBox_Weight", true).FirstOrDefault() as cuiTextBox2;
+                            cuiTextBox2 txtReps = setPanel.Controls.Find("cuiTextBox_Reps", true).FirstOrDefault() as cuiTextBox2;
+                            cuiTextBox2 txtTime = setPanel.Controls.Find("cuiTextBox_Time", true).FirstOrDefault() as cuiTextBox2;
+
+                            object weight = decimal.TryParse(txtWeight?.Text, out var w) ? (object)w : DBNull.Value;
+                            object reps = decimal.TryParse(txtReps?.Text, out var r) ? (object)r : DBNull.Value;
+                            object time = int.TryParse(txtTime?.Text, out var t) ? (object)t : DBNull.Value;
+
+
+
+                            // 3. Insert WorkoutTemplateExerciseSets
+                            string querySet = @"INSERT INTO WorkoutTemplateExerciseSets 
+                                        (TemplateExerciseID, WeightLbs, Reps, TimeSeconds, SetOrder) 
+                                        VALUES (@TemplateExerciseID, @WeightLbs, @Reps, @TimeSeconds, @SetOrder)";
+                            SqlCommand cmdSet = new SqlCommand(querySet, conn, transaction);
+
+                            cmdSet.Parameters.AddWithValue("@TemplateExerciseID", templateExerciseId);
+                            cmdSet.Parameters.Add("@WeightLbs", SqlDbType.Decimal).Value = weight;
+                            cmdSet.Parameters.AddWithValue("@Reps", reps);
+                            cmdSet.Parameters.AddWithValue("@TimeSeconds", time);
+                            cmdSet.Parameters.AddWithValue("@SetOrder", setOrder++);
+
+                            cmdSet.ExecuteNonQuery();
+                        }
+                    }
+
+                    transaction.Commit();
+                    MessageBox.Show("Template saved successfully!");
+                    return true;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show("Error saving template: " + ex.Message);
+
+                    return false;
+                }
             }
         }
 
+
+        private void LoadUserWorkoutTemplates(User currentUser)
+        {
+            foreach (var ctrl in flowLayoutPanel_Workout.Controls.OfType<Control>().ToList())
+            {
+                if (ctrl is cuiButton { Tag: int } btn)
+                {
+                    flowLayoutPanel_Workout.Controls.Remove(btn);
+                    btn.Dispose();
+                }
+            }
+
+
+            using SqlConnection conn = new SqlConnection(connectionString);
+            string query = @"
+                    SELECT TemplateID, TemplateName, Note, DateCreated
+                    FROM WorkoutTemplates
+                    WHERE UserID = @UserID
+                    ORDER BY DateCreated DESC";
+
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@UserID", currentUser.UserID);
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int templateId = reader.GetInt32(reader.GetOrdinal("TemplateID"));
+                    string templateName = reader.GetString(reader.GetOrdinal("TemplateName"));
+                    string note = reader.IsDBNull(reader.GetOrdinal("Note")) ? "" : reader.GetString(reader.GetOrdinal("Note"));
+                    DateTime createdDate = reader.GetDateTime(reader.GetOrdinal("DateCreated"));
+
+                    var btnTemplate = new cuiButton
+                    {
+                        Width = 335,
+                        Height = 75,
+                        Margin = new Padding(15, 15, 15, 4),
+                        Font = new Font("SansSerif", 14, FontStyle.Bold),
+                        Content = $"{templateName}",// - {createdDate:MMM dd, yyyy}",
+                        Tag = templateId,
+
+                        BackColor = Color.Transparent,
+                        HoverBackground = Color.Transparent,
+                        HoverForeColor = Color.DimGray,
+                        HoverOutline = Color.FromArgb(95, 102, 105),
+                        NormalBackground = Color.Transparent,
+                        NormalForeColor = Color.White,
+                        NormalOutline = Color.FromArgb(95, 102, 105),
+                        PressedBackground = Color.FromArgb(84, 91, 94),
+                        PressedForeColor = Color.White,
+                        PressedOutline = Color.FromArgb(95, 102, 105),
+                        OutlineThickness = 1.5f,
+                    };
+
+                    // Optional: store additional info like note in Tag if needed
+
+                    btnTemplate.Click += (s, e) =>
+                    {
+                        var selectedTemplateId = (int)((cuiButton)s).Tag;
+                        ShowTemplateDetails();
+                        LoadTemplateExercises(selectedTemplateId);
+                    };
+
+                    flowLayoutPanel_Workout.Controls.Add(btnTemplate);
+                    flowLayoutPanel_Workout.Controls.SetChildIndex(btnTemplate, 1);
+                }
+                label_Workout_EmptyTemplateMsg.Visible = false;
+            }
+            catch (Exception ex)
+            {
+                label_Workout_EmptyTemplateMsg.Visible = true;
+                MessageBox.Show("Failed to load workout templates:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private void LoadTemplateExercises(int selectedTemplateId)
+        {
+            flowLayoutPanel_WorkoutCreation.Controls.Clear(); // Clear previous UI
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                // Step 1: Retrieve exercises in the selected template
+                string exerciseQuery = @"
+                    SELECT wte.TemplateExerciseID, wte.ExerciseID, e.ExerciseName
+                    FROM WorkoutTemplateExercises wte
+                    JOIN Exercises e ON wte.ExerciseID = e.ExerciseID
+                    WHERE wte.TemplateID = @TemplateID
+                    ORDER BY wte.DisplayOrder";
+
+                using (SqlCommand cmd = new SqlCommand(exerciseQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@TemplateID", selectedTemplateId);
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            int templateExerciseId = reader.GetInt32(0);
+                            int exerciseId = reader.GetInt32(1);
+                            string exerciseName = reader.GetString(2);
+
+                            // Create UI panel for exercise
+                            var exercisePanel = new Panel
+                            {
+                                Width = 400,
+                                Height = 120,
+                                BackColor = Color.FromArgb(30, 30, 30),
+                                Margin = new Padding(5),
+                                Tag = exerciseId
+                            };
+
+                            var lblExerciseName = new Label
+                            {
+                                Text = exerciseName,
+                                Font = new Font("SansSerif", 12, FontStyle.Bold),
+                                ForeColor = Color.DeepSkyBlue,
+                                Dock = DockStyle.Top,
+                                Height = 30
+                            };
+                            exercisePanel.Controls.Add(lblExerciseName);
+
+                            // Load the sets for the exercise
+                            LoadExerciseSets(conn, exercisePanel, templateExerciseId, exerciseName);
+
+                            // Add "Add Set" button
+                            var btnAddSet = new Button
+                            {
+                                Text = "Add Set",
+                                Dock = DockStyle.Bottom,
+                                Height = 30,
+                                Tag = exercisePanel
+                            };
+                            btnAddSet.Click += (s, e) =>
+                            {
+                                var parent = (Panel)((Button)s).Tag;
+                                AddExerciseSetRow(parent, exerciseName); // Add empty set row
+                            };
+                            exercisePanel.Controls.Add(btnAddSet);
+
+                            // Add to main flow layout
+                            flowLayoutPanel_WorkoutCreation.Controls.Add(exercisePanel);
+                        }
+                    }
+                }
+            }
+        }
+
+
+        private void LoadExerciseSets(SqlConnection conn, Panel parentPanel, int templateExerciseId, string exerciseName)
+        {
+            string setQuery = @"
+                SELECT WeightLbs, Reps, TimeSeconds
+                FROM WorkoutTemplateExerciseSets
+                WHERE TemplateExerciseID = @TemplateExerciseID
+                ORDER BY SetOrder";
+
+            using (SqlCommand cmd = new SqlCommand(setQuery, conn))
+            {
+                cmd.Parameters.AddWithValue("@TemplateExerciseID", templateExerciseId);
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        decimal? weight = reader.IsDBNull(0) ? null : reader.GetDecimal(0);
+                        decimal? reps = reader.IsDBNull(1) ? null : reader.GetDecimal(1);
+                        int? time = reader.IsDBNull(2) ? null : reader.GetInt32(2);
+
+                        AddExerciseSetRow(parentPanel, exerciseName, weight, reps, time);
+                    }
+                }
+            }
+        }
+
+
+
+
+        
+
+
+
+
+
+            // HELPER FUNCTIONS
 
         private void ResetTextBoxes()
         {
@@ -1207,215 +1561,170 @@ namespace TrainSMARTApp
         }
 
 
-        private void ShowHideTemplateDeletionPrompt(object sender, EventArgs e)
+        private Panel CreateExercisePanel(int exerciseId, string exerciseName)
         {
-            var btn = sender as cuiButton;
-            var hasAddedExercises = flowLayoutPanel_WorkoutCreation.Controls.Count > 2;
-            isDeletingWorkoutTemplate = hasAddedExercises && btn == cuiButton_WorkoutCreation_Exit;
-            ShowHideSubPanel(panel_WorkoutCreation_TemplateDeletion, isDeletingWorkoutTemplate);
-            if (btn == cuiButton_TemplateDeletion_Delete || (!hasAddedExercises && btn == cuiButton_WorkoutCreation_Exit))
-                cuiButton_Menu_Workout_Click(sender, e);
-            else if (btn == cuiButton_TemplateDeletion_Cancel)
-                ShowHideSubPanel(panel_WorkoutCreation_TemplateDeletion, isDeletingWorkoutTemplate);
+            var panelExercise = new Panel
+            {
+                Width = 360,
+                Height = 211,
+                Tag = exerciseId,
+                Margin = new Padding(3, 5, 3, 10),
+                BackColor = Color.Transparent,
+                BorderStyle = BorderStyle.None,
+            };
+
+            var cuiButtonExerciseName = new cuiButton
+            {
+                Content = exerciseName,
+                Font = new Font("SansSerif", 14),
+                ForeColor = Color.FromArgb(53, 167, 255),
+                Dock = DockStyle.Top,
+                Height = 60,
+                Tag = exerciseId,
+                TextOffset = new Point(0, -1),
+                BackColor = Color.Transparent,
+                HoverBackground = Color.Transparent,
+                HoverForeColor = Color.LightSkyBlue,
+                NormalBackground = Color.Transparent,
+                NormalForeColor = Color.FromArgb(53, 167, 255),
+                PressedBackground = Color.FromArgb(84, 91, 94),
+                PressedForeColor = Color.White,
+            };
+            cuiButtonExerciseName.Click += ShowExerciseDetails;
+
+            // Set Labels
+            var labels = new List<Label>
+            {
+                new Label
+                {
+                    Text = "SET",
+                    Font = new Font("SansSerif", 9),
+                    Width = 30,
+                    Height = 15,
+                    ForeColor = Color.White,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Location = new Point(10, 73),
+                },
+                new Label
+                {
+                    Text = "PREVIOUS",
+                    Font = new Font("SansSerif", 9),
+                    Width = 70,
+                    Height = 15,
+                    ForeColor = Color.White,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Location = new Point(67, 73),
+                },
+                new Label
+                {
+                    Text = "LBS",
+                    Font = new Font("SansSerif", 9),
+                    Width = 30,
+                    Height = 15,
+                    ForeColor = Color.White,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Location = new Point(197, 73),
+                },
+                new Label
+                {
+                    Text = "REPS",
+                    Font = new Font("SansSerif", 9),
+                    Width = 40,
+                    Height = 15,
+                    ForeColor = Color.White,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Location = new Point(258, 73),
+                },
+                new Label
+                {
+                    Text = "TIME",
+                    Font = new Font("SansSerif", 9),
+                    Width = 40,
+                    Height = 15,
+                    ForeColor = Color.White,
+                    TextAlign = ContentAlignment.MiddleCenter,
+                    Location = new Point(227, 73),
+                },
+            };
+
+            // Add/Remove Set Buttons
+            var cuiButtonAddSet = new cuiButton
+            {
+                Content = "ADD SET",
+                Width = 180,
+                Tag = panelExercise,
+                Dock = DockStyle.Right,
+                Font = new Font("SansSerif", 11),
+                Margin = new Padding(3, 4, 3, 4),
+                Rounding = new Padding(4),
+                TextOffset = new Point(0, 4),
+                ForeColor = Color.FromArgb(53, 167, 255),
+                NormalForeColor = Color.FromArgb(53, 167, 255),
+                HoverForeColor = Color.LightSkyBlue,
+                PressedForeColor = Color.White,
+                BackColor = Color.Transparent,
+                NormalBackground = Color.Transparent,
+                HoverBackground = Color.Transparent,
+                PressedBackground = Color.FromArgb(42, 64, 78),
+            };
+            cuiButtonAddSet.Click += (s, e) =>
+            {
+                var parent = (Panel)((cuiButton)s).Tag;
+                var addedRowHeight = AddExerciseSetRow(parent, exerciseName);
+                parent.Height += addedRowHeight;
+            };
+
+            var cuiButtonRemoveSet = new cuiButton
+            {
+                Content = "REMOVE SET",
+                Width = 180,
+                Tag = panelExercise,
+                Dock = DockStyle.Left,
+                Font = cuiButtonAddSet.Font,
+                Margin = cuiButtonAddSet.Margin,
+                Rounding = cuiButtonAddSet.Rounding,
+                TextOffset = cuiButtonAddSet.TextOffset,
+                ForeColor = Color.Crimson,
+                NormalForeColor = Color.Crimson,
+                HoverForeColor = Color.Red,
+                PressedForeColor = Color.White,
+                BackColor = Color.Transparent,
+                NormalBackground = Color.Transparent,
+                HoverBackground = Color.Transparent,
+                PressedBackground = Color.FromArgb(255, 89, 100),
+            };
+            cuiButtonRemoveSet.Click += (s, e) =>
+            {
+                var parent = (Panel)((cuiButton)s).Tag;
+                var subtractedRowHeight = RemoveExerciseSetRow(parent);
+                parent.Height -= subtractedRowHeight;
+            };
+
+            var panelCuiButtons = new Panel
+            {
+                Height = 48,
+                BackColor = Color.Transparent,
+                Margin = new Padding(3, 4, 3, 4),
+                Dock = DockStyle.Bottom,
+                Tag = exerciseId,
+            };
+
+            panelCuiButtons.Controls.Add(cuiButtonAddSet);
+            panelCuiButtons.Controls.Add(cuiButtonRemoveSet);
+
+            // Add everything to main panel
+            panelExercise.Controls.Add(cuiButtonExerciseName);
+            labels.ForEach(label => panelExercise.Controls.Add(label));
+            panelExercise.Controls.Add(panelCuiButtons);
+
+            return panelExercise;
         }
 
 
-        private bool SaveExerciseTemplate()
-        {
-            if (flowLayoutPanel_WorkoutCreation.Controls.OfType<Panel>().Count() < 2) return false;
-
-            var txtBoxName = cuiTextBox_WorkoutCreation_TemplateName.Content;
-            var txtBoxNote = cuiTextBox_WorkoutCreation_Note.Content;
-
-            string templateName = (!string.IsNullOrWhiteSpace(txtBoxName)) ? txtBoxName?.Trim() : "New workout template";
-            string workoutNote = (!string.IsNullOrWhiteSpace(txtBoxNote)) ? txtBoxNote?.Trim() : "";
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
-                SqlTransaction transaction = conn.BeginTransaction();
-
-                try
-                {
-                    // 1. Insert Workout Template
-                    string queryTemplate = @"INSERT INTO WorkoutTemplates (UserID, TemplateName, Note, DateCreated) 
-                                    OUTPUT INSERTED.TemplateID 
-                                    VALUES (@UserID, @TemplateName, @Note, @DateCreated)";
-                    SqlCommand cmdTemplate = new SqlCommand(queryTemplate, conn, transaction);
-                    cmdTemplate.Parameters.AddWithValue("@UserID", _loggedInUser.UserID);
-                    cmdTemplate.Parameters.AddWithValue("@TemplateName", templateName);
-                    cmdTemplate.Parameters.AddWithValue("@Note", workoutNote);
-                    cmdTemplate.Parameters.AddWithValue("@DateCreated", DateTime.Now);
-
-                    int templateId = (int)cmdTemplate.ExecuteScalar();
-
-                    int exerciseOrder = 0;
-                    foreach (Panel exercisePanel in flowLayoutPanel_WorkoutCreation.Controls.OfType<Panel>().Where(p => p.Height > 211))
-                    {
-                        int exerciseId = (int)exercisePanel.Tag;
-
-                        if (!(exercisePanel.Tag is int))
-                            MessageBox.Show("Exercise panel is missing a valid ExerciseID in its Tag.");
-
-
-                        int restSeconds = 60; // Default
-
-                        // TODO: read rest time from a control inside exercisePanel, if you have it
-
-                        // 2. Insert WorkoutTemplateExercise
-                        string queryExercise = @"INSERT INTO WorkoutTemplateExercises 
-                                        (TemplateID, ExerciseID, RestSeconds, DisplayOrder) 
-                                        OUTPUT INSERTED.TemplateExerciseID 
-                                        VALUES (@TemplateID, @ExerciseID, @RestSeconds, @DisplayOrder)";
-                        SqlCommand cmdExercise = new SqlCommand(queryExercise, conn, transaction);
-                        cmdExercise.Parameters.AddWithValue("@TemplateID", templateId);
-                        cmdExercise.Parameters.AddWithValue("@ExerciseID", exerciseId);
-                        cmdExercise.Parameters.AddWithValue("@RestSeconds", restSeconds);
-                        cmdExercise.Parameters.AddWithValue("@DisplayOrder", exerciseOrder++);
-
-                        int templateExerciseId = (int)cmdExercise.ExecuteScalar();
-
-                        // TEST
-                        var setPanels = exercisePanel.Controls
-                            .OfType<Panel>()
-                            .Where(p => p.Height == 58 && p.Tag is >= 1000)
-                            .ToList();
-
-                        MessageBox.Show($"Found {setPanels.Count} sets for ExerciseID {exerciseId}");
-
-                        int setOrder = 0;
-                        foreach (Panel setPanel in exercisePanel.Controls.OfType<Panel>().Where(p => p.Tag is >= 1000))
-                        {
-
-                            // TEST
-                            if (setPanel.Tag is not int tag || tag < 1000)
-                            {
-                                MessageBox.Show("Invalid set panel tag found.");
-                                continue;
-                            }
-
-
-                            //int weight = 0;
-                            //int reps = 0;
-                            //int time = 0;
-
-                            cuiTextBox2 txtWeight = setPanel.Controls.Find("cuiTextBox_Weight", true).FirstOrDefault() as cuiTextBox2;
-                            cuiTextBox2 txtReps = setPanel.Controls.Find("cuiTextBox_Reps", true).FirstOrDefault() as cuiTextBox2;
-                            cuiTextBox2 txtTime = setPanel.Controls.Find("cuiTextBox_Time", true).FirstOrDefault() as cuiTextBox2;
-
-                            object weight = decimal.TryParse(txtWeight?.Text, out var w) ? (object)w : DBNull.Value;
-                            object reps = decimal.TryParse(txtReps?.Text, out var r) ? (object)r : DBNull.Value;
-                            object time = int.TryParse(txtTime?.Text, out var t) ? (object)t : DBNull.Value;
 
 
 
-                            // 3. Insert WorkoutTemplateExerciseSets
-                            string querySet = @"INSERT INTO WorkoutTemplateExerciseSets 
-                                        (TemplateExerciseID, WeightLbs, Reps, TimeSeconds, SetOrder) 
-                                        VALUES (@TemplateExerciseID, @WeightLbs, @Reps, @TimeSeconds, @SetOrder)";
-                            SqlCommand cmdSet = new SqlCommand(querySet, conn, transaction);
 
-                            cmdSet.Parameters.AddWithValue("@TemplateExerciseID", templateExerciseId);
-                            cmdSet.Parameters.Add("@WeightLbs", SqlDbType.Decimal).Value = weight;
-                            cmdSet.Parameters.AddWithValue("@Reps", reps);
-                            cmdSet.Parameters.AddWithValue("@TimeSeconds", time);
-                            cmdSet.Parameters.AddWithValue("@SetOrder", setOrder++);
-
-                            cmdSet.ExecuteNonQuery();
-                        }
-                    }
-
-                    transaction.Commit();
-                    MessageBox.Show("Template saved successfully!");
-                    return true;
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                    MessageBox.Show("Error saving template: " + ex.Message);
-
-                    return false;
-                }
-            }
-        }
-
-
-        private void LoadUserWorkoutTemplates(User currentUser)
-        {
-            foreach (var ctrl in flowLayoutPanel_Workout.Controls.OfType<Control>().ToList())
-            {
-                if (ctrl is cuiButton { Tag: int } btn)
-                {
-                    flowLayoutPanel_Workout.Controls.Remove(btn);
-                    btn.Dispose();
-                }
-            }
-
-
-            using SqlConnection conn = new SqlConnection(connectionString);
-            string query = @"
-                    SELECT TemplateID, TemplateName, Note, DateCreated
-                    FROM WorkoutTemplates
-                    WHERE UserID = @UserID
-                    ORDER BY DateCreated DESC";
-
-            SqlCommand cmd = new SqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@UserID", currentUser.UserID);
-
-            try
-            {
-                conn.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    int templateId = reader.GetInt32(reader.GetOrdinal("TemplateID"));
-                    string templateName = reader.GetString(reader.GetOrdinal("TemplateName"));
-                    string note = reader.IsDBNull(reader.GetOrdinal("Note")) ? "" : reader.GetString(reader.GetOrdinal("Note"));
-                    DateTime createdDate = reader.GetDateTime(reader.GetOrdinal("DateCreated"));
-
-                    var btnTemplate = new cuiButton
-                    {
-                        Width             = 335,
-                        Height            = 75,
-                        Margin            = new Padding(15, 15, 15, 4),
-                        Font              = new Font("SansSerif", 14, FontStyle.Bold),
-                        Content           = $"{templateName}",// - {createdDate:MMM dd, yyyy}",
-                        Tag               = templateId,
-
-                        BackColor         = Color.Transparent,
-                        HoverBackground   = Color.Transparent,
-                        HoverForeColor    = Color.DimGray,
-                        HoverOutline      = Color.FromArgb(95, 102, 105),
-                        NormalBackground  = Color.Transparent,
-                        NormalForeColor   = Color.White,
-                        NormalOutline     = Color.FromArgb(95, 102, 105),
-                        PressedBackground = Color.FromArgb(84, 91, 94),
-                        PressedForeColor  = Color.White,
-                        PressedOutline    = Color.FromArgb(95, 102, 105),
-                        OutlineThickness  = 1.5f,
-                    };
-
-                    // Optional: store additional info like note in Tag if needed
-
-                    btnTemplate.Click += (s, e) =>
-                    {
-                        int selectedTemplateId = (int)((Button)s).Tag;
-                        //LoadTemplateDetails(selectedTemplateId);
-                        // TODO: Implement this 
-                    };
-
-                    flowLayoutPanel_Workout.Controls.Add(btnTemplate);
-                    flowLayoutPanel_Workout.Controls.SetChildIndex(btnTemplate, 1);
-                }
-                label_Workout_EmptyTemplateMsg.Visible = false;
-            }
-            catch (Exception ex)
-            {
-                label_Workout_EmptyTemplateMsg.Visible = true;
-                MessageBox.Show("Failed to load workout templates:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
 
 
 
