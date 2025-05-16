@@ -263,8 +263,8 @@ VALUES
 ('Side Plank', 'Core'),
 ('V-Ups', 'Core'),
 ('Toe Touches', 'Core'),
-('Flutter Kicks', 'Core'),
-('Weighted Sit-Up', 'Core'),
+--('Flutter Kicks', 'Core'),
+('Sit-Up', 'Core'),
 ('Hollow Body Hold', 'Core'),
 
 -- Olympic
@@ -290,7 +290,7 @@ VALUES
 ('Kettlebell Swing', 'Full Body'),
 ('Dumbbell Snatch', 'Full Body'),
 ('Clean to Press (Dumbbell)', 'Full Body'),
-('Wall Ball', 'Full Body'),
+--('Wall Ball', 'Full Body'),
 ('Deadlift to Press', 'Full Body'),
 ('Overhead Squat', 'Full Body'),
 ('Jump Squat', 'Full Body'),
@@ -302,7 +302,7 @@ VALUES
 ('Jump Rope', 'Cardio'),
 ('Stair Climber', 'Cardio'),
 ('Elliptical Trainer', 'Cardio'),
-('Sled Push', 'Cardio'),
+--('Sled Push', 'Cardio'),
 ('Jumping Jacks', 'Cardio'),
 ('High Knees', 'Cardio'),
 
@@ -2084,7 +2084,7 @@ SET Instructions = N'
 5. Lower yourself back down with control.
 6. Repeat for the desired number of 
     repetitions.'
-WHERE ExerciseName = 'Weighted Sit-Up';
+WHERE ExerciseName = 'Sit-Up';
 
 
 UPDATE dbo.Exercises 

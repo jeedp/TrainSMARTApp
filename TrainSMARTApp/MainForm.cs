@@ -32,9 +32,43 @@ namespace TrainSMARTApp
         private bool isCreatingWorkoutTemplate;
         private bool isDeletingWorkoutTemplate;
 
+        private readonly User _loggedInUser;
+
         private List<int> selectedExerciseIDs = new List<int>();
 
-        private readonly User _loggedInUser;
+        private List<String> repsOnlyExercises = new List<string>()
+        {
+            "V-Ups",
+            "Sit-Up",
+            "Burpee",
+            "Push-Up",
+            "Crunches",
+            "Jump Rope",
+            "Jump Squat",
+            "Toe Touches",
+            "Jumping Jacks",
+            "Russian Twist",
+            "Flat Leg Raise",
+            "Rowing (Machine)",
+            "Bicycle Crunches",
+            "Mountain Climbers",
+        };
+        private List<String> timeOnlyExercises = new List<string>()
+        {
+            "Plank",
+            "Stretching",
+            "High Knees",
+            "Stair Climber",
+            "Hollow Body Hold",
+            "Elliptical Trainer",
+            "Cycling (Stationary)",
+        };
+
+
+
+
+
+
 
 
 
@@ -198,7 +232,7 @@ namespace TrainSMARTApp
 
         private void cuiButton_WorkoutCreation_EditName_Click(object sender, EventArgs e)
         {
-
+            cuiTextBox_WorkoutCreation_TemplateName.Focus();
         }
 
         private void cuiButton_WorkoutCreation_AddExercise_Click(object sender, EventArgs e)
@@ -403,6 +437,8 @@ namespace TrainSMARTApp
             var cuiBtn = cuiButton_AddExercises_Exit;
             cuiBtn.Visible = !isShown;
             cuiBtn.Width = !isShown ? 80 : 0;
+
+            cuiTextBox_Exercises_Search.Focus();
         }
 
 
@@ -414,6 +450,12 @@ namespace TrainSMARTApp
             isFilterShown = !isFilterShown;
             border.Height = (isFilterShown) ? 75 : 0;   // height in design is 93
             border.BringToFront();
+
+            if (isFilterShown) return;
+            foreach (var cb in cuiBorder_Exercises_Filter.Controls.OfType<cuiCheckbox>())
+            {
+                cb.Checked = false;
+            }
         }
 
 
@@ -605,11 +647,11 @@ namespace TrainSMARTApp
                     {
                         Width     = 360,
                         Height    = 211,
-                        BackColor = Color.Transparent,
-                        Margin    = new Padding(3, 5, 3, 10),
                         Tag       = exerciseId,
+                        Margin    = new Padding(3, 5, 3, 10),
+                        BackColor = Color.Transparent,
 
-                        BorderStyle = BorderStyle.FixedSingle,  // TODO: remove after test
+                        BorderStyle = BorderStyle.None,  
                     };
 
                     var cuiButtonExerciseName = new cuiButton
@@ -621,25 +663,6 @@ namespace TrainSMARTApp
                         Height            = 60,
                         Tag               = exerciseId,
                         TextOffset        = new Point(0, -1), 
-                        //TextOffset        = new Point  // TODO: FIX
-                        //(
-                        //    -180 + (exerciseName.Length > 31
-                        //                ? exerciseName.Length * 5 + 2
-                        //                : exerciseName.Length > 24
-                        //                    ? exerciseName.Length * 5
-                        //                    : exerciseName.Length < 24 && exerciseName.Length > 20 
-                        //                        ? exerciseName.Length * 5 + 4
-                        //                        : exerciseName.Length > 19
-                        //                            ? (exerciseName.Length * 5) - 4
-                        //                            : exerciseName.Length > 15
-                        //                                ? (exerciseName.Length * 5) + 4
-                        //                                : exerciseName.Length > 10
-                        //                                    ? exerciseName.Length * 6
-                        //                                    : exerciseName.Length > 9
-                        //                                        ? exerciseName.Length * 7
-                        //                                        : exerciseName.Length * 8), 
-                        //    0
-                        //),
 
                         BackColor         = Color.Transparent,
                         HoverBackground   = Color.Transparent,
@@ -681,7 +704,7 @@ namespace TrainSMARTApp
                         Height    = lblSet.Height,
                         ForeColor = lblSet.ForeColor,
                         TextAlign = lblSet.TextAlign,
-                        Location  = new Point(lblPrevious.Location.X + 125, lblPrevious.Location.Y),
+                        Location  = new Point(lblPrevious.Location.X + 130, lblPrevious.Location.Y),
                     };
 
                     var lblReps = new Label
@@ -692,8 +715,32 @@ namespace TrainSMARTApp
                         Height    = lblWeight.Height,
                         ForeColor = lblWeight.ForeColor,
                         TextAlign = lblWeight.TextAlign,
-                        Location  = new Point(lblWeight.Location.X + 66, lblWeight.Location.Y),
+                        Location  = new Point(lblWeight.Location.X + 61, lblWeight.Location.Y),
                     };
+
+                    var lblTime = new Label
+                    {
+                        Text      = "TIME",
+                        Font      = lblWeight.Font,
+                        Width     = lblWeight.Width + 10,
+                        Height    = lblWeight.Height,
+                        ForeColor = lblWeight.ForeColor,
+                        TextAlign = lblWeight.TextAlign,
+                        Location  = new Point(lblWeight.Location.X + 30, lblWeight.Location.Y),
+                    };
+
+                    var lblRepsOnly = new Label
+                    {
+                        Text      = "REPS",
+                        Font      = lblTime.Font,
+                        Width     = lblTime.Width,
+                        Height    = lblTime.Height,
+                        ForeColor = lblTime.ForeColor,
+                        TextAlign = lblTime.TextAlign,
+                        Location  = new Point(lblTime.Location.X - 5, lblTime.Location.Y),
+                    };
+
+
 
                     var cuiButtonAddSet = new cuiButton
                     {
@@ -719,8 +766,8 @@ namespace TrainSMARTApp
                     cuiButtonAddSet.Click += (s, e) =>
                     {
                         var parent = (Panel)((cuiButton)s).Tag;
-                        var addedRowHeight= AddExerciseSetRow(parent);
-                        panelExercise.Height += addedRowHeight; 
+                        var addedRowHeight= AddExerciseSetRow(parent, exerciseName);
+                        panelExercise.Height += addedRowHeight;
                     };
 
                     var cuiButtonRemoveSet = new cuiButton
@@ -753,25 +800,29 @@ namespace TrainSMARTApp
 
                     var panelCuiButtons = new Panel
                     {
-                        Height    = 48,
-                        BackColor = Color.Transparent,
-                        Margin    = new Padding(3, 4, 3, 4),
-                        Dock      = DockStyle.Bottom,
-                        Tag       = panelExercise.Tag,
+                    Height    = 48,
+                    BackColor = Color.Transparent,
+                    Margin    = new Padding(3, 4, 3, 4),
+                    Dock      = DockStyle.Bottom,
+                    Tag       = panelExercise.Tag,
                     };
 
 
 
                     // adding controls
-                    var controls = new List<Control>
+                    var controls = 
+                            (timeOnlyExercises.Contains(exerciseName))
+                            ? new List<Control> { lblTime }
+                            : (repsOnlyExercises.Contains(exerciseName))
+                                ? new List<Control> { lblRepsOnly }
+                                : new List<Control> { lblWeight, lblReps, };
+                    controls.AddRange(new List<Control>
                     {
                         cuiButtonExerciseName,
                         lblSet,
                         lblPrevious,
-                        lblWeight,
-                        lblReps,
                         panelCuiButtons,
-                    };
+                    });
                     var cuiButtonsAddRemove = new List<Control>
                     {
                         cuiButtonAddSet,
@@ -779,13 +830,15 @@ namespace TrainSMARTApp
                     };
                     foreach (var ctrl in controls)
                     {
-                        panelExercise.Controls.Add(ctrl);    
+                        panelExercise.Controls.Add(ctrl);
                     }
+
                     foreach (var ctrl in cuiButtonsAddRemove)
                     {
                         panelCuiButtons.Controls.Add(ctrl);
                     }
-                    AddExerciseSetRow(panelExercise);
+
+                    AddExerciseSetRow(panelExercise, exerciseName);
 
                     flowLayoutPanel_WorkoutCreation.Controls.Add(panelExercise);
                     flowLayoutPanel_WorkoutCreation.Controls.SetChildIndex(panelExercise, flowLayoutPanel_WorkoutCreation.Controls.Count - 2); // Add above "Add Exercise" button
@@ -793,23 +846,23 @@ namespace TrainSMARTApp
             }
             selectedExerciseIDs.Clear();
             label_AddExercises_Count.Text = "(" + selectedExerciseIDs.Count + ")";
-
+            cuiTextBox_Exercises_Search.Content = "";
         }
 
 
-        public int AddExerciseSetRow(Panel parent)
+        public int AddExerciseSetRow(Panel parent, string exerciseName)
         {
             var setNumber = parent.Controls.OfType<Panel>().Count();
             var setTag = (int)parent.Controls.OfType<Panel>().Count() + 999;
 
             var setRow = new Panel
             {
-                Height = 58,
-                Width  = parent.Width,
-                Dock   = DockStyle.Bottom,
-                Tag    = setTag,
+                Height    = 58,
+                Width     = parent.Width,
+                Dock      = DockStyle.Bottom,
+                Tag       = setTag,
+                BackColor = Color.Transparent,
             };
-            // TODO: add 'remove set' feature
 
             var lblSet = new Label
             {
@@ -819,6 +872,7 @@ namespace TrainSMARTApp
                 Font      = new Font("SansSerif", 13),
                 ForeColor = Color.FromArgb(53, 167, 255),
                 TextAlign = ContentAlignment.MiddleRight,
+                //BackColor = Color.Transparent,
             };
 
             var lblPrevious = new Label
@@ -829,6 +883,7 @@ namespace TrainSMARTApp
                 Font      = new Font("SansSerif", 12),
                 ForeColor = Color.FromArgb(191, 194, 195),
                 TextAlign = ContentAlignment.MiddleLeft,
+                //BackColor = Color.Transparent,
             };
 
             var txtBxWeight = new cuiTextBox2
@@ -841,7 +896,7 @@ namespace TrainSMARTApp
                 Rounding             = new Padding(8),
                 Margin               = new Padding(20,0,20,0),
                 ForeColor            = Color.White,
-                BackColor            = Color.FromArgb(61, 70, 73),
+                BackColor            = Color.Transparent,
                 BackgroundColor      = Color.FromArgb(61, 70, 73),
                 BorderColor          = Color.FromArgb(61, 70, 73),
                 BorderSize           = 0,
@@ -873,22 +928,67 @@ namespace TrainSMARTApp
             };
             txtBxReps.KeyPress += KeyPressDigitOnly;
 
-            MessageBox.Show($"Adding setPanel with Tag={setTag} to exercise {parent.Tag}");
+            var txtBxTime = new cuiTextBox2
+            {
+                Name                 = "cuiTextBox_Time",
+                Width                = 132,
+                Height               = 40,
+                Location             = new Point(179, 6),
+                Font                 = new Font("SansSerif", 12),
+                Rounding             = new Padding(8),
+                Margin               = new Padding(20, 0, 20, 0),
+                ForeColor            = Color.White,
+                BackColor            = Color.Transparent,
+                BackgroundColor      = Color.FromArgb(61, 70, 73),
+                BorderColor          = Color.FromArgb(61, 70, 73),
+                BorderSize           = 0,
+                FocusBackgroundColor = Color.FromArgb(61, 70, 73),
+                FocusBorderColor     = Color.FromArgb(61, 70, 73),
+                PlaceholderColor     = Color.FromArgb(158, 163, 164),
+                Enabled              = false,
+            };
+            txtBxWeight.KeyPress += KeyPressDigitOnly;
+
+            var txtBxRepsOnly = new cuiTextBox2
+            {
+                Name                 = "cuiTextBox_RepsOnly",
+                Width                = txtBxTime.Width,
+                Height               = txtBxTime.Height,
+                Location             = txtBxTime.Location,
+                Font                 = txtBxTime.Font,
+                Rounding             = txtBxTime.Rounding,
+                Margin               = txtBxTime.Margin,
+                ForeColor            = txtBxTime.ForeColor,
+                BackColor            = txtBxTime.BackColor,
+                BackgroundColor      = txtBxTime.BackgroundColor,
+                BorderColor          = txtBxTime.BorderColor,
+                BorderSize           = txtBxTime.BorderSize,
+                FocusBackgroundColor = txtBxTime.FocusBackgroundColor,
+                FocusBorderColor     = txtBxTime.FocusBorderColor,
+                PlaceholderColor     = txtBxTime.PlaceholderColor,
+                Enabled              = txtBxTime.Enabled,
+            };
+            txtBxReps.KeyPress += KeyPressDigitOnly;
+
+            //MessageBox.Show($"Adding setPanel with Tag={setTag} to exercise {parent.Tag}");     // TODO: REMOVE AFTER TEST
 
 
             // adding the controls
-            var controls = new List<Control>
+            var controls =
+                (timeOnlyExercises.Contains(exerciseName))
+                    ? new List<Control> { txtBxTime }
+                    : (repsOnlyExercises.Contains(exerciseName))
+                        ? new List<Control> { txtBxRepsOnly }
+                        : new List<Control> { txtBxWeight, txtBxReps, };
+            controls.AddRange(new List<Control>()
             {
                 lblSet,
                 lblPrevious,
-                txtBxWeight,
-                txtBxReps,
-            };
+            });
             foreach (var ctrl in controls)
             {
                 setRow.Controls.Add(ctrl);
             }
-            setRow.BackColor = Color.FromArgb(50, 50, 50);
 
             parent.Controls.Add(setRow);
             parent.Controls.SetChildIndex(setRow, parent.Controls.Count - 2); // Add above "Add Set" button
@@ -1001,24 +1101,24 @@ namespace TrainSMARTApp
             {
                 controls =  new List<Control>
                 {
-                    textBox_Measurement_ChartName,
                     flowLayoutPanel_Measurement,
                     panel_Measurement_Title,
                     cuiChartLine_Measurement,
                     cuiGradientBorder_Measurement,
+                    textBox_Measurement_ChartName,
                 };
             }
-
             if (panel == panel_WorkoutCreation_TemplateDeletion)
             {
                 controls = new List<Control>
                 {
+                    flowLayoutPanel_WorkoutCreation,
                     panel_WorkoutCreation_Title,
                     panel_WorkoutCreation_TemplateName,
-                    flowLayoutPanel_WorkoutCreation,
                     cuiButton_WorkoutCreation_Exit,
                     cuiButton_WorkoutCreation_Save,
                     cuiGradientBorder_WorkoutCreation,
+                    cuiTextBox_WorkoutCreation_TemplateName,
                 };
             }
             controls.AddRange(new List<Control>
@@ -1032,8 +1132,25 @@ namespace TrainSMARTApp
             foreach (var ctrl in controls)
             {
                 ctrl.BackColor = (flag) ? Color.FromArgb(17, 20, 22) : Color.FromArgb(41, 50, 54); ;
-                if (ctrl is cuiGradientBorder border) 
-                    border.PanelColor2 = (flag) ? Color.FromArgb(17, 20, 22): Color.FromArgb(35, 43, 47);
+                switch (ctrl)
+                {
+                    case cuiGradientBorder border:
+                        border.PanelColor2 = (flag) ? Color.FromArgb(17, 20, 22): Color.FromArgb(35, 43, 47);
+                        break;
+                    case cuiTextBox2 textBox:
+                        textBox.BackgroundColor = (flag) ? Color.FromArgb(17, 20, 22) : Color.FromArgb(41, 50, 54);
+                        break;
+                }
+            }
+
+            return;
+
+            void InnerControls(Control ctrl)
+            {
+                foreach (Panel innerCtrl in ctrl.Controls.OfType<Panel>().Where(p => p.Height == 58 && p.Tag is >= 1000).ToList())
+                {
+                    innerCtrl.BackColor = (flag) ? Color.FromArgb(17, 20, 22) : Color.FromArgb(41, 50, 54); ;
+                }
             }
         }
 
@@ -1219,6 +1336,78 @@ namespace TrainSMARTApp
                 }
             }
         }
+
+
+        private void LoadUserWorkoutTemplates(User currentUser)
+        {
+            if (currentUser == null)
+            {
+                MessageBox.Show("User not logged in.");
+                return;
+            }
+
+            using SqlConnection conn = new SqlConnection(connectionString);
+            string query = @"
+                    SELECT TemplateID, TemplateName, Note, DateCreated
+                    FROM WorkoutTemplates
+                    WHERE UserID = @UserID
+                    ORDER BY DateCreated DESC";
+
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@UserID", currentUser.UserID);
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    int templateId = reader.GetInt32(reader.GetOrdinal("TemplateID"));
+                    string templateName = reader.GetString(reader.GetOrdinal("TemplateName"));
+                    string note = reader.IsDBNull(reader.GetOrdinal("Note")) ? "" : reader.GetString(reader.GetOrdinal("Note"));
+                    DateTime createdDate = reader.GetDateTime(reader.GetOrdinal("DateCreated"));
+
+                    var btnTemplate = new cuiButton
+                    {
+                        Width             = 447,
+                        Height            = 90,
+                        Margin            = new Padding(20, 20, 20, 4),
+                        Font              = new Font("SansSerif", 14, FontStyle.Bold),
+                        Content           = $"{templateName}",// - {createdDate:MMM dd, yyyy}",
+                        Tag               = templateId,
+
+                        BackColor         = Color.Transparent,
+                        HoverBackground   = Color.Transparent,
+                        HoverForeColor    = Color.DimGray,
+                        HoverOutline      = Color.FromArgb(95, 102, 105),
+                        NormalBackground  = Color.Transparent,
+                        NormalForeColor   = Color.FromArgb(53, 167, 255),
+                        NormalOutline     = Color.FromArgb(95, 102, 105),
+                        PressedBackground = Color.FromArgb(84, 91, 94),
+                        PressedForeColor  = Color.White,
+                        PressedOutline    = Color.FromArgb(95, 102, 105),
+                    };
+
+                    // Optional: store additional info like note in Tag if needed
+
+                    btnTemplate.Click += (s, e) =>
+                    {
+                        int selectedTemplateId = (int)((Button)s).Tag;
+                        //LoadTemplateDetails(selectedTemplateId);
+                        // TODO: Implement this 
+                    };
+
+                    flowLayoutPanel_Workout.Controls.Add(btnTemplate);
+                    flowLayoutPanel_Workout.Controls.SetChildIndex(btnTemplate, 1);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load workout templates:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
 
 
 
