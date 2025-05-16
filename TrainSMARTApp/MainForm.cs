@@ -758,7 +758,7 @@ namespace TrainSMARTApp
 
             foreach (Control ctrl in flowLayoutPanel_WorkoutCreation.Controls)
             {
-                if (ctrl is Panel panel && panel.Tag is int)
+                if (ctrl is Panel { Tag: int } panel)
                 {
                     toRemove.Add(panel);
                 }
@@ -894,6 +894,7 @@ namespace TrainSMARTApp
 
         private void LoadUserWorkoutTemplates(User currentUser)
         {
+            // Clear previously loaded templates
             foreach (var ctrl in flowLayoutPanel_Workout.Controls.OfType<Control>().ToList())
             {
                 if (ctrl is cuiButton { Tag: int } btn)
@@ -902,7 +903,6 @@ namespace TrainSMARTApp
                     btn.Dispose();
                 }
             }
-
 
             using SqlConnection conn = new SqlConnection(connectionString);
             string query = @"
@@ -926,39 +926,10 @@ namespace TrainSMARTApp
                     string note = reader.IsDBNull(reader.GetOrdinal("Note")) ? "" : reader.GetString(reader.GetOrdinal("Note"));
                     DateTime createdDate = reader.GetDateTime(reader.GetOrdinal("DateCreated"));
 
-                    var btnTemplate = new cuiButton
-                    {
-                        Width = 335,
-                        Height = 75,
-                        Margin = new Padding(15, 15, 15, 4),
-                        Font = new Font("SansSerif", 14, FontStyle.Bold),
-                        Content = $"{templateName}",// - {createdDate:MMM dd, yyyy}",
-                        Tag = templateId,
+                    var cuiBtnTemplate = CreateTemplateButton(templateId, templateName, note);
 
-                        BackColor = Color.Transparent,
-                        HoverBackground = Color.Transparent,
-                        HoverForeColor = Color.DimGray,
-                        HoverOutline = Color.FromArgb(95, 102, 105),
-                        NormalBackground = Color.Transparent,
-                        NormalForeColor = Color.White,
-                        NormalOutline = Color.FromArgb(95, 102, 105),
-                        PressedBackground = Color.FromArgb(84, 91, 94),
-                        PressedForeColor = Color.White,
-                        PressedOutline = Color.FromArgb(95, 102, 105),
-                        OutlineThickness = 1.5f,
-                    };
-
-                    // Optional: store additional info like note in Tag if needed
-
-                    btnTemplate.Click += (s, e) =>
-                    {
-                        var selectedTemplateId = (int)((cuiButton)s).Tag;
-                        ShowTemplateDetails();
-                        LoadTemplateExercises(selectedTemplateId);
-                    };
-
-                    flowLayoutPanel_Workout.Controls.Add(btnTemplate);
-                    flowLayoutPanel_Workout.Controls.SetChildIndex(btnTemplate, 1);
+                    flowLayoutPanel_Workout.Controls.Add(cuiBtnTemplate);
+                    flowLayoutPanel_Workout.Controls.SetChildIndex(cuiBtnTemplate, 1);
                 }
                 label_Workout_EmptyTemplateMsg.Visible = false;
             }
@@ -972,7 +943,17 @@ namespace TrainSMARTApp
 
         private void LoadTemplateExercises(int selectedTemplateId)
         {
-            flowLayoutPanel_WorkoutCreation.Controls.Clear(); // Clear previous UI
+
+
+            // Clear previously loaded templates
+            foreach (var ctrl in flowLayoutPanel_WorkoutTemplate.Controls.OfType<Control>().ToList())
+            {
+                if (ctrl is cuiButton { Tag: int } btn)
+                {
+                    flowLayoutPanel_WorkoutTemplate.Controls.Remove(btn);
+                    btn.Dispose();
+                }
+            }
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -997,46 +978,48 @@ namespace TrainSMARTApp
                             int exerciseId = reader.GetInt32(1);
                             string exerciseName = reader.GetString(2);
 
-                            // Create UI panel for exercise
-                            var exercisePanel = new Panel
-                            {
-                                Width = 400,
-                                Height = 120,
-                                BackColor = Color.FromArgb(30, 30, 30),
-                                Margin = new Padding(5),
-                                Tag = exerciseId
-                            };
+                            //// Create UI panel for exercise
+                            //var exercisePanel = new Panel
+                            //{
+                            //    Width = 400,
+                            //    Height = 120,
+                            //    BackColor = Color.FromArgb(30, 30, 30),
+                            //    Margin = new Padding(5),
+                            //    Tag = exerciseId
+                            //};
 
-                            var lblExerciseName = new Label
-                            {
-                                Text = exerciseName,
-                                Font = new Font("SansSerif", 12, FontStyle.Bold),
-                                ForeColor = Color.DeepSkyBlue,
-                                Dock = DockStyle.Top,
-                                Height = 30
-                            };
-                            exercisePanel.Controls.Add(lblExerciseName);
+                            //var lblExerciseName = new Label
+                            //{
+                            //    Text = exerciseName,
+                            //    Font = new Font("SansSerif", 12, FontStyle.Bold),
+                            //    ForeColor = Color.DeepSkyBlue,
+                            //    Dock = DockStyle.Top,
+                            //    Height = 30
+                            //};
+                            //exercisePanel.Controls.Add(lblExerciseName);
+
+                            //// Add "Add Set" button
+                            //var btnAddSet = new Button
+                            //{
+                            //    Text = "Add Set",
+                            //    Dock = DockStyle.Bottom,
+                            //    Height = 30,
+                            //    Tag = exercisePanel
+                            //};
+                            //btnAddSet.Click += (s, e) =>
+                            //{
+                            //    var parent = (Panel)((Button)s).Tag;
+                            //    AddExerciseSetRow(parent, exerciseName); // Add empty set row
+                            //};
+                            //exercisePanel.Controls.Add(btnAddSet);
+
+                            var exercisePanel = CreateExercisePanel(exerciseId, exerciseName);
 
                             // Load the sets for the exercise
                             LoadExerciseSets(conn, exercisePanel, templateExerciseId, exerciseName);
 
-                            // Add "Add Set" button
-                            var btnAddSet = new Button
-                            {
-                                Text = "Add Set",
-                                Dock = DockStyle.Bottom,
-                                Height = 30,
-                                Tag = exercisePanel
-                            };
-                            btnAddSet.Click += (s, e) =>
-                            {
-                                var parent = (Panel)((Button)s).Tag;
-                                AddExerciseSetRow(parent, exerciseName); // Add empty set row
-                            };
-                            exercisePanel.Controls.Add(btnAddSet);
-
                             // Add to main flow layout
-                            flowLayoutPanel_WorkoutCreation.Controls.Add(exercisePanel);
+                            flowLayoutPanel_WorkoutTemplate.Controls.Add(exercisePanel);
                         }
                     }
                 }
@@ -1055,7 +1038,7 @@ namespace TrainSMARTApp
             using (SqlCommand cmd = new SqlCommand(setQuery, conn))
             {
                 cmd.Parameters.AddWithValue("@TemplateExerciseID", templateExerciseId);
-                using (SqlDataReader reader = cmd.ExecuteReader())
+                using (SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)) // TODO: THERE IS A PROBLEM WITH THIS
                 {
                     while (reader.Read())
                     {
@@ -1569,6 +1552,44 @@ namespace TrainSMARTApp
             }
 
             return setRow;
+        }
+
+
+        private cuiButton CreateTemplateButton(int templateId, string templateName, string note)
+        {
+            var btnTemplate = new cuiButton
+            {
+                Width             = 335,
+                Height            = 75,
+                Margin            = new Padding(15, 15, 15, 4),
+                Font              = new Font("SansSerif", 14, FontStyle.Bold),
+                Content           = $"{templateName}",// - {createdDate:MMM dd, yyyy}",
+                Tag               = templateId,
+
+                BackColor         = Color.Transparent,
+                HoverBackground   = Color.Transparent,
+                HoverForeColor    = Color.DimGray,
+                HoverOutline      = Color.FromArgb(95, 102, 105),
+                NormalBackground  = Color.Transparent,
+                NormalForeColor   = Color.White,
+                NormalOutline     = Color.FromArgb(95, 102, 105),
+                PressedBackground = Color.FromArgb(84, 91, 94),
+                PressedForeColor  = Color.White,
+                PressedOutline    = Color.FromArgb(95, 102, 105),
+                OutlineThickness  = 1.5f,
+            };
+
+            // Optional: store additional info like note in Tag if needed
+
+            btnTemplate.Click += (s, e) =>
+            {
+                var selectedTemplateId = (int)((cuiButton)s).Tag;
+                ShowTemplateDetails();
+                LoadTemplateExercises(selectedTemplateId);
+                label_WorkoutTemplate_Name.Text = templateName;
+            };
+
+            return btnTemplate;
         }
 
 
