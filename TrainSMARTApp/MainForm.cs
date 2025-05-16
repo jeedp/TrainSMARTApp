@@ -36,7 +36,7 @@ namespace TrainSMARTApp
 
         private List<int> selectedExerciseIDs = new List<int>();
 
-        private List<String> repsOnlyExercises = new List<string>()
+        private HashSet<string> repsOnlyExercises = new HashSet<string>()
         {
             "V-Ups",
             "Sit-Up",
@@ -53,7 +53,7 @@ namespace TrainSMARTApp
             "Bicycle Crunches",
             "Mountain Climbers",
         };
-        private List<String> timeOnlyExercises = new List<string>()
+        private HashSet<string> timeOnlyExercises = new HashSet<string>()
         {
             "Plank",
             "Stretching",
@@ -704,200 +704,7 @@ namespace TrainSMARTApp
                     object result = cmd.ExecuteScalar();
                     string exerciseName = result?.ToString() ?? "Unknown Exercise";
 
-                    var panelExercise = new Panel
-                    {
-                        Width     = 360,
-                        Height    = 211,
-                        Tag       = exerciseId,
-                        Margin    = new Padding(3, 5, 3, 10),
-                        BackColor = Color.Transparent,
-
-                        BorderStyle = BorderStyle.None,  
-                    };
-
-                    var cuiButtonExerciseName = new cuiButton
-                    {
-                        Content           = exerciseName,
-                        Font              = new Font("SansSerif", 14),// FontStyle.Bold),
-                        ForeColor         = Color.FromArgb(53, 167, 255),
-                        Dock              = DockStyle.Top,
-                        Height            = 60,
-                        Tag               = exerciseId,
-                        TextOffset        = new Point(0, -1), 
-
-                        BackColor         = Color.Transparent,
-                        HoverBackground   = Color.Transparent,
-                        HoverForeColor    = Color.LightSkyBlue,
-                        NormalBackground  = Color.Transparent,
-                        NormalForeColor   = Color.FromArgb(53, 167, 255),
-                        PressedBackground = Color.FromArgb(84, 91, 94),
-                        PressedForeColor  = Color.White,
-                    };
-                    cuiButtonExerciseName.Click += ShowExerciseDetails;
-
-                    var lblSet = new Label
-                    {
-                        Text      = "SET",
-                        Font      = new Font("SansSerif", 9), //FontStyle.Bold),
-                        Width     = 30,
-                        Height    = 15,
-                        ForeColor = Color.White,
-                        TextAlign = ContentAlignment.MiddleCenter,
-                        Location  = new Point(10, 73),
-                    };
-
-                    var lblPrevious = new Label
-                    {
-                        Text      = "PREVIOUS",
-                        Font      = lblSet.Font, 
-                        Width     = lblSet.Width + 40,
-                        Height    = lblSet.Height,
-                        ForeColor = lblSet.ForeColor,
-                        TextAlign = lblSet.TextAlign,
-                        Location  = new Point(lblSet.Location.X + 57, lblSet.Location.Y),
-                    };
-
-                    var lblWeight = new Label
-                    {
-                        Text      = "LBS",
-                        Font      = lblSet.Font,
-                        Width     = lblSet.Width,
-                        Height    = lblSet.Height,
-                        ForeColor = lblSet.ForeColor,
-                        TextAlign = lblSet.TextAlign,
-                        Location  = new Point(lblPrevious.Location.X + 130, lblPrevious.Location.Y),
-                    };
-
-                    var lblReps = new Label
-                    {
-                        Text      = "REPS",
-                        Font      = lblWeight.Font,
-                        Width     = lblWeight.Width + 10,
-                        Height    = lblWeight.Height,
-                        ForeColor = lblWeight.ForeColor,
-                        TextAlign = lblWeight.TextAlign,
-                        Location  = new Point(lblWeight.Location.X + 61, lblWeight.Location.Y),
-                    };
-
-                    var lblTime = new Label
-                    {
-                        Text      = "TIME",
-                        Font      = lblWeight.Font,
-                        Width     = lblWeight.Width + 10,
-                        Height    = lblWeight.Height,
-                        ForeColor = lblWeight.ForeColor,
-                        TextAlign = lblWeight.TextAlign,
-                        Location  = new Point(lblWeight.Location.X + 30, lblWeight.Location.Y),
-                    };
-
-                    var lblRepsOnly = new Label
-                    {
-                        Text      = "REPS",
-                        Font      = lblTime.Font,
-                        Width     = lblTime.Width,
-                        Height    = lblTime.Height,
-                        ForeColor = lblTime.ForeColor,
-                        TextAlign = lblTime.TextAlign,
-                        Location  = new Point(lblTime.Location.X - 5, lblTime.Location.Y),
-                    };
-
-
-
-                    var cuiButtonAddSet = new cuiButton
-                    {
-                        Content           = "ADD SET",
-                        Width             = 180,
-                        //Height            = 48,
-                        Tag               = panelExercise,
-                        Dock              = DockStyle.Right,
-                        Font              = new Font("SansSerif", 11),// FontStyle.Bold),
-                        Margin            = new Padding(3, 4, 3, 4),
-                        Rounding          = new Padding(4),
-                        TextOffset        = new Point(0, 4),
-
-                        ForeColor         = Color.FromArgb(53, 167, 255),
-                        NormalForeColor   = Color.FromArgb(53, 167, 255),
-                        HoverForeColor    = Color.LightSkyBlue,
-                        PressedForeColor  = Color.White,
-                        BackColor         = Color.Transparent,
-                        NormalBackground  = Color.Transparent,
-                        HoverBackground   = Color.Transparent,
-                        PressedBackground = Color.FromArgb(42, 64, 78),
-                    };
-                    cuiButtonAddSet.Click += (s, e) =>
-                    {
-                        var parent = (Panel)((cuiButton)s).Tag;
-                        var addedRowHeight= AddExerciseSetRow(parent, exerciseName);
-                        panelExercise.Height += addedRowHeight;
-                    };
-
-                    var cuiButtonRemoveSet = new cuiButton
-                    {
-                        Content           = "REMOVE SET",
-                        Width             = cuiButtonAddSet.Width, 
-                        //Height            = cuiButtonAddSet.Height,
-                        Tag               = cuiButtonAddSet.Tag,
-                        Dock              = DockStyle.Left,
-                        Font              = cuiButtonAddSet.Font,
-                        Margin            = cuiButtonAddSet.Margin,
-                        Rounding          = cuiButtonAddSet.Rounding,
-                        TextOffset        = cuiButtonAddSet.TextOffset,
-
-                        ForeColor         = Color.Crimson,
-                        NormalForeColor   = Color.Crimson,
-                        HoverForeColor    = Color.Red,
-                        PressedForeColor  = cuiButtonAddSet.PressedForeColor,
-                        BackColor         = cuiButtonAddSet.BackColor,
-                        NormalBackground  = cuiButtonAddSet.NormalBackground,
-                        HoverBackground   = cuiButtonAddSet.HoverBackground,
-                        PressedBackground = Color.FromArgb(255, 89, 100),
-                    };
-                    cuiButtonRemoveSet.Click += (s, e) =>
-                    {
-                        var parent = (Panel)((cuiButton)s).Tag;
-                        var subtractedRowHeight = RemoveExerciseSetRow(parent);
-                        panelExercise.Height -= subtractedRowHeight;
-                    };
-
-                    var panelCuiButtons = new Panel
-                    {
-                    Height    = 48,
-                    BackColor = Color.Transparent,
-                    Margin    = new Padding(3, 4, 3, 4),
-                    Dock      = DockStyle.Bottom,
-                    Tag       = panelExercise.Tag,
-                    };
-
-
-
-                    // adding controls
-                    var controls = 
-                            (timeOnlyExercises.Contains(exerciseName))
-                            ? new List<Control> { lblTime }
-                            : (repsOnlyExercises.Contains(exerciseName))
-                                ? new List<Control> { lblRepsOnly }
-                                : new List<Control> { lblWeight, lblReps, };
-                    controls.AddRange(new List<Control>
-                    {
-                        cuiButtonExerciseName,
-                        lblSet,
-                        lblPrevious,
-                        panelCuiButtons,
-                    });
-                    var cuiButtonsAddRemove = new List<Control>
-                    {
-                        cuiButtonAddSet,
-                        cuiButtonRemoveSet,
-                    };
-                    foreach (var ctrl in controls)
-                    {
-                        panelExercise.Controls.Add(ctrl);
-                    }
-
-                    foreach (var ctrl in cuiButtonsAddRemove)
-                    {
-                        panelCuiButtons.Controls.Add(ctrl);
-                    }
+                    var panelExercise = CreateExercisePanel(exerciseId, exerciseName);
 
                     AddExerciseSetRow(panelExercise, exerciseName);
 
@@ -916,140 +723,9 @@ namespace TrainSMARTApp
             var setNumber = parent.Controls.OfType<Panel>().Count();
             var setTag = (int)parent.Controls.OfType<Panel>().Count() + 999;
 
-            var setRow = new Panel
-            {
-                Height    = 58,
-                Width     = parent.Width,
-                Dock      = DockStyle.Bottom,
-                Tag       = setTag,
-                BackColor = Color.Transparent,
-            };
-
-            var lblSet = new Label
-            {
-                Text      = setNumber.ToString(),
-                Width     = 35,
-                Location  = new Point(0,15),
-                Font      = new Font("SansSerif", 13),
-                ForeColor = Color.FromArgb(53, 167, 255),
-                TextAlign = ContentAlignment.MiddleRight,
-                //BackColor = Color.Transparent,
-            };
-
-            var lblPrevious = new Label
-            {
-                Text      = "100 lbs × 12", // TODO: get previous data
-                Width     = 120,
-                Location  = new Point(55, 16),
-                Font      = new Font("SansSerif", 12),
-                ForeColor = Color.FromArgb(191, 194, 195),
-                TextAlign = ContentAlignment.MiddleLeft,
-                //BackColor = Color.Transparent,
-            };
-
-            var txtBxWeight = new cuiTextBox2
-            {
-                Name                 = "cuiTextBox_Weight",
-                Width                = 62,
-                Height               = 40,
-                Location             = new Point(179, 6), 
-                Font                 = new Font("SansSerif", 12),
-                Rounding             = new Padding(8),
-                Margin               = new Padding(20,0,20,0),
-                ForeColor            = Color.White,
-                BackColor            = Color.Transparent,
-                BackgroundColor      = Color.FromArgb(61, 70, 73),
-                BorderColor          = Color.FromArgb(61, 70, 73),
-                BorderSize           = 0,
-                FocusBackgroundColor = Color.FromArgb(61, 70, 73),
-                FocusBorderColor     = Color.FromArgb(61, 70, 73),
-                PlaceholderColor     = Color.FromArgb(158, 163, 164),
-                Enabled              = false,
-            };
-            txtBxWeight.KeyPress += KeyPressDigitOnly;
-
-            var txtBxReps = new cuiTextBox2
-            {
-                Name                 = "cuiTextBox_Reps",
-                Width                = txtBxWeight.Width,
-                Height               = txtBxWeight.Height,
-                Location             = new Point(txtBxWeight.Location.X + 70, txtBxWeight.Location.Y),
-                Font                 = txtBxWeight.Font,
-                Rounding             = txtBxWeight.Rounding,
-                Margin               = txtBxWeight.Margin,
-                ForeColor            = txtBxWeight.ForeColor,
-                BackColor            = txtBxWeight.BackColor,
-                BackgroundColor      = txtBxWeight.BackgroundColor,
-                BorderColor          = txtBxWeight.BorderColor,
-                BorderSize           = txtBxWeight.BorderSize,
-                FocusBackgroundColor = txtBxWeight.FocusBackgroundColor,
-                FocusBorderColor     = txtBxWeight.FocusBorderColor,
-                PlaceholderColor     = txtBxWeight.PlaceholderColor,
-                Enabled              = txtBxWeight.Enabled,
-            };
-            txtBxReps.KeyPress += KeyPressDigitOnly;
-
-            var txtBxTime = new cuiTextBox2
-            {
-                Name                 = "cuiTextBox_Time",
-                Width                = 132,
-                Height               = 40,
-                Location             = new Point(179, 6),
-                Font                 = new Font("SansSerif", 12),
-                Rounding             = new Padding(8),
-                Margin               = new Padding(20, 0, 20, 0),
-                ForeColor            = Color.White,
-                BackColor            = Color.Transparent,
-                BackgroundColor      = Color.FromArgb(61, 70, 73),
-                BorderColor          = Color.FromArgb(61, 70, 73),
-                BorderSize           = 0,
-                FocusBackgroundColor = Color.FromArgb(61, 70, 73),
-                FocusBorderColor     = Color.FromArgb(61, 70, 73),
-                PlaceholderColor     = Color.FromArgb(158, 163, 164),
-                Enabled              = false,
-            };
-            txtBxWeight.KeyPress += KeyPressDigitOnly;
-
-            var txtBxRepsOnly = new cuiTextBox2
-            {
-                Name                 = "cuiTextBox_RepsOnly",
-                Width                = txtBxTime.Width,
-                Height               = txtBxTime.Height,
-                Location             = txtBxTime.Location,
-                Font                 = txtBxTime.Font,
-                Rounding             = txtBxTime.Rounding,
-                Margin               = txtBxTime.Margin,
-                ForeColor            = txtBxTime.ForeColor,
-                BackColor            = txtBxTime.BackColor,
-                BackgroundColor      = txtBxTime.BackgroundColor,
-                BorderColor          = txtBxTime.BorderColor,
-                BorderSize           = txtBxTime.BorderSize,
-                FocusBackgroundColor = txtBxTime.FocusBackgroundColor,
-                FocusBorderColor     = txtBxTime.FocusBorderColor,
-                PlaceholderColor     = txtBxTime.PlaceholderColor,
-                Enabled              = txtBxTime.Enabled,
-            };
-            txtBxReps.KeyPress += KeyPressDigitOnly;
+            var setRow= CreateExerciseSetRow(parent, exerciseName, setNumber, setTag);
 
             //MessageBox.Show($"Adding setPanel with Tag={setTag} to exercise {parent.Tag}");     // TODO: REMOVE AFTER TEST
-
-
-            // adding the controls
-            var controls =
-                (timeOnlyExercises.Contains(exerciseName))
-                    ? new List<Control> { txtBxTime }
-                    : (repsOnlyExercises.Contains(exerciseName))
-                        ? new List<Control> { txtBxRepsOnly }
-                        : new List<Control> { txtBxWeight, txtBxReps, };
-            controls.AddRange(new List<Control>()
-            {
-                lblSet,
-                lblPrevious,
-            });
-            foreach (var ctrl in controls)
-            {
-                setRow.Controls.Add(ctrl);
-            }
 
             parent.Controls.Add(setRow);
             parent.Controls.SetChildIndex(setRow, parent.Controls.Count - 2); // Add above "Add Set" button
@@ -1563,162 +1239,339 @@ namespace TrainSMARTApp
 
         private Panel CreateExercisePanel(int exerciseId, string exerciseName)
         {
+            // Main Panel
             var panelExercise = new Panel
             {
-                Width = 360,
-                Height = 211,
-                Tag = exerciseId,
-                Margin = new Padding(3, 5, 3, 10),
-                BackColor = Color.Transparent,
-                BorderStyle = BorderStyle.None,
+                Width       = 360,
+                Height      = 211,
+                Tag         = exerciseId,
+                Margin      = new Padding(3, 5, 3, 10),
+                BackColor   = Color.Transparent,
+                BorderStyle = BorderStyle.None,  
             };
 
+            // Exercise Name Button
             var cuiButtonExerciseName = new cuiButton
             {
-                Content = exerciseName,
-                Font = new Font("SansSerif", 14),
-                ForeColor = Color.FromArgb(53, 167, 255),
-                Dock = DockStyle.Top,
-                Height = 60,
-                Tag = exerciseId,
-                TextOffset = new Point(0, -1),
-                BackColor = Color.Transparent,
-                HoverBackground = Color.Transparent,
-                HoverForeColor = Color.LightSkyBlue,
-                NormalBackground = Color.Transparent,
-                NormalForeColor = Color.FromArgb(53, 167, 255),
+                Content           = exerciseName,
+                Font              = new Font("SansSerif", 14),// FontStyle.Bold),
+                ForeColor         = Color.FromArgb(53, 167, 255),
+                Dock              = DockStyle.Top,
+                Height            = 60,
+                Tag               = exerciseId,
+                TextOffset        = new Point(0, -1), 
+
+                BackColor         = Color.Transparent,
+                HoverBackground   = Color.Transparent,
+                HoverForeColor    = Color.LightSkyBlue,
+                NormalBackground  = Color.Transparent,
+                NormalForeColor   = Color.FromArgb(53, 167, 255),
                 PressedBackground = Color.FromArgb(84, 91, 94),
-                PressedForeColor = Color.White,
+                PressedForeColor  = Color.White,
             };
             cuiButtonExerciseName.Click += ShowExerciseDetails;
 
-            // Set Labels
-            var labels = new List<Label>
+
+            // Labels
+            var lblSet = new Label
             {
-                new Label
-                {
-                    Text = "SET",
-                    Font = new Font("SansSerif", 9),
-                    Width = 30,
-                    Height = 15,
-                    ForeColor = Color.White,
-                    TextAlign = ContentAlignment.MiddleCenter,
-                    Location = new Point(10, 73),
-                },
-                new Label
-                {
-                    Text = "PREVIOUS",
-                    Font = new Font("SansSerif", 9),
-                    Width = 70,
-                    Height = 15,
-                    ForeColor = Color.White,
-                    TextAlign = ContentAlignment.MiddleCenter,
-                    Location = new Point(67, 73),
-                },
-                new Label
-                {
-                    Text = "LBS",
-                    Font = new Font("SansSerif", 9),
-                    Width = 30,
-                    Height = 15,
-                    ForeColor = Color.White,
-                    TextAlign = ContentAlignment.MiddleCenter,
-                    Location = new Point(197, 73),
-                },
-                new Label
-                {
-                    Text = "REPS",
-                    Font = new Font("SansSerif", 9),
-                    Width = 40,
-                    Height = 15,
-                    ForeColor = Color.White,
-                    TextAlign = ContentAlignment.MiddleCenter,
-                    Location = new Point(258, 73),
-                },
-                new Label
-                {
-                    Text = "TIME",
-                    Font = new Font("SansSerif", 9),
-                    Width = 40,
-                    Height = 15,
-                    ForeColor = Color.White,
-                    TextAlign = ContentAlignment.MiddleCenter,
-                    Location = new Point(227, 73),
-                },
+                Text      = "SET",
+                Font      = new Font("SansSerif", 9), //FontStyle.Bold),
+                Width     = 30,
+                Height    = 15,
+                ForeColor = Color.White,
+                TextAlign = ContentAlignment.MiddleCenter,
+                Location  = new Point(10, 73),
             };
 
-            // Add/Remove Set Buttons
+            var lblPrevious = new Label
+            {
+                Text      = "PREVIOUS",
+                Font      = lblSet.Font, 
+                Width     = lblSet.Width + 40,
+                Height    = lblSet.Height,
+                ForeColor = lblSet.ForeColor,
+                TextAlign = lblSet.TextAlign,
+                Location  = new Point(lblSet.Location.X + 57, lblSet.Location.Y),
+            };
+
+            var lblWeight = new Label
+            {
+                Text      = "LBS",
+                Font      = lblSet.Font,
+                Width     = lblSet.Width,
+                Height    = lblSet.Height,
+                ForeColor = lblSet.ForeColor,
+                TextAlign = lblSet.TextAlign,
+                Location  = new Point(lblPrevious.Location.X + 127, lblPrevious.Location.Y),
+            };
+
+            var lblReps = new Label
+            {
+                Text      = "REPS",
+                Font      = lblWeight.Font,
+                Width     = lblWeight.Width + 10,
+                Height    = lblWeight.Height,
+                ForeColor = lblWeight.ForeColor,
+                TextAlign = lblWeight.TextAlign,
+                Location  = new Point(lblWeight.Location.X + 64, lblWeight.Location.Y),
+            };
+
+            var lblTime = new Label
+            {
+                Text      = "TIME",
+                Font      = lblWeight.Font,
+                Width     = lblWeight.Width + 10,
+                Height    = lblWeight.Height,
+                ForeColor = lblWeight.ForeColor,
+                TextAlign = lblWeight.TextAlign,
+                Location  = new Point(lblWeight.Location.X + 25, lblWeight.Location.Y),
+            };
+
+            var lblRepsOnly = new Label
+            {
+                Text      = "REPS",
+                Font      = lblTime.Font,
+                Width     = lblTime.Width,
+                Height    = lblTime.Height,
+                ForeColor = lblTime.ForeColor,
+                TextAlign = lblTime.TextAlign,
+                Location  = new Point(lblTime.Location.X, lblTime.Location.Y),
+            };
+
+
+            // Buttons
             var cuiButtonAddSet = new cuiButton
             {
-                Content = "ADD SET",
-                Width = 180,
-                Tag = panelExercise,
-                Dock = DockStyle.Right,
-                Font = new Font("SansSerif", 11),
-                Margin = new Padding(3, 4, 3, 4),
-                Rounding = new Padding(4),
-                TextOffset = new Point(0, 4),
-                ForeColor = Color.FromArgb(53, 167, 255),
-                NormalForeColor = Color.FromArgb(53, 167, 255),
-                HoverForeColor = Color.LightSkyBlue,
-                PressedForeColor = Color.White,
-                BackColor = Color.Transparent,
-                NormalBackground = Color.Transparent,
-                HoverBackground = Color.Transparent,
+                Content           = "ADD SET",
+                Width             = 180,
+                //Height            = 48,
+                Tag               = panelExercise,
+                Dock              = DockStyle.Right,
+                Font              = new Font("SansSerif", 11),// FontStyle.Bold),
+                Margin            = new Padding(3, 4, 3, 4),
+                Rounding          = new Padding(4),
+                TextOffset        = new Point(0, 4),
+
+                ForeColor         = Color.FromArgb(53, 167, 255),
+                NormalForeColor   = Color.FromArgb(53, 167, 255),
+                HoverForeColor    = Color.LightSkyBlue,
+                PressedForeColor  = Color.White,
+                BackColor         = Color.Transparent,
+                NormalBackground  = Color.Transparent,
+                HoverBackground   = Color.Transparent,
                 PressedBackground = Color.FromArgb(42, 64, 78),
             };
             cuiButtonAddSet.Click += (s, e) =>
             {
                 var parent = (Panel)((cuiButton)s).Tag;
-                var addedRowHeight = AddExerciseSetRow(parent, exerciseName);
-                parent.Height += addedRowHeight;
+                var addedRowHeight= AddExerciseSetRow(parent, exerciseName);
+                panelExercise.Height += addedRowHeight;
             };
 
             var cuiButtonRemoveSet = new cuiButton
             {
-                Content = "REMOVE SET",
-                Width = 180,
-                Tag = panelExercise,
-                Dock = DockStyle.Left,
-                Font = cuiButtonAddSet.Font,
-                Margin = cuiButtonAddSet.Margin,
-                Rounding = cuiButtonAddSet.Rounding,
-                TextOffset = cuiButtonAddSet.TextOffset,
-                ForeColor = Color.Crimson,
-                NormalForeColor = Color.Crimson,
-                HoverForeColor = Color.Red,
-                PressedForeColor = Color.White,
-                BackColor = Color.Transparent,
-                NormalBackground = Color.Transparent,
-                HoverBackground = Color.Transparent,
+                Content           = "REMOVE SET",
+                Width             = cuiButtonAddSet.Width, 
+                //Height            = cuiButtonAddSet.Height,
+                Tag               = cuiButtonAddSet.Tag,
+                Dock              = DockStyle.Left,
+                Font              = cuiButtonAddSet.Font,
+                Margin            = cuiButtonAddSet.Margin,
+                Rounding          = cuiButtonAddSet.Rounding,
+                TextOffset        = cuiButtonAddSet.TextOffset,
+
+                ForeColor         = Color.Crimson,
+                NormalForeColor   = Color.Crimson,
+                HoverForeColor    = Color.Red,
+                PressedForeColor  = cuiButtonAddSet.PressedForeColor,
+                BackColor         = cuiButtonAddSet.BackColor,
+                NormalBackground  = cuiButtonAddSet.NormalBackground,
+                HoverBackground   = cuiButtonAddSet.HoverBackground,
                 PressedBackground = Color.FromArgb(255, 89, 100),
             };
             cuiButtonRemoveSet.Click += (s, e) =>
             {
                 var parent = (Panel)((cuiButton)s).Tag;
                 var subtractedRowHeight = RemoveExerciseSetRow(parent);
-                parent.Height -= subtractedRowHeight;
+                panelExercise.Height -= subtractedRowHeight;
             };
 
             var panelCuiButtons = new Panel
             {
-                Height = 48,
+                Height    = 48,
                 BackColor = Color.Transparent,
-                Margin = new Padding(3, 4, 3, 4),
-                Dock = DockStyle.Bottom,
-                Tag = exerciseId,
+                Margin    = new Padding(3, 4, 3, 4),
+                Dock      = DockStyle.Bottom,
+                Tag       = panelExercise.Tag,
             };
 
             panelCuiButtons.Controls.Add(cuiButtonAddSet);
             panelCuiButtons.Controls.Add(cuiButtonRemoveSet);
 
-            // Add everything to main panel
-            panelExercise.Controls.Add(cuiButtonExerciseName);
-            labels.ForEach(label => panelExercise.Controls.Add(label));
-            panelExercise.Controls.Add(panelCuiButtons);
+            var controls =
+                (timeOnlyExercises.Contains(exerciseName))
+                    ? new List<Control> { lblTime }
+                    : (repsOnlyExercises.Contains(exerciseName))
+                        ? new List<Control> { lblRepsOnly }
+                        : new List<Control> { lblWeight, lblReps, };
+            controls.AddRange(new List<Control>
+            {
+                cuiButtonExerciseName,
+                lblSet,
+                lblPrevious,
+                panelCuiButtons
+            });
+
+            foreach (var ctrl in controls)
+            {
+                panelExercise.Controls.Add(ctrl);
+            }
 
             return panelExercise;
         }
+
+
+        private Panel CreateExerciseSetRow(Panel parent, string exerciseName, int setNumber, object setTag)
+        {
+            var setRow = new Panel
+            {
+                Height    = 58,
+                Width     = parent.Width,
+                Dock      = DockStyle.Bottom,
+                Tag       = setTag,
+                BackColor = Color.Transparent,
+            };
+
+            var lblSet = new Label
+            {
+                Text      = setNumber.ToString(),
+                Width     = 35,
+                Location  = new Point(0,15),
+                Font      = new Font("SansSerif", 13),
+                ForeColor = Color.FromArgb(53, 167, 255),
+                TextAlign = ContentAlignment.MiddleRight,
+                //BackColor = Color.Transparent,
+            };
+
+            var lblPrevious = new Label
+            {
+                Text      = "100 lbs × 12", // TODO: get previous data
+                Width     = 120,
+                Location  = new Point(55, 16),
+                Font      = new Font("SansSerif", 12),
+                ForeColor = Color.FromArgb(191, 194, 195),
+                TextAlign = ContentAlignment.MiddleLeft,
+                //BackColor = Color.Transparent,
+            };
+
+            var txtBxWeight = new cuiTextBox2
+            {
+                Name                 = "cuiTextBox_Weight",
+                Width                = 62,
+                Height               = 40,
+                Location             = new Point(179, 6), 
+                Font                 = new Font("SansSerif", 12),
+                Rounding             = new Padding(8),
+                Margin               = new Padding(20,0,20,0),
+                ForeColor            = Color.White,
+                BackColor            = Color.Transparent,
+                BackgroundColor      = Color.FromArgb(61, 70, 73),
+                BorderColor          = Color.FromArgb(61, 70, 73),
+                BorderSize           = 0,
+                FocusBackgroundColor = Color.FromArgb(61, 70, 73),
+                FocusBorderColor     = Color.FromArgb(61, 70, 73),
+                PlaceholderColor     = Color.FromArgb(158, 163, 164),
+                Enabled              = false,
+            };
+            txtBxWeight.KeyPress += KeyPressDigitOnly;
+
+            var txtBxReps = new cuiTextBox2
+            {
+                Name                 = "cuiTextBox_Reps",
+                Width                = txtBxWeight.Width,
+                Height               = txtBxWeight.Height,
+                Location             = new Point(txtBxWeight.Location.X + 70, txtBxWeight.Location.Y),
+                Font                 = txtBxWeight.Font,
+                Rounding             = txtBxWeight.Rounding,
+                Margin               = txtBxWeight.Margin,
+                ForeColor            = txtBxWeight.ForeColor,
+                BackColor            = txtBxWeight.BackColor,
+                BackgroundColor      = txtBxWeight.BackgroundColor,
+                BorderColor          = txtBxWeight.BorderColor,
+                BorderSize           = txtBxWeight.BorderSize,
+                FocusBackgroundColor = txtBxWeight.FocusBackgroundColor,
+                FocusBorderColor     = txtBxWeight.FocusBorderColor,
+                PlaceholderColor     = txtBxWeight.PlaceholderColor,
+                Enabled              = txtBxWeight.Enabled,
+            };
+            txtBxReps.KeyPress += KeyPressDigitOnly;
+
+            var txtBxTime = new cuiTextBox2
+            {
+                Name                 = "cuiTextBox_Time",
+                Width                = 132,
+                Height               = 40,
+                Location             = new Point(179, 6),
+                Font                 = new Font("SansSerif", 12),
+                Rounding             = new Padding(8),
+                Margin               = new Padding(20, 0, 20, 0),
+                ForeColor            = Color.White,
+                BackColor            = Color.Transparent,
+                BackgroundColor      = Color.FromArgb(61, 70, 73),
+                BorderColor          = Color.FromArgb(61, 70, 73),
+                BorderSize           = 0,
+                FocusBackgroundColor = Color.FromArgb(61, 70, 73),
+                FocusBorderColor     = Color.FromArgb(61, 70, 73),
+                PlaceholderColor     = Color.FromArgb(158, 163, 164),
+                Enabled              = false,
+            };
+            txtBxTime.KeyPress += KeyPressDigitOnly;
+
+            var txtBxRepsOnly = new cuiTextBox2
+            {
+                Name                 = "cuiTextBox_RepsOnly",
+                Width                = txtBxTime.Width,
+                Height               = txtBxTime.Height,
+                Location             = txtBxTime.Location,
+                Font                 = txtBxTime.Font,
+                Rounding             = txtBxTime.Rounding,
+                Margin               = txtBxTime.Margin,
+                ForeColor            = txtBxTime.ForeColor,
+                BackColor            = txtBxTime.BackColor,
+                BackgroundColor      = txtBxTime.BackgroundColor,
+                BorderColor          = txtBxTime.BorderColor,
+                BorderSize           = txtBxTime.BorderSize,
+                FocusBackgroundColor = txtBxTime.FocusBackgroundColor,
+                FocusBorderColor     = txtBxTime.FocusBorderColor,
+                PlaceholderColor     = txtBxTime.PlaceholderColor,
+                Enabled              = txtBxTime.Enabled,
+            };
+            txtBxRepsOnly.KeyPress += KeyPressDigitOnly;
+
+            // Add correct controls based on exercise type
+            var controls =
+                (timeOnlyExercises.Contains(exerciseName))
+                    ? new List<Control> { txtBxTime }
+                    : (repsOnlyExercises.Contains(exerciseName))
+                        ? new List<Control> { txtBxRepsOnly }
+                        : new List<Control> { txtBxWeight, txtBxReps };
+
+            controls.AddRange(new List<Control>
+            {
+                lblSet,
+                lblPrevious
+            });
+
+            foreach (var ctrl in controls)
+            {
+                setRow.Controls.Add(ctrl);
+            }
+
+            return setRow;
+        }
+
+
 
 
 
