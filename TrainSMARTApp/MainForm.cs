@@ -93,6 +93,7 @@ namespace TrainSMARTApp
             this.panel_Form_Title.MouseMove += this.MouseMove;
             this.panel_Form_Title.MouseUp += this.MouseUp;
 
+            LoadUserWorkoutTemplates(_loggedInUser);
             LoadExerciseButtons(null, null);
             ShowMenu(panel_Menu_Profile, cuiButton_Menu_Profile);
 
@@ -175,6 +176,7 @@ namespace TrainSMARTApp
             isCreatingWorkoutTemplate = false;
             ShowMenu(panel_Menu_Workout, cuiButton_Menu_Workout);
             ClearWorkoutCreationTemplates();
+            LoadUserWorkoutTemplates(_loggedInUser);
         }
 
         private void cuiButton_Menu_Exercises_Click(object sender, EventArgs e)
@@ -1340,11 +1342,15 @@ namespace TrainSMARTApp
 
         private void LoadUserWorkoutTemplates(User currentUser)
         {
-            if (currentUser == null)
+            foreach (var ctrl in flowLayoutPanel_Workout.Controls.OfType<Control>().ToList())
             {
-                MessageBox.Show("User not logged in.");
-                return;
+                if (ctrl is cuiButton { Tag: int } btn)
+                {
+                    flowLayoutPanel_Workout.Controls.Remove(btn);
+                    btn.Dispose();
+                }
             }
+
 
             using SqlConnection conn = new SqlConnection(connectionString);
             string query = @"
@@ -1370,9 +1376,9 @@ namespace TrainSMARTApp
 
                     var btnTemplate = new cuiButton
                     {
-                        Width             = 447,
-                        Height            = 90,
-                        Margin            = new Padding(20, 20, 20, 4),
+                        Width             = 335,
+                        Height            = 75,
+                        Margin            = new Padding(15, 15, 15, 4),
                         Font              = new Font("SansSerif", 14, FontStyle.Bold),
                         Content           = $"{templateName}",// - {createdDate:MMM dd, yyyy}",
                         Tag               = templateId,
@@ -1382,11 +1388,12 @@ namespace TrainSMARTApp
                         HoverForeColor    = Color.DimGray,
                         HoverOutline      = Color.FromArgb(95, 102, 105),
                         NormalBackground  = Color.Transparent,
-                        NormalForeColor   = Color.FromArgb(53, 167, 255),
+                        NormalForeColor   = Color.White,
                         NormalOutline     = Color.FromArgb(95, 102, 105),
                         PressedBackground = Color.FromArgb(84, 91, 94),
                         PressedForeColor  = Color.White,
                         PressedOutline    = Color.FromArgb(95, 102, 105),
+                        OutlineThickness  = 1.5f,
                     };
 
                     // Optional: store additional info like note in Tag if needed
@@ -1401,9 +1408,11 @@ namespace TrainSMARTApp
                     flowLayoutPanel_Workout.Controls.Add(btnTemplate);
                     flowLayoutPanel_Workout.Controls.SetChildIndex(btnTemplate, 1);
                 }
+                label_Workout_EmptyTemplateMsg.Visible = false;
             }
             catch (Exception ex)
             {
+                label_Workout_EmptyTemplateMsg.Visible = true;
                 MessageBox.Show("Failed to load workout templates:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
