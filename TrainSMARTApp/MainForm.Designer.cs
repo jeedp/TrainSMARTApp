@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea9 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel_Menus = new System.Windows.Forms.Panel();
             this.cuiButton_Menu_Measure = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Menu_Exercises = new CuoreUI.Controls.cuiButton();
@@ -113,11 +113,6 @@
             this.label_Workout_QuickStart = new System.Windows.Forms.Label();
             this.label_Workout_EmptyTemplateMsg = new System.Windows.Forms.Label();
             this.label_Workout_SampleTemplates = new System.Windows.Forms.Label();
-            this.cuiButton_Template_Legs = new CuoreUI.Controls.cuiButton();
-            this.cuiButton_Template_ChestAndTriceps = new CuoreUI.Controls.cuiButton();
-            this.cuiButton_Template_BackAndBiceps = new CuoreUI.Controls.cuiButton();
-            this.cuiButton_Template_WorkoutA = new CuoreUI.Controls.cuiButton();
-            this.cuiButton_Template_WorkoutB = new CuoreUI.Controls.cuiButton();
             this.panel_Menu_Measure = new System.Windows.Forms.Panel();
             this.cuiGradientBorder_Measure = new CuoreUI.Controls.cuiGradientBorder();
             this.panel_Measure_Title = new System.Windows.Forms.Panel();
@@ -199,6 +194,7 @@
             this.cuiButton_WorkoutTemplate_Edit = new CuoreUI.Controls.cuiButton();
             this.label_WorkoutTemplate_Name = new System.Windows.Forms.Label();
             this.flowLayoutPanel_WorkoutTemplate = new System.Windows.Forms.FlowLayoutPanel();
+            this.cuiButton_WorkoutTemplate_Start = new CuoreUI.Controls.cuiButton();
             this.panel_Menus.SuspendLayout();
             this.panel_Form_Title.SuspendLayout();
             this.flowLayoutPanel_WorkoutCreation.SuspendLayout();
@@ -985,16 +981,16 @@
             this.chart_Profile_WorkoutCount.BorderlineWidth = 0;
             this.chart_Profile_WorkoutCount.BorderSkin.BackColor = System.Drawing.Color.Transparent;
             this.chart_Profile_WorkoutCount.BorderSkin.BorderColor = System.Drawing.Color.Transparent;
-            chartArea1.BackColor = System.Drawing.Color.Transparent;
-            chartArea1.BorderWidth = 0;
-            chartArea1.Name = "ChartArea1";
-            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea1);
+            chartArea9.BackColor = System.Drawing.Color.Transparent;
+            chartArea9.BorderWidth = 0;
+            chartArea9.Name = "ChartArea1";
+            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea9);
             this.chart_Profile_WorkoutCount.Location = new System.Drawing.Point(11, 60);
             this.chart_Profile_WorkoutCount.Name = "chart_Profile_WorkoutCount";
             this.chart_Profile_WorkoutCount.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series1.ChartArea = "ChartArea1";
-            series1.Name = "Series1";
-            this.chart_Profile_WorkoutCount.Series.Add(series1);
+            series9.ChartArea = "ChartArea1";
+            series9.Name = "Series1";
+            this.chart_Profile_WorkoutCount.Series.Add(series9);
             this.chart_Profile_WorkoutCount.Size = new System.Drawing.Size(440, 245);
             this.chart_Profile_WorkoutCount.TabIndex = 1;
             this.chart_Profile_WorkoutCount.Text = "chart1";
@@ -1731,11 +1727,6 @@
             this.flowLayoutPanel_Workout.Controls.Add(this.panel_Workout_QuickStart);
             this.flowLayoutPanel_Workout.Controls.Add(this.label_Workout_EmptyTemplateMsg);
             this.flowLayoutPanel_Workout.Controls.Add(this.label_Workout_SampleTemplates);
-            this.flowLayoutPanel_Workout.Controls.Add(this.cuiButton_Template_Legs);
-            this.flowLayoutPanel_Workout.Controls.Add(this.cuiButton_Template_ChestAndTriceps);
-            this.flowLayoutPanel_Workout.Controls.Add(this.cuiButton_Template_BackAndBiceps);
-            this.flowLayoutPanel_Workout.Controls.Add(this.cuiButton_Template_WorkoutA);
-            this.flowLayoutPanel_Workout.Controls.Add(this.cuiButton_Template_WorkoutB);
             this.flowLayoutPanel_Workout.Cursor = System.Windows.Forms.Cursors.Default;
             this.flowLayoutPanel_Workout.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel_Workout.Location = new System.Drawing.Point(0, -571);
@@ -1753,7 +1744,7 @@
             this.panel_Workout_QuickStart.Location = new System.Drawing.Point(0, 0);
             this.panel_Workout_QuickStart.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Workout_QuickStart.Name = "panel_Workout_QuickStart";
-            this.panel_Workout_QuickStart.Size = new System.Drawing.Size(488, 190);
+            this.panel_Workout_QuickStart.Size = new System.Drawing.Size(488, 178);
             this.panel_Workout_QuickStart.TabIndex = 0;
             // 
             // cuiButton_Workout_AddTemplate
@@ -1864,7 +1855,7 @@
             this.label_Workout_EmptyTemplateMsg.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label_Workout_EmptyTemplateMsg.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label_Workout_EmptyTemplateMsg.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(194)))), ((int)(((byte)(195)))));
-            this.label_Workout_EmptyTemplateMsg.Location = new System.Drawing.Point(20, 200);
+            this.label_Workout_EmptyTemplateMsg.Location = new System.Drawing.Point(20, 188);
             this.label_Workout_EmptyTemplateMsg.Margin = new System.Windows.Forms.Padding(20, 10, 3, 0);
             this.label_Workout_EmptyTemplateMsg.Name = "label_Workout_EmptyTemplateMsg";
             this.label_Workout_EmptyTemplateMsg.Size = new System.Drawing.Size(424, 46);
@@ -1880,198 +1871,13 @@
             this.label_Workout_SampleTemplates.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label_Workout_SampleTemplates.Font = new System.Drawing.Font("SansSerif", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.label_Workout_SampleTemplates.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(194)))), ((int)(((byte)(195)))));
-            this.label_Workout_SampleTemplates.Location = new System.Drawing.Point(20, 273);
+            this.label_Workout_SampleTemplates.Location = new System.Drawing.Point(20, 261);
             this.label_Workout_SampleTemplates.Margin = new System.Windows.Forms.Padding(20, 27, 3, 0);
             this.label_Workout_SampleTemplates.Name = "label_Workout_SampleTemplates";
             this.label_Workout_SampleTemplates.Size = new System.Drawing.Size(160, 17);
             this.label_Workout_SampleTemplates.TabIndex = 15;
             this.label_Workout_SampleTemplates.Text = "SAMPLE TEMPLATES";
             this.label_Workout_SampleTemplates.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // cuiButton_Template_Legs
-            // 
-            this.cuiButton_Template_Legs.CheckButton = false;
-            this.cuiButton_Template_Legs.Checked = false;
-            this.cuiButton_Template_Legs.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Template_Legs.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Template_Legs.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Template_Legs.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Template_Legs.Content = "Legs";
-            this.cuiButton_Template_Legs.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.cuiButton_Template_Legs.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cuiButton_Template_Legs.ForeColor = System.Drawing.Color.White;
-            this.cuiButton_Template_Legs.HoverBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_Template_Legs.HoveredImageTint = System.Drawing.Color.White;
-            this.cuiButton_Template_Legs.HoverForeColor = System.Drawing.Color.DimGray;
-            this.cuiButton_Template_Legs.HoverOutline = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(102)))), ((int)(((byte)(105)))));
-            this.cuiButton_Template_Legs.Image = null;
-            this.cuiButton_Template_Legs.ImageAutoCenter = false;
-            this.cuiButton_Template_Legs.ImageExpand = new System.Drawing.Point(0, 0);
-            this.cuiButton_Template_Legs.ImageOffset = new System.Drawing.Point(0, 0);
-            this.cuiButton_Template_Legs.Location = new System.Drawing.Point(20, 310);
-            this.cuiButton_Template_Legs.Margin = new System.Windows.Forms.Padding(20, 20, 20, 4);
-            this.cuiButton_Template_Legs.Name = "cuiButton_Template_Legs";
-            this.cuiButton_Template_Legs.NormalBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_Template_Legs.NormalForeColor = System.Drawing.Color.White;
-            this.cuiButton_Template_Legs.NormalImageTint = System.Drawing.Color.White;
-            this.cuiButton_Template_Legs.NormalOutline = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(102)))), ((int)(((byte)(105)))));
-            this.cuiButton_Template_Legs.OutlineThickness = 1.5F;
-            this.cuiButton_Template_Legs.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(91)))), ((int)(((byte)(94)))));
-            this.cuiButton_Template_Legs.PressedForeColor = System.Drawing.Color.White;
-            this.cuiButton_Template_Legs.PressedImageTint = System.Drawing.Color.White;
-            this.cuiButton_Template_Legs.PressedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(102)))), ((int)(((byte)(105)))));
-            this.cuiButton_Template_Legs.Rounding = new System.Windows.Forms.Padding(8);
-            this.cuiButton_Template_Legs.Size = new System.Drawing.Size(447, 90);
-            this.cuiButton_Template_Legs.TabIndex = 20;
-            this.cuiButton_Template_Legs.TextOffset = new System.Drawing.Point(0, 0);
-            // 
-            // cuiButton_Template_ChestAndTriceps
-            // 
-            this.cuiButton_Template_ChestAndTriceps.CheckButton = false;
-            this.cuiButton_Template_ChestAndTriceps.Checked = false;
-            this.cuiButton_Template_ChestAndTriceps.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Template_ChestAndTriceps.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Template_ChestAndTriceps.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Template_ChestAndTriceps.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Template_ChestAndTriceps.Content = "Chest and Triceps";
-            this.cuiButton_Template_ChestAndTriceps.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.cuiButton_Template_ChestAndTriceps.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cuiButton_Template_ChestAndTriceps.ForeColor = System.Drawing.Color.White;
-            this.cuiButton_Template_ChestAndTriceps.HoverBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_Template_ChestAndTriceps.HoveredImageTint = System.Drawing.Color.White;
-            this.cuiButton_Template_ChestAndTriceps.HoverForeColor = System.Drawing.Color.DimGray;
-            this.cuiButton_Template_ChestAndTriceps.HoverOutline = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(102)))), ((int)(((byte)(105)))));
-            this.cuiButton_Template_ChestAndTriceps.Image = null;
-            this.cuiButton_Template_ChestAndTriceps.ImageAutoCenter = false;
-            this.cuiButton_Template_ChestAndTriceps.ImageExpand = new System.Drawing.Point(0, 0);
-            this.cuiButton_Template_ChestAndTriceps.ImageOffset = new System.Drawing.Point(0, 0);
-            this.cuiButton_Template_ChestAndTriceps.Location = new System.Drawing.Point(20, 424);
-            this.cuiButton_Template_ChestAndTriceps.Margin = new System.Windows.Forms.Padding(20, 20, 20, 4);
-            this.cuiButton_Template_ChestAndTriceps.Name = "cuiButton_Template_ChestAndTriceps";
-            this.cuiButton_Template_ChestAndTriceps.NormalBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_Template_ChestAndTriceps.NormalForeColor = System.Drawing.Color.White;
-            this.cuiButton_Template_ChestAndTriceps.NormalImageTint = System.Drawing.Color.White;
-            this.cuiButton_Template_ChestAndTriceps.NormalOutline = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(102)))), ((int)(((byte)(105)))));
-            this.cuiButton_Template_ChestAndTriceps.OutlineThickness = 1.5F;
-            this.cuiButton_Template_ChestAndTriceps.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(91)))), ((int)(((byte)(94)))));
-            this.cuiButton_Template_ChestAndTriceps.PressedForeColor = System.Drawing.Color.White;
-            this.cuiButton_Template_ChestAndTriceps.PressedImageTint = System.Drawing.Color.White;
-            this.cuiButton_Template_ChestAndTriceps.PressedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(102)))), ((int)(((byte)(105)))));
-            this.cuiButton_Template_ChestAndTriceps.Rounding = new System.Windows.Forms.Padding(8);
-            this.cuiButton_Template_ChestAndTriceps.Size = new System.Drawing.Size(447, 90);
-            this.cuiButton_Template_ChestAndTriceps.TabIndex = 21;
-            this.cuiButton_Template_ChestAndTriceps.TextOffset = new System.Drawing.Point(0, 0);
-            // 
-            // cuiButton_Template_BackAndBiceps
-            // 
-            this.cuiButton_Template_BackAndBiceps.CheckButton = false;
-            this.cuiButton_Template_BackAndBiceps.Checked = false;
-            this.cuiButton_Template_BackAndBiceps.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Template_BackAndBiceps.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Template_BackAndBiceps.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Template_BackAndBiceps.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Template_BackAndBiceps.Content = "Back and Biceps";
-            this.cuiButton_Template_BackAndBiceps.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.cuiButton_Template_BackAndBiceps.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cuiButton_Template_BackAndBiceps.ForeColor = System.Drawing.Color.White;
-            this.cuiButton_Template_BackAndBiceps.HoverBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_Template_BackAndBiceps.HoveredImageTint = System.Drawing.Color.White;
-            this.cuiButton_Template_BackAndBiceps.HoverForeColor = System.Drawing.Color.DimGray;
-            this.cuiButton_Template_BackAndBiceps.HoverOutline = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(102)))), ((int)(((byte)(105)))));
-            this.cuiButton_Template_BackAndBiceps.Image = null;
-            this.cuiButton_Template_BackAndBiceps.ImageAutoCenter = false;
-            this.cuiButton_Template_BackAndBiceps.ImageExpand = new System.Drawing.Point(0, 0);
-            this.cuiButton_Template_BackAndBiceps.ImageOffset = new System.Drawing.Point(0, 0);
-            this.cuiButton_Template_BackAndBiceps.Location = new System.Drawing.Point(20, 538);
-            this.cuiButton_Template_BackAndBiceps.Margin = new System.Windows.Forms.Padding(20, 20, 20, 4);
-            this.cuiButton_Template_BackAndBiceps.Name = "cuiButton_Template_BackAndBiceps";
-            this.cuiButton_Template_BackAndBiceps.NormalBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_Template_BackAndBiceps.NormalForeColor = System.Drawing.Color.White;
-            this.cuiButton_Template_BackAndBiceps.NormalImageTint = System.Drawing.Color.White;
-            this.cuiButton_Template_BackAndBiceps.NormalOutline = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(102)))), ((int)(((byte)(105)))));
-            this.cuiButton_Template_BackAndBiceps.OutlineThickness = 1.5F;
-            this.cuiButton_Template_BackAndBiceps.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(91)))), ((int)(((byte)(94)))));
-            this.cuiButton_Template_BackAndBiceps.PressedForeColor = System.Drawing.Color.White;
-            this.cuiButton_Template_BackAndBiceps.PressedImageTint = System.Drawing.Color.White;
-            this.cuiButton_Template_BackAndBiceps.PressedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(102)))), ((int)(((byte)(105)))));
-            this.cuiButton_Template_BackAndBiceps.Rounding = new System.Windows.Forms.Padding(8);
-            this.cuiButton_Template_BackAndBiceps.Size = new System.Drawing.Size(447, 90);
-            this.cuiButton_Template_BackAndBiceps.TabIndex = 22;
-            this.cuiButton_Template_BackAndBiceps.TextOffset = new System.Drawing.Point(0, 0);
-            // 
-            // cuiButton_Template_WorkoutA
-            // 
-            this.cuiButton_Template_WorkoutA.CheckButton = false;
-            this.cuiButton_Template_WorkoutA.Checked = false;
-            this.cuiButton_Template_WorkoutA.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Template_WorkoutA.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Template_WorkoutA.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Template_WorkoutA.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Template_WorkoutA.Content = "Workout A";
-            this.cuiButton_Template_WorkoutA.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.cuiButton_Template_WorkoutA.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cuiButton_Template_WorkoutA.ForeColor = System.Drawing.Color.White;
-            this.cuiButton_Template_WorkoutA.HoverBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_Template_WorkoutA.HoveredImageTint = System.Drawing.Color.White;
-            this.cuiButton_Template_WorkoutA.HoverForeColor = System.Drawing.Color.DimGray;
-            this.cuiButton_Template_WorkoutA.HoverOutline = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(102)))), ((int)(((byte)(105)))));
-            this.cuiButton_Template_WorkoutA.Image = null;
-            this.cuiButton_Template_WorkoutA.ImageAutoCenter = false;
-            this.cuiButton_Template_WorkoutA.ImageExpand = new System.Drawing.Point(0, 0);
-            this.cuiButton_Template_WorkoutA.ImageOffset = new System.Drawing.Point(0, 0);
-            this.cuiButton_Template_WorkoutA.Location = new System.Drawing.Point(20, 652);
-            this.cuiButton_Template_WorkoutA.Margin = new System.Windows.Forms.Padding(20, 20, 20, 4);
-            this.cuiButton_Template_WorkoutA.Name = "cuiButton_Template_WorkoutA";
-            this.cuiButton_Template_WorkoutA.NormalBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_Template_WorkoutA.NormalForeColor = System.Drawing.Color.White;
-            this.cuiButton_Template_WorkoutA.NormalImageTint = System.Drawing.Color.White;
-            this.cuiButton_Template_WorkoutA.NormalOutline = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(102)))), ((int)(((byte)(105)))));
-            this.cuiButton_Template_WorkoutA.OutlineThickness = 1.5F;
-            this.cuiButton_Template_WorkoutA.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(91)))), ((int)(((byte)(94)))));
-            this.cuiButton_Template_WorkoutA.PressedForeColor = System.Drawing.Color.White;
-            this.cuiButton_Template_WorkoutA.PressedImageTint = System.Drawing.Color.White;
-            this.cuiButton_Template_WorkoutA.PressedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(102)))), ((int)(((byte)(105)))));
-            this.cuiButton_Template_WorkoutA.Rounding = new System.Windows.Forms.Padding(8);
-            this.cuiButton_Template_WorkoutA.Size = new System.Drawing.Size(447, 90);
-            this.cuiButton_Template_WorkoutA.TabIndex = 23;
-            this.cuiButton_Template_WorkoutA.TextOffset = new System.Drawing.Point(0, 0);
-            // 
-            // cuiButton_Template_WorkoutB
-            // 
-            this.cuiButton_Template_WorkoutB.CheckButton = false;
-            this.cuiButton_Template_WorkoutB.Checked = false;
-            this.cuiButton_Template_WorkoutB.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Template_WorkoutB.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Template_WorkoutB.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_Template_WorkoutB.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_Template_WorkoutB.Content = "Workout B";
-            this.cuiButton_Template_WorkoutB.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.cuiButton_Template_WorkoutB.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cuiButton_Template_WorkoutB.ForeColor = System.Drawing.Color.White;
-            this.cuiButton_Template_WorkoutB.HoverBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_Template_WorkoutB.HoveredImageTint = System.Drawing.Color.White;
-            this.cuiButton_Template_WorkoutB.HoverForeColor = System.Drawing.Color.DimGray;
-            this.cuiButton_Template_WorkoutB.HoverOutline = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(102)))), ((int)(((byte)(105)))));
-            this.cuiButton_Template_WorkoutB.Image = null;
-            this.cuiButton_Template_WorkoutB.ImageAutoCenter = false;
-            this.cuiButton_Template_WorkoutB.ImageExpand = new System.Drawing.Point(0, 0);
-            this.cuiButton_Template_WorkoutB.ImageOffset = new System.Drawing.Point(0, 0);
-            this.cuiButton_Template_WorkoutB.Location = new System.Drawing.Point(20, 766);
-            this.cuiButton_Template_WorkoutB.Margin = new System.Windows.Forms.Padding(20, 20, 20, 4);
-            this.cuiButton_Template_WorkoutB.Name = "cuiButton_Template_WorkoutB";
-            this.cuiButton_Template_WorkoutB.NormalBackground = System.Drawing.Color.Transparent;
-            this.cuiButton_Template_WorkoutB.NormalForeColor = System.Drawing.Color.White;
-            this.cuiButton_Template_WorkoutB.NormalImageTint = System.Drawing.Color.White;
-            this.cuiButton_Template_WorkoutB.NormalOutline = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(102)))), ((int)(((byte)(105)))));
-            this.cuiButton_Template_WorkoutB.OutlineThickness = 1.5F;
-            this.cuiButton_Template_WorkoutB.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(91)))), ((int)(((byte)(94)))));
-            this.cuiButton_Template_WorkoutB.PressedForeColor = System.Drawing.Color.White;
-            this.cuiButton_Template_WorkoutB.PressedImageTint = System.Drawing.Color.White;
-            this.cuiButton_Template_WorkoutB.PressedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(102)))), ((int)(((byte)(105)))));
-            this.cuiButton_Template_WorkoutB.Rounding = new System.Windows.Forms.Padding(8);
-            this.cuiButton_Template_WorkoutB.Size = new System.Drawing.Size(447, 90);
-            this.cuiButton_Template_WorkoutB.TabIndex = 24;
-            this.cuiButton_Template_WorkoutB.TextOffset = new System.Drawing.Point(0, 0);
             // 
             // panel_Menu_Measure
             // 
@@ -4014,12 +3820,49 @@
             this.flowLayoutPanel_WorkoutTemplate.Size = new System.Drawing.Size(513, 663);
             this.flowLayoutPanel_WorkoutTemplate.TabIndex = 6;
             // 
+            // cuiButton_WorkoutTemplate_Start
+            // 
+            this.cuiButton_WorkoutTemplate_Start.CheckButton = false;
+            this.cuiButton_WorkoutTemplate_Start.Checked = false;
+            this.cuiButton_WorkoutTemplate_Start.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(106)))), ((int)(((byte)(0)))));
+            this.cuiButton_WorkoutTemplate_Start.CheckedForeColor = System.Drawing.Color.White;
+            this.cuiButton_WorkoutTemplate_Start.CheckedImageTint = System.Drawing.Color.White;
+            this.cuiButton_WorkoutTemplate_Start.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(106)))), ((int)(((byte)(0)))));
+            this.cuiButton_WorkoutTemplate_Start.Content = "START WORKOUT";
+            this.cuiButton_WorkoutTemplate_Start.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.cuiButton_WorkoutTemplate_Start.Font = new System.Drawing.Font("SansSerif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiButton_WorkoutTemplate_Start.ForeColor = System.Drawing.Color.White;
+            this.cuiButton_WorkoutTemplate_Start.HoverBackground = System.Drawing.Color.FromArgb(((int)(((byte)(9)))), ((int)(((byte)(183)))), ((int)(((byte)(255)))));
+            this.cuiButton_WorkoutTemplate_Start.HoveredImageTint = System.Drawing.Color.White;
+            this.cuiButton_WorkoutTemplate_Start.HoverForeColor = System.Drawing.Color.White;
+            this.cuiButton_WorkoutTemplate_Start.HoverOutline = System.Drawing.Color.Empty;
+            this.cuiButton_WorkoutTemplate_Start.Image = null;
+            this.cuiButton_WorkoutTemplate_Start.ImageAutoCenter = true;
+            this.cuiButton_WorkoutTemplate_Start.ImageExpand = new System.Drawing.Point(0, 0);
+            this.cuiButton_WorkoutTemplate_Start.ImageOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_WorkoutTemplate_Start.Location = new System.Drawing.Point(23, 702);
+            this.cuiButton_WorkoutTemplate_Start.Name = "cuiButton_WorkoutTemplate_Start";
+            this.cuiButton_WorkoutTemplate_Start.NormalBackground = System.Drawing.Color.FromArgb(((int)(((byte)(53)))), ((int)(((byte)(167)))), ((int)(((byte)(255)))));
+            this.cuiButton_WorkoutTemplate_Start.NormalForeColor = System.Drawing.Color.White;
+            this.cuiButton_WorkoutTemplate_Start.NormalImageTint = System.Drawing.Color.White;
+            this.cuiButton_WorkoutTemplate_Start.NormalOutline = System.Drawing.Color.Empty;
+            this.cuiButton_WorkoutTemplate_Start.OutlineThickness = 1.6F;
+            this.cuiButton_WorkoutTemplate_Start.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(101)))), ((int)(((byte)(188)))), ((int)(((byte)(255)))));
+            this.cuiButton_WorkoutTemplate_Start.PressedForeColor = System.Drawing.Color.White;
+            this.cuiButton_WorkoutTemplate_Start.PressedImageTint = System.Drawing.Color.White;
+            this.cuiButton_WorkoutTemplate_Start.PressedOutline = System.Drawing.Color.Empty;
+            this.cuiButton_WorkoutTemplate_Start.Rounding = new System.Windows.Forms.Padding(5);
+            this.cuiButton_WorkoutTemplate_Start.Size = new System.Drawing.Size(440, 54);
+            this.cuiButton_WorkoutTemplate_Start.TabIndex = 14;
+            this.cuiButton_WorkoutTemplate_Start.TextOffset = new System.Drawing.Point(0, 0);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
             this.ClientSize = new System.Drawing.Size(513, 788);
+            this.Controls.Add(this.cuiButton_WorkoutTemplate_Start);
             this.Controls.Add(this.panel_WorkoutTemplate);
             this.Controls.Add(this.panel_Measurement);
             this.Controls.Add(this.panel_ExerciseDetails);
@@ -4171,11 +4014,6 @@
         private System.Windows.Forms.Label label_Workout_QuickStart;
         private System.Windows.Forms.Label label_Workout_EmptyTemplateMsg;
         private System.Windows.Forms.Label label_Workout_SampleTemplates;
-        private CuoreUI.Controls.cuiButton cuiButton_Template_Legs;
-        private CuoreUI.Controls.cuiButton cuiButton_Template_ChestAndTriceps;
-        private CuoreUI.Controls.cuiButton cuiButton_Template_BackAndBiceps;
-        private CuoreUI.Controls.cuiButton cuiButton_Template_WorkoutA;
-        private CuoreUI.Controls.cuiButton cuiButton_Template_WorkoutB;
         private System.Windows.Forms.Panel panel_Menu_Exercises;
         private CuoreUI.Controls.cuiGradientBorder cuiGradientBorder_Exercises;
         private System.Windows.Forms.Panel panel_Exercises_Title;
@@ -4268,5 +4106,6 @@
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel_WorkoutTemplate;
         private CuoreUI.Controls.cuiButton cuiButton_WorkoutTemplate_Edit;
         private CuoreUI.Controls.cuiButton cuiButton_WorkoutTemplate_GoBack;
+        private CuoreUI.Controls.cuiButton cuiButton_WorkoutTemplate_Start;
     }
 }

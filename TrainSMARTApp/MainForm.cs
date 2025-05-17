@@ -85,6 +85,23 @@ namespace TrainSMARTApp
             // cuiGradientBorder_AboveMenu size (513, 10)
             // panel_Menus size (513, 82)
 
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlTransaction transaction = conn.BeginTransaction();
+
+                try
+                {
+                    AddPrebuiltTemplatesForUser(_loggedInUser.UserID, connectionString);
+                    transaction.Commit();
+                }
+                catch
+                {
+                    transaction.Rollback();
+                    throw;
+                }
+            }
+
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -174,6 +191,7 @@ namespace TrainSMARTApp
         {
             isAddingExercises = false;
             isCreatingWorkoutTemplate = false;
+            cuiButton_WorkoutTemplate_Start.Visible = false;
             ShowMenu(panel_Menu_Workout, cuiButton_Menu_Workout);
             ClearWorkoutCreationTemplates();
             LoadUserWorkoutTemplates(_loggedInUser);
@@ -555,6 +573,9 @@ namespace TrainSMARTApp
         private void ShowTemplateDetails()
         {
             ShowMenu(panel_WorkoutTemplate, cuiButton_Menu_Workout);
+            cuiButton_WorkoutTemplate_Start.Visible = true;
+
+            var index = flowLayoutPanel_WorkoutTemplate.Controls.OfType<Panel>().Count();
         }
 
 
@@ -846,11 +867,6 @@ namespace TrainSMARTApp
                                 continue;
                             }
 
-
-                            //int weight = 0;
-                            //int reps = 0;
-                            //int time = 0;
-
                             cuiTextBox2 txtWeight = setPanel.Controls.Find("cuiTextBox_Weight", true).FirstOrDefault() as cuiTextBox2;
                             cuiTextBox2 txtReps = setPanel.Controls.Find("cuiTextBox_Reps", true).FirstOrDefault() as cuiTextBox2;
                             cuiTextBox2 txtTime = setPanel.Controls.Find("cuiTextBox_Time", true).FirstOrDefault() as cuiTextBox2;
@@ -906,7 +922,7 @@ namespace TrainSMARTApp
 
             using SqlConnection conn = new SqlConnection(connectionString);
             string query = @"
-                    SELECT TemplateID, TemplateName, Note, DateCreated
+                    SELECT TemplateID, TemplateName, Note, DateCreated, IsPrebuilt
                     FROM WorkoutTemplates
                     WHERE UserID = @UserID
                     ORDER BY DateCreated DESC";
@@ -925,17 +941,23 @@ namespace TrainSMARTApp
                     string templateName = reader.GetString(reader.GetOrdinal("TemplateName"));
                     string note = reader.IsDBNull(reader.GetOrdinal("Note")) ? "" : reader.GetString(reader.GetOrdinal("Note"));
                     DateTime createdDate = reader.GetDateTime(reader.GetOrdinal("DateCreated"));
+                    bool isPrebuilt = reader.GetBoolean(reader.GetOrdinal("IsPrebuilt"));
 
                     var cuiBtnTemplate = CreateTemplateButton(templateId, templateName, note);
 
                     flowLayoutPanel_Workout.Controls.Add(cuiBtnTemplate);
-                    flowLayoutPanel_Workout.Controls.SetChildIndex(cuiBtnTemplate, 1);
+
+                    var index = flowLayoutPanel_Workout.Controls.OfType<cuiButton>().Count(b => b.Tag is int);
+                    if (isPrebuilt)
+                        index += 2;
+                    
+                    flowLayoutPanel_Workout.Controls.SetChildIndex(cuiBtnTemplate, index);
+
+                    label_Workout_EmptyTemplateMsg.Visible = isPrebuilt;
                 }
-                label_Workout_EmptyTemplateMsg.Visible = false;
             }
             catch (Exception ex)
             {
-                label_Workout_EmptyTemplateMsg.Visible = true;
                 MessageBox.Show("Failed to load workout templates:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -945,13 +967,13 @@ namespace TrainSMARTApp
         {
 
 
-            // Clear previously loaded templates
-            foreach (var ctrl in flowLayoutPanel_WorkoutTemplate.Controls.OfType<Control>().ToList())
+            // Clear previously loaded exercises
+            foreach (var ctrl in flowLayoutPanel_WorkoutTemplate.Controls.OfType<Panel>().ToList())
             {
-                if (ctrl is cuiButton { Tag: int } btn)
+                if (ctrl is Panel { Tag: int } pnl)
                 {
-                    flowLayoutPanel_WorkoutTemplate.Controls.Remove(btn);
-                    btn.Dispose();
+                    flowLayoutPanel_WorkoutTemplate.Controls.Remove(pnl);
+                    pnl.Dispose();
                 }
             }
 
@@ -967,10 +989,12 @@ namespace TrainSMARTApp
                     WHERE wte.TemplateID = @TemplateID
                     ORDER BY wte.DisplayOrder";
 
+                var templateExercises = new List<(int TemplateExerciseId, int ExerciseId, string ExerciseName)>();
+
                 using (SqlCommand cmd = new SqlCommand(exerciseQuery, conn))
                 {
                     cmd.Parameters.AddWithValue("@TemplateID", selectedTemplateId);
-                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    using (SqlDataReader reader = cmd.ExecuteReader()) // No CloseConnection needed
                     {
                         while (reader.Read())
                         {
@@ -978,57 +1002,28 @@ namespace TrainSMARTApp
                             int exerciseId = reader.GetInt32(1);
                             string exerciseName = reader.GetString(2);
 
-                            //// Create UI panel for exercise
-                            //var exercisePanel = new Panel
-                            //{
-                            //    Width = 400,
-                            //    Height = 120,
-                            //    BackColor = Color.FromArgb(30, 30, 30),
-                            //    Margin = new Padding(5),
-                            //    Tag = exerciseId
-                            //};
-
-                            //var lblExerciseName = new Label
-                            //{
-                            //    Text = exerciseName,
-                            //    Font = new Font("SansSerif", 12, FontStyle.Bold),
-                            //    ForeColor = Color.DeepSkyBlue,
-                            //    Dock = DockStyle.Top,
-                            //    Height = 30
-                            //};
-                            //exercisePanel.Controls.Add(lblExerciseName);
-
-                            //// Add "Add Set" button
-                            //var btnAddSet = new Button
-                            //{
-                            //    Text = "Add Set",
-                            //    Dock = DockStyle.Bottom,
-                            //    Height = 30,
-                            //    Tag = exercisePanel
-                            //};
-                            //btnAddSet.Click += (s, e) =>
-                            //{
-                            //    var parent = (Panel)((Button)s).Tag;
-                            //    AddExerciseSetRow(parent, exerciseName); // Add empty set row
-                            //};
-                            //exercisePanel.Controls.Add(btnAddSet);
-
-                            var exercisePanel = CreateExercisePanel(exerciseId, exerciseName);
-
-                            // Load the sets for the exercise
-                            LoadExerciseSets(conn, exercisePanel, templateExerciseId, exerciseName);
-
-                            // Add to main flow layout
-                            flowLayoutPanel_WorkoutTemplate.Controls.Add(exercisePanel);
+                            templateExercises.Add((templateExerciseId, exerciseId, exerciseName));
                         }
                     }
                 }
+
+                // Reader is now closed; safe to call LoadExerciseSets
+                foreach (var (templateExerciseId, exerciseId, exerciseName) in templateExercises)
+                {
+                    var exercisePanel = CreateExercisePanel(exerciseId, exerciseName);
+                    int addedRowHeight = LoadExerciseSets(conn, exercisePanel, templateExerciseId, exerciseName);
+                    exercisePanel.Height += addedRowHeight;
+                    flowLayoutPanel_WorkoutTemplate.Controls.Add(exercisePanel);
+                }
+
             }
         }
 
 
-        private void LoadExerciseSets(SqlConnection conn, Panel parentPanel, int templateExerciseId, string exerciseName)
+        private int LoadExerciseSets(SqlConnection conn, Panel parentPanel, int templateExerciseId, string exerciseName)
         {
+            int addedRowHeight = 0, i = 0; 
+
             string setQuery = @"
                 SELECT WeightLbs, Reps, TimeSeconds
                 FROM WorkoutTemplateExerciseSets
@@ -1038,7 +1033,7 @@ namespace TrainSMARTApp
             using (SqlCommand cmd = new SqlCommand(setQuery, conn))
             {
                 cmd.Parameters.AddWithValue("@TemplateExerciseID", templateExerciseId);
-                using (SqlDataReader reader = cmd.ExecuteReader(CommandBehavior.CloseConnection)) // TODO: THERE IS A PROBLEM WITH THIS
+                using (SqlDataReader reader = cmd.ExecuteReader()) // TODO: THERE IS A PROBLEM WITH THIS
                 {
                     while (reader.Read())
                     {
@@ -1046,10 +1041,12 @@ namespace TrainSMARTApp
                         decimal? reps = reader.IsDBNull(1) ? null : reader.GetDecimal(1);
                         int? time = reader.IsDBNull(2) ? null : reader.GetInt32(2);
 
-                        AddExerciseSetRow(parentPanel, exerciseName, weight, reps, time);
+                        addedRowHeight = AddExerciseSetRow(parentPanel, exerciseName, weight, reps, time);
+                        i++;
                     }
                 }
             }
+            return addedRowHeight * (i - 1);
         }
 
 
@@ -1253,7 +1250,6 @@ namespace TrainSMARTApp
                 PressedForeColor  = Color.White,
             };
             cuiButtonExerciseName.Click += ShowExerciseDetails;
-
 
             // Labels
             var lblSet = new Label
@@ -1601,6 +1597,132 @@ namespace TrainSMARTApp
 
 
 
+        // ADD DEFAULT EXERCISES TO USER'S DATABASE
+
+        public void AddPrebuiltTemplatesForUser(int userId, string connectionString)
+        {
+            var templates = new List<(string TemplateName, List<(string ExerciseName, int Sets)>)>
+            {
+                ("Legs", new List<(string, int)>
+                {
+                    ("Squat (Barbell)", 3),
+                    ("Leg Extension (Machine)", 3),
+                    ("Flat Leg Raise", 3),
+                    ("Standing Calf Raise (Dumbbell)", 3),
+                }),
+                ("Chest and Triceps", new List<(string, int)>
+                {
+                    ("Bench Press (Barbell)", 3),
+                    ("Incline Bench Press (Barbell)", 3),
+                    ("Strict Military Press (Barbell)", 3),
+                    ("Lateral Raise (Dumbbell)", 3),
+                    ("Skullcrusher (Barbell)", 3),
+                }),
+                ("Back and Biceps", new List<(string, int)>
+                {
+                    ("Deadlift (Barbell)", 3),
+                    ("Seated Row (Cable)", 3),
+                    ("Lat Pulldown (Cable)", 3),
+                    ("Bicep Curl (Barbell)", 3),
+                }),
+                ("Workout A", new List<(string, int)>
+                {
+                    ("Squat (Barbell)", 5),
+                    ("Bench Press (Barbell)", 5),
+                    ("Bent Over Row (Barbell)", 5),
+                }),
+                ("Workout B", new List<(string, int)>
+                {
+                    ("Squat (Barbell)", 5),
+                    ("Overhead Press (Barbell)", 5),
+                    ("Deadlift (Barbell)", 1),
+                }),
+            };
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                foreach (var template in templates)
+                {
+                    string templateName = template.TemplateName;
+                    var exercises = template.Item2;
+
+                    // Check for existing prebuilt template
+                    string checkQuery = @"SELECT COUNT(*) FROM WorkoutTemplates WHERE UserID = @UserID AND TemplateName = @TemplateName AND IsPrebuilt = 1";
+                    using (SqlCommand checkCmd = new SqlCommand(checkQuery, conn))
+                    {
+                        checkCmd.Parameters.AddWithValue("@UserID", userId);
+                        checkCmd.Parameters.AddWithValue("@TemplateName", templateName);
+                        int exists = (int)checkCmd.ExecuteScalar();
+                        if (exists > 0) continue;
+                    }
+
+                    // Insert new template
+                    string insertTemplate = @"INSERT INTO WorkoutTemplates (UserID, TemplateName, IsPrebuilt) OUTPUT INSERTED.TemplateID VALUES (@UserID, @TemplateName, 1)";
+                    int templateId;
+                    using (SqlCommand insertCmd = new SqlCommand(insertTemplate, conn))
+                    {
+                        insertCmd.Parameters.AddWithValue("@UserID", userId);
+                        insertCmd.Parameters.AddWithValue("@TemplateName", templateName);
+                        templateId = (int)insertCmd.ExecuteScalar();
+                    }
+
+                    int displayOrder = 0;
+                    foreach (var exercise in exercises)
+                    {
+                        string exerciseName = exercise.ExerciseName;
+                        int sets = exercise.Sets;
+
+                        // Get ExerciseID by name
+                        string getExerciseIdQuery = "SELECT ExerciseID FROM Exercises WHERE ExerciseName = @Name";
+                        int exerciseId;
+                        using (SqlCommand getExerciseCmd = new SqlCommand(getExerciseIdQuery, conn))
+                        {
+                            getExerciseCmd.Parameters.AddWithValue("@Name", exerciseName);
+                            object result = getExerciseCmd.ExecuteScalar();
+                            if (result == null) continue; // Skip if exercise not found
+                            exerciseId = (int)result;
+                        }
+
+                        // Insert WorkoutTemplateExercise
+                        string insertExercise = @"INSERT INTO WorkoutTemplateExercises (TemplateID, ExerciseID, RestSeconds, DisplayOrder) OUTPUT INSERTED.TemplateExerciseID VALUES (@TemplateID, @ExerciseID, 60, @Order)";
+                        int templateExerciseId;
+                        using (SqlCommand insertExerciseCmd = new SqlCommand(insertExercise, conn))
+                        {
+                            insertExerciseCmd.Parameters.AddWithValue("@TemplateID", templateId);
+                            insertExerciseCmd.Parameters.AddWithValue("@ExerciseID", exerciseId);
+                            insertExerciseCmd.Parameters.AddWithValue("@Order", displayOrder++);
+                            templateExerciseId = (int)insertExerciseCmd.ExecuteScalar();
+                        }
+
+                        // Insert sets
+                        for (int i = 0; i < sets; i++)
+                        {
+                            string insertSet = @"INSERT INTO WorkoutTemplateExerciseSets (TemplateExerciseID, SetOrder) VALUES (@TemplateExerciseID, @SetOrder)";
+                            using (SqlCommand insertSetCmd = new SqlCommand(insertSet, conn))
+                            {
+                                insertSetCmd.Parameters.AddWithValue("@TemplateExerciseID", templateExerciseId);
+                                insertSetCmd.Parameters.AddWithValue("@SetOrder", i);
+                                insertSetCmd.ExecuteNonQuery();
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1636,6 +1758,7 @@ namespace TrainSMARTApp
             label_AddExercises_Count.Text = "(" + selectedExerciseIDs.Count + ")";
         }
 
-        
+
+
     }
 }
