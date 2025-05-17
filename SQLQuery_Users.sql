@@ -60,6 +60,18 @@ CREATE TABLE dbo.Users
 GO
 
 
+    -- history data
+CREATE TABLE dbo.Workouts
+(
+    WorkoutID           INT                 IDENTITY(1,1) PRIMARY KEY,
+    UserID              INT                 NOT NULL FOREIGN KEY REFERENCES dbo.Users(UserID) ON DELETE CASCADE,
+    WorkoutDate         DATETIME            DEFAULT GETDATE(),
+    WorkoutType         NVARCHAR(100),
+    DurationMinutes     INT
+);
+GO
+
+
     -- exercises data
 CREATE TABLE dbo.Exercises
 (
@@ -103,18 +115,6 @@ CREATE TABLE dbo.WorkoutTemplateExerciseSets
     Reps                INT                 NULL,
     TimeSeconds         INT                 NULL,
     SetOrder            INT                 NOT NULL
-);
-GO
-
-
-    -- history data
-CREATE TABLE dbo.Workouts
-(
-    WorkoutID           INT                 IDENTITY(1,1) PRIMARY KEY,
-    UserID              INT                 NOT NULL FOREIGN KEY REFERENCES dbo.Users(UserID) ON DELETE CASCADE,
-    WorkoutType         NVARCHAR(100)       NOT NULL FOREIGN KEY REFERENCES dbo.WorkoutTemplates(TemplateName) ON DELETE CASCADE,
-    WorkoutDate         DATETIME            DEFAULT GETDATE(),
-    DurationMinutes     INT
 );
 GO
 
