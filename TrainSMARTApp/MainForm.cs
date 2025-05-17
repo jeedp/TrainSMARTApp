@@ -29,6 +29,7 @@ namespace TrainSMARTApp
         private bool isFilterShown;
         private bool isAddingExercises;
         private bool isAddingMeasurement;
+        private bool isViewingWorkoutTemplate;
         private bool isCreatingWorkoutTemplate;
         private bool isDeletingWorkoutTemplate;
 
@@ -191,7 +192,6 @@ namespace TrainSMARTApp
         {
             isAddingExercises = false;
             isCreatingWorkoutTemplate = false;
-            cuiButton_WorkoutTemplate_Start.Visible = false;
             ShowMenu(panel_Menu_Workout, cuiButton_Menu_Workout);
             ClearWorkoutCreationTemplates();
             LoadUserWorkoutTemplates(_loggedInUser);
@@ -230,7 +230,8 @@ namespace TrainSMARTApp
         {
             isAddingExercises = false;
             isCreatingWorkoutTemplate = true;
-            ShowMenu(panel_WorkoutCreation, cuiButton_Menu_Workout);
+            var pnl = (isViewingWorkoutTemplate) ? panel_WorkoutTemplate : panel_WorkoutCreation;
+            ShowMenu(pnl, cuiButton_Menu_Workout);
             selectedExerciseIDs.Clear();
         }
 
@@ -269,15 +270,29 @@ namespace TrainSMARTApp
         private void cuiButton_AddExercise_ConfirmAdd_Click(object sender, EventArgs e)
         {
             isAddingExercises = false;
-            ShowMenu(panel_WorkoutCreation, cuiButton_Menu_Workout);
-            ExerciseConfirmAdd();
+            var pnl = (isViewingWorkoutTemplate) ? panel_WorkoutTemplate : panel_WorkoutCreation;
+            ShowMenu(pnl, cuiButton_Menu_Workout);
+            var flPnl = (isViewingWorkoutTemplate) ? flowLayoutPanel_WorkoutTemplate : flowLayoutPanel_WorkoutCreation;
+            ExerciseConfirmAdd(flPnl);
         }
 
 
             // TEMPLATE 
-        private void cuiButton_TemplateDeletion_Delete_Click(object sender, EventArgs e)
+
+        private void cuiButton_WorkoutTemplate_GoBack_Click(object sender, EventArgs e)
         {
-            
+            isViewingWorkoutTemplate = false;
+            ShowMenu(panel_Menu_Workout, cuiButton_Menu_Workout);
+        }
+
+        private void cuiButton_WorkoutTemplate_Start_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cuiButton_WorkoutTemplate_Delete_Click(object sender, EventArgs e)
+        {
+
         }
 
 
@@ -382,15 +397,34 @@ namespace TrainSMARTApp
         }
 
 
-        
+        private void KeyDownLoseFocus(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode is Keys.Enter or Keys.Escape)
+            {
+                e.SuppressKeyPress = true;
+                ((Control)sender).Parent.Focus(); // Moves focus to parent
 
-        
+                if (sender is TextBox textBox)
+                {
+                    textBox.ReadOnly = true;
+                    textBox.BackColor = Color.FromArgb(41, 50, 54);
+                    if (textBox == textBox_WorkoutTemplate_Name)
+                        cuiBorder_WorkoutTemplate_Name.Visible = !textBox_WorkoutTemplate_Name.ReadOnly;
+                }
+            }
+        }
 
-        
 
 
 
-            // SHOWING PANELS
+
+
+
+
+
+
+
+        // SHOWING PANELS
 
         private void ShowMenu(Panel panel, cuiButton button)
         {
@@ -422,6 +456,7 @@ namespace TrainSMARTApp
                 pnl.Visible = pnl == panel;
                 pnl.Height = (pnl == panel) ? (longPanels.Contains(pnl) || (isAddingExercises && pnl == panel_Menu_Exercises)) ? 611 : 537 : 0;
             }
+            cuiButton_WorkoutTemplate_Start.Visible = panel == panel_WorkoutTemplate;
             //panel_Menus.Height = (longPanels.Contains(panel)) ? 0 : 67;
 
             if (panel == panel_Menu_Exercises)
@@ -484,7 +519,7 @@ namespace TrainSMARTApp
             panel.Width = (isShown) ? 321 : 0;  // width in design is 441
             panel.BringToFront();
 
-            var cuiBtn = cuiButton_AddExercises_Exit;
+            var cuiBtn = cuiButton_AddExercise_Exit;
             cuiBtn.Visible = !isShown;
             cuiBtn.Width = !isShown ? 80 : 0;
 
@@ -514,7 +549,7 @@ namespace TrainSMARTApp
             var exerciseMenuControls = new List<Control>
             {
                 cuiButton_AddExercise_ConfirmAdd,
-                cuiButton_AddExercises_Exit,
+                cuiButton_AddExercise_Exit,
                 label_AddExercises_Title,
                 label_AddExercises_Count,
 
@@ -572,10 +607,18 @@ namespace TrainSMARTApp
 
         private void ShowTemplateDetails()
         {
+            isViewingWorkoutTemplate = true;
             ShowMenu(panel_WorkoutTemplate, cuiButton_Menu_Workout);
-            cuiButton_WorkoutTemplate_Start.Visible = true;
 
-            var index = flowLayoutPanel_WorkoutTemplate.Controls.OfType<Panel>().Count();
+            var panel = new Panel
+            {
+                Width       = 360,
+                Height      = 80,
+                Margin      = new Padding(3, 5, 3, 10),
+                BackColor   = Color.Transparent,
+                BorderStyle = BorderStyle.None,  
+            };
+            flowLayoutPanel_WorkoutTemplate.Controls.Add(panel);
         }
 
 
@@ -710,7 +753,7 @@ namespace TrainSMARTApp
         }
 
 
-        private void ExerciseConfirmAdd()
+        private void ExerciseConfirmAdd(FlowLayoutPanel flowLayoutPanel)
         {
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -729,8 +772,8 @@ namespace TrainSMARTApp
 
                     AddExerciseSetRow(panelExercise, exerciseName);
 
-                    flowLayoutPanel_WorkoutCreation.Controls.Add(panelExercise);
-                    flowLayoutPanel_WorkoutCreation.Controls.SetChildIndex(panelExercise, flowLayoutPanel_WorkoutCreation.Controls.Count - 2); // Add above "Add Exercise" button
+                    flowLayoutPanel.Controls.Add(panelExercise);
+                    flowLayoutPanel.Controls.SetChildIndex(panelExercise, flowLayoutPanel.Controls.Count - 2); // Add above "Add Exercise" button
                 }
             }
             selectedExerciseIDs.Clear();
@@ -944,16 +987,15 @@ namespace TrainSMARTApp
                     bool isPrebuilt = reader.GetBoolean(reader.GetOrdinal("IsPrebuilt"));
 
                     var cuiBtnTemplate = CreateTemplateButton(templateId, templateName, note);
-
                     flowLayoutPanel_Workout.Controls.Add(cuiBtnTemplate);
 
                     var index = flowLayoutPanel_Workout.Controls.OfType<cuiButton>().Count(b => b.Tag is int);
+                    label_Workout_EmptyTemplateMsg.Visible = !(index > 5);
+
                     if (isPrebuilt)
                         index += 2;
                     
                     flowLayoutPanel_Workout.Controls.SetChildIndex(cuiBtnTemplate, index);
-
-                    label_Workout_EmptyTemplateMsg.Visible = isPrebuilt;
                 }
             }
             catch (Exception ex)
@@ -965,16 +1007,11 @@ namespace TrainSMARTApp
 
         private void LoadTemplateExercises(int selectedTemplateId)
         {
-
-
             // Clear previously loaded exercises
-            foreach (var ctrl in flowLayoutPanel_WorkoutTemplate.Controls.OfType<Panel>().ToList())
+            foreach (var ctrl in flowLayoutPanel_WorkoutTemplate.Controls.OfType<Panel>().ToList().Where(ctrl => ctrl is Panel { Tag: int } || ctrl.Height == 80))
             {
-                if (ctrl is Panel { Tag: int } pnl)
-                {
-                    flowLayoutPanel_WorkoutTemplate.Controls.Remove(pnl);
-                    pnl.Dispose();
-                }
+                flowLayoutPanel_WorkoutTemplate.Controls.Remove(ctrl);
+                ctrl.Dispose();
             }
 
             using (SqlConnection conn = new SqlConnection(connectionString))
@@ -1014,9 +1051,10 @@ namespace TrainSMARTApp
                     int addedRowHeight = LoadExerciseSets(conn, exercisePanel, templateExerciseId, exerciseName);
                     exercisePanel.Height += addedRowHeight;
                     flowLayoutPanel_WorkoutTemplate.Controls.Add(exercisePanel);
+                    flowLayoutPanel_WorkoutTemplate.Controls.SetChildIndex(exercisePanel, flowLayoutPanel_WorkoutTemplate.Controls.Count - 2); // Add above "Add Exercise" button
                 }
-
             }
+            cuiButton_WorkoutTemplate_AddExercise.Visible = selectedTemplateId > 5;
         }
 
 
@@ -1575,14 +1613,51 @@ namespace TrainSMARTApp
                 OutlineThickness  = 1.5f,
             };
 
+            var lblNote = new Label
+            {
+                Text      = note,
+                Font      = new Font("SansSerif", 10, FontStyle.Italic),
+                ForeColor = Color.White,
+                Dock      = DockStyle.Bottom,
+                Height    = 20,
+                TextAlign = ContentAlignment.MiddleLeft,
+            };
+
+            btnTemplate.Controls.Add(lblNote);
+            lblNote.BringToFront();
+
             // Optional: store additional info like note in Tag if needed
 
-            btnTemplate.Click += (s, e) =>
+            btnTemplate.Click += (s, _) =>
             {
                 var selectedTemplateId = (int)((cuiButton)s).Tag;
-                ShowTemplateDetails();
                 LoadTemplateExercises(selectedTemplateId);
-                label_WorkoutTemplate_Name.Text = templateName;
+                ShowTemplateDetails();
+                textBox_WorkoutTemplate_Name.Text = templateName;
+                textBox_WorkoutTemplate_Name.Click += (_, _) =>
+                {
+                    textBox_WorkoutTemplate_Name.ReadOnly = true;
+                    cuiBorder_WorkoutTemplate_Name.Visible = !textBox_WorkoutTemplate_Name.ReadOnly;
+                    textBox_WorkoutTemplate_Name.BackColor = Color.FromArgb(41, 50, 54);
+                };
+                textBox_WorkoutTemplate_Name.DoubleClick += (_, _) =>
+                {
+                    textBox_WorkoutTemplate_Name.ReadOnly = false;
+                    cuiBorder_WorkoutTemplate_Name.Visible = !textBox_WorkoutTemplate_Name.ReadOnly;
+                    textBox_WorkoutTemplate_Name.BackColor = Color.FromArgb(63, 71, 75);
+                    Focus();
+                };
+                textBox_WorkoutTemplate_Note.Click += (_, _) =>
+                {
+                    textBox_WorkoutTemplate_Note.ReadOnly = true;
+                    textBox_WorkoutTemplate_Note.BackColor = Color.FromArgb(41, 50, 54);
+                };
+                textBox_WorkoutTemplate_Note.DoubleClick += (_, _) =>
+                {
+                    textBox_WorkoutTemplate_Note.ReadOnly = false;
+                    textBox_WorkoutTemplate_Note.BackColor = Color.FromArgb(63, 71, 75);
+                    Focus();
+                };
             };
 
             return btnTemplate;
@@ -1758,7 +1833,6 @@ namespace TrainSMARTApp
             label_AddExercises_Count.Text = "(" + selectedExerciseIDs.Count + ")";
         }
 
-
-
+        
     }
 }
