@@ -9,32 +9,32 @@ USE [UserDB];
 GO
 
 
-DROP TABLE IF EXISTS dbo.Users;
-GO
+--DROP TABLE IF EXISTS dbo.Users;
+--GO
 
 
-DROP TABLE IF EXISTS dbo.Workouts;
-GO
+--DROP TABLE IF EXISTS dbo.Workouts;
+--GO
 
 
-DROP TABLE IF EXISTS dbo.WorkoutTemplates;
-GO
+--DROP TABLE IF EXISTS dbo.WorkoutTemplates;
+--GO
 
 
-DROP TABLE IF EXISTS dbo.WorkoutTemplateExercises;
-GO
+--DROP TABLE IF EXISTS dbo.WorkoutTemplateExercises;
+--GO
 
 
-DROP TABLE IF EXISTS dbo.WorkoutTemplateExerciseSets;
-GO
+--DROP TABLE IF EXISTS dbo.WorkoutTemplateExerciseSets;
+--GO
 
 
 DROP TABLE IF EXISTS dbo.Exercises;
 GO
 
 
-DROP TABLE IF EXISTS dbo.Measurements;
-GO
+--DROP TABLE IF EXISTS dbo.Measurements;
+--GO
 
 
 
@@ -60,18 +60,6 @@ CREATE TABLE dbo.Users
 GO
 
 
-    -- history data
-CREATE TABLE dbo.Workouts
-(
-    WorkoutID           INT                 IDENTITY(1,1) PRIMARY KEY,
-    UserID              INT                 NOT NULL FOREIGN KEY REFERENCES dbo.Users(UserID),
-    WorkoutDate         DATETIME            DEFAULT GETDATE(),
-    WorkoutType         NVARCHAR(100),
-    DurationMinutes     INT
-);
-GO
-
-
     -- exercises data
 CREATE TABLE dbo.Exercises
 (
@@ -87,10 +75,11 @@ GO
 CREATE TABLE dbo.WorkoutTemplates
 (
     TemplateID          INT                 IDENTITY(1,1) PRIMARY KEY,
-    UserID              INT                 NOT NULL FOREIGN KEY REFERENCES dbo.Users(UserID),
+    UserID              INT                 NOT NULL FOREIGN KEY REFERENCES dbo.Users(UserID) ON DELETE CASCADE,
     TemplateName        NVARCHAR(100)       NOT NULL,
     Note                NVARCHAR(MAX)       NULL,
-    DateCreated         DATETIME            DEFAULT GETDATE()
+    DateCreated         DATETIME            DEFAULT GETDATE(),
+    IsPrebuilt		    BIT                 DEFAULT 0       -- 0 = Custom, 1 = Prebuilt
 );
 GO
 
@@ -109,7 +98,7 @@ GO
 CREATE TABLE dbo.WorkoutTemplateExerciseSets 
 (
     SetID               INT                 PRIMARY KEY IDENTITY(1,1),
-    TemplateExerciseID  INT                 NOT NULL FOREIGN KEY REFERENCES dbo.WorkoutTemplateExercises(TemplateExerciseID),
+    TemplateExerciseID  INT                 NOT NULL FOREIGN KEY REFERENCES dbo.WorkoutTemplateExercises(TemplateExerciseID) ON DELETE CASCADE,
     WeightLbs           DECIMAL(5,2)        NULL,
     Reps                INT                 NULL,
     TimeSeconds         INT                 NULL,
@@ -118,11 +107,23 @@ CREATE TABLE dbo.WorkoutTemplateExerciseSets
 GO
 
 
+    -- history data
+CREATE TABLE dbo.Workouts
+(
+    WorkoutID           INT                 IDENTITY(1,1) PRIMARY KEY,
+    UserID              INT                 NOT NULL FOREIGN KEY REFERENCES dbo.Users(UserID) ON DELETE CASCADE,
+    WorkoutType         NVARCHAR(100)       NOT NULL FOREIGN KEY REFERENCES dbo.WorkoutTemplates(TemplateName) ON DELETE CASCADE,
+    WorkoutDate         DATETIME            DEFAULT GETDATE(),
+    DurationMinutes     INT
+);
+GO
+
+
     -- measure data
 CREATE TABLE dbo.Measurements
 (
     MeasurementID       INT IDENTITY(1,1)   PRIMARY KEY,
-    UserID              INT                 NOT NULL FOREIGN KEY REFERENCES dbo.Users(UserID),
+    UserID              INT                 NOT NULL FOREIGN KEY REFERENCES dbo.Users(UserID) ON DELETE CASCADE,
     MeasurementDate     DATETIME            DEFAULT GETDATE(),
 
     -- General
@@ -908,87 +909,84 @@ WHERE ExerciseName = 'Bicycle Crunches';
 
 UPDATE dbo.Exercises 
 SET Instructions = N' 
-1.Stand in the center of the cable 
-    machine with handles at chest 
-    level.
-2.Keep your core tight and arms 
-    extended to the sides with a 
-    slight bend in your elbows.
-3.Step forward slightly to create 
-    tension in the cables.
-4.Bring your hands together in front 
-    of your chest in a wide, curved 
-    motion.
-5.Squeeze your chest for a second when 
+1. Stand in the center of the cable machine 
+    with handles at chest level.
+2. Keep your core tight and arms extended 
+    to the sides with a slight bend in 
+    your elbows.
+3. Step forward slightly to create tension 
+    in the cables.
+4. Bring your hands together in front of 
+    your chest in a wide, curved motion.
+5. Squeeze your chest for a second when 
     your hands meet.
-6.Slowly return to the starting 
-    position, feeling a stretch in
-    your chest.
-7.Repeat for the desired number of 
+6. Slowly return to the starting position, 
+    feeling a stretch in your chest.
+7. Repeat for the desired number of 
     repetitions. '
 WHERE ExerciseName = 'Cable Crossover';
 
 
 UPDATE dbo.Exercises 
 SET Instructions = N' 
-1.Lie on a flat bench with dumbbells in 
+1. Lie on a flat bench with dumbbells in 
     hand.
-2.Keep your core tight and feet flat on 
+2. Keep your core tight and feet flat on 
     the floor.
-3.Press the dumbbells upward, extending 
+3. Press the dumbbells upward, extending 
     your arms fully.
-4.Pause for a second at the top.
-5.Lower the dumbbells slowly back to your 
+4. Pause for a second at the top.
+5. Lower the dumbbells slowly back to your 
     chest.
-6.Repeat for the desired number of 
+6. Repeat for the desired number of 
     repetitions. '
 WHERE ExerciseName = 'Dumbbell Bench Press';
 
 
 UPDATE dbo.Exercises 
 SET Instructions = N' 
-1.Sit on an incline bench with dumbbells 
+1. Sit on an incline bench with dumbbells 
     in hand.
-2.Keep your core tight and feet flat on 
+2. Keep your core tight and feet flat on 
     the floor.
-3.Press the dumbbells upward, extending 
+3. Press the dumbbells upward, extending 
     your arms fully.
-4.Pause for a second at the top.
-5.Lower the dumbbells slowly back to your
+4. Pause for a second at the top.
+5. Lower the dumbbells slowly back to your
     chest.
-6.Repeat for the desired number of 
+6. Repeat for the desired number of 
     repetitions. '
 WHERE ExerciseName = 'Incline Dumbbell Press';
 
 
 UPDATE dbo.Exercises 
 SET Instructions = N' 
-1.Lie on a decline bench with dumbbells 
+1. Lie on a decline bench with dumbbells 
     in hand.
-2.Keep your core tight and feet secured 
+2. Keep your core tight and feet secured 
     under the pads.
-3.Press the dumbbells upward, extending 
+3. Press the dumbbells upward, extending 
     your arms fully.
-4.Pause for a second at the top.
-5.Lower the dumbbells slowly back to your
+4. Pause for a second at the top.
+5. Lower the dumbbells slowly back to your
     chest.
-6.Repeat for the desired number of
+6. Repeat for the desired number of
     repetitions. '
 WHERE ExerciseName = 'Decline Dumbbell Press';
 
 
 UPDATE dbo.Exercises 
 SET Instructions = N' 
-1.Sit on the machine with your elbows at 
+1. Sit on the machine with your elbows at 
     chest level.
-2.Keep your core tight and back against 
+2. Keep your core tight and back against 
     the backrest.
-3.Push the handles together, squeezing 
+3. Push the handles together, squeezing 
     your chest.
-4.Pause for a second when your hands are 
+4. Pause for a second when your hands are 
     close together.
-5.Slowly return to the starting position.
-6.Repeat for the desired number of 
+5. Slowly return to the starting position.
+6. Repeat for the desired number of 
     repetitions.  '
 WHERE ExerciseName = 'Pec Deck Machine';
 
