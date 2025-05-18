@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel_Menus = new System.Windows.Forms.Panel();
             this.cuiButton_Menu_Measure = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Menu_Exercises = new CuoreUI.Controls.cuiButton();
@@ -178,7 +178,7 @@
             this.panel_Measurement_Title = new System.Windows.Forms.Panel();
             this.cuiButton_Measurement_GoBack = new CuoreUI.Controls.cuiButton();
             this.label_Measurement_Name = new System.Windows.Forms.Label();
-            this.panel_WorkoutCreation_TemplateDeletion = new System.Windows.Forms.Panel();
+            this.panel_TemplateDeletion = new System.Windows.Forms.Panel();
             this.label_TemplateDeletion_Description = new System.Windows.Forms.Label();
             this.cuiButton_TemplateDeletion_Delete = new CuoreUI.Controls.cuiButton();
             this.cuiButton_TemplateDeletion_Cancel = new CuoreUI.Controls.cuiButton();
@@ -195,8 +195,6 @@
             this.cuiButton_WorkoutTemplate_GoBack = new CuoreUI.Controls.cuiButton();
             this.cuiButton_WorkoutTemplate_Delete = new CuoreUI.Controls.cuiButton();
             this.flowLayoutPanel_WorkoutTemplate = new System.Windows.Forms.FlowLayoutPanel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.textBox_WorkoutTemplate_Note = new System.Windows.Forms.TextBox();
             this.cuiButton_WorkoutTemplate_AddExercise = new CuoreUI.Controls.cuiButton();
             this.cuiButton_WorkoutTemplate_Start = new CuoreUI.Controls.cuiButton();
             this.panel_Menus.SuspendLayout();
@@ -234,11 +232,10 @@
             this.flowLayoutPanel_Measurement.SuspendLayout();
             this.panel_Measurement_Chart.SuspendLayout();
             this.panel_Measurement_Title.SuspendLayout();
-            this.panel_WorkoutCreation_TemplateDeletion.SuspendLayout();
+            this.panel_TemplateDeletion.SuspendLayout();
             this.panel_WorkoutTemplate.SuspendLayout();
             this.panel_WorkoutTemplate_Title.SuspendLayout();
             this.flowLayoutPanel_WorkoutTemplate.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_Menus
@@ -989,16 +986,16 @@
             this.chart_Profile_WorkoutCount.BorderlineWidth = 0;
             this.chart_Profile_WorkoutCount.BorderSkin.BackColor = System.Drawing.Color.Transparent;
             this.chart_Profile_WorkoutCount.BorderSkin.BorderColor = System.Drawing.Color.Transparent;
-            chartArea1.BackColor = System.Drawing.Color.Transparent;
-            chartArea1.BorderWidth = 0;
-            chartArea1.Name = "ChartArea1";
-            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea1);
+            chartArea2.BackColor = System.Drawing.Color.Transparent;
+            chartArea2.BorderWidth = 0;
+            chartArea2.Name = "ChartArea1";
+            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea2);
             this.chart_Profile_WorkoutCount.Location = new System.Drawing.Point(11, 60);
             this.chart_Profile_WorkoutCount.Name = "chart_Profile_WorkoutCount";
             this.chart_Profile_WorkoutCount.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series1.ChartArea = "ChartArea1";
-            series1.Name = "Series1";
-            this.chart_Profile_WorkoutCount.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.Name = "Series1";
+            this.chart_Profile_WorkoutCount.Series.Add(series2);
             this.chart_Profile_WorkoutCount.Size = new System.Drawing.Size(440, 245);
             this.chart_Profile_WorkoutCount.TabIndex = 1;
             this.chart_Profile_WorkoutCount.Text = "chart1";
@@ -3507,21 +3504,21 @@
             this.label_Measurement_Name.Text = "Weight";
             this.label_Measurement_Name.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // panel_WorkoutCreation_TemplateDeletion
+            // panel_TemplateDeletion
             // 
-            this.panel_WorkoutCreation_TemplateDeletion.Controls.Add(this.label_TemplateDeletion_Description);
-            this.panel_WorkoutCreation_TemplateDeletion.Controls.Add(this.cuiButton_TemplateDeletion_Delete);
-            this.panel_WorkoutCreation_TemplateDeletion.Controls.Add(this.cuiButton_TemplateDeletion_Cancel);
-            this.panel_WorkoutCreation_TemplateDeletion.Controls.Add(this.label_TemplateDeletion_Title);
-            this.panel_WorkoutCreation_TemplateDeletion.Controls.Add(this.cuiGradientBorder_TemplateDeletion_1);
-            this.panel_WorkoutCreation_TemplateDeletion.Controls.Add(this.cuiGradientBorder_TemplateDeletion_3);
-            this.panel_WorkoutCreation_TemplateDeletion.Controls.Add(this.cuiGradientBorder_TemplateDeletion_4);
-            this.panel_WorkoutCreation_TemplateDeletion.Controls.Add(this.cuiGradientBorder_TemplateDeletion_2);
-            this.panel_WorkoutCreation_TemplateDeletion.Location = new System.Drawing.Point(43, 241);
-            this.panel_WorkoutCreation_TemplateDeletion.Name = "panel_WorkoutCreation_TemplateDeletion";
-            this.panel_WorkoutCreation_TemplateDeletion.Size = new System.Drawing.Size(0, 0);
-            this.panel_WorkoutCreation_TemplateDeletion.TabIndex = 23;
-            this.panel_WorkoutCreation_TemplateDeletion.Visible = false;
+            this.panel_TemplateDeletion.Controls.Add(this.label_TemplateDeletion_Description);
+            this.panel_TemplateDeletion.Controls.Add(this.cuiButton_TemplateDeletion_Delete);
+            this.panel_TemplateDeletion.Controls.Add(this.cuiButton_TemplateDeletion_Cancel);
+            this.panel_TemplateDeletion.Controls.Add(this.label_TemplateDeletion_Title);
+            this.panel_TemplateDeletion.Controls.Add(this.cuiGradientBorder_TemplateDeletion_1);
+            this.panel_TemplateDeletion.Controls.Add(this.cuiGradientBorder_TemplateDeletion_3);
+            this.panel_TemplateDeletion.Controls.Add(this.cuiGradientBorder_TemplateDeletion_4);
+            this.panel_TemplateDeletion.Controls.Add(this.cuiGradientBorder_TemplateDeletion_2);
+            this.panel_TemplateDeletion.Location = new System.Drawing.Point(43, 241);
+            this.panel_TemplateDeletion.Name = "panel_TemplateDeletion";
+            this.panel_TemplateDeletion.Size = new System.Drawing.Size(0, 0);
+            this.panel_TemplateDeletion.TabIndex = 23;
+            this.panel_TemplateDeletion.Visible = false;
             // 
             // label_TemplateDeletion_Description
             // 
@@ -3573,7 +3570,7 @@
             this.cuiButton_TemplateDeletion_Delete.Size = new System.Drawing.Size(100, 50);
             this.cuiButton_TemplateDeletion_Delete.TabIndex = 24;
             this.cuiButton_TemplateDeletion_Delete.TextOffset = new System.Drawing.Point(0, 0);
-            this.cuiButton_TemplateDeletion_Delete.Click += new System.EventHandler(this.cuiButton_WorkoutCreation_Exit_Click);
+            this.cuiButton_TemplateDeletion_Delete.Click += new System.EventHandler(this.cuiButton_TemplateDeletion_Click);
             // 
             // cuiButton_TemplateDeletion_Cancel
             // 
@@ -3611,7 +3608,7 @@
             this.cuiButton_TemplateDeletion_Cancel.Size = new System.Drawing.Size(100, 50);
             this.cuiButton_TemplateDeletion_Cancel.TabIndex = 23;
             this.cuiButton_TemplateDeletion_Cancel.TextOffset = new System.Drawing.Point(0, 0);
-            this.cuiButton_TemplateDeletion_Cancel.Click += new System.EventHandler(this.cuiButton_WorkoutCreation_Exit_Click);
+            this.cuiButton_TemplateDeletion_Cancel.Click += new System.EventHandler(this.cuiButton_TemplateDeletion_Click);
             // 
             // label_TemplateDeletion_Title
             // 
@@ -3840,7 +3837,6 @@
             // flowLayoutPanel_WorkoutTemplate
             // 
             this.flowLayoutPanel_WorkoutTemplate.AutoScroll = true;
-            this.flowLayoutPanel_WorkoutTemplate.Controls.Add(this.panel1);
             this.flowLayoutPanel_WorkoutTemplate.Controls.Add(this.cuiButton_WorkoutTemplate_AddExercise);
             this.flowLayoutPanel_WorkoutTemplate.Cursor = System.Windows.Forms.Cursors.Default;
             this.flowLayoutPanel_WorkoutTemplate.Location = new System.Drawing.Point(0, 90);
@@ -3848,29 +3844,6 @@
             this.flowLayoutPanel_WorkoutTemplate.Name = "flowLayoutPanel_WorkoutTemplate";
             this.flowLayoutPanel_WorkoutTemplate.Size = new System.Drawing.Size(513, 663);
             this.flowLayoutPanel_WorkoutTemplate.TabIndex = 6;
-            // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.textBox_WorkoutTemplate_Note);
-            this.panel1.Location = new System.Drawing.Point(3, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(484, 100);
-            this.panel1.TabIndex = 24;
-            // 
-            // textBox_WorkoutTemplate_Note
-            // 
-            this.textBox_WorkoutTemplate_Note.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.textBox_WorkoutTemplate_Note.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox_WorkoutTemplate_Note.Font = new System.Drawing.Font("SansSerif", 14F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.textBox_WorkoutTemplate_Note.ForeColor = System.Drawing.Color.White;
-            this.textBox_WorkoutTemplate_Note.Location = new System.Drawing.Point(30, 10);
-            this.textBox_WorkoutTemplate_Note.Margin = new System.Windows.Forms.Padding(0);
-            this.textBox_WorkoutTemplate_Note.Name = "textBox_WorkoutTemplate_Note";
-            this.textBox_WorkoutTemplate_Note.ReadOnly = true;
-            this.textBox_WorkoutTemplate_Note.Size = new System.Drawing.Size(419, 28);
-            this.textBox_WorkoutTemplate_Note.TabIndex = 20;
-            this.textBox_WorkoutTemplate_Note.Text = "New workout template";
-            this.textBox_WorkoutTemplate_Note.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDownLoseFocus);
             // 
             // cuiButton_WorkoutTemplate_AddExercise
             // 
@@ -3892,7 +3865,7 @@
             this.cuiButton_WorkoutTemplate_AddExercise.ImageAutoCenter = false;
             this.cuiButton_WorkoutTemplate_AddExercise.ImageExpand = new System.Drawing.Point(0, 0);
             this.cuiButton_WorkoutTemplate_AddExercise.ImageOffset = new System.Drawing.Point(0, 0);
-            this.cuiButton_WorkoutTemplate_AddExercise.Location = new System.Drawing.Point(3, 122);
+            this.cuiButton_WorkoutTemplate_AddExercise.Location = new System.Drawing.Point(3, 16);
             this.cuiButton_WorkoutTemplate_AddExercise.Margin = new System.Windows.Forms.Padding(3, 16, 3, 4);
             this.cuiButton_WorkoutTemplate_AddExercise.Name = "cuiButton_WorkoutTemplate_AddExercise";
             this.cuiButton_WorkoutTemplate_AddExercise.NormalBackground = System.Drawing.Color.Transparent;
@@ -3958,7 +3931,7 @@
             this.Controls.Add(this.panel_WorkoutTemplate);
             this.Controls.Add(this.panel_Measurement);
             this.Controls.Add(this.panel_ExerciseDetails);
-            this.Controls.Add(this.panel_WorkoutCreation_TemplateDeletion);
+            this.Controls.Add(this.panel_TemplateDeletion);
             this.Controls.Add(this.panel_Menu_Measure);
             this.Controls.Add(this.panel_Menu_Workout);
             this.Controls.Add(this.panel_Menu_Exercises);
@@ -4024,14 +3997,12 @@
             this.panel_Measurement_Chart.PerformLayout();
             this.panel_Measurement_Title.ResumeLayout(false);
             this.panel_Measurement_Title.PerformLayout();
-            this.panel_WorkoutCreation_TemplateDeletion.ResumeLayout(false);
-            this.panel_WorkoutCreation_TemplateDeletion.PerformLayout();
+            this.panel_TemplateDeletion.ResumeLayout(false);
+            this.panel_TemplateDeletion.PerformLayout();
             this.panel_WorkoutTemplate.ResumeLayout(false);
             this.panel_WorkoutTemplate_Title.ResumeLayout(false);
             this.panel_WorkoutTemplate_Title.PerformLayout();
             this.flowLayoutPanel_WorkoutTemplate.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -4185,7 +4156,7 @@
         private CuoreUI.Controls.cuiBorder cuiBorder1;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart_Profile_WorkoutCount;
         private System.Windows.Forms.Label label_Profile_ChartName;
-        private System.Windows.Forms.Panel panel_WorkoutCreation_TemplateDeletion;
+        private System.Windows.Forms.Panel panel_TemplateDeletion;
         private CuoreUI.Controls.cuiButton cuiButton_TemplateDeletion_Delete;
         private CuoreUI.Controls.cuiButton cuiButton_TemplateDeletion_Cancel;
         private System.Windows.Forms.Label label_TemplateDeletion_Title;
@@ -4202,9 +4173,7 @@
         private CuoreUI.Controls.cuiButton cuiButton_WorkoutTemplate_GoBack;
         private CuoreUI.Controls.cuiButton cuiButton_WorkoutTemplate_Start;
         private CuoreUI.Controls.cuiButton cuiButton_WorkoutTemplate_AddExercise;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox textBox_WorkoutTemplate_Name;
         private CuoreUI.Controls.cuiBorder cuiBorder_WorkoutTemplate_Name;
-        private System.Windows.Forms.TextBox textBox_WorkoutTemplate_Note;
     }
 }
