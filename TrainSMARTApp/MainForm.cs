@@ -14,6 +14,7 @@ using System.Windows.Forms;
 using CuoreUI;
 using CuoreUI.Controls;
 using Microsoft.Win32;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 using static TrainSMARTApp.User;
 
 namespace TrainSMARTApp
@@ -33,6 +34,8 @@ namespace TrainSMARTApp
         private bool isViewingWorkoutTemplate;
         private bool isCreatingWorkoutTemplate;
         private bool isDeletingWorkoutTemplate;
+
+        private int selectedTemplateIdToDelete = 0;
 
         private readonly User _loggedInUser;
 
@@ -283,7 +286,10 @@ namespace TrainSMARTApp
 
         private void cuiButton_WorkoutTemplate_GoBack_Click(object sender, EventArgs e)
         {
+            var templateId = (int)((cuiButton)sender).Tag;
             isViewingWorkoutTemplate = false;
+            if (templateId > 5)
+                UpdateExerciseTemplate(templateId);
             ShowMenu(panel_Menu_Workout, cuiButton_Menu_Workout);
 
             textBox_WorkoutTemplate_Name.ReadOnly = true;
@@ -611,7 +617,7 @@ namespace TrainSMARTApp
         }
 
 
-        private bool ShowHideTemplateDeletionPrompt(object sender, EventArgs e, string panel = "")
+        private bool ShowHideTemplateDeletionPrompt(object sender, EventArgs e)
         {
             var button = sender as cuiButton;
 
@@ -622,6 +628,25 @@ namespace TrainSMARTApp
                 button == cuiButton_WorkoutTemplate_Delete;
 
             ShowHideSubPanel(panel_TemplateDeletion, isDeletingWorkoutTemplate);
+
+            if (button == cuiButton_TemplateDeletion_Delete && isViewingWorkoutTemplate)
+            {
+                foreach (Control panel in flowLayoutPanel_Workout.Controls)
+                {
+                    if (panel.Tag is not int tag || tag != selectedTemplateIdToDelete) continue;
+
+                    var deleted = DeleteWorkoutTemplate(selectedTemplateIdToDelete);
+                    if (!deleted) continue;
+
+                    flowLayoutPanel_Workout.Controls.Remove(panel);
+                    panel.Dispose();
+
+                    break;
+                }
+
+                cuiButton_Menu_Workout_Click(sender, e);
+                return true;
+            }
 
             if (button == cuiButton_TemplateDeletion_Delete || (!hasAddedExercises && button == cuiButton_WorkoutCreation_Exit))
             {
@@ -783,8 +808,12 @@ namespace TrainSMARTApp
 
                     AddExerciseSetRow(panelExercise, exerciseName, false);
 
+                    var index = 2;
+                    if (isViewingWorkoutTemplate)
+                        index = 3;
+
                     flowLayoutPanel.Controls.Add(panelExercise);
-                    flowLayoutPanel.Controls.SetChildIndex(panelExercise, flowLayoutPanel.Controls.Count - 2); // Add above "Add Exercise" button
+                    flowLayoutPanel.Controls.SetChildIndex(panelExercise, flowLayoutPanel.Controls.Count - index); // Add above "Add Exercise" button
                 }
             }
             selectedExerciseIDs.Clear();
@@ -800,9 +829,7 @@ namespace TrainSMARTApp
 
             var setTag = (int)parent.Controls.OfType<Panel>().Count() + 999;
 
-            var setRow= CreateExerciseSetRow(parent, exerciseName, setNumber, setTag);
-
-            //MessageBox.Show($"Adding setPanel with Tag={setTag} to exercise {parent.Tag}");     // TODO: REMOVE AFTER TEST
+            var setRow= CreateExerciseSetRow(parent, (int)parent.Tag, exerciseName, setNumber, setTag, weight, reps, time);
 
             parent.Controls.Add(setRow);
             parent.Controls.SetChildIndex(setRow, parent.Controls.Count - 2); // Add above "Add Set" button
@@ -912,19 +939,11 @@ namespace TrainSMARTApp
                             .Where(p => p.Height == 58 && p.Tag is >= 1000)
                             .ToList();
 
-                        MessageBox.Show($"Found {setPanels.Count} sets for ExerciseID {exerciseId}");
+                        MessageBox.Show($"Found {setPanels.Count} sets for ExerciseID {exerciseId}");   // TODO: REMOVE
 
                         int setOrder = 0;
                         foreach (Panel setPanel in exercisePanel.Controls.OfType<Panel>().Where(p => p.Tag is >= 1000))
                         {
-
-                            // TEST
-                            if (setPanel.Tag is not int tag || tag < 1000)
-                            {
-                                MessageBox.Show("Invalid set panel tag found.");
-                                continue;
-                            }
-
                             cuiTextBox2 txtWeight = setPanel.Controls.Find("cuiTextBox_Weight", true).FirstOrDefault() as cuiTextBox2;
                             cuiTextBox2 txtReps = setPanel.Controls.Find("cuiTextBox_Reps", true).FirstOrDefault() as cuiTextBox2;
                             cuiTextBox2 txtTime = setPanel.Controls.Find("cuiTextBox_Time", true).FirstOrDefault() as cuiTextBox2;
@@ -932,8 +951,6 @@ namespace TrainSMARTApp
                             object weight = decimal.TryParse(txtWeight?.Text, out var w) ? (object)w : DBNull.Value;
                             object reps = decimal.TryParse(txtReps?.Text, out var r) ? (object)r : DBNull.Value;
                             object time = int.TryParse(txtTime?.Text, out var t) ? (object)t : DBNull.Value;
-
-
 
                             // 3. Insert WorkoutTemplateExerciseSets
                             string querySet = @"INSERT INTO WorkoutTemplateExerciseSets 
@@ -968,13 +985,9 @@ namespace TrainSMARTApp
 
         private bool UpdateExerciseTemplate(int templateId)
         {
-            //if (flowLayoutPanel_WorkoutTemplate.Controls.OfType<Panel>().Count() < 2) return false;
-
             var txtBoxName = textBox_WorkoutTemplate_Name.Text;
-            var txtBoxNote = cuiTextBox_WorkoutCreation_Note.Content;   // TODO: Do something about this
 
             string templateName = (!string.IsNullOrWhiteSpace(txtBoxName)) ? txtBoxName?.Trim() : "New workout template";
-            string workoutNote = (!string.IsNullOrWhiteSpace(txtBoxNote)) ? txtBoxNote?.Trim() : "";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -984,25 +997,37 @@ namespace TrainSMARTApp
                 try
                 {
                     // 1. Update Workout Template Header
-                    string updateTemplateQuery = @"UPDATE WorkoutTemplates SET TemplateName = @TemplateName, Note = @Note WHERE TemplateID = @TemplateID";
+                    string updateTemplateQuery = @"
+                        UPDATE WorkoutTemplates 
+                        SET TemplateName = @TemplateName 
+                        WHERE TemplateID = @TemplateID";
                     SqlCommand cmdUpdateTemplate = new SqlCommand(updateTemplateQuery, conn, transaction);
                     cmdUpdateTemplate.Parameters.AddWithValue("@TemplateName", templateName);
-                    cmdUpdateTemplate.Parameters.AddWithValue("@Note", workoutNote);
+                    //cmdUpdateTemplate.Parameters.AddWithValue("@Note", workoutNote);
                     cmdUpdateTemplate.Parameters.AddWithValue("@TemplateID", templateId);
                     cmdUpdateTemplate.ExecuteNonQuery();
 
                     // 2. Delete existing exercises and sets
-                    SqlCommand deleteSets = new SqlCommand("DELETE FROM WorkoutTemplateExerciseSets WHERE TemplateExerciseID IN (SELECT TemplateExerciseID FROM WorkoutTemplateExercises WHERE TemplateID = @TemplateID)", conn, transaction);
+                    string deleteSetsQuery = @"
+                        DELETE FROM WorkoutTemplateExerciseSets 
+                        WHERE TemplateExerciseID 
+                        IN (SELECT TemplateExerciseID 
+                        FROM WorkoutTemplateExercises 
+                        WHERE TemplateID = @TemplateID)";
+                    SqlCommand deleteSets = new SqlCommand(deleteSetsQuery, conn, transaction);
                     deleteSets.Parameters.AddWithValue("@TemplateID", templateId);
                     deleteSets.ExecuteNonQuery();
 
-                    SqlCommand deleteExercises = new SqlCommand("DELETE FROM WorkoutTemplateExercises WHERE TemplateID = @TemplateID", conn, transaction);
+                    string deleteExercisesQuery = @"
+                        DELETE FROM WorkoutTemplateExercises 
+                        WHERE TemplateID = @TemplateID";
+                    SqlCommand deleteExercises = new SqlCommand(deleteExercisesQuery, conn, transaction);
                     deleteExercises.Parameters.AddWithValue("@TemplateID", templateId);
                     deleteExercises.ExecuteNonQuery();
 
                     // 3. Re-insert all exercises and sets
                     int exerciseOrder = 0;
-                    foreach (Panel exercisePanel in flowLayoutPanel_WorkoutCreation.Controls.OfType<Panel>().Where(p => p.Height > 211))
+                    foreach (Panel exercisePanel in flowLayoutPanel_WorkoutTemplate.Controls.OfType<Panel>().Where(p => p.Height > 211))
                     {
                         int exerciseId = (int)exercisePanel.Tag;
 
@@ -1170,6 +1195,8 @@ namespace TrainSMARTApp
         private int LoadExerciseSets(SqlConnection conn, Panel parentPanel, int templateExerciseId, string exerciseName, bool isPrebuilt)
         {
             int addedRowHeight = 0, i = 0; 
+            var previousSets = GetLastSetData(_loggedInUser.UserID, (int)parentPanel.Tag);
+            int setIndex = 0;
 
             string setQuery = @"
                 SELECT WeightLbs, Reps, TimeSeconds
@@ -1184,11 +1211,24 @@ namespace TrainSMARTApp
                 {
                     while (reader.Read())
                     {
+                        //if (setIndex < previousSets.Count)
+                        //{
+                        //    var (weight, reps, time) = previousSets[setIndex];
+
+                        //    string text = "";
+
+                        //    if (weight != null && reps != null)
+                        //        text = $"{weight} lbs × {reps}";
+                        //    else if (time != null)
+                        //        text = $"{time} sec";
+                        //}
+
                         decimal? weight = reader.IsDBNull(0) ? null : reader.GetDecimal(0);
                         decimal? reps = reader.IsDBNull(1) ? null : reader.GetDecimal(1);
                         int? time = reader.IsDBNull(2) ? null : reader.GetInt32(2);
 
                         addedRowHeight = AddExerciseSetRow(parentPanel, exerciseName, isPrebuilt, weight, reps, time);
+                        setIndex++;
                         i++;
                     }
                 }
@@ -1458,6 +1498,54 @@ namespace TrainSMARTApp
         }
 
 
+        private List<(decimal? weight, int? reps, int? timeSeconds)> GetLastSetData(int userId, int exerciseId)
+        {
+            string query = @"
+                SELECT wes.WeightLbs, wes.Reps, wes.TimeSeconds
+                FROM WorkoutExerciseSets wes
+                INNER JOIN WorkoutExercises we ON wes.WorkoutExerciseID = we.WorkoutExerciseID
+                INNER JOIN Workouts w ON we.WorkoutID = w.WorkoutID
+                WHERE w.UserID = @UserID 
+                  AND we.ExerciseID = @ExerciseID
+                  AND (wes.WeightLbs IS NOT NULL OR wes.Reps IS NOT NULL OR wes.TimeSeconds IS NOT NULL)
+                  AND w.DatePerformed = (
+                      SELECT MAX(DatePerformed)
+                      FROM Workouts w2
+                      INNER JOIN WorkoutExercises we2 ON w2.WorkoutID = we2.WorkoutID
+                      WHERE w2.UserID = @UserID AND we2.ExerciseID = @ExerciseID
+                  )
+                ORDER BY wes.SetOrder ASC";
+
+            var setDataList = new List<(decimal? weight, int? reps, int? timeSeconds)>();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@UserID", userId);
+                cmd.Parameters.AddWithValue("@ExerciseID", exerciseId);
+                conn.Open();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        decimal? weight = reader.IsDBNull(0) ? null : reader.GetDecimal(0);
+                        int? reps = reader.IsDBNull(1) ? null : reader.GetInt32(1);
+                        int? time = reader.IsDBNull(2) ? null : reader.GetInt32(2);
+
+                        setDataList.Add((weight, reps, time));
+                    }
+                }
+            }
+
+            return setDataList;
+        }
+
+
+
+
+
+
 
 
 
@@ -1693,12 +1781,11 @@ namespace TrainSMARTApp
             {
                 panelExercise.Controls.Add(ctrl);
             }
-
             return panelExercise;
         }
 
 
-        private Panel CreateExerciseSetRow(Panel parent, string exerciseName, int setNumber, object setTag)
+        private Panel CreateExerciseSetRow(Panel parent, int exerciseId, string exerciseName, int setNumber, object setTag, decimal weight, decimal reps, int time)
         {
             var setRow = new Panel
             {
@@ -1722,7 +1809,7 @@ namespace TrainSMARTApp
 
             var lblPrevious = new Label
             {
-                Text      = "100 lbs × 12", // TODO: get previous data
+                Text      = (timeOnlyExercises.Contains(exerciseName)) ? $"{time} sec" : $"{weight} lbs × {reps}",
                 Width     = 120,
                 Location  = new Point(55, 16),
                 Font      = new Font("SansSerif", 12),
@@ -1867,13 +1954,18 @@ namespace TrainSMARTApp
             {
                 Text      = note,
                 Font      = new Font("SansSerif", 10, FontStyle.Italic),
-                ForeColor = Color.White,
+                ForeColor = Color.FromArgb(147, 152, 154),
                 Dock      = DockStyle.Bottom,
                 Height    = 20,
                 TextAlign = ContentAlignment.MiddleLeft,
             };
 
-            btnTemplate.Controls.Add(lblNote);      // TODO: Enhance
+            if (!string.IsNullOrWhiteSpace(note))
+            {
+                btnTemplate.Controls.Add(lblNote);      // TODO: Enhance
+                btnTemplate.Height += 10;
+                btnTemplate.TextOffset = new Point(0, -5);
+            }
 
             // Optional: store additional info like note in Tag if needed
 
@@ -1904,16 +1996,16 @@ namespace TrainSMARTApp
                     foreach (Control panel in flowLayoutPanel_Workout.Controls)
                     {
                         if (panel.Tag is not int tag || tag != selectedTemplateId) continue;
+                        selectedTemplateIdToDelete = selectedTemplateId;
+                        var confirmDelete = ShowHideTemplateDeletionPrompt(cuiButton_WorkoutTemplate_Delete, e);
 
-                        ShowHideTemplateDeletionPrompt(cuiButton_WorkoutTemplate_Delete, e, "");    // TODO: FIX DELETING THE TEMPLATE
+                        if (!confirmDelete) return;
+                        var deleted = DeleteWorkoutTemplate(selectedTemplateId);
 
-                        {
-                            var deleted = DeleteWorkoutTemplate(selectedTemplateId);
-                            if (!deleted) return;
+                        if (!deleted) return;
 
-                            flowLayoutPanel_Workout.Controls.Remove(panel);
-                            panel.Dispose(); 
-                        }
+                        flowLayoutPanel_Workout.Controls.Remove(panel);
+                        panel.Dispose(); 
 
                         break;
                     }
