@@ -82,6 +82,18 @@ CREATE TABLE dbo.WorkoutExercises
 GO
 
 
+CREATE TABLE dbo.WorkoutExerciseSets
+(
+    SetID               INT                 IDENTITY(1,1) PRIMARY KEY,
+    WorkoutExerciseID   INT                 NOT NULL FOREIGN KEY REFERENCES dbo.WorkoutExercises(WorkoutExerciseID) ON DELETE CASCADE,
+    WeightLbs           DECIMAL(5,2),
+    Reps                INT,
+    TimeSeconds         INT,
+    SetOrder            INT
+);
+GO
+
+
     -- exercises data
 CREATE TABLE dbo.Exercises
 (
