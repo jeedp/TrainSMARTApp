@@ -65,9 +65,9 @@ CREATE TABLE dbo.Workouts
 (
     WorkoutID           INT                 IDENTITY(1,1) PRIMARY KEY,
     UserID              INT                 NOT NULL FOREIGN KEY REFERENCES dbo.Users(UserID) ON DELETE CASCADE,
-    WorkoutDate         DATETIME            DEFAULT GETDATE(),
-    WorkoutType         NVARCHAR(100),
-    DurationMinutes     INT
+    TemplateID          INT                 NULL FOREIGN KEY REFERENCES dbo.WorkoutTemplates(TemplateID),
+    DatePerformed       DATETIME            DEFAULT GETDATE(),
+    Note                NVARCHAR(MAX)       NULL
 );
 GO
 
