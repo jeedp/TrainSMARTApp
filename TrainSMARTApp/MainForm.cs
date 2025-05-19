@@ -303,12 +303,12 @@ namespace TrainSMARTApp
 
         private void cuiButton_WorkoutTemplate_Start_Click(object sender, EventArgs e)
         {
-
+            StartWorkoutFromTemplate(_loggedInUser.UserID, (int)((cuiButton)sender).Tag);
         }
 
         private void cuiButton_WorkoutTemplate_Delete_Click(object sender, EventArgs e)
         {
-
+            //MessageBox.Show("Are you sure you want to delete this template? This action cannot be undone.", "Delete Template", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
         }
 
         
@@ -1339,6 +1339,52 @@ namespace TrainSMARTApp
         }
 
 
+        private int StartWorkoutFromTemplate(int userId, int templateId)
+        {
+            int workoutId = -1;
+
+            using (var conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                // Step 1: Insert new workout
+                string insertWorkoutQuery = @"
+                    INSERT INTO Workouts (UserID, TemplateID)
+                    OUTPUT INSERTED.WorkoutID
+                    VALUES (@UserID, @TemplateID)";
+
+                using (var cmd = new SqlCommand(insertWorkoutQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@UserID", userId);
+                    cmd.Parameters.AddWithValue("@TemplateID", templateId);
+
+                    workoutId = (int)cmd.ExecuteScalar();
+                }
+
+                // Step 2: Copy template exercises to WorkoutExercises
+                string copyExercisesQuery = @"
+                    INSERT INTO WorkoutExercises (WorkoutID, ExerciseID, DisplayOrder)
+                    SELECT @WorkoutID, ExerciseID, DisplayOrder
+                    FROM WorkoutTemplateExercises
+                    WHERE TemplateID = @TemplateID";
+
+                using (var cmd = new SqlCommand(copyExercisesQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@WorkoutID", workoutId);
+                    cmd.Parameters.AddWithValue("@TemplateID", templateId);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+
+            if (workoutId > 0)
+                StartWorkoutTimer();
+
+            return workoutId;
+        }
+
+
+
 
 
 
@@ -1568,7 +1614,7 @@ namespace TrainSMARTApp
             }
 
             workoutTimer.Start();
-            }
+        }
 
 
         private void WorkoutTimer_Tick(object sender, EventArgs e)
@@ -1578,7 +1624,7 @@ namespace TrainSMARTApp
         }
 
 
-        
+
 
 
 
@@ -2017,6 +2063,7 @@ namespace TrainSMARTApp
                 LoadTemplateExercises(selectedTemplateId, isPrebuilt);
                 ShowTemplateDetails(isPrebuilt);
                 cuiButton_WorkoutTemplate_GoBack.Tag = selectedTemplateId;
+                cuiButton_WorkoutTemplate_Start.Tag = selectedTemplateId;
                 textBox_WorkoutTemplate_Name.Text = templateName;
 
                 textBox_WorkoutTemplate_Name.Click += (_, _) =>
