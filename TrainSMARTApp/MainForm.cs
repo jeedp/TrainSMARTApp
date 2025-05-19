@@ -25,6 +25,10 @@ namespace TrainSMARTApp
         private bool _mouseDown;
         private Point _lastLocation;
 
+        // for workout timer
+        private Timer workoutTimer;
+        private DateTime workoutStartTime;
+
         // sql connection string
         private string connectionString = "Data Source=LAPTOP-R9RSTS0G\\SQLEXPRESS;Initial Catalog=UserDB;Integrated Security=True;TrustServerCertificate=True;Encrypt=True";
 
@@ -1552,7 +1556,31 @@ namespace TrainSMARTApp
         }
 
 
+        private void StartWorkoutTimer()
+        {
+            workoutStartTime = DateTime.Now;
+
+            if (workoutTimer == null)
+            {
+                workoutTimer = new Timer();
+                workoutTimer.Interval = 1000; // 1 second
+                workoutTimer.Tick += WorkoutTimer_Tick;
+            }
+
+            workoutTimer.Start();
+            }
+
+
+        private void WorkoutTimer_Tick(object sender, EventArgs e)
+        {
+            TimeSpan elapsed = DateTime.Now - workoutStartTime;
+            //label_WorkoutTimer.Text = elapsed.ToString(@"hh\:mm\:ss");
+        }
+
+
         
+
+
 
 
 
@@ -2028,6 +2056,16 @@ namespace TrainSMARTApp
 
             return btnTemplate;
         }
+
+
+
+
+
+
+
+
+
+
 
 
 
