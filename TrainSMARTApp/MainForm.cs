@@ -561,11 +561,11 @@ namespace TrainSMARTApp
             border.Height = (isFilterShown) ? 75 : 0;   // height in design is 93
             border.BringToFront();
 
-            if (isFilterShown) return;
-            foreach (var cb in cuiBorder_Exercises_Filter.Controls.OfType<cuiCheckbox>())
-            {
-                cb.Checked = false;
-            }
+            //if (isFilterShown) return;
+            //foreach (var cb in cuiBorder_Exercises_Filter.Controls.OfType<cuiCheckbox>())
+            //{
+            //    cb.Checked = false;
+            //}
         }
 
 
