@@ -113,6 +113,7 @@ CREATE TABLE dbo.WorkoutTemplateExerciseSets
     TemplateExerciseID  INT                 NOT NULL FOREIGN KEY REFERENCES dbo.WorkoutTemplateExercises(TemplateExerciseID) ON DELETE CASCADE,
     WeightLbs           DECIMAL(5,2)        NULL,
     Reps                INT                 NULL,
+    RepsOnly            INT                 NULL,
     TimeSeconds         INT                 NULL,
     SetOrder            INT                 NOT NULL
 );
