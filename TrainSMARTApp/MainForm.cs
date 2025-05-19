@@ -1501,20 +1501,20 @@ namespace TrainSMARTApp
         private List<(decimal? weight, int? reps, int? timeSeconds)> GetLastSetData(int userId, int exerciseId)
         {
             string query = @"
-                SELECT wes.WeightLbs, wes.Reps, wes.TimeSeconds
-                FROM WorkoutExerciseSets wes
-                INNER JOIN WorkoutExercises we ON wes.WorkoutExerciseID = we.WorkoutExerciseID
-                INNER JOIN Workouts w ON we.WorkoutID = w.WorkoutID
-                WHERE w.UserID = @UserID 
-                  AND we.ExerciseID = @ExerciseID
-                  AND (wes.WeightLbs IS NOT NULL OR wes.Reps IS NOT NULL OR wes.TimeSeconds IS NOT NULL)
-                  AND w.DatePerformed = (
-                      SELECT MAX(DatePerformed)
-                      FROM Workouts w2
-                      INNER JOIN WorkoutExercises we2 ON w2.WorkoutID = we2.WorkoutID
-                      WHERE w2.UserID = @UserID AND we2.ExerciseID = @ExerciseID
+                SELECT wtes.WeightLbs, wtes.Reps, wtes.TimeSeconds
+                FROM WorkoutTemplateExerciseSets wtes
+                INNER JOIN WorkoutTemplateExercises wte ON wtes.TemplateExerciseID = wte.TemplateExerciseID
+                INNER JOIN WorkoutTemplates wt ON wte.TemplateID = wt.TemplateID
+                WHERE wt.UserID = @UserID 
+                  AND wte.ExerciseID = @ExerciseID
+                  AND (wtes.WeightLbs IS NOT NULL OR wtes.Reps IS NOT NULL OR wtes.TimeSeconds IS NOT NULL)
+                  AND wt.DateCreated = (
+                      SELECT MAX(DateCreated)
+                      FROM WorkoutTemplates wt2
+                      INNER JOIN WorkoutTemplateExercises wte2 ON wt2.TemplateID = wte2.TemplateID
+                      WHERE wt2.UserID = @UserID AND wte2.ExerciseID = @ExerciseID
                   )
-                ORDER BY wes.SetOrder ASC";
+                ORDER BY wtes.SetOrder ASC";
 
             var setDataList = new List<(decimal? weight, int? reps, int? timeSeconds)>();
 
@@ -1540,6 +1540,7 @@ namespace TrainSMARTApp
 
             return setDataList;
         }
+
 
 
 
@@ -1785,7 +1786,7 @@ namespace TrainSMARTApp
         }
 
 
-        private Panel CreateExerciseSetRow(Panel parent, int exerciseId, string exerciseName, int setNumber, object setTag, decimal weight, decimal reps, int time)
+        private Panel CreateExerciseSetRow(Panel parent, int exerciseId, string exerciseName, int setNumber, object setTag, decimal? weight, decimal? reps, int? time)
         {
             var setRow = new Panel
             {
