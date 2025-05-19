@@ -822,14 +822,14 @@ namespace TrainSMARTApp
         }
 
 
-        public int AddExerciseSetRow(Panel parent, string exerciseName, bool isPrebuilt, decimal? weight = null, decimal? reps = null, int? time = null)
+        public int AddExerciseSetRow(Panel parent, string exerciseName, bool isPrebuilt, decimal? weight = null, decimal? reps = null, decimal? repsOnly = null, int? time = null)
         {
             var setNumber = parent.Controls.OfType<Panel>().Count();
             if (isPrebuilt) setNumber += 1;
 
             var setTag = (int)parent.Controls.OfType<Panel>().Count() + 999;
 
-            var setRow= CreateExerciseSetRow(parent, (int)parent.Tag, exerciseName, setNumber, setTag, weight, reps, time);
+            var setRow= CreateExerciseSetRow(parent, (int)parent.Tag, exerciseName, setNumber, setTag, weight, reps, repsOnly, time);
 
             parent.Controls.Add(setRow);
             parent.Controls.SetChildIndex(setRow, parent.Controls.Count - 2); // Add above "Add Set" button
@@ -842,9 +842,10 @@ namespace TrainSMARTApp
         {
             var latestPanel = parent.Controls.OfType<Panel>().OrderByDescending(p => (int)p.Tag).FirstOrDefault();
             var setPanels = parent.Controls.OfType<Panel>().Where(p => (int)p.Tag > 999).ToList();
+            var currentFlowLayoutPanel = parent.Parent;
 
             if (setPanels.Count <= 1)
-                flowLayoutPanel_WorkoutCreation.Controls.Remove(parent);
+                currentFlowLayoutPanel.Controls.Remove(parent);
 
             if (latestPanel != null)
             {
@@ -946,21 +947,24 @@ namespace TrainSMARTApp
                         {
                             cuiTextBox2 txtWeight = setPanel.Controls.Find("cuiTextBox_Weight", true).FirstOrDefault() as cuiTextBox2;
                             cuiTextBox2 txtReps = setPanel.Controls.Find("cuiTextBox_Reps", true).FirstOrDefault() as cuiTextBox2;
+                            cuiTextBox2 txtRepsOnly = setPanel.Controls.Find("cuiTextBox_RepsOnly", true).FirstOrDefault() as cuiTextBox2;
                             cuiTextBox2 txtTime = setPanel.Controls.Find("cuiTextBox_Time", true).FirstOrDefault() as cuiTextBox2;
 
                             object weight = decimal.TryParse(txtWeight?.Text, out var w) ? (object)w : DBNull.Value;
                             object reps = decimal.TryParse(txtReps?.Text, out var r) ? (object)r : DBNull.Value;
+                            object repsOnly = decimal.TryParse(txtReps?.Text, out var rO) ? (object)rO : DBNull.Value;
                             object time = int.TryParse(txtTime?.Text, out var t) ? (object)t : DBNull.Value;
 
                             // 3. Insert WorkoutTemplateExerciseSets
                             string querySet = @"INSERT INTO WorkoutTemplateExerciseSets 
-                                        (TemplateExerciseID, WeightLbs, Reps, TimeSeconds, SetOrder) 
-                                        VALUES (@TemplateExerciseID, @WeightLbs, @Reps, @TimeSeconds, @SetOrder)";
+                                        (TemplateExerciseID, WeightLbs, Reps, RepsOnly, TimeSeconds, SetOrder) 
+                                        VALUES (@TemplateExerciseID, @WeightLbs, @Reps, @RepsOnly, @TimeSeconds, @SetOrder)";
                             SqlCommand cmdSet = new SqlCommand(querySet, conn, transaction);
 
                             cmdSet.Parameters.AddWithValue("@TemplateExerciseID", templateExerciseId);
                             cmdSet.Parameters.Add("@WeightLbs", SqlDbType.Decimal).Value = weight;
                             cmdSet.Parameters.AddWithValue("@Reps", reps);
+                            cmdSet.Parameters.AddWithValue("@RepsOnly", repsOnly);
                             cmdSet.Parameters.AddWithValue("@TimeSeconds", time);
                             cmdSet.Parameters.AddWithValue("@SetOrder", setOrder++);
 
@@ -1050,20 +1054,23 @@ namespace TrainSMARTApp
                         {
                             cuiTextBox2 txtWeight = setPanel.Controls.Find("cuiTextBox_Weight", true).FirstOrDefault() as cuiTextBox2;
                             cuiTextBox2 txtReps = setPanel.Controls.Find("cuiTextBox_Reps", true).FirstOrDefault() as cuiTextBox2;
+                            cuiTextBox2 txtRepsOnly = setPanel.Controls.Find("cuiTextBox_RepsOnly", true).FirstOrDefault() as cuiTextBox2;
                             cuiTextBox2 txtTime = setPanel.Controls.Find("cuiTextBox_Time", true).FirstOrDefault() as cuiTextBox2;
 
                             object weight = decimal.TryParse(txtWeight?.Text, out var w) ? (object)w : DBNull.Value;
                             object reps = decimal.TryParse(txtReps?.Text, out var r) ? (object)r : DBNull.Value;
                             object time = int.TryParse(txtTime?.Text, out var t) ? (object)t : DBNull.Value;
+                            object repsOnly = decimal.TryParse(txtReps?.Text, out var rO) ? (object)rO : DBNull.Value;
 
                             string querySet = @"INSERT INTO WorkoutTemplateExerciseSets 
-                                (TemplateExerciseID, WeightLbs, Reps, TimeSeconds, SetOrder) 
-                                VALUES (@TemplateExerciseID, @WeightLbs, @Reps, @TimeSeconds, @SetOrder)";
+                                (TemplateExerciseID, WeightLbs, Reps, RepsOnly, TimeSeconds, SetOrder) 
+                                VALUES (@TemplateExerciseID, @WeightLbs, @Reps, @RepsOnly, @TimeSeconds, @SetOrder)";
                             SqlCommand cmdSet = new SqlCommand(querySet, conn, transaction);
 
                             cmdSet.Parameters.AddWithValue("@TemplateExerciseID", templateExerciseId);
                             cmdSet.Parameters.Add("@WeightLbs", SqlDbType.Decimal).Value = weight;
                             cmdSet.Parameters.AddWithValue("@Reps", reps);
+                            cmdSet.Parameters.AddWithValue("@RepsOnly", repsOnly);
                             cmdSet.Parameters.AddWithValue("@TimeSeconds", time);
                             cmdSet.Parameters.AddWithValue("@SetOrder", setOrder++);
 
@@ -1165,7 +1172,7 @@ namespace TrainSMARTApp
                 using (SqlCommand cmd = new SqlCommand(exerciseQuery, conn))
                 {
                     cmd.Parameters.AddWithValue("@TemplateID", selectedTemplateId);
-                    using (SqlDataReader reader = cmd.ExecuteReader()) // No CloseConnection needed
+                    using (SqlDataReader reader = cmd.ExecuteReader())
                     {
                         while (reader.Read())
                         {
@@ -1182,7 +1189,7 @@ namespace TrainSMARTApp
                 foreach (var (templateExerciseId, exerciseId, exerciseName) in templateExercises)
                 {
                     var exercisePanel = CreateExercisePanel(exerciseId, exerciseName, isPrebuilt);
-                    int addedRowHeight = LoadExerciseSets(conn, exercisePanel, templateExerciseId, exerciseName, isPrebuilt);
+                    int addedRowHeight = LoadTemplateExerciseSets(conn, exercisePanel, templateExerciseId, exerciseName, isPrebuilt);
                     exercisePanel.Height += addedRowHeight;
                     flowLayoutPanel_WorkoutTemplate.Controls.Add(exercisePanel);
                     flowLayoutPanel_WorkoutTemplate.Controls.SetChildIndex(exercisePanel, flowLayoutPanel_WorkoutTemplate.Controls.Count - 2); // Add above "Add Exercise" button
@@ -1192,14 +1199,14 @@ namespace TrainSMARTApp
         }
 
 
-        private int LoadExerciseSets(SqlConnection conn, Panel parentPanel, int templateExerciseId, string exerciseName, bool isPrebuilt)
+        private int LoadTemplateExerciseSets(SqlConnection conn, Panel parentPanel, int templateExerciseId, string exerciseName, bool isPrebuilt)
         {
             int addedRowHeight = 0, i = 0; 
             var previousSets = GetLastSetData(_loggedInUser.UserID, (int)parentPanel.Tag);
             int setIndex = 0;
 
             string setQuery = @"
-                SELECT WeightLbs, Reps, TimeSeconds
+                SELECT WeightLbs, Reps, RepsOnly, TimeSeconds
                 FROM WorkoutTemplateExerciseSets
                 WHERE TemplateExerciseID = @TemplateExerciseID
                 ORDER BY SetOrder";
@@ -1211,23 +1218,24 @@ namespace TrainSMARTApp
                 {
                     while (reader.Read())
                     {
-                        //if (setIndex < previousSets.Count)
-                        //{
-                        //    var (weight, reps, time) = previousSets[setIndex];
-
-                        //    string text = "";
-
-                        //    if (weight != null && reps != null)
-                        //        text = $"{weight} lbs × {reps}";
-                        //    else if (time != null)
-                        //        text = $"{time} sec";
-                        //}
-
                         decimal? weight = reader.IsDBNull(0) ? null : reader.GetDecimal(0);
                         decimal? reps = reader.IsDBNull(1) ? null : reader.GetDecimal(1);
-                        int? time = reader.IsDBNull(2) ? null : reader.GetInt32(2);
+                        decimal? repsOnly = reader.IsDBNull(2) ? null : reader.GetDecimal(2);
+                        int? time = reader.IsDBNull(3) ? null : reader.GetInt32(3);
 
-                        addedRowHeight = AddExerciseSetRow(parentPanel, exerciseName, isPrebuilt, weight, reps, time);
+                        if (setIndex < previousSets.Count)
+                        {
+                            (weight, reps, repsOnly, time) = previousSets[setIndex];
+
+                            //string text = "";
+
+                            //if (weight != null && reps != null)
+                            //    text = $"{weight} lbs × {reps}";
+                            //else if (time != null)
+                            //    text = $"{time} sec";
+                        }
+
+                        addedRowHeight = AddExerciseSetRow(parentPanel, exerciseName, isPrebuilt, weight, reps, repsOnly, time);
                         setIndex++;
                         i++;
                     }
@@ -1248,10 +1256,10 @@ namespace TrainSMARTApp
                 {
                     // 1. Delete sets associated with the exercises in the template
                     string deleteSetsQuery = @"
-                DELETE FROM WorkoutTemplateExerciseSets
-                WHERE TemplateExerciseID IN (
-                    SELECT TemplateExerciseID FROM WorkoutTemplateExercises WHERE TemplateID = @TemplateID
-                )";
+                        DELETE FROM WorkoutTemplateExerciseSets
+                        WHERE TemplateExerciseID IN (
+                            SELECT TemplateExerciseID FROM WorkoutTemplateExercises WHERE TemplateID = @TemplateID
+                        )";
                     SqlCommand cmdDeleteSets = new SqlCommand(deleteSetsQuery, conn, transaction);
                     cmdDeleteSets.Parameters.AddWithValue("@TemplateID", selectedTemplateId);
                     cmdDeleteSets.ExecuteNonQuery();
@@ -1280,6 +1288,52 @@ namespace TrainSMARTApp
                 }
             }
         }
+
+
+        private List<(decimal? weight, int? reps, int? repsOnly, int? timeSeconds)> GetLastSetData(int userId, int exerciseId)
+        {
+            string query = @"
+                SELECT wtes.WeightLbs, wtes.Reps, wtes.TimeSeconds
+                FROM WorkoutTemplateExerciseSets wtes
+                INNER JOIN WorkoutTemplateExercises wte ON wtes.TemplateExerciseID = wte.TemplateExerciseID
+                INNER JOIN WorkoutTemplates wt ON wte.TemplateID = wt.TemplateID
+                WHERE wt.UserID = @UserID 
+                  AND wte.ExerciseID = @ExerciseID
+                  AND (wtes.WeightLbs IS NOT NULL OR wtes.Reps IS NOT NULL OR wtes.RepsOnly IS NOT NULL OR wtes.TimeSeconds IS NOT NULL)
+                  AND wt.DateCreated = (
+                      SELECT MAX(DateCreated)
+                      FROM WorkoutTemplates wt2
+                      INNER JOIN WorkoutTemplateExercises wte2 ON wt2.TemplateID = wte2.TemplateID
+                      WHERE wt2.UserID = @UserID AND wte2.ExerciseID = @ExerciseID
+                  )
+                ORDER BY wtes.SetOrder ASC";
+
+            var setDataList = new List<(decimal? weight, int? reps, int? repsOnly, int? timeSeconds)>();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@UserID", userId);
+                cmd.Parameters.AddWithValue("@ExerciseID", exerciseId);
+                conn.Open();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        decimal? weight = reader.IsDBNull(0) ? null : reader.GetDecimal(0);
+                        int? reps = reader.IsDBNull(1) ? null : reader.GetInt32(1);
+                        int? repsOnly = reader.IsDBNull(2) ? null : reader.GetInt32(2);
+                        int? time = reader.IsDBNull(3) ? null : reader.GetInt32(3);
+
+                        setDataList.Add((weight, reps, repsOnly, time));
+                    }
+                }
+            }
+
+            return setDataList;
+        }
+
 
 
 
@@ -1498,48 +1552,7 @@ namespace TrainSMARTApp
         }
 
 
-        private List<(decimal? weight, int? reps, int? timeSeconds)> GetLastSetData(int userId, int exerciseId)
-        {
-            string query = @"
-                SELECT wtes.WeightLbs, wtes.Reps, wtes.TimeSeconds
-                FROM WorkoutTemplateExerciseSets wtes
-                INNER JOIN WorkoutTemplateExercises wte ON wtes.TemplateExerciseID = wte.TemplateExerciseID
-                INNER JOIN WorkoutTemplates wt ON wte.TemplateID = wt.TemplateID
-                WHERE wt.UserID = @UserID 
-                  AND wte.ExerciseID = @ExerciseID
-                  AND (wtes.WeightLbs IS NOT NULL OR wtes.Reps IS NOT NULL OR wtes.TimeSeconds IS NOT NULL)
-                  AND wt.DateCreated = (
-                      SELECT MAX(DateCreated)
-                      FROM WorkoutTemplates wt2
-                      INNER JOIN WorkoutTemplateExercises wte2 ON wt2.TemplateID = wte2.TemplateID
-                      WHERE wt2.UserID = @UserID AND wte2.ExerciseID = @ExerciseID
-                  )
-                ORDER BY wtes.SetOrder ASC";
-
-            var setDataList = new List<(decimal? weight, int? reps, int? timeSeconds)>();
-
-            using (SqlConnection conn = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand(query, conn))
-            {
-                cmd.Parameters.AddWithValue("@UserID", userId);
-                cmd.Parameters.AddWithValue("@ExerciseID", exerciseId);
-                conn.Open();
-
-                using (SqlDataReader reader = cmd.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        decimal? weight = reader.IsDBNull(0) ? null : reader.GetDecimal(0);
-                        int? reps = reader.IsDBNull(1) ? null : reader.GetInt32(1);
-                        int? time = reader.IsDBNull(2) ? null : reader.GetInt32(2);
-
-                        setDataList.Add((weight, reps, time));
-                    }
-                }
-            }
-
-            return setDataList;
-        }
+        
 
 
 
@@ -1786,7 +1799,7 @@ namespace TrainSMARTApp
         }
 
 
-        private Panel CreateExerciseSetRow(Panel parent, int exerciseId, string exerciseName, int setNumber, object setTag, decimal? weight, decimal? reps, int? time)
+        private Panel CreateExerciseSetRow(Panel parent, int exerciseId, string exerciseName, int setNumber, object setTag, decimal? weight, decimal? reps, decimal? repsOnly, int? time)
         {
             var setRow = new Panel
             {
@@ -1810,7 +1823,7 @@ namespace TrainSMARTApp
 
             var lblPrevious = new Label
             {
-                Text      = (timeOnlyExercises.Contains(exerciseName)) ? $"{time} sec" : $"{weight} lbs × {reps}",
+                Text      = (timeOnlyExercises.Contains(exerciseName)) ? $"{time} sec" : (repsOnlyExercises.Contains(exerciseName)) ? $"{repsOnly} reps" : $"{weight} lbs × {reps}",
                 Width     = 120,
                 Location  = new Point(55, 16),
                 Font      = new Font("SansSerif", 12),
@@ -1836,7 +1849,7 @@ namespace TrainSMARTApp
                 FocusBackgroundColor = Color.FromArgb(61, 70, 73),
                 FocusBorderColor     = Color.FromArgb(61, 70, 73),
                 PlaceholderColor     = Color.FromArgb(158, 163, 164),
-                Enabled              = false,
+                Enabled              = true,
             };
             txtBxWeight.KeyPress += KeyPressDigitOnly;
 
@@ -1878,7 +1891,7 @@ namespace TrainSMARTApp
                 FocusBackgroundColor = Color.FromArgb(61, 70, 73),
                 FocusBorderColor     = Color.FromArgb(61, 70, 73),
                 PlaceholderColor     = Color.FromArgb(158, 163, 164),
-                Enabled              = false,
+                Enabled              = true,
             };
             txtBxTime.KeyPress += KeyPressDigitOnly;
 
