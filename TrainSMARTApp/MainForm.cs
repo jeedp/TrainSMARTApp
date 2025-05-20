@@ -826,7 +826,7 @@ namespace TrainSMARTApp
         }
 
 
-        public int AddExerciseSetRow(Panel parent, string exerciseName, bool isPrebuilt, decimal? weight = null, decimal? reps = null, decimal? repsOnly = null, int? time = null)
+        public int AddExerciseSetRow(Panel parent, string exerciseName, bool isPrebuilt, decimal? weight = null, int? reps = null, int? repsOnly = null, int? time = null)
         {
             var setNumber = parent.Controls.OfType<Panel>().Count();
             if (isPrebuilt) setNumber += 1;
@@ -1061,10 +1061,12 @@ namespace TrainSMARTApp
                             cuiTextBox2 txtRepsOnly = setPanel.Controls.Find("cuiTextBox_RepsOnly", true).FirstOrDefault() as cuiTextBox2;
                             cuiTextBox2 txtTime = setPanel.Controls.Find("cuiTextBox_Time", true).FirstOrDefault() as cuiTextBox2;
 
-                            object weight = decimal.TryParse(txtWeight?.Text, out var w) ? (object)w : DBNull.Value;
-                            object reps = decimal.TryParse(txtReps?.Text, out var r) ? (object)r : DBNull.Value;
-                            object time = int.TryParse(txtTime?.Text, out var t) ? (object)t : DBNull.Value;
-                            object repsOnly = decimal.TryParse(txtReps?.Text, out var rO) ? (object)rO : DBNull.Value;
+                            object weight = decimal.TryParse(txtWeight?.Content, out var w) ? (object)w : DBNull.Value;
+                            object reps = decimal.TryParse(txtReps?.Content, out var r) ? (object)r : DBNull.Value;
+                            object time = int.TryParse(txtTime?.Content, out var t) ? (object)t : DBNull.Value;
+                            object repsOnly = decimal.TryParse(txtRepsOnly?.Content, out var rO) ? (object)rO : DBNull.Value;
+
+                            MessageBox.Show($"{weight}");
 
                             string querySet = @"INSERT INTO WorkoutTemplateExerciseSets 
                                 (TemplateExerciseID, WeightLbs, Reps, RepsOnly, TimeSeconds, SetOrder) 
@@ -1223,21 +1225,21 @@ namespace TrainSMARTApp
                     while (reader.Read())
                     {
                         decimal? weight = reader.IsDBNull(0) ? null : reader.GetDecimal(0);
-                        decimal? reps = reader.IsDBNull(1) ? null : reader.GetDecimal(1);
-                        decimal? repsOnly = reader.IsDBNull(2) ? null : reader.GetDecimal(2);
+                        int? reps = reader.IsDBNull(1) ? null : reader.GetInt32(1);
+                        int? repsOnly = reader.IsDBNull(2) ? null : reader.GetInt32(2);
                         int? time = reader.IsDBNull(3) ? null : reader.GetInt32(3);
 
-                        if (setIndex < previousSets.Count)
-                        {
-                            (weight, reps, repsOnly, time) = previousSets[setIndex];
+                        //if (setIndex < previousSets.Count)
+                        //{
+                        //    (weight, reps, repsOnly, time) = previousSets[setIndex];
 
-                            //string text = "";
+                        //    //string text = "";
 
-                            //if (weight != null && reps != null)
-                            //    text = $"{weight} lbs × {reps}";
-                            //else if (time != null)
-                            //    text = $"{time} sec";
-                        }
+                        //    //if (weight != null && reps != null)
+                        //    //    text = $"{weight} lbs × {reps}";
+                        //    //else if (time != null)
+                        //    //    text = $"{time} sec";
+                        //}
 
                         addedRowHeight = AddExerciseSetRow(parentPanel, exerciseName, isPrebuilt, weight, reps, repsOnly, time);
                         setIndex++;
@@ -1297,7 +1299,7 @@ namespace TrainSMARTApp
         private List<(decimal? weight, int? reps, int? repsOnly, int? timeSeconds)> GetLastSetData(int userId, int exerciseId)
         {
             string query = @"
-                SELECT wtes.WeightLbs, wtes.Reps, wtes.TimeSeconds
+                SELECT wtes.WeightLbs, wtes.Reps, wtes.RepsOnly, wtes.TimeSeconds
                 FROM WorkoutTemplateExerciseSets wtes
                 INNER JOIN WorkoutTemplateExercises wte ON wtes.TemplateExerciseID = wte.TemplateExerciseID
                 INNER JOIN WorkoutTemplates wt ON wte.TemplateID = wt.TemplateID
@@ -1897,7 +1899,7 @@ namespace TrainSMARTApp
 
             var lblPrevious = new Label
             {
-                Text      = (timeOnlyExercises.Contains(exerciseName)) ? $"{time} sec" : (repsOnlyExercises.Contains(exerciseName)) ? $"{repsOnly} reps" : $"{weight} lbs × {reps}",
+                Text      = (timeOnlyExercises.Contains(exerciseName)) ? $"{time} sec" : (repsOnlyExercises.Contains(exerciseName)) ? $"{repsOnly} reps" : $"{weight.Value:G29} lbs × {reps}",
                 Width     = 120,
                 Location  = new Point(55, 16),
                 Font      = new Font("SansSerif", 12),
@@ -1923,7 +1925,7 @@ namespace TrainSMARTApp
                 FocusBackgroundColor = Color.FromArgb(61, 70, 73),
                 FocusBorderColor     = Color.FromArgb(61, 70, 73),
                 PlaceholderColor     = Color.FromArgb(158, 163, 164),
-                Enabled              = true,
+                Enabled              = !isCreatingWorkoutTemplate,
             };
             txtBxWeight.KeyPress += KeyPressDigitOnly;
 
@@ -1965,7 +1967,7 @@ namespace TrainSMARTApp
                 FocusBackgroundColor = Color.FromArgb(61, 70, 73),
                 FocusBorderColor     = Color.FromArgb(61, 70, 73),
                 PlaceholderColor     = Color.FromArgb(158, 163, 164),
-                Enabled              = true,
+                Enabled              = txtBxWeight.Enabled,
             };
             txtBxTime.KeyPress += KeyPressDigitOnly;
 
@@ -2129,12 +2131,24 @@ namespace TrainSMARTApp
         {
             var templates = new List<(string TemplateName, List<(string ExerciseName, int Sets)>)>
             {
-                ("Legs", new List<(string, int)>
+                ("Workout B", new List<(string, int)>
                 {
-                    ("Squat (Barbell)", 3),
-                    ("Leg Extension (Machine)", 3),
-                    ("Flat Leg Raise", 3),
-                    ("Standing Calf Raise (Dumbbell)", 3),
+                    ("Squat (Barbell)", 5),
+                    ("Overhead Press (Barbell)", 5),
+                    ("Deadlift (Barbell)", 1),
+                }),
+                ("Workout A", new List<(string, int)>
+                {
+                    ("Squat (Barbell)", 5),
+                    ("Bench Press (Barbell)", 5),
+                    ("Bent Over Row (Barbell)", 5),
+                }),
+                ("Back and Biceps", new List<(string, int)>
+                {
+                    ("Deadlift (Barbell)", 3),
+                    ("Seated Row (Cable)", 3),
+                    ("Lat Pulldown (Cable)", 3),
+                    ("Bicep Curl (Barbell)", 3),
                 }),
                 ("Chest and Triceps", new List<(string, int)>
                 {
@@ -2144,24 +2158,12 @@ namespace TrainSMARTApp
                     ("Lateral Raise (Dumbbell)", 3),
                     ("Skullcrusher (Barbell)", 3),
                 }),
-                ("Back and Biceps", new List<(string, int)>
+                ("Legs", new List<(string, int)>
                 {
-                    ("Deadlift (Barbell)", 3),
-                    ("Seated Row (Cable)", 3),
-                    ("Lat Pulldown (Cable)", 3),
-                    ("Bicep Curl (Barbell)", 3),
-                }),
-                ("Workout A", new List<(string, int)>
-                {
-                    ("Squat (Barbell)", 5),
-                    ("Bench Press (Barbell)", 5),
-                    ("Bent Over Row (Barbell)", 5),
-                }),
-                ("Workout B", new List<(string, int)>
-                {
-                    ("Squat (Barbell)", 5),
-                    ("Overhead Press (Barbell)", 5),
-                    ("Deadlift (Barbell)", 1),
+                    ("Squat (Barbell)", 3),
+                    ("Leg Extension (Machine)", 3),
+                    ("Flat Leg Raise", 3),
+                    ("Standing Calf Raise (Dumbbell)", 3),
                 }),
             };
 
