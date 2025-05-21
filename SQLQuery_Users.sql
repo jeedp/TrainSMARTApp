@@ -88,6 +88,7 @@ CREATE TABLE dbo.WorkoutExerciseSets
     WorkoutExerciseID   INT                 NOT NULL FOREIGN KEY REFERENCES dbo.WorkoutExercises(WorkoutExerciseID) ON DELETE CASCADE,
     WeightLbs           DECIMAL(5,2),
     Reps                INT,
+    RepsOnly            INT,
     TimeSeconds         INT,
     SetOrder            INT
 );
@@ -2996,6 +2997,18 @@ GO
 
 SELECT * FROM dbo.Exercises;
 GO  
+
+
+SELECT * FROM dbo.Workouts
+GO
+
+
+SELECT * FROM dbo.WorkoutExercises;
+GO
+
+
+SELECT * FROM dbo.WorkoutExerciseSets;
+GO
 
 
 --SELECT * FROM dbo.Measurements;
