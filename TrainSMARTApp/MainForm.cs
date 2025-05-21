@@ -324,11 +324,12 @@ namespace TrainSMARTApp
             isViewingWorkoutTemplate = false;
             ShowMenu(panel_WorkingOut, cuiButton_Menu_Workout);
             LoadTemplateExercises(flowLayoutPanel_WorkingOut, templateId, false);
-            //StartWorkoutFromTemplate(_loggedInUser.UserID, (int)((cuiButton)sender).Tag);
 
-            cuiTextBox_WorkingOut_Name.Content = textBox_WorkoutTemplate_Name.Text;
+            StartWorkoutFromTemplate(_loggedInUser.UserID, (int)((cuiButton)sender).Tag);
+
             var label =  control.Parent.Controls.Find("label_Note", true).FirstOrDefault() as Label;
-            cuiTextBox_WorkingOut_Note.Content = label.Text;
+            cuiTextBox_WorkingOut_Name.Content = textBox_WorkoutTemplate_Name.Text;
+            if (label != null) cuiTextBox_WorkingOut_Note.Content = label.Text;
         }
 
         private void cuiButton_WorkoutTemplate_Delete_Click(object sender, EventArgs e)
@@ -360,12 +361,15 @@ namespace TrainSMARTApp
         private void cuiButton_WorkingOut_CancelWorkout_Click(object sender, EventArgs e)
         {
             isWorkingOut = false;
+            ResetWorkoutTimer();
             cuiButton_Menu_Workout_Click(sender, e);
         }
 
         private void cuiButton_WorkingOut_Finish_Click(object sender, EventArgs e)
         {
             isWorkingOut = false;
+            LogCompletedWorkout();
+            ResetWorkoutTimer();
             cuiButton_Menu_Workout_Click(sender, e);
         }
 
@@ -965,9 +969,10 @@ namespace TrainSMARTApp
                 try
                 {
                     // 1. Insert Workout Template
-                    string queryTemplate = @"INSERT INTO WorkoutTemplates (UserID, TemplateName, Note, DateCreated) 
-                                    OUTPUT INSERTED.TemplateID 
-                                    VALUES (@UserID, @TemplateName, @Note, @DateCreated)";
+                    string queryTemplate = @"
+                        INSERT INTO WorkoutTemplates (UserID, TemplateName, Note, DateCreated) 
+                        OUTPUT INSERTED.TemplateID 
+                        VALUES (@UserID, @TemplateName, @Note, @DateCreated)";
                     SqlCommand cmdTemplate = new SqlCommand(queryTemplate, conn, transaction);
                     cmdTemplate.Parameters.AddWithValue("@UserID", _loggedInUser.UserID);
                     cmdTemplate.Parameters.AddWithValue("@TemplateName", templateName);
@@ -987,13 +992,14 @@ namespace TrainSMARTApp
 
                         int restSeconds = 60; // Default
 
-                        // TODO: read rest time from a control inside exercisePanel, if you have it
+                        // TODO: read rest time from a control inside exercisePanel
 
                         // 2. Insert WorkoutTemplateExercise
-                        string queryExercise = @"INSERT INTO WorkoutTemplateExercises 
-                                        (TemplateID, ExerciseID, RestSeconds, DisplayOrder) 
-                                        OUTPUT INSERTED.TemplateExerciseID 
-                                        VALUES (@TemplateID, @ExerciseID, @RestSeconds, @DisplayOrder)";
+                        string queryExercise = @"
+                            INSERT INTO WorkoutTemplateExercises 
+                            (TemplateID, ExerciseID, RestSeconds, DisplayOrder) 
+                            OUTPUT INSERTED.TemplateExerciseID 
+                            VALUES (@TemplateID, @ExerciseID, @RestSeconds, @DisplayOrder)";
                         SqlCommand cmdExercise = new SqlCommand(queryExercise, conn, transaction);
                         cmdExercise.Parameters.AddWithValue("@TemplateID", templateId);
                         cmdExercise.Parameters.AddWithValue("@ExerciseID", exerciseId);
@@ -1019,14 +1025,15 @@ namespace TrainSMARTApp
                             cuiTextBox2 txtTime = setPanel.Controls.Find("cuiTextBox_Time", true).FirstOrDefault() as cuiTextBox2;
 
                             object weight = decimal.TryParse(txtWeight?.Text, out var w) ? (object)w : DBNull.Value;
-                            object reps = decimal.TryParse(txtReps?.Text, out var r) ? (object)r : DBNull.Value;
-                            object repsOnly = decimal.TryParse(txtReps?.Text, out var rO) ? (object)rO : DBNull.Value;
+                            object reps = int.TryParse(txtReps?.Text, out var r) ? (object)r : DBNull.Value;
+                            object repsOnly = int.TryParse(txtRepsOnly?.Text, out var rO) ? (object)rO : DBNull.Value;
                             object time = int.TryParse(txtTime?.Text, out var t) ? (object)t : DBNull.Value;
 
                             // 3. Insert WorkoutTemplateExerciseSets
-                            string querySet = @"INSERT INTO WorkoutTemplateExerciseSets 
-                                        (TemplateExerciseID, WeightLbs, Reps, RepsOnly, TimeSeconds, SetOrder) 
-                                        VALUES (@TemplateExerciseID, @WeightLbs, @Reps, @RepsOnly, @TimeSeconds, @SetOrder)";
+                            string querySet = @"
+                                INSERT INTO WorkoutTemplateExerciseSets 
+                                (TemplateExerciseID, WeightLbs, Reps, RepsOnly, TimeSeconds, SetOrder) 
+                                VALUES (@TemplateExerciseID, @WeightLbs, @Reps, @RepsOnly, @TimeSeconds, @SetOrder)";
                             SqlCommand cmdSet = new SqlCommand(querySet, conn, transaction);
 
                             cmdSet.Parameters.AddWithValue("@TemplateExerciseID", templateExerciseId);
@@ -1106,10 +1113,11 @@ namespace TrainSMARTApp
 
                         int restSeconds = 60; // Default
 
-                        string queryExercise = @"INSERT INTO WorkoutTemplateExercises 
-                                (TemplateID, ExerciseID, RestSeconds, DisplayOrder) 
-                                OUTPUT INSERTED.TemplateExerciseID 
-                                VALUES (@TemplateID, @ExerciseID, @RestSeconds, @DisplayOrder)";
+                        string queryExercise = @"
+                            INSERT INTO WorkoutTemplateExercises 
+                            (TemplateID, ExerciseID, RestSeconds, DisplayOrder) 
+                            OUTPUT INSERTED.TemplateExerciseID 
+                            VALUES (@TemplateID, @ExerciseID, @RestSeconds, @DisplayOrder)";
                         SqlCommand cmdExercise = new SqlCommand(queryExercise, conn, transaction);
                         cmdExercise.Parameters.AddWithValue("@TemplateID", templateId);
                         cmdExercise.Parameters.AddWithValue("@ExerciseID", exerciseId);
@@ -1133,19 +1141,10 @@ namespace TrainSMARTApp
                             object repsOnly = int.TryParse(txtRepsOnly?.Content, out var rO) ? (object)rO : DBNull.Value;
                             object time = int.TryParse(txtTime?.Content, out var t) ? (object)t : DBNull.Value;
 
-                            //if (setIndex < previousSets.Count)
-                            //{
-                            //    var set = previousSets[setIndex];
-
-                            //    weight = (object)set.weight ?? DBNull.Value;
-                            //    reps = (object)set.reps ?? DBNull.Value;
-                            //    repsOnly = (object)set.repsOnly ?? DBNull.Value;
-                            //    time = (object)set.timeSeconds ?? DBNull.Value;
-                            //}
-
-                            string querySet = @"INSERT INTO WorkoutTemplateExerciseSets 
-                                    (TemplateExerciseID, WeightLbs, Reps, RepsOnly, TimeSeconds, SetOrder) 
-                                    VALUES (@TemplateExerciseID, @WeightLbs, @Reps, @RepsOnly, @TimeSeconds, @SetOrder)";
+                            string querySet = @"
+                                INSERT INTO WorkoutTemplateExerciseSets 
+                                (TemplateExerciseID, WeightLbs, Reps, RepsOnly, TimeSeconds, SetOrder) 
+                                VALUES (@TemplateExerciseID, @WeightLbs, @Reps, @RepsOnly, @TimeSeconds, @SetOrder)";
                             SqlCommand cmdSet = new SqlCommand(querySet, conn, transaction);
 
                             cmdSet.Parameters.AddWithValue("@TemplateExerciseID", templateExerciseId);
@@ -1474,6 +1473,116 @@ namespace TrainSMARTApp
         }
 
 
+        private void LogCompletedWorkout()
+        {
+            TimeSpan duration = DateTime.Now - workoutStartTime;
+            int durationSeconds = (int)duration.TotalSeconds;
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+                SqlTransaction transaction = conn.BeginTransaction();
+
+                try
+                {
+                    // 1. Insert into Workouts
+                    string insertWorkoutQuery = @"
+                        INSERT INTO Workouts (UserID, DatePerformed, DurationSeconds, TemplateID, Note)
+                        OUTPUT INSERTED.WorkoutID
+                        VALUES (@UserID, @DatePerformed, @DurationSeconds, @TemplateID, @Note)";
+
+                    int workoutId;
+                    using (SqlCommand cmd = new SqlCommand(insertWorkoutQuery, conn, transaction))
+                    {
+                        cmd.Parameters.AddWithValue("@UserID", _loggedInUser.UserID);
+                        cmd.Parameters.AddWithValue("@DatePerformed", DateTime.Now);
+                        cmd.Parameters.AddWithValue("@DurationSeconds", durationSeconds);
+
+                        // Optional fields, you can replace with actual values
+                        object templateId = DBNull.Value;  // Replace if available
+                        object note = DBNull.Value;        // Replace if user added a note
+
+                        cmd.Parameters.AddWithValue("@TemplateID", templateId);
+                        cmd.Parameters.AddWithValue("@Note", note);
+
+                        workoutId = (int)cmd.ExecuteScalar();
+                    }
+
+                    // 2. For each exercise panel, insert into WorkoutExercises and WorkoutExerciseSets
+                    int exerciseOrder = 0;
+                    foreach (Panel exercisePanel in flowLayoutPanel_WorkingOut.Controls.OfType<Panel>().Where(p => p.Height > 210))
+                    {
+                        if (exercisePanel.Tag is not int exerciseId) continue;
+
+                        string insertExerciseQuery = @"
+                            INSERT INTO WorkoutExercises (WorkoutID, ExerciseID, DisplayOrder)
+                            OUTPUT INSERTED.WorkoutExerciseID
+                            VALUES (@WorkoutID, @ExerciseID, @DisplayOrder)";
+
+                        int workoutExerciseId;
+                        using (SqlCommand cmd = new SqlCommand(insertExerciseQuery, conn, transaction))
+                        {
+                            cmd.Parameters.AddWithValue("@WorkoutID", workoutId);
+                            cmd.Parameters.AddWithValue("@ExerciseID", exerciseId);
+                            cmd.Parameters.AddWithValue("@DisplayOrder", exerciseOrder++);
+
+                            workoutExerciseId = (int)cmd.ExecuteScalar();
+                        }
+
+                        // 3. Insert sets
+                        // 3. Insert sets
+                        int setOrder = 0;
+                        foreach (Panel setRow in exercisePanel.Controls.OfType<Panel>().Where(p => p.Tag is int tag && tag >= 1000))
+                        {
+                            cuiTextBox2 txtWeight = setRow.Controls.Find("cuiTextBox_Weight", true).FirstOrDefault() as cuiTextBox2;
+                            cuiTextBox2 txtReps = setRow.Controls.Find("cuiTextBox_Reps", true).FirstOrDefault() as cuiTextBox2;
+                            cuiTextBox2 txtTime = setRow.Controls.Find("cuiTextBox_Time", true).FirstOrDefault() as cuiTextBox2;
+                            cuiTextBox2 txtRepsOnly = setRow.Controls.Find("cuiTextBox_RepsOnly", true).FirstOrDefault() as cuiTextBox2;
+
+                            object weight = decimal.TryParse(txtWeight?.Content, out var w) ? (object)w : DBNull.Value;
+                            object reps = int.TryParse(txtReps?.Content, out var r) ? (object)r : DBNull.Value;
+                            object repsOnly = int.TryParse(txtRepsOnly?.Content, out var rO) ? (object)rO : DBNull.Value;
+                            object time = int.TryParse(txtTime?.Content, out var t) ? (object)t : DBNull.Value;
+
+                            bool allEmpty =
+                                (weight == DBNull.Value || (decimal)weight == 0) &&
+                                (reps == DBNull.Value || (int)reps == 0) &&
+                                (repsOnly == DBNull.Value || (int)repsOnly == 0) &&
+                                (time == DBNull.Value || (int)time == 0);
+
+                            if (allEmpty) continue;
+
+                            string insertSetQuery = @"
+                                INSERT INTO WorkoutExerciseSets (WorkoutExerciseID, WeightLbs, Reps, RepsOnly, TimeSeconds, SetOrder)
+                                VALUES (@WorkoutExerciseID, @WeightLbs, @Reps, @RepsOnly, @TimeSeconds, @SetOrder)";
+
+                            using (SqlCommand cmd = new SqlCommand(insertSetQuery, conn, transaction))
+                            {
+                                cmd.Parameters.AddWithValue("@WorkoutExerciseID", workoutExerciseId);
+                                cmd.Parameters.AddWithValue("@WeightLbs", weight);
+                                cmd.Parameters.AddWithValue("@Reps", reps);
+                                cmd.Parameters.AddWithValue("@RepsOnly", repsOnly);
+                                cmd.Parameters.AddWithValue("@TimeSeconds", time);
+                                cmd.Parameters.AddWithValue("@SetOrder", setOrder++);
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+                    }
+
+                    transaction.Commit();
+                    MessageBox.Show("Workout logged successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    MessageBox.Show($"Error logging workout: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+
+
+
 
 
 
@@ -1710,8 +1819,19 @@ namespace TrainSMARTApp
         private void WorkoutTimer_Tick(object sender, EventArgs e)
         {
             TimeSpan elapsed = DateTime.Now - workoutStartTime;
-            //label_WorkoutTimer.Text = elapsed.ToString(@"hh\:mm\:ss");
+            label_WorkingOut_StopWatch.Text = elapsed.ToString(@"hh\:mm\:ss");
         }
+
+
+        private void ResetWorkoutTimer()
+        {
+            if (workoutTimer != null)
+                workoutTimer.Stop();
+
+            //workoutStartTime = DateTime.Now; // reset to now
+            label_WorkingOut_StopWatch.Text = "00:00:00";
+        }
+
 
 
 

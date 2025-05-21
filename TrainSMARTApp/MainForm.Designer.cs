@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel_Menus = new System.Windows.Forms.Panel();
             this.cuiButton_Menu_Measure = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Menu_Exercises = new CuoreUI.Controls.cuiButton();
@@ -208,6 +208,8 @@
             this.cuiTextBox_WorkingOut_Name = new CuoreUI.Controls.cuiTextBox2();
             this.cuiButton_WorkingOut_AddExercise = new CuoreUI.Controls.cuiButton();
             this.cuiButton_WorkingOut_CancelWorkout = new CuoreUI.Controls.cuiButton();
+            this.cuiButton_WorkingOut_Timer = new CuoreUI.Controls.cuiButton();
+            this.label_WorkingOut_StopWatch = new System.Windows.Forms.Label();
             this.panel_Menus.SuspendLayout();
             this.panel_Form_Title.SuspendLayout();
             this.flowLayoutPanel_WorkoutCreation.SuspendLayout();
@@ -1001,16 +1003,16 @@
             this.chart_Profile_WorkoutCount.BorderlineWidth = 0;
             this.chart_Profile_WorkoutCount.BorderSkin.BackColor = System.Drawing.Color.Transparent;
             this.chart_Profile_WorkoutCount.BorderSkin.BorderColor = System.Drawing.Color.Transparent;
-            chartArea1.BackColor = System.Drawing.Color.Transparent;
-            chartArea1.BorderWidth = 0;
-            chartArea1.Name = "ChartArea1";
-            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea1);
+            chartArea5.BackColor = System.Drawing.Color.Transparent;
+            chartArea5.BorderWidth = 0;
+            chartArea5.Name = "ChartArea1";
+            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea5);
             this.chart_Profile_WorkoutCount.Location = new System.Drawing.Point(11, 60);
             this.chart_Profile_WorkoutCount.Name = "chart_Profile_WorkoutCount";
             this.chart_Profile_WorkoutCount.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series1.ChartArea = "ChartArea1";
-            series1.Name = "Series1";
-            this.chart_Profile_WorkoutCount.Series.Add(series1);
+            series5.ChartArea = "ChartArea1";
+            series5.Name = "Series1";
+            this.chart_Profile_WorkoutCount.Series.Add(series5);
             this.chart_Profile_WorkoutCount.Size = new System.Drawing.Size(440, 245);
             this.chart_Profile_WorkoutCount.TabIndex = 1;
             this.chart_Profile_WorkoutCount.Text = "chart1";
@@ -3713,7 +3715,7 @@
             this.panel_WorkoutTemplate.Location = new System.Drawing.Point(0, 35);
             this.panel_WorkoutTemplate.Margin = new System.Windows.Forms.Padding(0);
             this.panel_WorkoutTemplate.Name = "panel_WorkoutTemplate";
-            this.panel_WorkoutTemplate.Size = new System.Drawing.Size(513, 661);
+            this.panel_WorkoutTemplate.Size = new System.Drawing.Size(513, 0);
             this.panel_WorkoutTemplate.TabIndex = 25;
             // 
             // cuiGradientBorder_WorkoutTemplate
@@ -3943,10 +3945,10 @@
             this.panel_WorkingOut.Controls.Add(this.panel_WorkingOut_Title);
             this.panel_WorkingOut.Controls.Add(this.flowLayoutPanel_WorkingOut);
             this.panel_WorkingOut.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel_WorkingOut.Location = new System.Drawing.Point(0, 696);
+            this.panel_WorkingOut.Location = new System.Drawing.Point(0, 35);
             this.panel_WorkingOut.Margin = new System.Windows.Forms.Padding(0);
             this.panel_WorkingOut.Name = "panel_WorkingOut";
-            this.panel_WorkingOut.Size = new System.Drawing.Size(513, 0);
+            this.panel_WorkingOut.Size = new System.Drawing.Size(513, 661);
             this.panel_WorkingOut.TabIndex = 26;
             // 
             // cuiGradientBorder_WorkingOut
@@ -3967,7 +3969,8 @@
             // 
             // panel_WorkingOut_Title
             // 
-            this.panel_WorkingOut_Title.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(42)))), ((int)(((byte)(51)))), ((int)(((byte)(55)))));
+            this.panel_WorkingOut_Title.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(52)))), ((int)(((byte)(56)))));
+            this.panel_WorkingOut_Title.Controls.Add(this.cuiButton_WorkingOut_Timer);
             this.panel_WorkingOut_Title.Controls.Add(this.cuiButton_WorkingOut_Finish);
             this.panel_WorkingOut_Title.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel_WorkingOut_Title.Location = new System.Drawing.Point(0, 0);
@@ -4029,6 +4032,7 @@
             // 
             // panel_WorkingOut_TemplateName
             // 
+            this.panel_WorkingOut_TemplateName.Controls.Add(this.label_WorkingOut_StopWatch);
             this.panel_WorkingOut_TemplateName.Controls.Add(this.cuiTextBox_WorkingOut_Note);
             this.panel_WorkingOut_TemplateName.Controls.Add(this.cuiButton_WorkingOut_EditName);
             this.panel_WorkingOut_TemplateName.Controls.Add(this.cuiTextBox_WorkingOut_Name);
@@ -4203,6 +4207,53 @@
             this.cuiButton_WorkingOut_CancelWorkout.TextOffset = new System.Drawing.Point(0, 0);
             this.cuiButton_WorkingOut_CancelWorkout.Click += new System.EventHandler(this.cuiButton_WorkingOut_CancelWorkout_Click);
             // 
+            // cuiButton_WorkingOut_Timer
+            // 
+            this.cuiButton_WorkingOut_Timer.CheckButton = false;
+            this.cuiButton_WorkingOut_Timer.Checked = false;
+            this.cuiButton_WorkingOut_Timer.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_WorkingOut_Timer.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_WorkingOut_Timer.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_WorkingOut_Timer.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_WorkingOut_Timer.Content = "";
+            this.cuiButton_WorkingOut_Timer.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.cuiButton_WorkingOut_Timer.Font = new System.Drawing.Font("SansSerif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiButton_WorkingOut_Timer.ForeColor = System.Drawing.Color.White;
+            this.cuiButton_WorkingOut_Timer.HoverBackground = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
+            this.cuiButton_WorkingOut_Timer.HoveredImageTint = System.Drawing.Color.White;
+            this.cuiButton_WorkingOut_Timer.HoverForeColor = System.Drawing.Color.White;
+            this.cuiButton_WorkingOut_Timer.HoverOutline = System.Drawing.Color.Empty;
+            this.cuiButton_WorkingOut_Timer.Image = null;
+            this.cuiButton_WorkingOut_Timer.ImageAutoCenter = true;
+            this.cuiButton_WorkingOut_Timer.ImageExpand = new System.Drawing.Point(4, 4);
+            this.cuiButton_WorkingOut_Timer.ImageOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_WorkingOut_Timer.Location = new System.Drawing.Point(50, 15);
+            this.cuiButton_WorkingOut_Timer.Name = "cuiButton_WorkingOut_Timer";
+            this.cuiButton_WorkingOut_Timer.NormalBackground = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
+            this.cuiButton_WorkingOut_Timer.NormalForeColor = System.Drawing.Color.White;
+            this.cuiButton_WorkingOut_Timer.NormalImageTint = System.Drawing.Color.White;
+            this.cuiButton_WorkingOut_Timer.NormalOutline = System.Drawing.Color.Empty;
+            this.cuiButton_WorkingOut_Timer.OutlineThickness = 0F;
+            this.cuiButton_WorkingOut_Timer.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
+            this.cuiButton_WorkingOut_Timer.PressedForeColor = System.Drawing.Color.White;
+            this.cuiButton_WorkingOut_Timer.PressedImageTint = System.Drawing.Color.White;
+            this.cuiButton_WorkingOut_Timer.PressedOutline = System.Drawing.Color.Empty;
+            this.cuiButton_WorkingOut_Timer.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiButton_WorkingOut_Timer.Size = new System.Drawing.Size(100, 50);
+            this.cuiButton_WorkingOut_Timer.TabIndex = 24;
+            this.cuiButton_WorkingOut_Timer.TextOffset = new System.Drawing.Point(0, 0);
+            // 
+            // label_WorkingOut_StopWatch
+            // 
+            this.label_WorkingOut_StopWatch.AutoSize = true;
+            this.label_WorkingOut_StopWatch.Font = new System.Drawing.Font("SansSerif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label_WorkingOut_StopWatch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(194)))), ((int)(((byte)(195)))));
+            this.label_WorkingOut_StopWatch.Location = new System.Drawing.Point(19, 79);
+            this.label_WorkingOut_StopWatch.Name = "label_WorkingOut_StopWatch";
+            this.label_WorkingOut_StopWatch.Size = new System.Drawing.Size(111, 30);
+            this.label_WorkingOut_StopWatch.TabIndex = 11;
+            this.label_WorkingOut_StopWatch.Text = "00:00:00";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -4290,6 +4341,7 @@
             this.panel_WorkingOut_Title.ResumeLayout(false);
             this.flowLayoutPanel_WorkingOut.ResumeLayout(false);
             this.panel_WorkingOut_TemplateName.ResumeLayout(false);
+            this.panel_WorkingOut_TemplateName.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -4473,5 +4525,7 @@
         private CuoreUI.Controls.cuiButton cuiButton_WorkingOut_AddExercise;
         private CuoreUI.Controls.cuiButton cuiButton_WorkingOut_CancelWorkout;
         private CuoreUI.Controls.cuiTextBox2 cuiTextBox_WorkingOut_Name;
+        private CuoreUI.Controls.cuiButton cuiButton_WorkingOut_Timer;
+        private System.Windows.Forms.Label label_WorkingOut_StopWatch;
     }
 }
