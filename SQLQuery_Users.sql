@@ -66,8 +66,9 @@ CREATE TABLE dbo.Workouts
     WorkoutID           INT                 IDENTITY(1,1) PRIMARY KEY,
     UserID              INT                 NOT NULL FOREIGN KEY REFERENCES dbo.Users(UserID) ON DELETE CASCADE,
     TemplateID          INT                 NULL FOREIGN KEY REFERENCES dbo.WorkoutTemplates(TemplateID),
+    Note                NVARCHAR(MAX)       NULL,
+    DurationSeconds     INT                 DEFAULT 0,     -- e.g., 3600 seconds = 1 hour
     DatePerformed       DATETIME            DEFAULT GETDATE(),
-    Note                NVARCHAR(MAX)       NULL
 );
 GO
 
@@ -77,6 +78,7 @@ CREATE TABLE dbo.WorkoutExercises
     WorkoutExerciseID   INT                 IDENTITY(1,1) PRIMARY KEY,
     WorkoutID           INT                 NOT NULL FOREIGN KEY REFERENCES dbo.Workouts(WorkoutID) ON DELETE CASCADE,
     ExerciseID          INT                 NOT NULL FOREIGN KEY REFERENCES dbo.Exercises(ExerciseID),
+    RestSeconds         INT                 DEFAULT 60,     -- e.g., 60 seconds
     DisplayOrder        INT                 NOT NULL
 );
 GO
