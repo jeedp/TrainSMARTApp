@@ -319,6 +319,7 @@ namespace TrainSMARTApp
         private void cuiButton_WorkoutTemplate_Start_Click(object sender, EventArgs e)      // TODO: WORKING ON THIS
         {
             var templateId = (int)((cuiButton)sender).Tag;
+            isWorkingOut = true;
             isViewingWorkoutTemplate = false;
             ShowMenu(panel_WorkingOut, cuiButton_Menu_Workout);
             LoadTemplateExercises(flowLayoutPanel_WorkingOut, templateId, false);
@@ -353,11 +354,13 @@ namespace TrainSMARTApp
 
         private void cuiButton_WorkingOut_CancelWorkout_Click(object sender, EventArgs e)
         {
+            isWorkingOut = false;
             cuiButton_Menu_Workout_Click(sender, e);
         }
 
         private void cuiButton_WorkingOut_Finish_Click(object sender, EventArgs e)
         {
+            isWorkingOut = false;
             cuiButton_Menu_Workout_Click(sender, e);
         }
 
@@ -853,7 +856,7 @@ namespace TrainSMARTApp
                     AddExerciseSetRow(panelExercise, exerciseName, false);
 
                     var index = 2;
-                    if (isViewingWorkoutTemplate)
+                    if (isViewingWorkoutTemplate || isWorkingOut)
                         index = 3;
 
                     flowLayoutPanel.Controls.Add(panelExercise);
@@ -1360,20 +1363,20 @@ namespace TrainSMARTApp
         private List<(decimal? weight, int? reps, int? repsOnly, int? timeSeconds)> GetLastSetData(int userId, int exerciseId)
         {
             string query = @"
-                SELECT wtes.WeightLbs, wtes.Reps, wtes.RepsOnly, wtes.TimeSeconds
-                FROM WorkoutTemplateExerciseSets wtes
-                INNER JOIN WorkoutTemplateExercises wte ON wtes.TemplateExerciseID = wte.TemplateExerciseID
-                INNER JOIN WorkoutTemplates wt ON wte.TemplateID = wt.TemplateID
-                WHERE wt.UserID = @UserID 
-                  AND wte.ExerciseID = @ExerciseID
-                  AND (wtes.WeightLbs IS NOT NULL OR wtes.Reps IS NOT NULL OR wtes.RepsOnly IS NOT NULL OR wtes.TimeSeconds IS NOT NULL)
-                  AND wt.DateCreated = (
-                      SELECT MAX(DateCreated)
-                      FROM WorkoutTemplates wt2
-                      INNER JOIN WorkoutTemplateExercises wte2 ON wt2.TemplateID = wte2.TemplateID
-                      WHERE wt2.UserID = @UserID AND wte2.ExerciseID = @ExerciseID
+                SELECT wes.WeightLbs, wes.Reps, wes.RepsOnly, wes.TimeSeconds
+                FROM WorkoutExerciseSets wes
+                INNER JOIN WorkoutExercises we ON wes.WorkoutExerciseID = we.WorkoutExerciseID
+                INNER JOIN Workouts w ON we.WorkoutID = w.WorkoutID
+                WHERE w.UserID = @UserID 
+                  AND we.ExerciseID = @ExerciseID
+                  AND (wes.WeightLbs IS NOT NULL OR wes.Reps IS NOT NULL OR wes.RepsOnly IS NOT NULL OR wes.TimeSeconds IS NOT NULL)
+                  AND w.DatePerformed = (
+                      SELECT MAX(w2.DatePerformed)
+                      FROM Workouts w2
+                      INNER JOIN WorkoutExercises we2 ON w2.WorkoutID = we2.WorkoutID
+                      WHERE w2.UserID = @UserID AND we2.ExerciseID = @ExerciseID
                   )
-                ORDER BY wtes.SetOrder ASC";
+                ORDER BY wes.SetOrder ASC";
 
             var setDataList = new List<(decimal? weight, int? reps, int? repsOnly, int? timeSeconds)>();
 
