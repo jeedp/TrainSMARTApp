@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea14 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel_Menus = new System.Windows.Forms.Panel();
             this.cuiButton_Menu_Measure = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Menu_Exercises = new CuoreUI.Controls.cuiButton();
@@ -1003,16 +1003,16 @@
             this.chart_Profile_WorkoutCount.BorderlineWidth = 0;
             this.chart_Profile_WorkoutCount.BorderSkin.BackColor = System.Drawing.Color.Transparent;
             this.chart_Profile_WorkoutCount.BorderSkin.BorderColor = System.Drawing.Color.Transparent;
-            chartArea5.BackColor = System.Drawing.Color.Transparent;
-            chartArea5.BorderWidth = 0;
-            chartArea5.Name = "ChartArea1";
-            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea5);
+            chartArea14.BackColor = System.Drawing.Color.Transparent;
+            chartArea14.BorderWidth = 0;
+            chartArea14.Name = "ChartArea1";
+            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea14);
             this.chart_Profile_WorkoutCount.Location = new System.Drawing.Point(11, 60);
             this.chart_Profile_WorkoutCount.Name = "chart_Profile_WorkoutCount";
             this.chart_Profile_WorkoutCount.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series5.ChartArea = "ChartArea1";
-            series5.Name = "Series1";
-            this.chart_Profile_WorkoutCount.Series.Add(series5);
+            series14.ChartArea = "ChartArea1";
+            series14.Name = "Series1";
+            this.chart_Profile_WorkoutCount.Series.Add(series14);
             this.chart_Profile_WorkoutCount.Size = new System.Drawing.Size(440, 245);
             this.chart_Profile_WorkoutCount.TabIndex = 1;
             this.chart_Profile_WorkoutCount.Text = "chart1";
@@ -4215,9 +4215,9 @@
             this.cuiButton_WorkingOut_Timer.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
             this.cuiButton_WorkingOut_Timer.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
             this.cuiButton_WorkingOut_Timer.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_WorkingOut_Timer.Content = "";
+            this.cuiButton_WorkingOut_Timer.Content = "00:00";
             this.cuiButton_WorkingOut_Timer.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.cuiButton_WorkingOut_Timer.Font = new System.Drawing.Font("SansSerif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiButton_WorkingOut_Timer.Font = new System.Drawing.Font("SansSerif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.cuiButton_WorkingOut_Timer.ForeColor = System.Drawing.Color.White;
             this.cuiButton_WorkingOut_Timer.HoverBackground = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
             this.cuiButton_WorkingOut_Timer.HoveredImageTint = System.Drawing.Color.White;

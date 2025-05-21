@@ -1833,6 +1833,96 @@ namespace TrainSMARTApp
         }
 
 
+        private void ConfirmSet(object sender, EventArgs eventArgs)
+        {
+            var checkBox = (cuiCheckbox)sender;
+            var setRow = checkBox.Parent as Panel;
+            var countdownButton = cuiButton_WorkingOut_Timer;
+
+            if (setRow != null)
+            {
+                var confirmedColor = Color.FromArgb(43, 88, 68);
+                var defaultColor = Color.FromArgb(41, 50, 54);
+
+                var targetColor = checkBox.Checked ? confirmedColor : defaultColor;
+                checkBox.BackColor = targetColor;
+                setRow.BackColor = targetColor;
+
+                foreach (var txtBox in setRow.Controls.OfType<cuiTextBox2>())
+                {
+                    txtBox.Enabled = !checkBox.Checked;
+                }
+
+                if (checkBox.Checked)
+                {
+                    int restSeconds = 60; //setRow.Tag is int tagVal ? tagVal : 60;
+                    StartCountdown(countdownButton, restSeconds);                       // TODO: ENHANCE
+                }
+                else
+                {
+                    // Checkbox unchecked — stop the timer and clear the label
+                    if (countdownButton?.Tag is Timer existingTimer)
+                    {
+                        existingTimer.Stop();
+                        existingTimer.Dispose();
+                        countdownButton.Tag = null;
+                    }
+
+                    if (countdownButton != null)
+                    {
+                        var bgColor = Color.FromArgb(61, 70, 73);
+                        countdownButton.Content = "--";
+                        countdownButton.PressedBackground = bgColor;
+                        countdownButton.NormalBackground = bgColor;
+                        countdownButton.HoverBackground = bgColor;
+                    }
+                }
+            }
+
+        }
+
+
+        private void StartCountdown(cuiButton countdownButton, int totalSeconds)
+        {
+            // Stop and dispose any existing timer
+            if (countdownButton.Tag is Timer oldTimer)
+            {
+                oldTimer.Stop();
+                oldTimer.Dispose();
+            }
+
+            Timer timer = new Timer { Interval = 1000 };
+            int remaining = totalSeconds;
+
+            timer.Tick += (s, e) =>
+            {
+                if (remaining <= 0)
+                {
+                    timer.Stop();
+                    var bgColor = Color.FromArgb(61, 70, 73);
+                    countdownButton.Content = "--";
+                    countdownButton.PressedBackground = bgColor;
+                    countdownButton.NormalBackground = bgColor;
+                    countdownButton.HoverBackground = bgColor;
+                }
+                else
+                {
+                    var bgColor = Color.FromArgb(53, 167, 255);
+                    countdownButton.Content = $"{remaining / 60:D2}:{remaining % 60:D2}";
+                    countdownButton.PressedBackground = bgColor;
+                    countdownButton.NormalBackground = bgColor;
+                    countdownButton.HoverBackground = bgColor;
+                    remaining--;
+                }
+            };
+
+            // Store the timer in the label’s tag so it can be stopped later
+            countdownButton.Tag = timer;
+            countdownButton.Content = $"{totalSeconds / 60:D2}:{totalSeconds % 60:D2}";
+
+            timer.Start();
+        }
+
 
 
 
@@ -2202,6 +2292,22 @@ namespace TrainSMARTApp
             };
             txtBxRepsOnly.KeyPress += KeyPressDigitOnly;
 
+            var checkBox = new cuiCheckbox
+            {
+                Content               = "",
+                Width                 = 40,
+                Height                = 40, 
+                Rounding              = 8,
+                OutlineThickness      = 0,
+                Location              = new Point(txtBxReps.Location.X + 70, txtBxReps.Location.Y), 
+                BackColor             = Color.FromArgb(41, 50, 54), 
+                UncheckedForeground   = Color.FromArgb(61, 70, 73),
+                CheckedForeground     = Color.FromArgb(46, 205, 112),
+                UncheckedOutlineColor = Color.FromArgb(61, 70, 73),
+                CheckedOutlineColor   = Color.FromArgb(46, 205, 112),
+            };
+            checkBox.CheckedChanged += ConfirmSet;
+
             // Add correct controls based on exercise type
             var controls =
                 (timeOnlyExercises.Contains(exerciseName))
@@ -2215,6 +2321,7 @@ namespace TrainSMARTApp
                 lblSet,
                 lblPrevious
             });
+            if (isWorkingOut) controls.Add(checkBox);
 
             foreach (var ctrl in controls)
             {
