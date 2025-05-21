@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea7 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel_Menus = new System.Windows.Forms.Panel();
             this.cuiButton_Menu_Measure = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Menu_Exercises = new CuoreUI.Controls.cuiButton();
@@ -1001,16 +1001,16 @@
             this.chart_Profile_WorkoutCount.BorderlineWidth = 0;
             this.chart_Profile_WorkoutCount.BorderSkin.BackColor = System.Drawing.Color.Transparent;
             this.chart_Profile_WorkoutCount.BorderSkin.BorderColor = System.Drawing.Color.Transparent;
-            chartArea7.BackColor = System.Drawing.Color.Transparent;
-            chartArea7.BorderWidth = 0;
-            chartArea7.Name = "ChartArea1";
-            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea7);
+            chartArea1.BackColor = System.Drawing.Color.Transparent;
+            chartArea1.BorderWidth = 0;
+            chartArea1.Name = "ChartArea1";
+            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea1);
             this.chart_Profile_WorkoutCount.Location = new System.Drawing.Point(11, 60);
             this.chart_Profile_WorkoutCount.Name = "chart_Profile_WorkoutCount";
             this.chart_Profile_WorkoutCount.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series7.ChartArea = "ChartArea1";
-            series7.Name = "Series1";
-            this.chart_Profile_WorkoutCount.Series.Add(series7);
+            series1.ChartArea = "ChartArea1";
+            series1.Name = "Series1";
+            this.chart_Profile_WorkoutCount.Series.Add(series1);
             this.chart_Profile_WorkoutCount.Size = new System.Drawing.Size(440, 245);
             this.chart_Profile_WorkoutCount.TabIndex = 1;
             this.chart_Profile_WorkoutCount.Text = "chart1";
@@ -3713,7 +3713,7 @@
             this.panel_WorkoutTemplate.Location = new System.Drawing.Point(0, 35);
             this.panel_WorkoutTemplate.Margin = new System.Windows.Forms.Padding(0);
             this.panel_WorkoutTemplate.Name = "panel_WorkoutTemplate";
-            this.panel_WorkoutTemplate.Size = new System.Drawing.Size(513, 0);
+            this.panel_WorkoutTemplate.Size = new System.Drawing.Size(513, 661);
             this.panel_WorkoutTemplate.TabIndex = 25;
             // 
             // cuiGradientBorder_WorkoutTemplate
@@ -3943,10 +3943,10 @@
             this.panel_WorkingOut.Controls.Add(this.panel_WorkingOut_Title);
             this.panel_WorkingOut.Controls.Add(this.flowLayoutPanel_WorkingOut);
             this.panel_WorkingOut.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel_WorkingOut.Location = new System.Drawing.Point(0, 35);
+            this.panel_WorkingOut.Location = new System.Drawing.Point(0, 696);
             this.panel_WorkingOut.Margin = new System.Windows.Forms.Padding(0);
             this.panel_WorkingOut.Name = "panel_WorkingOut";
-            this.panel_WorkingOut.Size = new System.Drawing.Size(513, 661);
+            this.panel_WorkingOut.Size = new System.Drawing.Size(513, 0);
             this.panel_WorkingOut.TabIndex = 26;
             // 
             // cuiGradientBorder_WorkingOut
@@ -4470,8 +4470,8 @@
         private System.Windows.Forms.Panel panel_WorkingOut_TemplateName;
         private CuoreUI.Controls.cuiTextBox2 cuiTextBox_WorkingOut_Note;
         private CuoreUI.Controls.cuiButton cuiButton_WorkingOut_EditName;
-        private CuoreUI.Controls.cuiTextBox2 cuiTextBox_WorkingOut_Name;
         private CuoreUI.Controls.cuiButton cuiButton_WorkingOut_AddExercise;
         private CuoreUI.Controls.cuiButton cuiButton_WorkingOut_CancelWorkout;
+        private CuoreUI.Controls.cuiTextBox2 cuiTextBox_WorkingOut_Name;
     }
 }

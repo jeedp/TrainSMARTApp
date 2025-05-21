@@ -319,11 +319,16 @@ namespace TrainSMARTApp
         private void cuiButton_WorkoutTemplate_Start_Click(object sender, EventArgs e)      // TODO: WORKING ON THIS
         {
             var templateId = (int)((cuiButton)sender).Tag;
+            var control = (cuiButton)sender;
             isWorkingOut = true;
             isViewingWorkoutTemplate = false;
             ShowMenu(panel_WorkingOut, cuiButton_Menu_Workout);
             LoadTemplateExercises(flowLayoutPanel_WorkingOut, templateId, false);
             //StartWorkoutFromTemplate(_loggedInUser.UserID, (int)((cuiButton)sender).Tag);
+
+            cuiTextBox_WorkingOut_Name.Content = textBox_WorkoutTemplate_Name.Text;
+            var label =  control.Parent.Controls.Find("label_Note", true).FirstOrDefault() as Label;
+            cuiTextBox_WorkingOut_Note.Content = label.Text;
         }
 
         private void cuiButton_WorkoutTemplate_Delete_Click(object sender, EventArgs e)
@@ -708,7 +713,7 @@ namespace TrainSMARTApp
         }
 
 
-        private void ShowTemplateDetails(bool isPrebuilt)
+        private void ShowTemplateDetails(string note, bool isPrebuilt)
         {
             isViewingWorkoutTemplate = true;
             ShowMenu(panel_WorkoutTemplate, cuiButton_Menu_Workout);
@@ -721,8 +726,18 @@ namespace TrainSMARTApp
                 Height      = 80,
                 Margin      = new Padding(3, 5, 3, 10),
                 BackColor   = Color.Transparent,
-                BorderStyle = BorderStyle.None,  
+                BorderStyle = BorderStyle.None,
             };
+            var label = new Label
+            {
+                Name      = "label_Note",
+                Text      = note,
+                Dock      = DockStyle.Top,
+                BackColor = Color.Transparent,
+                ForeColor = Color.FromArgb(41, 50, 54),
+            };
+
+            panel.Controls.Add(label);
             flowLayoutPanel_WorkoutTemplate.Controls.Add(panel);
         }
 
@@ -967,7 +982,7 @@ namespace TrainSMARTApp
                         int exerciseId = (int)exercisePanel.Tag;
 
                         if (!(exercisePanel.Tag is int))
-                            MessageBox.Show("Exercise panel is missing a valid ExerciseID in its Tag.");
+                            MessageBox.Show("Exercise panel is missing a valid ExerciseID in its Tag.");    // TODO: REMOVE
 
 
                         int restSeconds = 60; // Default
@@ -1146,7 +1161,7 @@ namespace TrainSMARTApp
                     }
 
                     transaction.Commit();
-                    MessageBox.Show("Template updated successfully!");
+                    MessageBox.Show("Template updated successfully!");      // TODO: REMOVE
                     return true;
                 }
                 catch (Exception ex)
@@ -1271,7 +1286,7 @@ namespace TrainSMARTApp
 
         private int LoadTemplateExerciseSets(SqlConnection conn, Panel parentPanel, int templateExerciseId, string exerciseName, bool isPrebuilt)
         {
-            int addedRowHeight = 0, i = 0; 
+            int addedRowHeight = 0, i = 0;
             var previousSets = GetLastSetData(_loggedInUser.UserID, (int)parentPanel.Tag);
             int setIndex = 0;
 
@@ -1293,17 +1308,23 @@ namespace TrainSMARTApp
                         int? repsOnly = reader.IsDBNull(2) ? null : reader.GetInt32(2);
                         int? time = reader.IsDBNull(3) ? null : reader.GetInt32(3);
 
-                        //if (setIndex < previousSets.Count)
-                        //{
-                        //    (weight, reps, repsOnly, time) = previousSets[setIndex];
-
-                        //    //string text = "";
-
-                        //    //if (weight != null && reps != null)
-                        //    //    text = $"{weight} lbs × {reps}";
-                        //    //else if (time != null)
-                        //    //    text = $"{time} sec";
-                        //}
+                        // If previous set data exists, use it instead
+                        if (setIndex < previousSets.Count)
+                        {
+                            var set = previousSets[setIndex];
+                            weight = set.weight;
+                            reps = set.reps;
+                            repsOnly = set.repsOnly;
+                            time = set.timeSeconds;
+                        }
+                        else
+                        {
+                            // Explicitly make everything null if no previous data
+                            weight = null;
+                            reps = null;
+                            repsOnly = null;
+                            time = null;
+                        }
 
                         addedRowHeight = AddExerciseSetRow(parentPanel, exerciseName, isPrebuilt, weight, reps, repsOnly, time);
                         setIndex++;
@@ -1311,8 +1332,10 @@ namespace TrainSMARTApp
                     }
                 }
             }
+
             return addedRowHeight * (i - 1);
         }
+
 
 
         private bool DeleteWorkoutTemplate(int selectedTemplateId)
@@ -1367,7 +1390,7 @@ namespace TrainSMARTApp
                 FROM WorkoutExerciseSets wes
                 INNER JOIN WorkoutExercises we ON wes.WorkoutExerciseID = we.WorkoutExerciseID
                 INNER JOIN Workouts w ON we.WorkoutID = w.WorkoutID
-                WHERE w.UserID = @UserID 
+                WHERE w.UserID = @UserID
                   AND we.ExerciseID = @ExerciseID
                   AND (wes.WeightLbs IS NOT NULL OR wes.Reps IS NOT NULL OR wes.RepsOnly IS NOT NULL OR wes.TimeSeconds IS NOT NULL)
                   AND w.DatePerformed = (
@@ -1403,6 +1426,7 @@ namespace TrainSMARTApp
 
             return setDataList;
         }
+
 
 
         private int StartWorkoutFromTemplate(int userId, int templateId)
@@ -2129,7 +2153,7 @@ namespace TrainSMARTApp
             {
                 var selectedTemplateId = (int)((cuiButton)s).Tag;
                 LoadTemplateExercises(flowLayoutPanel_WorkoutTemplate, selectedTemplateId, isPrebuilt);
-                ShowTemplateDetails(isPrebuilt);
+                ShowTemplateDetails(note, isPrebuilt);
                 cuiButton_WorkoutTemplate_Start.BringToFront();
                 cuiButton_WorkoutTemplate_GoBack.Tag = selectedTemplateId;
                 cuiButton_WorkoutTemplate_Start.Tag = selectedTemplateId;
