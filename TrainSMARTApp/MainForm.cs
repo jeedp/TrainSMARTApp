@@ -12,6 +12,7 @@ using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 using CuoreUI;
 using CuoreUI.Controls;
 using Microsoft.Win32;
@@ -37,6 +38,7 @@ namespace TrainSMARTApp
         private bool isFilterShown;
         private bool isAddingExercises;
         private bool isAddingMeasurement;
+        private bool isViewingWorkoutHistory;
         private bool isViewingWorkoutTemplate;
         private bool isCreatingWorkoutTemplate;
         private bool isDeletingWorkoutTemplate;
@@ -117,12 +119,16 @@ namespace TrainSMARTApp
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            // TODO: This line of code loads data into the 'userDBWorkoutCountDataSet.Users' table. You can move, or remove it, as needed.
+            this.usersTableAdapter.Fill(this.userDBWorkoutCountDataSet.Users);
             this.panel_Form_Title.MouseDown += this.MouseDown;
             this.panel_Form_Title.MouseMove += this.MouseMove;
             this.panel_Form_Title.MouseUp += this.MouseUp;
 
+            LoadUserWorkoutHistory(_loggedInUser);
             LoadUserWorkoutTemplates(_loggedInUser);
             LoadExerciseButtons(null, null);
+            LoadWeeklyWorkoutChart(chart_Profile_WorkoutCount, _loggedInUser.UserID, connectionString);
             ShowMenu(panel_Menu_Profile, cuiButton_Menu_Profile);
 
 
@@ -151,7 +157,7 @@ namespace TrainSMARTApp
             cuiTextBox_Exercises_Search.ContentChanged += DynamicExerciseSearchAndFilter;
 
             label_Profile_Username.Text = _loggedInUser.Username;
-            label_Profile_WorkoutCount.Text = _loggedInUser.WorkoutCount + (_loggedInUser.WorkoutCount > 0 ? " workout" : " workouts");
+            label_Profile_WorkoutCount.Text = _loggedInUser.WorkoutCount + (_loggedInUser.WorkoutCount == 1 ? " workout" : " workouts");
         }
 
 
@@ -196,6 +202,7 @@ namespace TrainSMARTApp
         private void cuiButton_Menu_History_Click(object sender, EventArgs e)
         {
             ShowMenu(panel_Menu_History, cuiButton_Menu_History);
+            LoadUserWorkoutHistory(_loggedInUser);
         }
 
         private void cuiButton_Menu_Workout_Click(object sender, EventArgs e)
@@ -324,9 +331,7 @@ namespace TrainSMARTApp
             isViewingWorkoutTemplate = false;
             ShowMenu(panel_WorkingOut, cuiButton_Menu_Workout);
             LoadTemplateExercises(flowLayoutPanel_WorkingOut, templateId, false);
-
-            StartWorkoutFromTemplate(_loggedInUser.UserID, (int)((cuiButton)sender).Tag);
-
+            StartWorkoutTimer();
             var label =  control.Parent.Controls.Find("label_Note", true).FirstOrDefault() as Label;
             cuiTextBox_WorkingOut_Name.Content = textBox_WorkoutTemplate_Name.Text;
             if (label != null) cuiTextBox_WorkingOut_Note.Content = label.Text;
@@ -360,17 +365,26 @@ namespace TrainSMARTApp
 
         private void cuiButton_WorkingOut_CancelWorkout_Click(object sender, EventArgs e)
         {
-            isWorkingOut = false;
-            ResetWorkoutTimer();
-            cuiButton_Menu_Workout_Click(sender, e);
+            var result = MessageBox.Show("Cancel workout?", "", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);   // TODO: Enhance
+            if (result == DialogResult.Yes)
+            {
+                isWorkingOut = false;
+                ResetWorkoutTimer();
+                cuiButton_Menu_Workout_Click(sender, e);
+            }
         }
 
         private void cuiButton_WorkingOut_Finish_Click(object sender, EventArgs e)
         {
-            isWorkingOut = false;
-            LogCompletedWorkout();
-            ResetWorkoutTimer();
-            cuiButton_Menu_Workout_Click(sender, e);
+            var result = MessageBox.Show("Finish workout?", "" , MessageBoxButtons.YesNo, MessageBoxIcon.Warning);  // TODO: Enhance
+            if (result == DialogResult.Yes)
+            {
+                isWorkingOut = false;
+                ResetWorkoutTimer();
+                LogWorkout(((cuiButton)sender).Tag);
+                LoadWeeklyWorkoutChart(chart_Profile_WorkoutCount, _loggedInUser.UserID, connectionString);
+                cuiButton_Menu_Workout_Click(sender, e);
+            }
         }
 
 
@@ -407,9 +421,10 @@ namespace TrainSMARTApp
         // MEASURE MENU
         private void cuiButton_Measure_Measurements_Click(object sender, EventArgs e)
         {
-            ShowMenu(panel_Measurement, cuiButton_Menu_Measure);
             RenameTitleAndChart(sender, e);
             ShowHideAddingMeasurementPanel(sender, e);
+            ShowMenu(panel_Measurement, cuiButton_Menu_Measure);
+            cuiButton_AddingMeasurement_Save.Tag = ((cuiButton)sender).Tag;
         }
 
             // MEASUREMENT MENU
@@ -421,7 +436,9 @@ namespace TrainSMARTApp
                 // ADDING MEASUREMENT
         private void cuiButton_AddingMeasurement_Save_Click(object sender, EventArgs e)
         {
-            ShowHideAddingMeasurementPanel(sender, e);
+            var columnName = cuiButton_AddingMeasurement_Save.Tag.ToString();
+            if (SaveMeasurementField(_loggedInUser.UserID, columnName))
+                ShowHideAddingMeasurementPanel(sender, e);
         }
 
 
@@ -537,8 +554,8 @@ namespace TrainSMARTApp
                 pnl.Visible = pnl == panel;
                 pnl.Height = (pnl == panel) ? (longPanels.Contains(pnl) || (isAddingExercises && pnl == panel_Menu_Exercises)) ? 611 : 537 : 0;
             }
+            isViewingWorkoutHistory = panel == panel_Menu_History;
             cuiButton_WorkoutTemplate_Start.Visible = panel == panel_WorkoutTemplate;
-            //panel_Menus.Height = (longPanels.Contains(panel)) ? 0 : 67;
 
             if (panel == panel_Menu_Exercises)
             {
@@ -1428,52 +1445,52 @@ namespace TrainSMARTApp
 
 
 
-        private int StartWorkoutFromTemplate(int userId, int templateId)
-        {
-            int workoutId = -1;
+        //private int StartWorkoutFromTemplate(int userId, int templateId)
+        //{
+        //    int workoutId = -1;
 
-            using (var conn = new SqlConnection(connectionString))
-            {
-                conn.Open();
+        //    using (var conn = new SqlConnection(connectionString))
+        //    {
+        //        conn.Open();
 
-                // Step 1: Insert new workout
-                string insertWorkoutQuery = @"
-                    INSERT INTO Workouts (UserID, TemplateID)
-                    OUTPUT INSERTED.WorkoutID
-                    VALUES (@UserID, @TemplateID)";
+        //        // Step 1: Insert new workout
+        //        string insertWorkoutQuery = @"
+        //            INSERT INTO Workouts (UserID, TemplateID)
+        //            OUTPUT INSERTED.WorkoutID
+        //            VALUES (@UserID, @TemplateID)";
 
-                using (var cmd = new SqlCommand(insertWorkoutQuery, conn))
-                {
-                    cmd.Parameters.AddWithValue("@UserID", userId);
-                    cmd.Parameters.AddWithValue("@TemplateID", templateId);
+        //        using (var cmd = new SqlCommand(insertWorkoutQuery, conn))
+        //        {
+        //            cmd.Parameters.AddWithValue("@UserID", userId);
+        //            cmd.Parameters.AddWithValue("@TemplateID", templateId);
 
-                    workoutId = (int)cmd.ExecuteScalar();
-                }
+        //            workoutId = (int)cmd.ExecuteScalar();
+        //        }
 
-                // Step 2: Copy template exercises to WorkoutExercises
-                string copyExercisesQuery = @"
-                    INSERT INTO WorkoutExercises (WorkoutID, ExerciseID, DisplayOrder)
-                    SELECT @WorkoutID, ExerciseID, DisplayOrder
-                    FROM WorkoutTemplateExercises
-                    WHERE TemplateID = @TemplateID";
+        //        // Step 2: Copy template exercises to WorkoutExercises
+        //        string copyExercisesQuery = @"
+        //            INSERT INTO WorkoutExercises (WorkoutID, ExerciseID, DisplayOrder)
+        //            SELECT @WorkoutID, ExerciseID, DisplayOrder
+        //            FROM WorkoutTemplateExercises
+        //            WHERE TemplateID = @TemplateID";
 
-                using (var cmd = new SqlCommand(copyExercisesQuery, conn))
-                {
-                    cmd.Parameters.AddWithValue("@WorkoutID", workoutId);
-                    cmd.Parameters.AddWithValue("@TemplateID", templateId);
+        //        using (var cmd = new SqlCommand(copyExercisesQuery, conn))
+        //        {
+        //            cmd.Parameters.AddWithValue("@WorkoutID", workoutId);
+        //            cmd.Parameters.AddWithValue("@TemplateID", templateId);
 
-                    cmd.ExecuteNonQuery();
-                }
-            }
+        //            cmd.ExecuteNonQuery();
+        //        }
+        //    }
 
-            if (workoutId > 0)
-                StartWorkoutTimer();
+        //    if (workoutId > 0)
+        //        StartWorkoutTimer();
 
-            return workoutId;
-        }
+        //    return workoutId;
+        //}
 
 
-        private void LogCompletedWorkout()
+        private void LogWorkout(object templateId)
         {
             TimeSpan duration = DateTime.Now - workoutStartTime;
             int durationSeconds = (int)duration.TotalSeconds;
@@ -1499,8 +1516,7 @@ namespace TrainSMARTApp
                         cmd.Parameters.AddWithValue("@DurationSeconds", durationSeconds);
 
                         // Optional fields, you can replace with actual values
-                        object templateId = DBNull.Value;  // Replace if available
-                        object note = DBNull.Value;        // Replace if user added a note
+                        object note = cuiTextBox_WorkingOut_Note.Content;        // Replace if user added a note
 
                         cmd.Parameters.AddWithValue("@TemplateID", templateId);
                         cmd.Parameters.AddWithValue("@Note", note);
@@ -1529,10 +1545,9 @@ namespace TrainSMARTApp
                             workoutExerciseId = (int)cmd.ExecuteScalar();
                         }
 
-                        // 3. Insert sets
-                        // 3. Insert sets
+                        // 3. Insert COMPLETED sets
                         int setOrder = 0;
-                        foreach (Panel setRow in exercisePanel.Controls.OfType<Panel>().Where(p => p.Tag is int tag && tag >= 1000))
+                        foreach (Panel setRow in exercisePanel.Controls.OfType<Panel>().Where(p => p.Tag is int tag && tag >= 1000 && p.BackColor == Color.FromArgb(43, 88, 68)))
                         {
                             cuiTextBox2 txtWeight = setRow.Controls.Find("cuiTextBox_Weight", true).FirstOrDefault() as cuiTextBox2;
                             cuiTextBox2 txtReps = setRow.Controls.Find("cuiTextBox_Reps", true).FirstOrDefault() as cuiTextBox2;
@@ -1569,6 +1584,19 @@ namespace TrainSMARTApp
                         }
                     }
 
+                    // 4. Update User WorkoutCount
+                    string updateUserCountQuery = @"
+                        UPDATE Users
+                        SET WorkoutCount = WorkoutCount + 1
+                        WHERE UserID = @UserID";
+
+                    using (SqlCommand cmd = new SqlCommand(updateUserCountQuery, conn, transaction))
+                    {
+                        cmd.Parameters.AddWithValue("@UserID", _loggedInUser.UserID);
+                        cmd.ExecuteNonQuery();
+                    }
+
+
                     transaction.Commit();
                     MessageBox.Show("Workout logged successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
@@ -1577,6 +1605,189 @@ namespace TrainSMARTApp
                     transaction.Rollback();
                     MessageBox.Show($"Error logging workout: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+
+        private void LoadUserWorkoutHistory(User currentUser)
+        {
+            // Clear previously loaded workouts
+            foreach (var ctrl in flowLayoutPanel_History.Controls.OfType<Control>().ToList())
+            {
+                if (ctrl is cuiButton { Tag: int } btn)
+                {
+                    flowLayoutPanel_History.Controls.Remove(btn);
+                    btn.Dispose();
+                }
+            }
+
+            using SqlConnection conn = new SqlConnection(connectionString);
+            string query = @"
+                SELECT W.WorkoutID, W.TemplateID, W.Note, W.DatePerformed, W.DurationSeconds, T.TemplateName
+                FROM Workouts W
+                LEFT JOIN WorkoutTemplates T ON W.TemplateID = T.TemplateID
+                WHERE W.UserID = @UserID
+                ORDER BY W.DatePerformed DESC";
+
+            SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@UserID", currentUser.UserID);
+
+            try
+            {
+                conn.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                int index = 0;
+                while (reader.Read())
+                {
+                    object templateId = reader.IsDBNull(reader.GetOrdinal("TemplateID")) ? null : reader.GetInt32(reader.GetOrdinal("TemplateID"));
+                    string note = reader.IsDBNull(reader.GetOrdinal("Note")) ? "" : reader.GetString(reader.GetOrdinal("Note"));
+                    DateTime datePerformed = reader.GetDateTime(reader.GetOrdinal("DatePerformed"));
+                    int durationSeconds = reader.IsDBNull(reader.GetOrdinal("DurationSeconds")) ? 0 : reader.GetInt32(reader.GetOrdinal("DurationSeconds"));
+                    string templateName = reader.IsDBNull(reader.GetOrdinal("TemplateName")) ? "Custom Workout" : reader.GetString(reader.GetOrdinal("TemplateName"));
+
+                    string durationFormatted = TimeSpan.FromSeconds(durationSeconds).ToString(@"hh\:mm\:ss");
+
+                    string buttonText = $" {datePerformed:MMM dd, yyyy}                             Duration: {durationFormatted}";        // TODO: CONTINUE WORKING ON THIS
+
+                    //cuiButton workoutBtn = new cuiButton
+                    //{
+                    //    Text = buttonText,
+                    //    Tag = workoutId,
+                    //    Width = 300,
+                    //    Height = 80,
+                    //    Margin = new Padding(5),
+                    //    Font = new Font("Segoe UI", 9F),
+                    //    BackColor = Color.FromArgb(30, 30, 30),
+                    //    ForeColor = Color.White,
+                    //    TextAlign = ContentAlignment.MiddleLeft
+                    //};
+
+                    //// Optional: Add a click event to load details
+                    //workoutBtn.Click += (s, e) =>
+                    //{
+                    //    int id = (int)((Control)s).Tag;
+                    //    LoadWorkoutDetails(id); // You'd define this method
+                    //};
+
+                    var workoutBtn = CreateTemplateButton((int)templateId, templateName, note, false, buttonText);
+
+                    flowLayoutPanel_History.Controls.Add(workoutBtn);
+                    flowLayoutPanel_History.Controls.SetChildIndex(workoutBtn, index++);
+                }
+
+                label_History_EmptyHistoryMsg.Visible = index == 0;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to load workout history:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private void LoadWeeklyWorkoutChart(Chart chart, int userId, string connectionString)
+        {
+            DataTable dataTable = new DataTable();
+
+            string query = @"
+            SELECT
+            DATEADD(DAY, -DATEPART(WEEKDAY, DatePerformed) + 1, CAST(DatePerformed AS DATE)) AS WeekStart,
+                COUNT(*) AS WorkoutCount
+            FROM Workouts
+            WHERE UserID = @UserID
+            GROUP BY DATEADD(DAY, -DATEPART(WEEKDAY, DatePerformed) + 1, CAST(DatePerformed AS DATE))
+            ORDER BY WeekStart";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@UserID", userId);
+                conn.Open();
+                SqlDataAdapter adapter = new SqlDataAdapter(cmd);
+                adapter.Fill(dataTable);
+            }
+
+            // Clear previous chart data
+            chart.Series.Clear();
+            chart.ChartAreas.Clear();
+
+            // Set up the chart area
+            var chartArea = new ChartArea("MainArea");
+            chartArea.AxisX.LabelStyle.Format = "M/d";
+            chartArea.AxisX.IntervalType = DateTimeIntervalType.Weeks;
+            chartArea.AxisX.Interval = 1;
+            chartArea.AxisX.MajorGrid.LineColor = Color.Gray;
+            chartArea.AxisY.MajorGrid.LineColor = Color.Gray;
+            chartArea.BackColor = Color.Transparent; // Optional dark theme
+
+            chart.ChartAreas.Add(chartArea);
+
+            // Create the series
+            var series = new Series("Workouts")
+            {
+                ChartType = SeriesChartType.Column,
+                Color = Color.FromArgb(134, 38, 249),
+                XValueType = ChartValueType.Date,
+                YValueType = ChartValueType.Int32,
+                IsValueShownAsLabel = true
+            };
+
+            chart.Series.Add(series);
+
+            // Bind the data
+            series.Points.DataBind(dataTable.AsEnumerable(), "WeekStart", "WorkoutCount", null);
+
+            // Optional styling
+            chart.BackColor = Color.Transparent; // Optional dark background
+            chart.Legends.Clear();
+        }
+
+
+        private bool SaveMeasurementField(int userId, string columnName)
+        {
+            string valueText = cuiTextBox_AddingMeasurement.Content.Trim();
+
+            if (string.IsNullOrWhiteSpace(valueText))
+            {
+                MessageBox.Show("Please enter a value.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return false;
+            }
+
+            if (!IsValidMeasurementColumn(columnName))
+            {
+                MessageBox.Show("Invalid column name.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            using SqlConnection conn = new SqlConnection(connectionString);
+            string query = $@"
+                INSERT INTO Measurements (UserID, {columnName})
+                VALUES (@UserID, @Value)";
+
+            using SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@UserID", userId);
+
+            if (decimal.TryParse(valueText, out decimal value))
+                cmd.Parameters.AddWithValue("@Value", value);
+            else if (int.TryParse(valueText, out int intValue))
+                cmd.Parameters.AddWithValue("@Value", intValue);
+            else
+            {
+                MessageBox.Show("Invalid numeric input.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+
+            try
+            {
+                conn.Open();
+                cmd.ExecuteNonQuery();
+                MessageBox.Show("Measurement saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to save measurement:\n" + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
         }
 
@@ -1594,7 +1805,14 @@ namespace TrainSMARTApp
 
 
 
+
+
+
+
+
+
         // HELPER FUNCTIONS
+
         private (Panel, cuiButton) ExerciseDetailsPreviousPanel()
         {
             Panel pnl;
@@ -1655,7 +1873,7 @@ namespace TrainSMARTApp
                 if (ctrl == label_AddingMeasurement_Name && btn.Content.Contains("percentage")) 
                     ctrl.Text = btn.Content.Replace("percentage", "%");
             }
-            var txtBx = cuiTextBox_Measurement_AddingMeasurement;
+            var txtBx = cuiTextBox_AddingMeasurement;
             txtBx.PlaceholderText = (btn.Content.Contains("Body")) ? "%" : (btn.Content.Contains("Caloric")) ? "kcal" : (btn.Content.Contains("Weight")) ? "lbs" : "cm";
         }
 
@@ -1694,12 +1912,22 @@ namespace TrainSMARTApp
                         cuiButton_WorkoutTemplate_Delete,
                         cuiGradientBorder_WorkoutTemplate,
                     };
+                else if (isWorkingOut)
+                    controls = new List<Control>        // TODO: enhance
+                    {
+                        panel_WorkingOut,
+                        panel_WorkingOut_Title,
+                        panel_WorkingOut_TemplateName,
+                        flowLayoutPanel_WorkingOut,
+
+                    };
                 else
                     controls = new List<Control>
                     {
-                        flowLayoutPanel_WorkoutCreation,
+                        panel_WorkoutCreation,
                         panel_WorkoutCreation_Title,
                         panel_WorkoutCreation_TemplateName,
+                        flowLayoutPanel_WorkoutCreation,
                         cuiButton_WorkoutCreation_Exit,
                         cuiButton_WorkoutCreation_Save,
                         cuiGradientBorder_WorkoutCreation,
@@ -1922,6 +2150,46 @@ namespace TrainSMARTApp
 
             timer.Start();
         }
+
+
+        //private int GetWorkoutCountForUser(int userId)
+        //{
+        //    int count = 0;
+        //    string query = "SELECT COUNT(*) FROM Workouts WHERE UserID = @UserID";
+
+        //    using (SqlConnection conn = new SqlConnection(connectionString))
+        //    using (SqlCommand cmd = new SqlCommand(query, conn))
+        //    {
+        //        cmd.Parameters.AddWithValue("@UserID", userId);
+
+        //        try
+        //        {
+        //            conn.Open();
+        //            count = (int)cmd.ExecuteScalar();
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            MessageBox.Show("Error retrieving workout count:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //        }
+        //    }
+
+        //    return count;
+        //}
+
+
+    private bool IsValidMeasurementColumn(string columnName)
+    {
+        string[] validColumns = {
+            "WeightKg", "BodyFatPercentage", "CaloricIntake", "NeckCm", "ShouldersCm", "ChestCm",
+            "LeftBicepCm", "RightBicepCm", "LeftForearmCm", "RightForearmCm", "UpperAbsCm",
+            "WaistCm", "LowerAbsCm", "HipsCm", "LeftThighCm", "RightThighCm", "LeftCalfCm", "RightCalfCm"
+        };
+
+        return validColumns.Contains(columnName);
+    }
+
+
+
 
 
 
@@ -2332,7 +2600,7 @@ namespace TrainSMARTApp
         }
 
 
-        private cuiButton CreateTemplateButton(int templateId, string templateName, string note, bool isPrebuilt)
+        private cuiButton CreateTemplateButton(int templateId, string templateName, string note, bool isPrebuilt, string historyDetails = "")
         {
             var btnTemplate = new cuiButton
             {
@@ -2367,11 +2635,31 @@ namespace TrainSMARTApp
                 TextAlign = ContentAlignment.MiddleLeft,
             };
 
-            if (!string.IsNullOrWhiteSpace(note))
+            var lblHistory = new Label
             {
-                btnTemplate.Controls.Add(lblNote);      // TODO: Enhance
-                btnTemplate.Height += 10;
-                btnTemplate.TextOffset = new Point(0, -5);
+                Text      = historyDetails,
+                Font      = new Font("SansSerif", 10),//, FontStyle.Italic),
+                ForeColor = Color.FromArgb(147, 152, 154),
+                Dock      = DockStyle.Top,
+                Height    = 15,
+                TextAlign = ContentAlignment.MiddleLeft,
+            };
+
+            if (isViewingWorkoutHistory)
+            {
+                btnTemplate.Controls.Add(lblHistory);      
+                btnTemplate.Height += 20;
+                btnTemplate.TextOffset = new Point(0, 0);
+            }
+            else
+            {
+                if (!string.IsNullOrWhiteSpace(note))
+                {
+                    btnTemplate.Controls.Add(lblNote);      
+                    btnTemplate.Height += 10;
+                    btnTemplate.TextOffset = new Point(0, -5);
+                }
+                
             }
 
             // Optional: store additional info like note in Tag if needed
@@ -2384,6 +2672,7 @@ namespace TrainSMARTApp
                 cuiButton_WorkoutTemplate_Start.BringToFront();
                 cuiButton_WorkoutTemplate_GoBack.Tag = selectedTemplateId;
                 cuiButton_WorkoutTemplate_Start.Tag = selectedTemplateId;
+                cuiButton_WorkingOut_Finish.Tag = selectedTemplateId;
                 textBox_WorkoutTemplate_Name.Text = templateName;
 
                 textBox_WorkoutTemplate_Name.Click += (_, _) =>

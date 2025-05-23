@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea14 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series14 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea22 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series22 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel_Menus = new System.Windows.Forms.Panel();
             this.cuiButton_Menu_Measure = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Menu_Exercises = new CuoreUI.Controls.cuiButton();
@@ -65,7 +66,7 @@
             this.label_Profile_Username = new System.Windows.Forms.Label();
             this.cuiPictureBox_Profile_User = new CuoreUI.Controls.cuiPictureBox();
             this.panel_Profile_WorkoutCount = new System.Windows.Forms.Panel();
-            this.cuiBorder1 = new CuoreUI.Controls.cuiBorder();
+            this.cuiBorder_WorkoutsPerWeek = new CuoreUI.Controls.cuiBorder();
             this.label_Profile_ChartName = new System.Windows.Forms.Label();
             this.chart_Profile_WorkoutCount = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.panel_Menu_History = new System.Windows.Forms.Panel();
@@ -74,6 +75,7 @@
             this.cuiButton_History_Calendar = new CuoreUI.Controls.cuiButton();
             this.label_History_Title = new System.Windows.Forms.Label();
             this.flowLayoutPanel_History = new System.Windows.Forms.FlowLayoutPanel();
+            this.label_History_EmptyHistoryMsg = new System.Windows.Forms.Label();
             this.panel_Menu_Exercises = new System.Windows.Forms.Panel();
             this.cuiBorder_Exercises_Filter = new CuoreUI.Controls.cuiBorder();
             this.cuiGradientBorder2 = new CuoreUI.Controls.cuiGradientBorder();
@@ -158,7 +160,7 @@
             this.cuiButton_AddExercise_ConfirmAdd = new CuoreUI.Controls.cuiButton();
             this.panel_Measurement = new System.Windows.Forms.Panel();
             this.panel_Measurement_AddingMeasurement = new System.Windows.Forms.Panel();
-            this.cuiTextBox_Measurement_AddingMeasurement = new CuoreUI.Controls.cuiTextBox2();
+            this.cuiTextBox_AddingMeasurement = new CuoreUI.Controls.cuiTextBox2();
             this.cuiButton_AddingMeasurement_Save = new CuoreUI.Controls.cuiButton();
             this.cuiButton_AddingMeasurement_Cancel = new CuoreUI.Controls.cuiButton();
             this.label_AddingMeasurement_CurrentDate = new System.Windows.Forms.Label();
@@ -200,16 +202,19 @@
             this.panel_WorkingOut = new System.Windows.Forms.Panel();
             this.cuiGradientBorder_WorkingOut = new CuoreUI.Controls.cuiGradientBorder();
             this.panel_WorkingOut_Title = new System.Windows.Forms.Panel();
+            this.cuiButton_WorkingOut_Timer = new CuoreUI.Controls.cuiButton();
             this.cuiButton_WorkingOut_Finish = new CuoreUI.Controls.cuiButton();
             this.flowLayoutPanel_WorkingOut = new System.Windows.Forms.FlowLayoutPanel();
             this.panel_WorkingOut_TemplateName = new System.Windows.Forms.Panel();
+            this.label_WorkingOut_StopWatch = new System.Windows.Forms.Label();
             this.cuiTextBox_WorkingOut_Note = new CuoreUI.Controls.cuiTextBox2();
             this.cuiButton_WorkingOut_EditName = new CuoreUI.Controls.cuiButton();
             this.cuiTextBox_WorkingOut_Name = new CuoreUI.Controls.cuiTextBox2();
             this.cuiButton_WorkingOut_AddExercise = new CuoreUI.Controls.cuiButton();
             this.cuiButton_WorkingOut_CancelWorkout = new CuoreUI.Controls.cuiButton();
-            this.cuiButton_WorkingOut_Timer = new CuoreUI.Controls.cuiButton();
-            this.label_WorkingOut_StopWatch = new System.Windows.Forms.Label();
+            this.userDBWorkoutCountDataSet = new TrainSMARTApp.UserDBWorkoutCountDataSet();
+            this.usersBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.usersTableAdapter = new TrainSMARTApp.UserDBWorkoutCountDataSetTableAdapters.UsersTableAdapter();
             this.panel_Menus.SuspendLayout();
             this.panel_Form_Title.SuspendLayout();
             this.flowLayoutPanel_WorkoutCreation.SuspendLayout();
@@ -221,10 +226,11 @@
             this.flowLayoutPanel_Profile.SuspendLayout();
             this.panel_Profile_User.SuspendLayout();
             this.panel_Profile_WorkoutCount.SuspendLayout();
-            this.cuiBorder1.SuspendLayout();
+            this.cuiBorder_WorkoutsPerWeek.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart_Profile_WorkoutCount)).BeginInit();
             this.panel_Menu_History.SuspendLayout();
             this.panel_History_Title.SuspendLayout();
+            this.flowLayoutPanel_History.SuspendLayout();
             this.panel_Menu_Exercises.SuspendLayout();
             this.cuiBorder_Exercises_Filter.SuspendLayout();
             this.panel_Exercises_Title.SuspendLayout();
@@ -253,6 +259,8 @@
             this.panel_WorkingOut_Title.SuspendLayout();
             this.flowLayoutPanel_WorkingOut.SuspendLayout();
             this.panel_WorkingOut_TemplateName.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.userDBWorkoutCountDataSet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.usersBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // panel_Menus
@@ -496,7 +504,7 @@
             this.cuiGradientBorder_AboveMenu.Name = "cuiGradientBorder_AboveMenu";
             this.cuiGradientBorder_AboveMenu.OutlineThickness = 0F;
             this.cuiGradientBorder_AboveMenu.PanelColor1 = System.Drawing.Color.Transparent;
-            this.cuiGradientBorder_AboveMenu.PanelColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(43)))), ((int)(((byte)(47)))));
+            this.cuiGradientBorder_AboveMenu.PanelColor2 = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(41)))), ((int)(((byte)(45)))));
             this.cuiGradientBorder_AboveMenu.PanelOutlineColor1 = System.Drawing.Color.Transparent;
             this.cuiGradientBorder_AboveMenu.PanelOutlineColor2 = System.Drawing.Color.Transparent;
             this.cuiGradientBorder_AboveMenu.Rounding = new System.Windows.Forms.Padding(8);
@@ -963,24 +971,24 @@
             // 
             // panel_Profile_WorkoutCount
             // 
-            this.panel_Profile_WorkoutCount.Controls.Add(this.cuiBorder1);
+            this.panel_Profile_WorkoutCount.Controls.Add(this.cuiBorder_WorkoutsPerWeek);
             this.panel_Profile_WorkoutCount.Location = new System.Drawing.Point(3, 159);
             this.panel_Profile_WorkoutCount.Name = "panel_Profile_WorkoutCount";
             this.panel_Profile_WorkoutCount.Size = new System.Drawing.Size(507, 401);
             this.panel_Profile_WorkoutCount.TabIndex = 12;
             // 
-            // cuiBorder1
+            // cuiBorder_WorkoutsPerWeek
             // 
-            this.cuiBorder1.Controls.Add(this.label_Profile_ChartName);
-            this.cuiBorder1.Controls.Add(this.chart_Profile_WorkoutCount);
-            this.cuiBorder1.Location = new System.Drawing.Point(22, 8);
-            this.cuiBorder1.Name = "cuiBorder1";
-            this.cuiBorder1.OutlineThickness = 2F;
-            this.cuiBorder1.PanelColor = System.Drawing.Color.Transparent;
-            this.cuiBorder1.PanelOutlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(102)))), ((int)(((byte)(105)))));
-            this.cuiBorder1.Rounding = new System.Windows.Forms.Padding(8);
-            this.cuiBorder1.Size = new System.Drawing.Size(464, 314);
-            this.cuiBorder1.TabIndex = 1;
+            this.cuiBorder_WorkoutsPerWeek.Controls.Add(this.chart_Profile_WorkoutCount);
+            this.cuiBorder_WorkoutsPerWeek.Controls.Add(this.label_Profile_ChartName);
+            this.cuiBorder_WorkoutsPerWeek.Location = new System.Drawing.Point(22, 8);
+            this.cuiBorder_WorkoutsPerWeek.Name = "cuiBorder_WorkoutsPerWeek";
+            this.cuiBorder_WorkoutsPerWeek.OutlineThickness = 2F;
+            this.cuiBorder_WorkoutsPerWeek.PanelColor = System.Drawing.Color.Transparent;
+            this.cuiBorder_WorkoutsPerWeek.PanelOutlineColor = System.Drawing.Color.FromArgb(((int)(((byte)(95)))), ((int)(((byte)(102)))), ((int)(((byte)(105)))));
+            this.cuiBorder_WorkoutsPerWeek.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiBorder_WorkoutsPerWeek.Size = new System.Drawing.Size(464, 314);
+            this.cuiBorder_WorkoutsPerWeek.TabIndex = 1;
             // 
             // label_Profile_ChartName
             // 
@@ -1003,16 +1011,20 @@
             this.chart_Profile_WorkoutCount.BorderlineWidth = 0;
             this.chart_Profile_WorkoutCount.BorderSkin.BackColor = System.Drawing.Color.Transparent;
             this.chart_Profile_WorkoutCount.BorderSkin.BorderColor = System.Drawing.Color.Transparent;
-            chartArea14.BackColor = System.Drawing.Color.Transparent;
-            chartArea14.BorderWidth = 0;
-            chartArea14.Name = "ChartArea1";
-            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea14);
+            chartArea22.BackColor = System.Drawing.Color.Transparent;
+            chartArea22.BorderWidth = 0;
+            chartArea22.Name = "ChartArea1";
+            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea22);
+            this.chart_Profile_WorkoutCount.DataSource = this.usersBindingSource;
             this.chart_Profile_WorkoutCount.Location = new System.Drawing.Point(11, 60);
             this.chart_Profile_WorkoutCount.Name = "chart_Profile_WorkoutCount";
             this.chart_Profile_WorkoutCount.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series14.ChartArea = "ChartArea1";
-            series14.Name = "Series1";
-            this.chart_Profile_WorkoutCount.Series.Add(series14);
+            series22.ChartArea = "ChartArea1";
+            series22.Name = "Series1";
+            series22.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Date;
+            series22.YValueMembers = "WorkoutCount";
+            series22.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            this.chart_Profile_WorkoutCount.Series.Add(series22);
             this.chart_Profile_WorkoutCount.Size = new System.Drawing.Size(440, 245);
             this.chart_Profile_WorkoutCount.TabIndex = 1;
             this.chart_Profile_WorkoutCount.Text = "chart1";
@@ -1110,12 +1122,29 @@
             // flowLayoutPanel_History
             // 
             this.flowLayoutPanel_History.AutoScroll = true;
+            this.flowLayoutPanel_History.Controls.Add(this.label_History_EmptyHistoryMsg);
             this.flowLayoutPanel_History.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.flowLayoutPanel_History.Location = new System.Drawing.Point(0, -566);
             this.flowLayoutPanel_History.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel_History.Name = "flowLayoutPanel_History";
             this.flowLayoutPanel_History.Size = new System.Drawing.Size(513, 566);
             this.flowLayoutPanel_History.TabIndex = 6;
+            // 
+            // label_History_EmptyHistoryMsg
+            // 
+            this.label_History_EmptyHistoryMsg.AutoSize = true;
+            this.label_History_EmptyHistoryMsg.BackColor = System.Drawing.Color.Transparent;
+            this.label_History_EmptyHistoryMsg.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.label_History_EmptyHistoryMsg.Font = new System.Drawing.Font("SansSerif", 12.6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label_History_EmptyHistoryMsg.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(194)))), ((int)(((byte)(195)))));
+            this.label_History_EmptyHistoryMsg.Location = new System.Drawing.Point(65, 245);
+            this.label_History_EmptyHistoryMsg.Margin = new System.Windows.Forms.Padding(65, 245, 3, 0);
+            this.label_History_EmptyHistoryMsg.Name = "label_History_EmptyHistoryMsg";
+            this.label_History_EmptyHistoryMsg.Size = new System.Drawing.Size(378, 75);
+            this.label_History_EmptyHistoryMsg.TabIndex = 17;
+            this.label_History_EmptyHistoryMsg.Text = "No workouts performed\r\nCompleted workouts will appear here.\r\nHit the + button at " +
+    "the bottom to begin!";
+            this.label_History_EmptyHistoryMsg.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // panel_Menu_Exercises
             // 
@@ -2035,6 +2064,7 @@
             this.cuiButton_Measure_Weight.Rounding = new System.Windows.Forms.Padding(0);
             this.cuiButton_Measure_Weight.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_Weight.TabIndex = 13;
+            this.cuiButton_Measure_Weight.Tag = "WeightKg";
             this.cuiButton_Measure_Weight.TextOffset = new System.Drawing.Point(-134, 1);
             this.cuiButton_Measure_Weight.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
@@ -2073,6 +2103,7 @@
             this.cuiButton_Measure_BodyFatPercentage.Rounding = new System.Windows.Forms.Padding(0);
             this.cuiButton_Measure_BodyFatPercentage.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_BodyFatPercentage.TabIndex = 14;
+            this.cuiButton_Measure_BodyFatPercentage.Tag = "BodyFatPercentage";
             this.cuiButton_Measure_BodyFatPercentage.TextOffset = new System.Drawing.Point(-75, 1);
             this.cuiButton_Measure_BodyFatPercentage.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
@@ -2111,6 +2142,7 @@
             this.cuiButton_Measure_CaloricIntake.Rounding = new System.Windows.Forms.Padding(0);
             this.cuiButton_Measure_CaloricIntake.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_CaloricIntake.TabIndex = 15;
+            this.cuiButton_Measure_CaloricIntake.Tag = "CaloricIntake";
             this.cuiButton_Measure_CaloricIntake.TextOffset = new System.Drawing.Point(-103, 1);
             this.cuiButton_Measure_CaloricIntake.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
@@ -2164,6 +2196,7 @@
             this.cuiButton_Measure_Neck.Rounding = new System.Windows.Forms.Padding(0);
             this.cuiButton_Measure_Neck.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_Neck.TabIndex = 17;
+            this.cuiButton_Measure_Neck.Tag = "NeckCm";
             this.cuiButton_Measure_Neck.TextOffset = new System.Drawing.Point(-143, 1);
             this.cuiButton_Measure_Neck.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
@@ -2202,6 +2235,7 @@
             this.cuiButton_Measure_Shoulders.Rounding = new System.Windows.Forms.Padding(0);
             this.cuiButton_Measure_Shoulders.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_Shoulders.TabIndex = 18;
+            this.cuiButton_Measure_Shoulders.Tag = "ShouldersCm";
             this.cuiButton_Measure_Shoulders.TextOffset = new System.Drawing.Point(-120, 1);
             this.cuiButton_Measure_Shoulders.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
@@ -2240,6 +2274,7 @@
             this.cuiButton_Measure_Chest.Rounding = new System.Windows.Forms.Padding(0);
             this.cuiButton_Measure_Chest.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_Chest.TabIndex = 19;
+            this.cuiButton_Measure_Chest.Tag = "ChestCm";
             this.cuiButton_Measure_Chest.TextOffset = new System.Drawing.Point(-140, 1);
             this.cuiButton_Measure_Chest.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
@@ -2278,6 +2313,7 @@
             this.cuiButton_Measure_LeftBicep.Rounding = new System.Windows.Forms.Padding(0);
             this.cuiButton_Measure_LeftBicep.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_LeftBicep.TabIndex = 20;
+            this.cuiButton_Measure_LeftBicep.Tag = "LeftBicepCm";
             this.cuiButton_Measure_LeftBicep.TextOffset = new System.Drawing.Point(-122, 1);
             this.cuiButton_Measure_LeftBicep.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
@@ -2316,6 +2352,7 @@
             this.cuiButton_Measure_RightBicep.Rounding = new System.Windows.Forms.Padding(0);
             this.cuiButton_Measure_RightBicep.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_RightBicep.TabIndex = 21;
+            this.cuiButton_Measure_RightBicep.Tag = "RightBicepCm";
             this.cuiButton_Measure_RightBicep.TextOffset = new System.Drawing.Point(-115, 1);
             this.cuiButton_Measure_RightBicep.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
@@ -2354,6 +2391,7 @@
             this.cuiButton_Measure_LeftForearm.Rounding = new System.Windows.Forms.Padding(0);
             this.cuiButton_Measure_LeftForearm.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_LeftForearm.TabIndex = 22;
+            this.cuiButton_Measure_LeftForearm.Tag = "LeftForearmCm";
             this.cuiButton_Measure_LeftForearm.TextOffset = new System.Drawing.Point(-111, 1);
             this.cuiButton_Measure_LeftForearm.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
@@ -2392,6 +2430,7 @@
             this.cuiButton_Measure_RightForearm.Rounding = new System.Windows.Forms.Padding(0);
             this.cuiButton_Measure_RightForearm.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_RightForearm.TabIndex = 23;
+            this.cuiButton_Measure_RightForearm.Tag = "RightForearmCm";
             this.cuiButton_Measure_RightForearm.TextOffset = new System.Drawing.Point(-104, 1);
             this.cuiButton_Measure_RightForearm.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
@@ -2430,6 +2469,7 @@
             this.cuiButton_Measure_UpperAbs.Rounding = new System.Windows.Forms.Padding(0);
             this.cuiButton_Measure_UpperAbs.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_UpperAbs.TabIndex = 24;
+            this.cuiButton_Measure_UpperAbs.Tag = "UpperAbsCm";
             this.cuiButton_Measure_UpperAbs.TextOffset = new System.Drawing.Point(-120, 1);
             this.cuiButton_Measure_UpperAbs.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
@@ -2468,6 +2508,7 @@
             this.cuiButton_Measure_Waist.Rounding = new System.Windows.Forms.Padding(0);
             this.cuiButton_Measure_Waist.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_Waist.TabIndex = 25;
+            this.cuiButton_Measure_Waist.Tag = "WaistCm";
             this.cuiButton_Measure_Waist.TextOffset = new System.Drawing.Point(-140, 1);
             this.cuiButton_Measure_Waist.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
@@ -2506,6 +2547,7 @@
             this.cuiButton_Measure_LowerAbs.Rounding = new System.Windows.Forms.Padding(0);
             this.cuiButton_Measure_LowerAbs.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_LowerAbs.TabIndex = 26;
+            this.cuiButton_Measure_LowerAbs.Tag = "LowerAbsCm";
             this.cuiButton_Measure_LowerAbs.TextOffset = new System.Drawing.Point(-120, 1);
             this.cuiButton_Measure_LowerAbs.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
@@ -2544,6 +2586,7 @@
             this.cuiButton_Measure_Hips.Rounding = new System.Windows.Forms.Padding(0);
             this.cuiButton_Measure_Hips.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_Hips.TabIndex = 27;
+            this.cuiButton_Measure_Hips.Tag = "HipsCm";
             this.cuiButton_Measure_Hips.TextOffset = new System.Drawing.Point(-146, 1);
             this.cuiButton_Measure_Hips.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
@@ -2582,6 +2625,7 @@
             this.cuiButton_Measure_LeftThigh.Rounding = new System.Windows.Forms.Padding(0);
             this.cuiButton_Measure_LeftThigh.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_LeftThigh.TabIndex = 28;
+            this.cuiButton_Measure_LeftThigh.Tag = "LeftThighCm";
             this.cuiButton_Measure_LeftThigh.TextOffset = new System.Drawing.Point(-124, 1);
             this.cuiButton_Measure_LeftThigh.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
@@ -2620,6 +2664,7 @@
             this.cuiButton_Measure_RightThigh.Rounding = new System.Windows.Forms.Padding(0);
             this.cuiButton_Measure_RightThigh.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_RightThigh.TabIndex = 29;
+            this.cuiButton_Measure_RightThigh.Tag = "RightThighCm";
             this.cuiButton_Measure_RightThigh.TextOffset = new System.Drawing.Point(-116, 1);
             this.cuiButton_Measure_RightThigh.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
@@ -2658,6 +2703,7 @@
             this.cuiButton_Measure_LeftCalf.Rounding = new System.Windows.Forms.Padding(0);
             this.cuiButton_Measure_LeftCalf.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_LeftCalf.TabIndex = 30;
+            this.cuiButton_Measure_LeftCalf.Tag = "LeftCalfCm";
             this.cuiButton_Measure_LeftCalf.TextOffset = new System.Drawing.Point(-130, 1);
             this.cuiButton_Measure_LeftCalf.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
@@ -2696,6 +2742,7 @@
             this.cuiButton_Measure_RightCalf.Rounding = new System.Windows.Forms.Padding(0);
             this.cuiButton_Measure_RightCalf.Size = new System.Drawing.Size(485, 95);
             this.cuiButton_Measure_RightCalf.TabIndex = 31;
+            this.cuiButton_Measure_RightCalf.Tag = "RightCalfCm";
             this.cuiButton_Measure_RightCalf.TextOffset = new System.Drawing.Point(-124, 1);
             this.cuiButton_Measure_RightCalf.Click += new System.EventHandler(this.cuiButton_Measure_Measurements_Click);
             // 
@@ -3095,15 +3142,15 @@
             this.panel_Measurement.Controls.Add(this.cuiGradientBorder_Measurement);
             this.panel_Measurement.Controls.Add(this.panel_Measurement_Title);
             this.panel_Measurement.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel_Measurement.Location = new System.Drawing.Point(0, 696);
+            this.panel_Measurement.Location = new System.Drawing.Point(0, 35);
             this.panel_Measurement.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Measurement.Name = "panel_Measurement";
-            this.panel_Measurement.Size = new System.Drawing.Size(513, 0);
+            this.panel_Measurement.Size = new System.Drawing.Size(513, 661);
             this.panel_Measurement.TabIndex = 24;
             // 
             // panel_Measurement_AddingMeasurement
             // 
-            this.panel_Measurement_AddingMeasurement.Controls.Add(this.cuiTextBox_Measurement_AddingMeasurement);
+            this.panel_Measurement_AddingMeasurement.Controls.Add(this.cuiTextBox_AddingMeasurement);
             this.panel_Measurement_AddingMeasurement.Controls.Add(this.cuiButton_AddingMeasurement_Save);
             this.panel_Measurement_AddingMeasurement.Controls.Add(this.cuiButton_AddingMeasurement_Cancel);
             this.panel_Measurement_AddingMeasurement.Controls.Add(this.label_AddingMeasurement_CurrentDate);
@@ -3117,32 +3164,33 @@
             this.panel_Measurement_AddingMeasurement.Size = new System.Drawing.Size(425, 270);
             this.panel_Measurement_AddingMeasurement.TabIndex = 17;
             // 
-            // cuiTextBox_Measurement_AddingMeasurement
+            // cuiTextBox_AddingMeasurement
             // 
-            this.cuiTextBox_Measurement_AddingMeasurement.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
-            this.cuiTextBox_Measurement_AddingMeasurement.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
-            this.cuiTextBox_Measurement_AddingMeasurement.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
-            this.cuiTextBox_Measurement_AddingMeasurement.BorderSize = 1;
-            this.cuiTextBox_Measurement_AddingMeasurement.Content = "";
-            this.cuiTextBox_Measurement_AddingMeasurement.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.cuiTextBox_Measurement_AddingMeasurement.FocusBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
-            this.cuiTextBox_Measurement_AddingMeasurement.FocusBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
-            this.cuiTextBox_Measurement_AddingMeasurement.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cuiTextBox_Measurement_AddingMeasurement.ForeColor = System.Drawing.Color.White;
-            this.cuiTextBox_Measurement_AddingMeasurement.Location = new System.Drawing.Point(46, 122);
-            this.cuiTextBox_Measurement_AddingMeasurement.Margin = new System.Windows.Forms.Padding(4);
-            this.cuiTextBox_Measurement_AddingMeasurement.Multiline = false;
-            this.cuiTextBox_Measurement_AddingMeasurement.Name = "cuiTextBox_Measurement_AddingMeasurement";
-            this.cuiTextBox_Measurement_AddingMeasurement.Padding = new System.Windows.Forms.Padding(27, 11, 27, 0);
-            this.cuiTextBox_Measurement_AddingMeasurement.PasswordChar = false;
-            this.cuiTextBox_Measurement_AddingMeasurement.PlaceholderColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(200)))), ((int)(((byte)(201)))));
-            this.cuiTextBox_Measurement_AddingMeasurement.PlaceholderText = "";
-            this.cuiTextBox_Measurement_AddingMeasurement.Rounding = new System.Windows.Forms.Padding(10);
-            this.cuiTextBox_Measurement_AddingMeasurement.Size = new System.Drawing.Size(330, 49);
-            this.cuiTextBox_Measurement_AddingMeasurement.TabIndex = 25;
-            this.cuiTextBox_Measurement_AddingMeasurement.TextOffset = new System.Drawing.Size(0, 0);
-            this.cuiTextBox_Measurement_AddingMeasurement.UnderlinedStyle = false;
-            this.cuiTextBox_Measurement_AddingMeasurement.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDownLoseFocus);
+            this.cuiTextBox_AddingMeasurement.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
+            this.cuiTextBox_AddingMeasurement.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
+            this.cuiTextBox_AddingMeasurement.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
+            this.cuiTextBox_AddingMeasurement.BorderSize = 1;
+            this.cuiTextBox_AddingMeasurement.Content = "";
+            this.cuiTextBox_AddingMeasurement.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.cuiTextBox_AddingMeasurement.FocusBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
+            this.cuiTextBox_AddingMeasurement.FocusBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
+            this.cuiTextBox_AddingMeasurement.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiTextBox_AddingMeasurement.ForeColor = System.Drawing.Color.White;
+            this.cuiTextBox_AddingMeasurement.Location = new System.Drawing.Point(46, 122);
+            this.cuiTextBox_AddingMeasurement.Margin = new System.Windows.Forms.Padding(4);
+            this.cuiTextBox_AddingMeasurement.Multiline = false;
+            this.cuiTextBox_AddingMeasurement.Name = "cuiTextBox_AddingMeasurement";
+            this.cuiTextBox_AddingMeasurement.Padding = new System.Windows.Forms.Padding(27, 11, 27, 0);
+            this.cuiTextBox_AddingMeasurement.PasswordChar = false;
+            this.cuiTextBox_AddingMeasurement.PlaceholderColor = System.Drawing.Color.FromArgb(((int)(((byte)(197)))), ((int)(((byte)(200)))), ((int)(((byte)(201)))));
+            this.cuiTextBox_AddingMeasurement.PlaceholderText = "";
+            this.cuiTextBox_AddingMeasurement.Rounding = new System.Windows.Forms.Padding(10);
+            this.cuiTextBox_AddingMeasurement.Size = new System.Drawing.Size(330, 49);
+            this.cuiTextBox_AddingMeasurement.TabIndex = 25;
+            this.cuiTextBox_AddingMeasurement.TextOffset = new System.Drawing.Size(0, 0);
+            this.cuiTextBox_AddingMeasurement.UnderlinedStyle = false;
+            this.cuiTextBox_AddingMeasurement.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDownLoseFocus);
+            this.cuiTextBox_AddingMeasurement.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.KeyPressDigitOnly);
             // 
             // cuiButton_AddingMeasurement_Save
             // 
@@ -3948,7 +3996,7 @@
             this.panel_WorkingOut.Location = new System.Drawing.Point(0, 35);
             this.panel_WorkingOut.Margin = new System.Windows.Forms.Padding(0);
             this.panel_WorkingOut.Name = "panel_WorkingOut";
-            this.panel_WorkingOut.Size = new System.Drawing.Size(513, 661);
+            this.panel_WorkingOut.Size = new System.Drawing.Size(513, 0);
             this.panel_WorkingOut.TabIndex = 26;
             // 
             // cuiGradientBorder_WorkingOut
@@ -3977,6 +4025,42 @@
             this.panel_WorkingOut_Title.Name = "panel_WorkingOut_Title";
             this.panel_WorkingOut_Title.Size = new System.Drawing.Size(513, 80);
             this.panel_WorkingOut_Title.TabIndex = 7;
+            // 
+            // cuiButton_WorkingOut_Timer
+            // 
+            this.cuiButton_WorkingOut_Timer.CheckButton = false;
+            this.cuiButton_WorkingOut_Timer.Checked = false;
+            this.cuiButton_WorkingOut_Timer.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_WorkingOut_Timer.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_WorkingOut_Timer.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
+            this.cuiButton_WorkingOut_Timer.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
+            this.cuiButton_WorkingOut_Timer.Content = "--";
+            this.cuiButton_WorkingOut_Timer.DialogResult = System.Windows.Forms.DialogResult.None;
+            this.cuiButton_WorkingOut_Timer.Font = new System.Drawing.Font("SansSerif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.cuiButton_WorkingOut_Timer.ForeColor = System.Drawing.Color.White;
+            this.cuiButton_WorkingOut_Timer.HoverBackground = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
+            this.cuiButton_WorkingOut_Timer.HoveredImageTint = System.Drawing.Color.White;
+            this.cuiButton_WorkingOut_Timer.HoverForeColor = System.Drawing.Color.White;
+            this.cuiButton_WorkingOut_Timer.HoverOutline = System.Drawing.Color.Empty;
+            this.cuiButton_WorkingOut_Timer.Image = null;
+            this.cuiButton_WorkingOut_Timer.ImageAutoCenter = true;
+            this.cuiButton_WorkingOut_Timer.ImageExpand = new System.Drawing.Point(4, 4);
+            this.cuiButton_WorkingOut_Timer.ImageOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_WorkingOut_Timer.Location = new System.Drawing.Point(50, 15);
+            this.cuiButton_WorkingOut_Timer.Name = "cuiButton_WorkingOut_Timer";
+            this.cuiButton_WorkingOut_Timer.NormalBackground = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
+            this.cuiButton_WorkingOut_Timer.NormalForeColor = System.Drawing.Color.White;
+            this.cuiButton_WorkingOut_Timer.NormalImageTint = System.Drawing.Color.White;
+            this.cuiButton_WorkingOut_Timer.NormalOutline = System.Drawing.Color.Empty;
+            this.cuiButton_WorkingOut_Timer.OutlineThickness = 0F;
+            this.cuiButton_WorkingOut_Timer.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
+            this.cuiButton_WorkingOut_Timer.PressedForeColor = System.Drawing.Color.White;
+            this.cuiButton_WorkingOut_Timer.PressedImageTint = System.Drawing.Color.White;
+            this.cuiButton_WorkingOut_Timer.PressedOutline = System.Drawing.Color.Empty;
+            this.cuiButton_WorkingOut_Timer.Rounding = new System.Windows.Forms.Padding(8);
+            this.cuiButton_WorkingOut_Timer.Size = new System.Drawing.Size(100, 50);
+            this.cuiButton_WorkingOut_Timer.TabIndex = 24;
+            this.cuiButton_WorkingOut_Timer.TextOffset = new System.Drawing.Point(0, 0);
             // 
             // cuiButton_WorkingOut_Finish
             // 
@@ -4041,6 +4125,17 @@
             this.panel_WorkingOut_TemplateName.Name = "panel_WorkingOut_TemplateName";
             this.panel_WorkingOut_TemplateName.Size = new System.Drawing.Size(484, 220);
             this.panel_WorkingOut_TemplateName.TabIndex = 10;
+            // 
+            // label_WorkingOut_StopWatch
+            // 
+            this.label_WorkingOut_StopWatch.AutoSize = true;
+            this.label_WorkingOut_StopWatch.Font = new System.Drawing.Font("SansSerif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
+            this.label_WorkingOut_StopWatch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(194)))), ((int)(((byte)(195)))));
+            this.label_WorkingOut_StopWatch.Location = new System.Drawing.Point(19, 79);
+            this.label_WorkingOut_StopWatch.Name = "label_WorkingOut_StopWatch";
+            this.label_WorkingOut_StopWatch.Size = new System.Drawing.Size(111, 30);
+            this.label_WorkingOut_StopWatch.TabIndex = 11;
+            this.label_WorkingOut_StopWatch.Text = "00:00:00";
             // 
             // cuiTextBox_WorkingOut_Note
             // 
@@ -4207,52 +4302,19 @@
             this.cuiButton_WorkingOut_CancelWorkout.TextOffset = new System.Drawing.Point(0, 0);
             this.cuiButton_WorkingOut_CancelWorkout.Click += new System.EventHandler(this.cuiButton_WorkingOut_CancelWorkout_Click);
             // 
-            // cuiButton_WorkingOut_Timer
+            // userDBWorkoutCountDataSet
             // 
-            this.cuiButton_WorkingOut_Timer.CheckButton = false;
-            this.cuiButton_WorkingOut_Timer.Checked = false;
-            this.cuiButton_WorkingOut_Timer.CheckedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_WorkingOut_Timer.CheckedForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_WorkingOut_Timer.CheckedImageTint = System.Drawing.Color.FromArgb(((int)(((byte)(212)))), ((int)(((byte)(214)))), ((int)(((byte)(215)))));
-            this.cuiButton_WorkingOut_Timer.CheckedOutline = System.Drawing.Color.FromArgb(((int)(((byte)(41)))), ((int)(((byte)(50)))), ((int)(((byte)(54)))));
-            this.cuiButton_WorkingOut_Timer.Content = "00:00";
-            this.cuiButton_WorkingOut_Timer.DialogResult = System.Windows.Forms.DialogResult.None;
-            this.cuiButton_WorkingOut_Timer.Font = new System.Drawing.Font("SansSerif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.cuiButton_WorkingOut_Timer.ForeColor = System.Drawing.Color.White;
-            this.cuiButton_WorkingOut_Timer.HoverBackground = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
-            this.cuiButton_WorkingOut_Timer.HoveredImageTint = System.Drawing.Color.White;
-            this.cuiButton_WorkingOut_Timer.HoverForeColor = System.Drawing.Color.White;
-            this.cuiButton_WorkingOut_Timer.HoverOutline = System.Drawing.Color.Empty;
-            this.cuiButton_WorkingOut_Timer.Image = null;
-            this.cuiButton_WorkingOut_Timer.ImageAutoCenter = true;
-            this.cuiButton_WorkingOut_Timer.ImageExpand = new System.Drawing.Point(4, 4);
-            this.cuiButton_WorkingOut_Timer.ImageOffset = new System.Drawing.Point(0, 0);
-            this.cuiButton_WorkingOut_Timer.Location = new System.Drawing.Point(50, 15);
-            this.cuiButton_WorkingOut_Timer.Name = "cuiButton_WorkingOut_Timer";
-            this.cuiButton_WorkingOut_Timer.NormalBackground = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
-            this.cuiButton_WorkingOut_Timer.NormalForeColor = System.Drawing.Color.White;
-            this.cuiButton_WorkingOut_Timer.NormalImageTint = System.Drawing.Color.White;
-            this.cuiButton_WorkingOut_Timer.NormalOutline = System.Drawing.Color.Empty;
-            this.cuiButton_WorkingOut_Timer.OutlineThickness = 0F;
-            this.cuiButton_WorkingOut_Timer.PressedBackground = System.Drawing.Color.FromArgb(((int)(((byte)(61)))), ((int)(((byte)(70)))), ((int)(((byte)(73)))));
-            this.cuiButton_WorkingOut_Timer.PressedForeColor = System.Drawing.Color.White;
-            this.cuiButton_WorkingOut_Timer.PressedImageTint = System.Drawing.Color.White;
-            this.cuiButton_WorkingOut_Timer.PressedOutline = System.Drawing.Color.Empty;
-            this.cuiButton_WorkingOut_Timer.Rounding = new System.Windows.Forms.Padding(8);
-            this.cuiButton_WorkingOut_Timer.Size = new System.Drawing.Size(100, 50);
-            this.cuiButton_WorkingOut_Timer.TabIndex = 24;
-            this.cuiButton_WorkingOut_Timer.TextOffset = new System.Drawing.Point(0, 0);
+            this.userDBWorkoutCountDataSet.DataSetName = "UserDBWorkoutCountDataSet";
+            this.userDBWorkoutCountDataSet.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
-            // label_WorkingOut_StopWatch
+            // usersBindingSource
             // 
-            this.label_WorkingOut_StopWatch.AutoSize = true;
-            this.label_WorkingOut_StopWatch.Font = new System.Drawing.Font("SansSerif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
-            this.label_WorkingOut_StopWatch.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(191)))), ((int)(((byte)(194)))), ((int)(((byte)(195)))));
-            this.label_WorkingOut_StopWatch.Location = new System.Drawing.Point(19, 79);
-            this.label_WorkingOut_StopWatch.Name = "label_WorkingOut_StopWatch";
-            this.label_WorkingOut_StopWatch.Size = new System.Drawing.Size(111, 30);
-            this.label_WorkingOut_StopWatch.TabIndex = 11;
-            this.label_WorkingOut_StopWatch.Text = "00:00:00";
+            this.usersBindingSource.DataMember = "Users";
+            this.usersBindingSource.DataSource = this.userDBWorkoutCountDataSet;
+            // 
+            // usersTableAdapter
+            // 
+            this.usersTableAdapter.ClearBeforeFill = true;
             // 
             // MainForm
             // 
@@ -4294,12 +4356,14 @@
             this.panel_Profile_User.ResumeLayout(false);
             this.panel_Profile_User.PerformLayout();
             this.panel_Profile_WorkoutCount.ResumeLayout(false);
-            this.cuiBorder1.ResumeLayout(false);
-            this.cuiBorder1.PerformLayout();
+            this.cuiBorder_WorkoutsPerWeek.ResumeLayout(false);
+            this.cuiBorder_WorkoutsPerWeek.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart_Profile_WorkoutCount)).EndInit();
             this.panel_Menu_History.ResumeLayout(false);
             this.panel_History_Title.ResumeLayout(false);
             this.panel_History_Title.PerformLayout();
+            this.flowLayoutPanel_History.ResumeLayout(false);
+            this.flowLayoutPanel_History.PerformLayout();
             this.panel_Menu_Exercises.ResumeLayout(false);
             this.cuiBorder_Exercises_Filter.ResumeLayout(false);
             this.panel_Exercises_Title.ResumeLayout(false);
@@ -4342,6 +4406,8 @@
             this.flowLayoutPanel_WorkingOut.ResumeLayout(false);
             this.panel_WorkingOut_TemplateName.ResumeLayout(false);
             this.panel_WorkingOut_TemplateName.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.userDBWorkoutCountDataSet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.usersBindingSource)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -4491,8 +4557,8 @@
         private CuoreUI.Controls.cuiButton cuiButton_AddingMeasurement_Save;
         private CuoreUI.Controls.cuiButton cuiButton_AddingMeasurement_Cancel;
         private System.Windows.Forms.Label label_AddingMeasurement_CurrentDate;
-        private CuoreUI.Controls.cuiTextBox2 cuiTextBox_Measurement_AddingMeasurement;
-        private CuoreUI.Controls.cuiBorder cuiBorder1;
+        private CuoreUI.Controls.cuiTextBox2 cuiTextBox_AddingMeasurement;
+        private CuoreUI.Controls.cuiBorder cuiBorder_WorkoutsPerWeek;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart_Profile_WorkoutCount;
         private System.Windows.Forms.Label label_Profile_ChartName;
         private System.Windows.Forms.Panel panel_TemplateDeletion;
@@ -4527,5 +4593,9 @@
         private CuoreUI.Controls.cuiTextBox2 cuiTextBox_WorkingOut_Name;
         private CuoreUI.Controls.cuiButton cuiButton_WorkingOut_Timer;
         private System.Windows.Forms.Label label_WorkingOut_StopWatch;
+        private System.Windows.Forms.Label label_History_EmptyHistoryMsg;
+        private UserDBWorkoutCountDataSet userDBWorkoutCountDataSet;
+        private System.Windows.Forms.BindingSource usersBindingSource;
+        private UserDBWorkoutCountDataSetTableAdapters.UsersTableAdapter usersTableAdapter;
     }
 }
