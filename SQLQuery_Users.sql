@@ -3013,5 +3013,5 @@ SELECT * FROM dbo.WorkoutExerciseSets;
 GO
 
 
---SELECT * FROM dbo.Measurements;
---GO
+SELECT * FROM dbo.Measurements;
+GO
