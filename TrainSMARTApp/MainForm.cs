@@ -39,6 +39,7 @@ namespace TrainSMARTApp
         private bool isAddingExercises;
         private bool isAddingMeasurement;
         private bool isUpdatingMeasurement;
+        private bool isQuickStartingWorkout;
         private bool isViewingWorkoutHistory;
         private bool isViewingWorkoutTemplate;
         private bool isCreatingWorkoutTemplate;
@@ -256,9 +257,21 @@ namespace TrainSMARTApp
         }
 
 
-        private void cuiButton_Workout_QuickStart_Click(object sender, EventArgs e)
+        private void cuiButton_Workout_QuickStart_Click(object sender, EventArgs e)     // TODO: IMPLEMENTATION
         {
-            ShowMenu(panel_WorkingOut, cuiButton_Menu_Workout);     // TODO: IMPLEMENTATION
+            isWorkingOut = true;
+            isQuickStartingWorkout = true;
+            isViewingWorkoutTemplate = false;
+            cuiTextBox_WorkingOut_Name.Content = "Quick Workout";
+            ShowMenu(panel_WorkingOut, cuiButton_Menu_Workout);
+            StartWorkoutTimer();
+
+            // Clear previously loaded exercises
+            foreach (var ctrl in flowLayoutPanel_WorkingOut.Controls.OfType<Panel>().ToList().Where(ctrl => ctrl is Panel { Tag: int } || ctrl.Height == 80))
+            {
+                flowLayoutPanel_WorkingOut.Controls.Remove(ctrl);
+                ctrl.Dispose();
+            }
         }
 
 
@@ -324,7 +337,7 @@ namespace TrainSMARTApp
             textBox_WorkoutTemplate_Name.BackColor = Color.FromArgb(41, 50, 54);
         }
 
-        private void cuiButton_WorkoutTemplate_Start_Click(object sender, EventArgs e)      // TODO: WORKING ON THIS
+        private void cuiButton_WorkoutTemplate_Start_Click(object sender, EventArgs e)
         {
             var templateId = (int)((cuiButton)sender).Tag;
             var control = (cuiButton)sender;
@@ -370,6 +383,7 @@ namespace TrainSMARTApp
             if (result == DialogResult.Yes)
             {
                 isWorkingOut = false;
+                isQuickStartingWorkout = false;
                 ResetWorkoutTimer();
                 cuiButton_Menu_Workout_Click(sender, e);
             }
@@ -380,6 +394,10 @@ namespace TrainSMARTApp
             var result = MessageBox.Show("Finish workout?", "" , MessageBoxButtons.YesNo, MessageBoxIcon.Warning);  // TODO: Enhance
             if (result == DialogResult.Yes)
             {
+                if (isQuickStartingWorkout)
+                {
+                    // TODO: Implementation (saving the quick started workout template)
+                }
                 isWorkingOut = false;
                 ResetWorkoutTimer();
                 LogWorkout(((cuiButton)sender).Tag);
@@ -1090,7 +1108,7 @@ namespace TrainSMARTApp
                     }
 
                     transaction.Commit();
-                    MessageBox.Show("Template saved successfully!");
+                    //MessageBox.Show("Template saved successfully!");
                     return true;
                 }
                 catch (Exception ex)
@@ -1495,10 +1513,16 @@ namespace TrainSMARTApp
                         cmd.Parameters.AddWithValue("@DurationSeconds", durationSeconds);
 
                         // Optional fields, you can replace with actual values
-                        object note = cuiTextBox_WorkingOut_Note.Content;        // Replace if user added a note
+                        object note = cuiTextBox_WorkingOut_Note.Content ?? "";        // Replace if user added a note
 
-                        cmd.Parameters.AddWithValue("@TemplateID", templateId);
+                        //cmd.Parameters.AddWithValue("@TemplateID", templateId);
                         cmd.Parameters.AddWithValue("@Note", note);
+
+                        if (templateId == null || templateId == DBNull.Value || templateId.ToString() == "")
+                            cmd.Parameters.AddWithValue("@TemplateID", DBNull.Value);
+                        else
+                            cmd.Parameters.AddWithValue("@TemplateID", templateId);
+
 
                         workoutId = (int)cmd.ExecuteScalar();
                     }
@@ -1593,7 +1617,7 @@ namespace TrainSMARTApp
             // Clear previously loaded workouts
             foreach (var ctrl in flowLayoutPanel_History.Controls.OfType<Control>().ToList())
             {
-                if (ctrl is cuiButton { Tag: int } btn)
+                if (ctrl is cuiButton { Tag: int or null } btn)
                 {
                     flowLayoutPanel_History.Controls.Remove(btn);
                     btn.Dispose();
@@ -1629,27 +1653,8 @@ namespace TrainSMARTApp
 
                     string buttonText = $" {datePerformed:MMM dd, yyyy}                             Duration: {durationFormatted}";        // TODO: CONTINUE WORKING ON THIS
 
-                    //cuiButton workoutBtn = new cuiButton
-                    //{
-                    //    Text = buttonText,
-                    //    Tag = workoutId,
-                    //    Width = 300,
-                    //    Height = 80,
-                    //    Margin = new Padding(5),
-                    //    Font = new Font("Segoe UI", 9F),
-                    //    BackColor = Color.FromArgb(30, 30, 30),
-                    //    ForeColor = Color.White,
-                    //    TextAlign = ContentAlignment.MiddleLeft
-                    //};
-
-                    //// Optional: Add a click event to load details
-                    //workoutBtn.Click += (s, e) =>
-                    //{
-                    //    int id = (int)((Control)s).Tag;
-                    //    LoadWorkoutDetails(id); // You'd define this method
-                    //};
-
-                    var workoutBtn = CreateTemplateButton((int)templateId, templateName, note, false, buttonText);
+                    var workoutBtn = CreateTemplateButton(templateId, templateName, note, false, buttonText);
+                    workoutBtn.Enabled = false;
 
                     flowLayoutPanel_History.Controls.Add(workoutBtn);
                     flowLayoutPanel_History.Controls.SetChildIndex(workoutBtn, index++);
@@ -1984,8 +1989,12 @@ namespace TrainSMARTApp
         {
             Panel pnl;
             cuiButton btn;
-
-            if (isCreatingWorkoutTemplate)
+            if (isWorkingOut)
+            {
+                pnl = panel_WorkingOut;
+                btn = cuiButton_Menu_Workout;
+            }
+            else if (isCreatingWorkoutTemplate)
             {
                 pnl = panel_WorkoutCreation;
                 btn = cuiButton_Menu_Workout;
@@ -2333,17 +2342,6 @@ namespace TrainSMARTApp
         }
 
 
-        //private void ShowHideExercisePictureBox()
-        //{
-        //    if (pictureBox_BenchPress.Visible)
-        //    {
-                
-
-
-        //    }
-        //    pictureBox_Deadlift.Visible = exerciseName == "Deadlift (Barbell)";
-        //    pictureBox_Squat.Visible = exerciseName == "Squat (Barbell)";
-        //}
 
 
 
@@ -2762,7 +2760,7 @@ namespace TrainSMARTApp
         }
 
 
-        private cuiButton CreateTemplateButton(int templateId, string templateName, string note, bool isPrebuilt, string historyDetails = "")
+        private cuiButton CreateTemplateButton(object templateId, string templateName, string note, bool isPrebuilt, string historyDetails = "")
         {
             var btnTemplate = new cuiButton
             {

@@ -65,11 +65,10 @@ namespace TrainSMARTApp
             // pictureBox_Background location in design is -49, 0
 
             // TODO: REMOVE AFTER TESTING
-            cuiTextBox_Login_Username.Content = "testUser";
-            cuiTextBox_Login_Password.Content = "testPassword";
-
-            var s = new object(); var e = EventArgs.Empty;
-            cuiButton_Login_Login_Click(s, e);
+            //cuiTextBox_Login_Username.Content = "testUser";
+            //cuiTextBox_Login_Password.Content = "testPassword";
+            //var s = new object(); var e = EventArgs.Empty;
+            //cuiButton_Login_Login_Click(s, e);
 
             // TODO: if user has not signed out, auto log in
         }

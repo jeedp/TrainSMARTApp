@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel_Menus = new System.Windows.Forms.Panel();
             this.cuiButton_Menu_Measure = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Menu_Exercises = new CuoreUI.Controls.cuiButton();
@@ -1006,19 +1006,19 @@
             this.chart_Profile_WorkoutCount.BorderlineWidth = 0;
             this.chart_Profile_WorkoutCount.BorderSkin.BackColor = System.Drawing.Color.Transparent;
             this.chart_Profile_WorkoutCount.BorderSkin.BorderColor = System.Drawing.Color.Transparent;
-            chartArea2.BackColor = System.Drawing.Color.Transparent;
-            chartArea2.BorderWidth = 0;
-            chartArea2.Name = "ChartArea1";
-            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea2);
+            chartArea5.BackColor = System.Drawing.Color.Transparent;
+            chartArea5.BorderWidth = 0;
+            chartArea5.Name = "ChartArea1";
+            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea5);
             this.chart_Profile_WorkoutCount.Location = new System.Drawing.Point(11, 60);
             this.chart_Profile_WorkoutCount.Name = "chart_Profile_WorkoutCount";
             this.chart_Profile_WorkoutCount.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series2.ChartArea = "ChartArea1";
-            series2.Name = "Series1";
-            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Date;
-            series2.YValueMembers = "WorkoutCount";
-            series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            this.chart_Profile_WorkoutCount.Series.Add(series2);
+            series5.ChartArea = "ChartArea1";
+            series5.Name = "Series1";
+            series5.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Date;
+            series5.YValueMembers = "WorkoutCount";
+            series5.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            this.chart_Profile_WorkoutCount.Series.Add(series5);
             this.chart_Profile_WorkoutCount.Size = new System.Drawing.Size(440, 245);
             this.chart_Profile_WorkoutCount.TabIndex = 1;
             this.chart_Profile_WorkoutCount.Text = "chart1";
@@ -1112,6 +1112,7 @@
             this.cuiButton_History_Calendar.Size = new System.Drawing.Size(102, 80);
             this.cuiButton_History_Calendar.TabIndex = 8;
             this.cuiButton_History_Calendar.TextOffset = new System.Drawing.Point(0, 0);
+            this.cuiButton_History_Calendar.Visible = false;
             // 
             // label_History_Title
             // 
@@ -2753,7 +2754,7 @@
             this.panel_ExerciseDetails.Location = new System.Drawing.Point(0, 35);
             this.panel_ExerciseDetails.Margin = new System.Windows.Forms.Padding(0);
             this.panel_ExerciseDetails.Name = "panel_ExerciseDetails";
-            this.panel_ExerciseDetails.Size = new System.Drawing.Size(513, 661);
+            this.panel_ExerciseDetails.Size = new System.Drawing.Size(513, 0);
             this.panel_ExerciseDetails.TabIndex = 23;
             // 
             // cuiGradientBorder_ExerciseDetails
@@ -3766,7 +3767,7 @@
             this.panel_WorkoutTemplate.Controls.Add(this.panel_WorkoutTemplate_Title);
             this.panel_WorkoutTemplate.Controls.Add(this.flowLayoutPanel_WorkoutTemplate);
             this.panel_WorkoutTemplate.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel_WorkoutTemplate.Location = new System.Drawing.Point(0, 696);
+            this.panel_WorkoutTemplate.Location = new System.Drawing.Point(0, 35);
             this.panel_WorkoutTemplate.Margin = new System.Windows.Forms.Padding(0);
             this.panel_WorkoutTemplate.Name = "panel_WorkoutTemplate";
             this.panel_WorkoutTemplate.Size = new System.Drawing.Size(513, 0);
@@ -3999,10 +4000,10 @@
             this.panel_WorkingOut.Controls.Add(this.panel_WorkingOut_Title);
             this.panel_WorkingOut.Controls.Add(this.flowLayoutPanel_WorkingOut);
             this.panel_WorkingOut.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel_WorkingOut.Location = new System.Drawing.Point(0, 696);
+            this.panel_WorkingOut.Location = new System.Drawing.Point(0, 35);
             this.panel_WorkingOut.Margin = new System.Windows.Forms.Padding(0);
             this.panel_WorkingOut.Name = "panel_WorkingOut";
-            this.panel_WorkingOut.Size = new System.Drawing.Size(513, 0);
+            this.panel_WorkingOut.Size = new System.Drawing.Size(513, 661);
             this.panel_WorkingOut.TabIndex = 26;
             // 
             // cuiGradientBorder_WorkingOut
@@ -4331,20 +4332,20 @@
             this.chart_Measurements.BorderlineWidth = 0;
             this.chart_Measurements.BorderSkin.BackColor = System.Drawing.Color.Transparent;
             this.chart_Measurements.BorderSkin.BorderColor = System.Drawing.Color.Transparent;
-            chartArea1.BackColor = System.Drawing.Color.Transparent;
-            chartArea1.BorderWidth = 0;
-            chartArea1.Name = "ChartArea1";
-            this.chart_Measurements.ChartAreas.Add(chartArea1);
+            chartArea6.BackColor = System.Drawing.Color.Transparent;
+            chartArea6.BorderWidth = 0;
+            chartArea6.Name = "ChartArea1";
+            this.chart_Measurements.ChartAreas.Add(chartArea6);
             this.chart_Measurements.Location = new System.Drawing.Point(15, 59);
             this.chart_Measurements.Name = "chart_Measurements";
             this.chart_Measurements.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Name = "Series1";
-            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Date;
-            series1.YValueMembers = "WorkoutCount";
-            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            this.chart_Measurements.Series.Add(series1);
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series6.Name = "Series1";
+            series6.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Date;
+            series6.YValueMembers = "WorkoutCount";
+            series6.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            this.chart_Measurements.Series.Add(series6);
             this.chart_Measurements.Size = new System.Drawing.Size(433, 270);
             this.chart_Measurements.TabIndex = 21;
             // 

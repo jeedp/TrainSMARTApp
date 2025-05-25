@@ -2967,6 +2967,10 @@ SET Instructions = N'
 WHERE ExerciseName = 'Stretching';
 
 
+DELETE FROM dbo.WorkoutExerciseSets
+WHERE WorkoutExerciseID = 9
+GO
+
 
 
 

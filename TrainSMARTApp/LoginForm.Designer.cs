@@ -463,7 +463,7 @@
             this.cuiTextBox_Register_Password.Multiline = false;
             this.cuiTextBox_Register_Password.Name = "cuiTextBox_Register_Password";
             this.cuiTextBox_Register_Password.Padding = new System.Windows.Forms.Padding(24, 28, 24, 0);
-            this.cuiTextBox_Register_Password.PasswordChar = false;
+            this.cuiTextBox_Register_Password.PasswordChar = true;
             this.cuiTextBox_Register_Password.PlaceholderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
             this.cuiTextBox_Register_Password.PlaceholderText = "Password";
             this.cuiTextBox_Register_Password.Rounding = new System.Windows.Forms.Padding(8);
@@ -594,7 +594,7 @@
             this.cuiTextBox_Login_Password.Multiline = false;
             this.cuiTextBox_Login_Password.Name = "cuiTextBox_Login_Password";
             this.cuiTextBox_Login_Password.Padding = new System.Windows.Forms.Padding(24, 34, 24, 0);
-            this.cuiTextBox_Login_Password.PasswordChar = false;
+            this.cuiTextBox_Login_Password.PasswordChar = true;
             this.cuiTextBox_Login_Password.PlaceholderColor = System.Drawing.Color.FromArgb(((int)(((byte)(170)))), ((int)(((byte)(170)))), ((int)(((byte)(170)))));
             this.cuiTextBox_Login_Password.PlaceholderText = "Password";
             this.cuiTextBox_Login_Password.Rounding = new System.Windows.Forms.Padding(8);
