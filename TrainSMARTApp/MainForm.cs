@@ -126,7 +126,7 @@ namespace TrainSMARTApp
             LoadUserWorkoutHistory(_loggedInUser);
             LoadUserWorkoutTemplates(_loggedInUser);
             LoadExerciseButtons(null, null);
-            LoadWeeklyWorkoutChart(chart_Profile_WorkoutCount, _loggedInUser.UserID, connectionString);
+            LoadWeeklyWorkoutChart(_loggedInUser.UserID, connectionString);
             ShowMenu(panel_Menu_Profile, cuiButton_Menu_Profile);
 
 
@@ -381,7 +381,7 @@ namespace TrainSMARTApp
                 isWorkingOut = false;
                 ResetWorkoutTimer();
                 LogWorkout(((cuiButton)sender).Tag);
-                LoadWeeklyWorkoutChart(chart_Profile_WorkoutCount, _loggedInUser.UserID, connectionString);
+                LoadWeeklyWorkoutChart(_loggedInUser.UserID, connectionString);
                 cuiButton_Menu_Workout_Click(sender, e);
             }
         }
@@ -1692,18 +1692,18 @@ namespace TrainSMARTApp
         }
 
 
-        private void LoadWeeklyWorkoutChart(Chart chart, int userId, string connectionString)
+        private void LoadWeeklyWorkoutChart(int userId, string connectionString)
         {
             DataTable dataTable = new DataTable();
 
             string query = @"
-            SELECT
-            DATEADD(DAY, -DATEPART(WEEKDAY, DatePerformed) + 1, CAST(DatePerformed AS DATE)) AS WeekStart,
-                COUNT(*) AS WorkoutCount
-            FROM Workouts
-            WHERE UserID = @UserID
-            GROUP BY DATEADD(DAY, -DATEPART(WEEKDAY, DatePerformed) + 1, CAST(DatePerformed AS DATE))
-            ORDER BY WeekStart";
+                SELECT
+                DATEADD(DAY, -DATEPART(WEEKDAY, DatePerformed) + 1, CAST(DatePerformed AS DATE)) AS WeekStart,
+                    COUNT(*) AS WorkoutCount
+                FROM Workouts
+                WHERE UserID = @UserID
+                GROUP BY DATEADD(DAY, -DATEPART(WEEKDAY, DatePerformed) + 1, CAST(DatePerformed AS DATE))
+                ORDER BY WeekStart";
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             using (SqlCommand cmd = new SqlCommand(query, conn))
@@ -1714,39 +1714,47 @@ namespace TrainSMARTApp
                 adapter.Fill(dataTable);
             }
 
-            // Clear previous chart data
-            chart.Series.Clear();
-            chart.ChartAreas.Clear();
+            SetupWeeklyWorkoutChart(chart_Profile_WorkoutCount, dataTable);
 
-            // Set up the chart area
-            var chartArea = new ChartArea("MainArea");
-            chartArea.AxisX.LabelStyle.Format = "M/d";
-            chartArea.AxisX.IntervalType = DateTimeIntervalType.Weeks;
-            chartArea.AxisX.Interval = 1;
-            chartArea.AxisX.MajorGrid.LineColor = Color.Gray;
-            chartArea.AxisY.MajorGrid.LineColor = Color.Gray;
-            chartArea.BackColor = Color.Transparent; // Optional dark theme
+            //// Clear chart
+            //chart.Series.Clear();
+            //chart.ChartAreas.Clear();
+            //chart.Legends.Clear();
 
-            chart.ChartAreas.Add(chartArea);
+            //// Chart Area
+            //var chartArea = new ChartArea("MainArea");
+            //chartArea.BackColor = Color.Transparent; // Dark background
+            //chartArea.AxisX.LabelStyle.Format = "M/d";
+            //chartArea.AxisX.IntervalType = DateTimeIntervalType.Weeks;
+            //chartArea.AxisX.Interval = 1;
+            //chartArea.AxisX.LabelStyle.ForeColor = Color.DarkGray;
+            //chartArea.AxisY.LabelStyle.ForeColor = Color.DarkGray;
 
-            // Create the series
-            var series = new Series("Workouts")
-            {
-                ChartType = SeriesChartType.Column,
-                Color = Color.FromArgb(134, 38, 249),
-                XValueType = ChartValueType.Date,
-                YValueType = ChartValueType.Int32,
-                IsValueShownAsLabel = true
-            };
+            //chartArea.AxisX.MajorGrid.LineColor = Color.FromArgb(50, 50, 50);
+            //chartArea.AxisY.MajorGrid.LineColor = Color.FromArgb(50, 50, 50);
+            //chartArea.AxisX.LineColor = Color.FromArgb(61, 70, 73);
+            //chartArea.AxisY.LineColor = Color.FromArgb(61, 70, 73);
+            //chartArea.AxisY.Minimum = 0;
 
-            chart.Series.Add(series);
+            //chart.ChartAreas.Add(chartArea);
 
-            // Bind the data
-            series.Points.DataBind(dataTable.AsEnumerable(), "WeekStart", "WorkoutCount", null);
+            //// Series
+            //var series = new Series("Workouts")
+            //{
+            //    ChartType           = SeriesChartType.Column,
+            //    Color               = Color.FromArgb(136, 38, 252),
+            //    BorderWidth         = 0,
+            //    IsValueShownAsLabel = false,
+            //    XValueType          = ChartValueType.Date,
+            //    YValueType          = ChartValueType.Int32
+            //};
 
-            // Optional styling
-            chart.BackColor = Color.Transparent; // Optional dark background
-            chart.Legends.Clear();
+            //chart.Series.Add(series);
+            //series.Points.DataBind(dataTable.AsEnumerable(), "WeekStart", "WorkoutCount", null);
+
+            //// Chart styling
+            //chart.BackColor = Color.Transparent; // Full chart background
+            //chart.BorderSkin.SkinStyle = BorderSkinStyle.None;
         }
 
 
@@ -1846,16 +1854,6 @@ namespace TrainSMARTApp
                     else
                         value = 0;
 
-
-                    //Label lbl = new Label
-                    //{
-                    //    AutoSize = true,
-                    //    Font = new Font("Segoe UI", 10, FontStyle.Regular),
-                    //    ForeColor = Color.White,
-                    //    Padding = new Padding(5),
-                    //    Text = $"{date:MMM d}  {date:h:mm tt}     {value} {unit}"
-                    //};
-
                     var pnl = CreateMeasurementHistoryPanel(date, value, unit);
 
                     flowLayoutPanel_Measurement.Controls.Add(pnl);
@@ -1873,42 +1871,13 @@ namespace TrainSMARTApp
 
         private void LoadMeasurementChart(int userId, string columnName)
         {
-            chart_Measurements.Series.Clear();
-
-
-            chart_Measurements.Series.Clear();
-            chart_Measurements.ChartAreas.Clear();
-
-            // Setup ChartArea
-            ChartArea area = new ChartArea("MainArea");
-            area.BackColor = Color.Transparent; // Dark background
-
-            // Axis X Styling
-            area.AxisX.MajorGrid.LineColor = Color.Gray;
-            area.AxisX.LabelStyle.ForeColor = Color.White;
-            area.AxisX.LineColor = Color.Gray;
-            area.AxisX.LabelStyle.Format = "MMM dd";
-            area.AxisX.IntervalAutoMode = IntervalAutoMode.VariableCount;
-
-            // Axis Y Styling
-            area.AxisY.MajorGrid.LineColor = Color.Gray;
-            area.AxisY.LabelStyle.ForeColor = Color.White;
-            area.AxisY.LineColor = Color.Gray;
-
-            area.BorderColor = Color.Transparent;
-
-            chart_Measurements.ChartAreas.Add(area);
-            chart_Measurements.BackColor = Color.Transparent; // Match form background
-            chart_Measurements.BorderlineColor = Color.Transparent;
-
-
-
+            SetupMeasurementChart(chart_Measurements);
 
             var series = new Series("Weight (lbs)")
             {
                 ChartType   = SeriesChartType.Line,
                 BorderWidth = 2,
-                Color       = Color.FromArgb(89, 43, 154),
+                Color       = Color.FromArgb(136, 38, 252),
                 MarkerStyle = MarkerStyle.Circle,
                 MarkerSize  = 7,
             };
@@ -2620,7 +2589,7 @@ namespace TrainSMARTApp
 
         private Panel CreateExerciseSetRow(Panel parent, int exerciseId, string exerciseName, int setNumber, object setTag, decimal? weight, int? reps, int? repsOnly, int? time)
         {
-            var records = new object?[] { weight, reps, repsOnly, time };
+            var records = new object[] { weight, reps, repsOnly, time };
 
             var setRow = new Panel
             {
@@ -2939,6 +2908,79 @@ namespace TrainSMARTApp
             panel.Controls.AddRange([lblTime, lblDate, lblValue]);
 
             return panel;
+        }
+
+
+        private void SetupMeasurementChart(Chart chart)
+        {
+            chart.Series.Clear();
+            chart.ChartAreas.Clear();
+
+            // Setup ChartArea
+            ChartArea area = new ChartArea("MainArea");
+            area.BackColor = Color.Transparent;
+
+            // Axis X Styling
+            area.AxisX.MajorGrid.LineColor = Color.Gray;
+            area.AxisX.LabelStyle.ForeColor = Color.White;
+            area.AxisX.LineColor = Color.Gray;
+            area.AxisX.LabelStyle.Format = "MMM dd";
+            area.AxisX.IntervalAutoMode = IntervalAutoMode.VariableCount;
+
+            // Axis Y Styling
+            area.AxisY.MajorGrid.LineColor = Color.Gray;
+            area.AxisY.LabelStyle.ForeColor = Color.White;
+            area.AxisY.LineColor = Color.Gray;
+
+            area.BorderColor = Color.Transparent;
+
+            chart.ChartAreas.Add(area);
+            chart.BackColor = Color.Transparent;
+            chart.BorderlineColor = Color.Transparent;
+        }
+
+
+        private void SetupWeeklyWorkoutChart(Chart chart, DataTable dataTable)
+        {
+            // Clear chart
+            chart.Series.Clear();
+            chart.ChartAreas.Clear();
+            chart.Legends.Clear();
+
+            // Chart Area
+            var chartArea = new ChartArea("MainArea");
+            chartArea.BackColor = Color.Transparent; // Dark background
+            chartArea.AxisX.LabelStyle.Format = "M/d";
+            chartArea.AxisX.IntervalType = DateTimeIntervalType.Weeks;
+            chartArea.AxisX.Interval = 1;
+            chartArea.AxisX.LabelStyle.ForeColor = Color.DarkGray;
+            chartArea.AxisY.LabelStyle.ForeColor = Color.DarkGray;
+
+            chartArea.AxisX.MajorGrid.LineColor = Color.FromArgb(50, 50, 50);
+            chartArea.AxisY.MajorGrid.LineColor = Color.FromArgb(50, 50, 50);
+            chartArea.AxisX.LineColor = Color.FromArgb(61, 70, 73);
+            chartArea.AxisY.LineColor = Color.FromArgb(61, 70, 73);
+            chartArea.AxisY.Minimum = 0;
+
+            chart.ChartAreas.Add(chartArea);
+
+            // Series
+            var series = new Series("Workouts")
+            {
+                ChartType = SeriesChartType.Column,
+                Color = Color.FromArgb(136, 38, 252),
+                BorderWidth = 0,
+                IsValueShownAsLabel = false,
+                XValueType = ChartValueType.Date,
+                YValueType = ChartValueType.Int32
+            };
+
+            chart.Series.Add(series);
+            series.Points.DataBind(dataTable.AsEnumerable(), "WeekStart", "WorkoutCount", null);
+
+            // Chart styling
+            chart.BackColor = Color.Transparent; // Full chart background
+            chart.BorderSkin.SkinStyle = BorderSkinStyle.None;
         }
 
 
