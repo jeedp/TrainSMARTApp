@@ -700,8 +700,13 @@ namespace TrainSMARTApp
 
                 if (reader.Read())
                 {
-                    label_ExerciseDetails_Name.Text = reader["ExerciseName"].ToString();
+                    var exerciseName = reader["ExerciseName"].ToString();
+                    label_ExerciseDetails_Name.Text = exerciseName;
                     textBox_ExerciseDetails_Instructions.Text =  reader["Instructions"].ToString();
+
+                    pictureBox_BenchPress.Visible = exerciseName == "Bench Press (Barbell)";
+                    pictureBox_Deadlift.Visible = exerciseName == "Deadlift (Barbell)";
+                    pictureBox_Squat.Visible = exerciseName == "Squat (Barbell)";
 
                     ShowMenu(panel_ExerciseDetails, cuiButton_Menu_Exercises);
                     ResizeTextBoxToFitContents(textBox_ExerciseDetails_Instructions);
@@ -1462,52 +1467,6 @@ namespace TrainSMARTApp
 
             return setDataList;
         }
-
-
-
-        //private int StartWorkoutFromTemplate(int userId, int templateId)
-        //{
-        //    int workoutId = -1;
-
-        //    using (var conn = new SqlConnection(connectionString))
-        //    {
-        //        conn.Open();
-
-        //        // Step 1: Insert new workout
-        //        string insertWorkoutQuery = @"
-        //            INSERT INTO Workouts (UserID, TemplateID)
-        //            OUTPUT INSERTED.WorkoutID
-        //            VALUES (@UserID, @TemplateID)";
-
-        //        using (var cmd = new SqlCommand(insertWorkoutQuery, conn))
-        //        {
-        //            cmd.Parameters.AddWithValue("@UserID", userId);
-        //            cmd.Parameters.AddWithValue("@TemplateID", templateId);
-
-        //            workoutId = (int)cmd.ExecuteScalar();
-        //        }
-
-        //        // Step 2: Copy template exercises to WorkoutExercises
-        //        string copyExercisesQuery = @"
-        //            INSERT INTO WorkoutExercises (WorkoutID, ExerciseID, DisplayOrder)
-        //            SELECT @WorkoutID, ExerciseID, DisplayOrder
-        //            FROM WorkoutTemplateExercises
-        //            WHERE TemplateID = @TemplateID";
-
-        //        using (var cmd = new SqlCommand(copyExercisesQuery, conn))
-        //        {
-        //            cmd.Parameters.AddWithValue("@WorkoutID", workoutId);
-        //            cmd.Parameters.AddWithValue("@TemplateID", templateId);
-
-        //            cmd.ExecuteNonQuery();
-        //        }
-        //    }
-
-        //    if (workoutId > 0)
-        //        StartWorkoutTimer();
-
-        //    return workoutId;
-        //}
 
 
         private void LogWorkout(object templateId)
@@ -2374,29 +2333,19 @@ namespace TrainSMARTApp
         }
 
 
-        //private int GetWorkoutCountForUser(int userId)
+        //private void ShowHideExercisePictureBox()
         //{
-        //    int count = 0;
-        //    string query = "SELECT COUNT(*) FROM Workouts WHERE UserID = @UserID";
-
-        //    using (SqlConnection conn = new SqlConnection(connectionString))
-        //    using (SqlCommand cmd = new SqlCommand(query, conn))
+        //    if (pictureBox_BenchPress.Visible)
         //    {
-        //        cmd.Parameters.AddWithValue("@UserID", userId);
+                
 
-        //        try
-        //        {
-        //            conn.Open();
-        //            count = (int)cmd.ExecuteScalar();
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            MessageBox.Show("Error retrieving workout count:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //        }
+
         //    }
-
-        //    return count;
+        //    pictureBox_Deadlift.Visible = exerciseName == "Deadlift (Barbell)";
+        //    pictureBox_Squat.Visible = exerciseName == "Squat (Barbell)";
         //}
+
+
 
 
 
@@ -3184,53 +3133,5 @@ namespace TrainSMARTApp
                 }
             }
         }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // TEST METHOD
-        private void button_TEST_MASTER_Click(object sender, EventArgs e)
-        {
-            foreach (Control ctrl in flowLayoutPanel_Exercises.Controls)
-            {
-                if (ctrl is cuiButton btn)
-                {
-                    int id = (int)btn.Tag;
-
-                    if (selectedExerciseIDs.Contains(id))
-                    {
-                        selectedExerciseIDs.Remove(id);
-                        (btn.NormalBackground, btn.HoverBackground) = (Color.Transparent, Color.Transparent);
-                    }
-                    else
-                    {
-                        selectedExerciseIDs.Add(id);
-                        (btn.NormalBackground, btn.HoverBackground) = (Color.FromArgb(44, 79, 104), Color.FromArgb(44, 79, 104));
-                    }
-                }
-            }
-            label_AddExercises_Count.Text = "(" + selectedExerciseIDs.Count + ")";
-        }
-
-        
     }
 }
