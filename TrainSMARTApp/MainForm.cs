@@ -119,8 +119,6 @@ namespace TrainSMARTApp
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            // TODO: This line of code loads data into the 'userDBWorkoutCountDataSet.Users' table. You can move, or remove it, as needed.
-            this.usersTableAdapter.Fill(this.userDBWorkoutCountDataSet.Users);
             this.panel_Form_Title.MouseDown += this.MouseDown;
             this.panel_Form_Title.MouseMove += this.MouseMove;
             this.panel_Form_Title.MouseUp += this.MouseUp;
@@ -155,6 +153,7 @@ namespace TrainSMARTApp
             }
 
             cuiTextBox_Exercises_Search.ContentChanged += DynamicExerciseSearchAndFilter;
+            cuiTextBox_AddingMeasurement.KeyPress += KeyPressDigitOnly;
 
             label_Profile_Username.Text = _loggedInUser.Username;
             label_Profile_WorkoutCount.Text = _loggedInUser.WorkoutCount + (_loggedInUser.WorkoutCount == 1 ? " workout" : " workouts");
@@ -421,10 +420,13 @@ namespace TrainSMARTApp
         // MEASURE MENU
         private void cuiButton_Measure_Measurements_Click(object sender, EventArgs e)
         {
-            RenameTitleAndChart(sender, e);
+            var columnName = ((cuiButton)sender).Tag;
+            var unit = RenameTitleAndChart(sender);
             ShowHideAddingMeasurementPanel(sender, e);
             ShowMenu(panel_Measurement, cuiButton_Menu_Measure);
-            cuiButton_AddingMeasurement_Save.Tag = ((cuiButton)sender).Tag;
+            LoadMeasurements(_loggedInUser.UserID, columnName.ToString(), unit);
+            LoadMeasurementChart(_loggedInUser.UserID, columnName.ToString());
+            cuiButton_AddingMeasurement_Save.Tag = columnName;
         }
 
             // MEASUREMENT MENU
@@ -438,7 +440,11 @@ namespace TrainSMARTApp
         {
             var columnName = cuiButton_AddingMeasurement_Save.Tag.ToString();
             if (SaveMeasurementField(_loggedInUser.UserID, columnName))
+            {
+                LoadMeasurements(_loggedInUser.UserID, columnName, cuiTextBox_AddingMeasurement.PlaceholderText);
+                LoadMeasurementChart(_loggedInUser.UserID, columnName);
                 ShowHideAddingMeasurementPanel(sender, e);
+            }
         }
 
 
@@ -606,6 +612,7 @@ namespace TrainSMARTApp
 
             label_AddingMeasurement_CurrentDate.Text = DateTime.Today.ToString("MM/dd/yy");
             isAddingMeasurement = btn == cuiButton_Measurement_AddMeasurement;
+            cuiTextBox_AddingMeasurement.Content = "";
 
             ShowHideSubPanel(panel_Measurement_AddingMeasurement, isAddingMeasurement);
         }
@@ -1792,6 +1799,171 @@ namespace TrainSMARTApp
         }
 
 
+        private void LoadMeasurements(int userId, string columnName, string unit)
+        {
+            if (!IsValidMeasurementColumn(columnName))
+            {
+                MessageBox.Show("Invalid measurement column.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            string query = $@"
+                SELECT MeasurementDate, {columnName}
+                FROM Measurements
+                WHERE UserID = @UserID AND {columnName} IS NOT NULL
+                ORDER BY MeasurementDate DESC";
+
+            using SqlConnection conn = new SqlConnection(connectionString);
+            using SqlCommand cmd = new SqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@UserID", userId);
+
+            try
+            {
+                conn.Open();
+                using SqlDataReader reader = cmd.ExecuteReader();
+
+                //flowLayoutPanel_Measurement.Controls.Clear();
+
+                foreach (var ctrl in flowLayoutPanel_Measurement.Controls.OfType<Panel>().Where(p => p.Height == 30).ToList())
+                {
+                    flowLayoutPanel_Workout.Controls.Remove(ctrl);
+                    ctrl.Dispose();
+                }
+
+                int index = 1;
+                while (reader.Read())
+                {
+                    DateTime date = reader.GetDateTime(0);
+                    object rawValue = reader.GetValue(1);
+
+                    decimal value;
+                    if (rawValue is int intValue)
+                        value = intValue;
+                    else if (rawValue is decimal decValue)
+                        value = decValue;
+                    else if (rawValue is double dblValue)
+                        value = (decimal)dblValue;
+                    else
+                        value = 0;
+
+
+                    //Label lbl = new Label
+                    //{
+                    //    AutoSize = true,
+                    //    Font = new Font("Segoe UI", 10, FontStyle.Regular),
+                    //    ForeColor = Color.White,
+                    //    Padding = new Padding(5),
+                    //    Text = $"{date:MMM d}  {date:h:mm tt}     {value} {unit}"
+                    //};
+
+                    var pnl = CreateMeasurementHistoryPanel(date, value, unit);
+
+                    flowLayoutPanel_Measurement.Controls.Add(pnl);
+                    flowLayoutPanel_Measurement.Controls.SetChildIndex(pnl, index++);
+                }
+
+                label_Measurement_EmptyMeasurementsMsg.Visible = index == 1;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error loading measurements:\n" + ex.Message, "Database Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+
+        private void LoadMeasurementChart(int userId, string columnName)
+        {
+            chart_Measurements.Series.Clear();
+
+
+            chart_Measurements.Series.Clear();
+            chart_Measurements.ChartAreas.Clear();
+
+            // Setup ChartArea
+            ChartArea area = new ChartArea("MainArea");
+            area.BackColor = Color.Transparent; // Dark background
+
+            // Axis X Styling
+            area.AxisX.MajorGrid.LineColor = Color.Gray;
+            area.AxisX.LabelStyle.ForeColor = Color.White;
+            area.AxisX.LineColor = Color.Gray;
+            area.AxisX.LabelStyle.Format = "MMM dd";
+            area.AxisX.IntervalAutoMode = IntervalAutoMode.VariableCount;
+
+            // Axis Y Styling
+            area.AxisY.MajorGrid.LineColor = Color.Gray;
+            area.AxisY.LabelStyle.ForeColor = Color.White;
+            area.AxisY.LineColor = Color.Gray;
+
+            area.BorderColor = Color.Transparent;
+
+            chart_Measurements.ChartAreas.Add(area);
+            chart_Measurements.BackColor = Color.Transparent; // Match form background
+            chart_Measurements.BorderlineColor = Color.Transparent;
+
+
+
+
+            var series = new Series("Weight (lbs)")
+            {
+                ChartType   = SeriesChartType.Line,
+                BorderWidth = 2,
+                Color       = Color.FromArgb(89, 43, 154),
+                MarkerStyle = MarkerStyle.Circle,
+                MarkerSize  = 7,
+            };
+
+            string query = $@"
+                SELECT MeasurementDate, {columnName}
+                FROM Measurements
+                WHERE UserID = @UserID AND {columnName} IS NOT NULL
+                ORDER BY MeasurementDate ASC";
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            using (SqlCommand cmd = new SqlCommand(query, conn))
+            {
+                cmd.Parameters.AddWithValue("@UserID", userId);
+                conn.Open();
+
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        DateTime date = reader.GetDateTime(0);
+                        object rawValue = reader.GetValue(1);
+
+                        decimal value;
+                        if (rawValue is int intValue)
+                            value = intValue;
+                        else if (rawValue is decimal decValue)
+                            value = decValue;
+                        else if (rawValue is double dblValue)
+                            value = (decimal)dblValue;
+                        else
+                            value = 0;
+
+                        series.Points.AddXY(date, value);
+                    }
+                }
+            }
+
+            chart_Measurements.Series.Add(series);
+            chart_Measurements.ChartAreas[0].AxisX.LabelStyle.Format = "MMM dd";
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1853,7 +2025,7 @@ namespace TrainSMARTApp
         }
 
 
-        private void RenameTitleAndChart(object sender, EventArgs e)
+        private string RenameTitleAndChart(object sender)
         {
             var btn = sender as cuiButton;
             var controls = new List<Control>
@@ -1875,6 +2047,8 @@ namespace TrainSMARTApp
             }
             var txtBx = cuiTextBox_AddingMeasurement;
             txtBx.PlaceholderText = (btn.Content.Contains("Body")) ? "%" : (btn.Content.Contains("Caloric")) ? "kcal" : (btn.Content.Contains("Weight")) ? "lbs" : "cm";
+
+            return txtBx.PlaceholderText;
         }
 
 
@@ -2152,6 +2326,18 @@ namespace TrainSMARTApp
         }
 
 
+        private bool IsValidMeasurementColumn(string columnName)
+        {
+            string[] validColumns = {
+                "WeightLbs", "BodyFatPercentage", "CaloricIntake", "NeckCm", "ShouldersCm", "ChestCm",
+                "LeftBicepCm", "RightBicepCm", "LeftForearmCm", "RightForearmCm", "UpperAbsCm",
+                "WaistCm", "LowerAbsCm", "HipsCm", "LeftThighCm", "RightThighCm", "LeftCalfCm", "RightCalfCm"
+            };
+
+            return validColumns.Contains(columnName);
+        }
+
+
         //private int GetWorkoutCountForUser(int userId)
         //{
         //    int count = 0;
@@ -2177,16 +2363,7 @@ namespace TrainSMARTApp
         //}
 
 
-    private bool IsValidMeasurementColumn(string columnName)
-    {
-        string[] validColumns = {
-            "WeightKg", "BodyFatPercentage", "CaloricIntake", "NeckCm", "ShouldersCm", "ChestCm",
-            "LeftBicepCm", "RightBicepCm", "LeftForearmCm", "RightForearmCm", "UpperAbsCm",
-            "WaistCm", "LowerAbsCm", "HipsCm", "LeftThighCm", "RightThighCm", "LeftCalfCm", "RightCalfCm"
-        };
 
-        return validColumns.Contains(columnName);
-    }
 
 
 
@@ -2711,6 +2888,57 @@ namespace TrainSMARTApp
             };
 
             return btnTemplate;
+        }
+
+
+        private Panel CreateMeasurementHistoryPanel(DateTime date, decimal value, string unit)
+        {
+            var tag = flowLayoutPanel_Measurement.Controls.OfType<Panel>().Count(p => p.Height == 30) + 1;
+
+            var panel = new Panel
+            {
+                Width       = 360,
+                Height      = 30,
+                Tag         = tag,
+                Margin      = new Padding(3, 5, 3, 22),
+                BackColor   = Color.Transparent,
+                BorderStyle = BorderStyle.None,
+            };
+
+            var lblDate = new Label
+            {
+                AutoSize = true,
+                Text      = $"{date:MMM d}",
+                Font      = new Font("Sanserif", 14, FontStyle.Bold),
+                Padding   = new Padding(15,5,5,5),
+                ForeColor = Color.White,
+                Dock      = DockStyle.Left,
+            };
+            
+            var lblTime = new Label
+            {
+                AutoSize = true,
+                Text      = $"{date:h:mm tt}",
+                Font      = new Font("Sanserif", 14, FontStyle.Regular),
+                Padding   = new Padding(5),
+                ForeColor = Color.FromArgb(191, 194, 195),
+                Dock      = DockStyle.Left,
+            };
+            
+            var lblValue = new Label
+            {
+                AutoSize = true,
+                Text        = $"{value:G29} {unit}",
+                Font        = new Font("Sanserif", 14, FontStyle.Bold),
+                Padding     = new Padding(5),
+                ForeColor   = Color.FromArgb(191, 194, 195),
+                //RightToLeft = RightToLeft.Yes,
+                Dock        = DockStyle.Right,
+            };
+
+            panel.Controls.AddRange([lblTime, lblDate, lblValue]);
+
+            return panel;
         }
 
 
