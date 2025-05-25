@@ -153,7 +153,7 @@ CREATE TABLE dbo.Measurements
     MeasurementDate     DATETIME            DEFAULT GETDATE(),
 
     -- General
-    WeightKg            DECIMAL(5,2),       -- e.g., 75.50 kg
+    WeightLbs           DECIMAL(5,2),       -- e.g., 120 lbs
     BodyFatPercentage   DECIMAL(5,2),       -- e.g., 18.50 %
     CaloricIntake       INT,                -- e.g., 2500 calories
 
