@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea6 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series6 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.panel_Menus = new System.Windows.Forms.Panel();
             this.cuiButton_Menu_Measure = new CuoreUI.Controls.cuiButton();
             this.cuiButton_Menu_Exercises = new CuoreUI.Controls.cuiButton();
@@ -216,6 +216,9 @@
             this.cuiButton_WorkingOut_CancelWorkout = new CuoreUI.Controls.cuiButton();
             this.label_Measurement_EmptyMeasurementsMsg = new System.Windows.Forms.Label();
             this.chart_Measurements = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.contextMenuStrip_EditMeasurement = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.updateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel_Menus.SuspendLayout();
             this.panel_Form_Title.SuspendLayout();
             this.flowLayoutPanel_WorkoutCreation.SuspendLayout();
@@ -261,6 +264,7 @@
             this.flowLayoutPanel_WorkingOut.SuspendLayout();
             this.panel_WorkingOut_TemplateName.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart_Measurements)).BeginInit();
+            this.contextMenuStrip_EditMeasurement.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel_Menus
@@ -997,19 +1001,19 @@
             this.chart_Profile_WorkoutCount.BorderlineWidth = 0;
             this.chart_Profile_WorkoutCount.BorderSkin.BackColor = System.Drawing.Color.Transparent;
             this.chart_Profile_WorkoutCount.BorderSkin.BorderColor = System.Drawing.Color.Transparent;
-            chartArea2.BackColor = System.Drawing.Color.Transparent;
-            chartArea2.BorderWidth = 0;
-            chartArea2.Name = "ChartArea1";
-            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea2);
+            chartArea5.BackColor = System.Drawing.Color.Transparent;
+            chartArea5.BorderWidth = 0;
+            chartArea5.Name = "ChartArea1";
+            this.chart_Profile_WorkoutCount.ChartAreas.Add(chartArea5);
             this.chart_Profile_WorkoutCount.Location = new System.Drawing.Point(11, 60);
             this.chart_Profile_WorkoutCount.Name = "chart_Profile_WorkoutCount";
             this.chart_Profile_WorkoutCount.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series2.ChartArea = "ChartArea1";
-            series2.Name = "Series1";
-            series2.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Date;
-            series2.YValueMembers = "WorkoutCount";
-            series2.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            this.chart_Profile_WorkoutCount.Series.Add(series2);
+            series5.ChartArea = "ChartArea1";
+            series5.Name = "Series1";
+            series5.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Date;
+            series5.YValueMembers = "WorkoutCount";
+            series5.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            this.chart_Profile_WorkoutCount.Series.Add(series5);
             this.chart_Profile_WorkoutCount.Size = new System.Drawing.Size(440, 245);
             this.chart_Profile_WorkoutCount.TabIndex = 1;
             this.chart_Profile_WorkoutCount.Text = "chart1";
@@ -4327,22 +4331,45 @@
             this.chart_Measurements.BorderlineWidth = 0;
             this.chart_Measurements.BorderSkin.BackColor = System.Drawing.Color.Transparent;
             this.chart_Measurements.BorderSkin.BorderColor = System.Drawing.Color.Transparent;
-            chartArea1.BackColor = System.Drawing.Color.Transparent;
-            chartArea1.BorderWidth = 0;
-            chartArea1.Name = "ChartArea1";
-            this.chart_Measurements.ChartAreas.Add(chartArea1);
+            chartArea6.BackColor = System.Drawing.Color.Transparent;
+            chartArea6.BorderWidth = 0;
+            chartArea6.Name = "ChartArea1";
+            this.chart_Measurements.ChartAreas.Add(chartArea6);
             this.chart_Measurements.Location = new System.Drawing.Point(15, 59);
             this.chart_Measurements.Name = "chart_Measurements";
             this.chart_Measurements.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.Berry;
-            series1.ChartArea = "ChartArea1";
-            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series1.Name = "Series1";
-            series1.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Date;
-            series1.YValueMembers = "WorkoutCount";
-            series1.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
-            this.chart_Measurements.Series.Add(series1);
+            series6.ChartArea = "ChartArea1";
+            series6.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series6.Name = "Series1";
+            series6.XValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Date;
+            series6.YValueMembers = "WorkoutCount";
+            series6.YValueType = System.Windows.Forms.DataVisualization.Charting.ChartValueType.Int32;
+            this.chart_Measurements.Series.Add(series6);
             this.chart_Measurements.Size = new System.Drawing.Size(433, 270);
             this.chart_Measurements.TabIndex = 21;
+            // 
+            // contextMenuStrip_EditMeasurement
+            // 
+            this.contextMenuStrip_EditMeasurement.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.contextMenuStrip_EditMeasurement.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteToolStripMenuItem,
+            this.updateToolStripMenuItem});
+            this.contextMenuStrip_EditMeasurement.Name = "contextMenuStrip_EditMeasurement";
+            this.contextMenuStrip_EditMeasurement.Size = new System.Drawing.Size(211, 80);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.deleteToolStripMenuItem.Text = "Delete";
+            this.deleteToolStripMenuItem.Click += new System.EventHandler(this.deleteToolStripMenuItem_Click);
+            // 
+            // updateToolStripMenuItem
+            // 
+            this.updateToolStripMenuItem.Name = "updateToolStripMenuItem";
+            this.updateToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.updateToolStripMenuItem.Text = "Update";
+            this.updateToolStripMenuItem.Click += new System.EventHandler(this.updateToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -4436,6 +4463,7 @@
             this.panel_WorkingOut_TemplateName.ResumeLayout(false);
             this.panel_WorkingOut_TemplateName.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart_Measurements)).EndInit();
+            this.contextMenuStrip_EditMeasurement.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -4624,5 +4652,8 @@
         private System.Windows.Forms.Label label_History_EmptyHistoryMsg;
         private System.Windows.Forms.Label label_Measurement_EmptyMeasurementsMsg;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart_Measurements;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip_EditMeasurement;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem updateToolStripMenuItem;
     }
 }

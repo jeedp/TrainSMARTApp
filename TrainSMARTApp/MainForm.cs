@@ -38,11 +38,13 @@ namespace TrainSMARTApp
         private bool isFilterShown;
         private bool isAddingExercises;
         private bool isAddingMeasurement;
+        private bool isUpdatingMeasurement;
         private bool isViewingWorkoutHistory;
         private bool isViewingWorkoutTemplate;
         private bool isCreatingWorkoutTemplate;
         private bool isDeletingWorkoutTemplate;
 
+        private int measurementIdToUpdate = 0;
         private int selectedTemplateIdToDelete = 0;
 
         private readonly User _loggedInUser;
@@ -432,6 +434,7 @@ namespace TrainSMARTApp
             // MEASUREMENT MENU
         private void cuiButton_AddingMeasurement_Click(object sender, EventArgs e)
         {
+            isUpdatingMeasurement = false;
             ShowHideAddingMeasurementPanel(sender, e);
         }
 
@@ -439,7 +442,17 @@ namespace TrainSMARTApp
         private void cuiButton_AddingMeasurement_Save_Click(object sender, EventArgs e)
         {
             var columnName = cuiButton_AddingMeasurement_Save.Tag.ToString();
-            if (SaveMeasurementField(_loggedInUser.UserID, columnName))
+            if (isUpdatingMeasurement)
+            {
+                var measurementId = measurementIdToUpdate;
+                MessageBox.Show($"{measurementId}");
+                UpdateMeasurementValue(_loggedInUser.UserID, measurementId, columnName);
+                LoadMeasurements(_loggedInUser.UserID, columnName, cuiTextBox_AddingMeasurement.PlaceholderText);
+                LoadMeasurementChart(_loggedInUser.UserID, columnName);
+                ShowHideAddingMeasurementPanel(cuiButton_AddingMeasurement_Save, e);
+                isUpdatingMeasurement = false;
+            }
+            else if (SaveMeasurementField(_loggedInUser.UserID, columnName))
             {
                 LoadMeasurements(_loggedInUser.UserID, columnName, cuiTextBox_AddingMeasurement.PlaceholderText);
                 LoadMeasurementChart(_loggedInUser.UserID, columnName);
@@ -1715,46 +1728,6 @@ namespace TrainSMARTApp
             }
 
             SetupWeeklyWorkoutChart(chart_Profile_WorkoutCount, dataTable);
-
-            //// Clear chart
-            //chart.Series.Clear();
-            //chart.ChartAreas.Clear();
-            //chart.Legends.Clear();
-
-            //// Chart Area
-            //var chartArea = new ChartArea("MainArea");
-            //chartArea.BackColor = Color.Transparent; // Dark background
-            //chartArea.AxisX.LabelStyle.Format = "M/d";
-            //chartArea.AxisX.IntervalType = DateTimeIntervalType.Weeks;
-            //chartArea.AxisX.Interval = 1;
-            //chartArea.AxisX.LabelStyle.ForeColor = Color.DarkGray;
-            //chartArea.AxisY.LabelStyle.ForeColor = Color.DarkGray;
-
-            //chartArea.AxisX.MajorGrid.LineColor = Color.FromArgb(50, 50, 50);
-            //chartArea.AxisY.MajorGrid.LineColor = Color.FromArgb(50, 50, 50);
-            //chartArea.AxisX.LineColor = Color.FromArgb(61, 70, 73);
-            //chartArea.AxisY.LineColor = Color.FromArgb(61, 70, 73);
-            //chartArea.AxisY.Minimum = 0;
-
-            //chart.ChartAreas.Add(chartArea);
-
-            //// Series
-            //var series = new Series("Workouts")
-            //{
-            //    ChartType           = SeriesChartType.Column,
-            //    Color               = Color.FromArgb(136, 38, 252),
-            //    BorderWidth         = 0,
-            //    IsValueShownAsLabel = false,
-            //    XValueType          = ChartValueType.Date,
-            //    YValueType          = ChartValueType.Int32
-            //};
-
-            //chart.Series.Add(series);
-            //series.Points.DataBind(dataTable.AsEnumerable(), "WeekStart", "WorkoutCount", null);
-
-            //// Chart styling
-            //chart.BackColor = Color.Transparent; // Full chart background
-            //chart.BorderSkin.SkinStyle = BorderSkinStyle.None;
         }
 
 
@@ -1816,7 +1789,7 @@ namespace TrainSMARTApp
             }
 
             string query = $@"
-                SELECT MeasurementDate, {columnName}
+                SELECT MeasurementID, MeasurementDate, {columnName}
                 FROM Measurements
                 WHERE UserID = @UserID AND {columnName} IS NOT NULL
                 ORDER BY MeasurementDate DESC";
@@ -1830,8 +1803,7 @@ namespace TrainSMARTApp
                 conn.Open();
                 using SqlDataReader reader = cmd.ExecuteReader();
 
-                //flowLayoutPanel_Measurement.Controls.Clear();
-
+                // Clear previous panels
                 foreach (var ctrl in flowLayoutPanel_Measurement.Controls.OfType<Panel>().Where(p => p.Height == 30).ToList())
                 {
                     flowLayoutPanel_Workout.Controls.Remove(ctrl);
@@ -1841,8 +1813,9 @@ namespace TrainSMARTApp
                 int index = 1;
                 while (reader.Read())
                 {
-                    DateTime date = reader.GetDateTime(0);
-                    object rawValue = reader.GetValue(1);
+                    int measurementId = reader.GetInt32(0);
+                    DateTime date = reader.GetDateTime(1);
+                    object rawValue = reader.GetValue(2);
 
                     decimal value;
                     if (rawValue is int intValue)
@@ -1854,7 +1827,7 @@ namespace TrainSMARTApp
                     else
                         value = 0;
 
-                    var pnl = CreateMeasurementHistoryPanel(date, value, unit);
+                    var pnl = CreateMeasurementHistoryPanel(measurementId, date, value, unit);
 
                     flowLayoutPanel_Measurement.Controls.Add(pnl);
                     flowLayoutPanel_Measurement.Controls.SetChildIndex(pnl, index++);
@@ -1918,6 +1891,100 @@ namespace TrainSMARTApp
 
             chart_Measurements.Series.Add(series);
             chart_Measurements.ChartAreas[0].AxisX.LabelStyle.Format = "MMM dd";
+        }
+
+
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (contextMenuStrip_EditMeasurement.SourceControl is Panel panelToRemove)
+            {
+                var confirm = MessageBox.Show("Delete this measurement?", "Confirm", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (confirm != DialogResult.Yes) return;
+
+                using (SqlConnection conn = new SqlConnection(connectionString))
+                {
+                    conn.Open();
+
+                    string deleteQuery = @"
+                        DELETE FROM Measurements 
+                        WHERE UserID = @UserID AND MeasurementID = @MeasurementID";
+
+                    using (SqlCommand cmd = new SqlCommand(deleteQuery, conn))
+                    {
+                        cmd.Parameters.AddWithValue("@UserID", _loggedInUser.UserID);
+                        cmd.Parameters.AddWithValue("@MeasurementID", panelToRemove.Tag);
+
+                        try
+                        {
+                            int rowsAffected = cmd.ExecuteNonQuery();
+                            if (rowsAffected > 0)
+                            {
+                                flowLayoutPanel_Measurement.Controls.Remove(panelToRemove);
+                                panelToRemove.Dispose();
+                            }
+                            else
+                            {
+                                MessageBox.Show("No matching measurement found.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error deleting measurement:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
+                    }
+                }
+            }
+        }
+
+        private void updateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            measurementIdToUpdate = 0;
+            isUpdatingMeasurement = true;
+            ShowHideAddingMeasurementPanel(cuiButton_Measurement_AddMeasurement, e);
+
+            if (contextMenuStrip_EditMeasurement.SourceControl is Panel panelToUpdate && panelToUpdate.Tag is int measurementId)
+                measurementIdToUpdate = measurementId;
+        }
+
+
+        private bool UpdateMeasurementValue(int userId, int measurementId, string columnName)
+        {
+            string newValue = cuiTextBox_AddingMeasurement.Content.Trim();
+
+            using (SqlConnection conn = new SqlConnection(connectionString))
+            {
+                conn.Open();
+
+                string updateQuery = $@"
+                    UPDATE Measurements
+                    SET {columnName} = @NewValue
+                    WHERE UserID = @UserID AND MeasurementID = @MeasurementID";
+
+                using (SqlCommand cmd = new SqlCommand(updateQuery, conn))
+                {
+                    cmd.Parameters.AddWithValue("@UserID", userId);
+                    cmd.Parameters.AddWithValue("@MeasurementID", measurementId);
+                    if (decimal.TryParse(newValue, out decimal value))
+                        cmd.Parameters.AddWithValue("@NewValue", value);
+                    else if (int.TryParse(newValue, out int intValue))
+                        cmd.Parameters.AddWithValue("@NewValue", intValue);
+                    else
+                    {
+                        MessageBox.Show("Invalid numeric input.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+
+                    try
+                    {
+                        int rowsAffected = cmd.ExecuteNonQuery();
+                        return rowsAffected > 0;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error updating measurement:\n" + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return false;
+                    }
+                }
+            }
         }
 
 
@@ -2295,9 +2362,9 @@ namespace TrainSMARTApp
         }
 
 
-        private bool IsValidMeasurementColumn(string columnName)
+        private static bool IsValidMeasurementColumn(string columnName)
         {
-            string[] validColumns = {
+            var validColumns = new HashSet<string>{
                 "WeightLbs", "BodyFatPercentage", "CaloricIntake", "NeckCm", "ShouldersCm", "ChestCm",
                 "LeftBicepCm", "RightBicepCm", "LeftForearmCm", "RightForearmCm", "UpperAbsCm",
                 "WaistCm", "LowerAbsCm", "HipsCm", "LeftThighCm", "RightThighCm", "LeftCalfCm", "RightCalfCm"
@@ -2860,7 +2927,7 @@ namespace TrainSMARTApp
         }
 
 
-        private Panel CreateMeasurementHistoryPanel(DateTime date, decimal value, string unit)
+        private Panel CreateMeasurementHistoryPanel(int measurementId, DateTime date, decimal value, string unit)
         {
             var tag = flowLayoutPanel_Measurement.Controls.OfType<Panel>().Count(p => p.Height == 30) + 1;
 
@@ -2868,10 +2935,11 @@ namespace TrainSMARTApp
             {
                 Width       = 360,
                 Height      = 30,
-                Tag         = tag,
+                Tag         = measurementId,
                 Margin      = new Padding(3, 5, 3, 22),
                 BackColor   = Color.Transparent,
                 BorderStyle = BorderStyle.None,
+                ContextMenuStrip = contextMenuStrip_EditMeasurement 
             };
 
             var lblDate = new Label
@@ -2921,16 +2989,16 @@ namespace TrainSMARTApp
             area.BackColor = Color.Transparent;
 
             // Axis X Styling
-            area.AxisX.MajorGrid.LineColor = Color.Gray;
-            area.AxisX.LabelStyle.ForeColor = Color.White;
-            area.AxisX.LineColor = Color.Gray;
+            area.AxisX.MajorGrid.LineColor = Color.FromArgb(61, 70, 73);
+            area.AxisX.LabelStyle.ForeColor = Color.DarkGray;
+            area.AxisX.LineColor = Color.FromArgb(61, 70, 73);
             area.AxisX.LabelStyle.Format = "MMM dd";
             area.AxisX.IntervalAutoMode = IntervalAutoMode.VariableCount;
 
             // Axis Y Styling
-            area.AxisY.MajorGrid.LineColor = Color.Gray;
-            area.AxisY.LabelStyle.ForeColor = Color.White;
-            area.AxisY.LineColor = Color.Gray;
+            area.AxisY.MajorGrid.LineColor = Color.FromArgb(61, 70, 73);
+            area.AxisY.LabelStyle.ForeColor = Color.DarkGray;
+            area.AxisY.LineColor = Color.FromArgb(61, 70, 73);
 
             area.BorderColor = Color.Transparent;
 
@@ -2948,21 +3016,21 @@ namespace TrainSMARTApp
             chart.Legends.Clear();
 
             // Chart Area
-            var chartArea = new ChartArea("MainArea");
-            chartArea.BackColor = Color.Transparent; // Dark background
-            chartArea.AxisX.LabelStyle.Format = "M/d";
-            chartArea.AxisX.IntervalType = DateTimeIntervalType.Weeks;
-            chartArea.AxisX.Interval = 1;
-            chartArea.AxisX.LabelStyle.ForeColor = Color.DarkGray;
-            chartArea.AxisY.LabelStyle.ForeColor = Color.DarkGray;
+            var area = new ChartArea("MainArea");
+            area.BackColor = Color.Transparent; // Dark background
+            area.AxisX.LabelStyle.Format = "M/d";
+            area.AxisX.IntervalType = DateTimeIntervalType.Weeks;
+            area.AxisX.Interval = 1;
+            area.AxisX.LabelStyle.ForeColor = Color.DarkGray;
+            area.AxisY.LabelStyle.ForeColor = Color.DarkGray;
 
-            chartArea.AxisX.MajorGrid.LineColor = Color.FromArgb(50, 50, 50);
-            chartArea.AxisY.MajorGrid.LineColor = Color.FromArgb(50, 50, 50);
-            chartArea.AxisX.LineColor = Color.FromArgb(61, 70, 73);
-            chartArea.AxisY.LineColor = Color.FromArgb(61, 70, 73);
-            chartArea.AxisY.Minimum = 0;
+            area.AxisX.MajorGrid.LineColor = Color.FromArgb(61, 70, 73);
+            area.AxisY.MajorGrid.LineColor = Color.FromArgb(50, 50, 50);
+            area.AxisX.LineColor = Color.FromArgb(61, 70, 73);
+            area.AxisY.LineColor = Color.FromArgb(61, 70, 73);
+            area.AxisY.Minimum = 0;
 
-            chart.ChartAreas.Add(chartArea);
+            chart.ChartAreas.Add(area);
 
             // Series
             var series = new Series("Workouts")

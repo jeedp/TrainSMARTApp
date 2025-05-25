@@ -167,11 +167,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="User.cs" />
-    <Compile Include="UserDBWorkoutCountDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>UserDBWorkoutCountDataSet.xsd</DependentUpon>
-    </Compile>
     <Compile Include="ValidationHelper.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -212,17 +207,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="UserDBWorkoutCountDataSet.xsc">
-      <DependentUpon>UserDBWorkoutCountDataSet.xsd</DependentUpon>
-    </None>
-    <None Include="UserDBWorkoutCountDataSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>UserDBWorkoutCountDataSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="UserDBWorkoutCountDataSet.xss">
-      <DependentUpon>UserDBWorkoutCountDataSet.xsd</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
