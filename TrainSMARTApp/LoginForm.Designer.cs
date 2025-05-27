@@ -69,10 +69,10 @@
             this.panel_Title.Controls.Add(this.button_Back);
             this.panel_Title.Controls.Add(this.button_Exit);
             this.panel_Title.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel_Title.Location = new System.Drawing.Point(513, 0);
+            this.panel_Title.Location = new System.Drawing.Point(0, 0);
             this.panel_Title.Margin = new System.Windows.Forms.Padding(0);
             this.panel_Title.Name = "panel_Title";
-            this.panel_Title.Size = new System.Drawing.Size(0, 35);
+            this.panel_Title.Size = new System.Drawing.Size(513, 35);
             this.panel_Title.TabIndex = 2;
             // 
             // button_Back
@@ -102,7 +102,7 @@
             this.button_Exit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_Exit.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
             this.button_Exit.Image = ((System.Drawing.Image)(resources.GetObject("button_Exit.Image")));
-            this.button_Exit.Location = new System.Drawing.Point(-43, 0);
+            this.button_Exit.Location = new System.Drawing.Point(470, 0);
             this.button_Exit.Margin = new System.Windows.Forms.Padding(0);
             this.button_Exit.Name = "button_Exit";
             this.button_Exit.Size = new System.Drawing.Size(43, 35);
@@ -236,7 +236,7 @@
             this.panel_Menu_Main.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel_Menu_Main.Location = new System.Drawing.Point(0, 0);
             this.panel_Menu_Main.Name = "panel_Menu_Main";
-            this.panel_Menu_Main.Size = new System.Drawing.Size(513, 787);
+            this.panel_Menu_Main.Size = new System.Drawing.Size(0, 787);
             this.panel_Menu_Main.TabIndex = 9;
             // 
             // panel_Menu_Register
@@ -255,9 +255,9 @@
             this.panel_Menu_Register.Dock = System.Windows.Forms.DockStyle.Right;
             this.panel_Menu_Register.Font = new System.Drawing.Font("SansSerif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(2)));
             this.panel_Menu_Register.ForeColor = System.Drawing.Color.White;
-            this.panel_Menu_Register.Location = new System.Drawing.Point(513, 35);
+            this.panel_Menu_Register.Location = new System.Drawing.Point(0, 35);
             this.panel_Menu_Register.Name = "panel_Menu_Register";
-            this.panel_Menu_Register.Size = new System.Drawing.Size(0, 752);
+            this.panel_Menu_Register.Size = new System.Drawing.Size(513, 752);
             this.panel_Menu_Register.TabIndex = 10;
             // 
             // label_Register_Email_Error
@@ -494,7 +494,7 @@
             this.panel_Menu_Login.Controls.Add(this.cuiTextBox_Login_Username);
             this.panel_Menu_Login.Controls.Add(this.label_Login_Login);
             this.panel_Menu_Login.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel_Menu_Login.Location = new System.Drawing.Point(513, 35);
+            this.panel_Menu_Login.Location = new System.Drawing.Point(0, 35);
             this.panel_Menu_Login.Name = "panel_Menu_Login";
             this.panel_Menu_Login.Size = new System.Drawing.Size(0, 752);
             this.panel_Menu_Login.TabIndex = 11;

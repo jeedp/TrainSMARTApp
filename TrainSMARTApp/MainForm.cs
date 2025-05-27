@@ -275,7 +275,7 @@ namespace TrainSMARTApp
         }
 
 
-        // WORKOUT CREATION MENU
+            // WORKOUT CREATION MENU
 
         private void cuiButton_WorkoutCreation_Exit_Click(object sender, EventArgs e)
         {
@@ -328,7 +328,7 @@ namespace TrainSMARTApp
         {
             var templateId = (int)((cuiButton)sender).Tag;
             isViewingWorkoutTemplate = false;
-            if (templateId > 5)
+            if (panel_WorkoutTemplate_Title.Tag is false)
                 UpdateExerciseTemplate(templateId);
             ShowMenu(panel_Menu_Workout, cuiButton_Menu_Workout);
 
@@ -809,6 +809,32 @@ namespace TrainSMARTApp
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         
 
 
@@ -1046,8 +1072,8 @@ namespace TrainSMARTApp
                     {
                         int exerciseId = (int)exercisePanel.Tag;
 
-                        if (!(exercisePanel.Tag is int))
-                            MessageBox.Show("Exercise panel is missing a valid ExerciseID in its Tag.");    // TODO: REMOVE
+                        //if (!(exercisePanel.Tag is int))
+                        //    MessageBox.Show("Exercise panel is missing a valid ExerciseID in its Tag.");    // TODO: REMOVE
 
 
                         int restSeconds = 60; // Default
@@ -1068,13 +1094,13 @@ namespace TrainSMARTApp
 
                         int templateExerciseId = (int)cmdExercise.ExecuteScalar();
 
-                        // TEST
-                        var setPanels = exercisePanel.Controls
-                            .OfType<Panel>()
-                            .Where(p => p.Height == 58 && p.Tag is >= 1000)
-                            .ToList();
+                        //// TEST
+                        //var setPanels = exercisePanel.Controls
+                        //    .OfType<Panel>()
+                        //    .Where(p => p.Height == 58 && p.Tag is >= 1000)
+                        //    .ToList();
 
-                        MessageBox.Show($"Found {setPanels.Count} sets for ExerciseID {exerciseId}");   // TODO: REMOVE
+                        //MessageBox.Show($"Found {setPanels.Count} sets for ExerciseID {exerciseId}");   // TODO: REMOVE
 
                         int setOrder = 0;
                         foreach (Panel setPanel in exercisePanel.Controls.OfType<Panel>().Where(p => p.Tag is >= 1000))
@@ -1190,7 +1216,7 @@ namespace TrainSMARTApp
                         int setOrder = 0;
                         foreach (Panel setPanel in exercisePanel.Controls.OfType<Panel>().Where(p => p.Tag is int tag && tag >= 1000))
                         {
-
+                            
                             cuiTextBox2 txtWeight = setPanel.Controls.Find("cuiTextBox_Weight", true).FirstOrDefault() as cuiTextBox2;
                             cuiTextBox2 txtReps = setPanel.Controls.Find("cuiTextBox_Reps", true).FirstOrDefault() as cuiTextBox2;
                             cuiTextBox2 txtTime = setPanel.Controls.Find("cuiTextBox_Time", true).FirstOrDefault() as cuiTextBox2;
@@ -1220,7 +1246,7 @@ namespace TrainSMARTApp
                     }
 
                     transaction.Commit();
-                    MessageBox.Show("Template updated successfully!");      // TODO: REMOVE
+                    //MessageBox.Show("Template updated successfully!");      // TODO: REMOVE
                     return true;
                 }
                 catch (Exception ex)
@@ -1339,7 +1365,7 @@ namespace TrainSMARTApp
                     flowLayoutPanel.Controls.SetChildIndex(exercisePanel, flowLayoutPanel.Controls.Count - indexToDisplay); // Add above "Add Exercise" button
                 }
             }
-            cuiButton_WorkoutTemplate_AddExercise.Visible = selectedTemplateId > 5;
+            cuiButton_WorkoutTemplate_AddExercise.Visible = !isPrebuilt;
         }
 
 
@@ -1406,6 +1432,15 @@ namespace TrainSMARTApp
 
                 try
                 {
+                    // 0. Set TemplateID to NULL in Workouts that use this template
+                    string nullifyTemplateIdQuery = @"
+                        UPDATE Workouts
+                        SET TemplateID = NULL
+                        WHERE TemplateID = @TemplateID";
+                    SqlCommand cmdNullify = new SqlCommand(nullifyTemplateIdQuery, conn, transaction);
+                    cmdNullify.Parameters.AddWithValue("@TemplateID", selectedTemplateId);
+                    cmdNullify.ExecuteNonQuery();
+
                     // 1. Delete sets associated with the exercises in the template
                     string deleteSetsQuery = @"
                         DELETE FROM WorkoutTemplateExerciseSets
@@ -1701,7 +1736,7 @@ namespace TrainSMARTApp
 
             if (string.IsNullOrWhiteSpace(valueText))
             {
-                MessageBox.Show("Please enter a value.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                //MessageBox.Show("Please enter a value.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
 
@@ -1733,7 +1768,7 @@ namespace TrainSMARTApp
             {
                 conn.Open();
                 cmd.ExecuteNonQuery();
-                MessageBox.Show("Measurement saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                //MessageBox.Show("Measurement saved successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return true;
             }
             catch (Exception ex)
@@ -2245,6 +2280,28 @@ namespace TrainSMARTApp
             var setRow = checkBox.Parent as Panel;
             var countdownButton = cuiButton_WorkingOut_Timer;
 
+            cuiTextBox2 txtWeight = setRow.Controls.Find("cuiTextBox_Weight", true).FirstOrDefault() as cuiTextBox2;
+            cuiTextBox2 txtReps = setRow.Controls.Find("cuiTextBox_Reps", true).FirstOrDefault() as cuiTextBox2;
+            cuiTextBox2 txtTime = setRow.Controls.Find("cuiTextBox_Time", true).FirstOrDefault() as cuiTextBox2;
+            cuiTextBox2 txtRepsOnly = setRow.Controls.Find("cuiTextBox_RepsOnly", true).FirstOrDefault() as cuiTextBox2;
+
+            object weight = decimal.TryParse(txtWeight?.Content, out var w) ? (object)w : DBNull.Value;
+            object reps = int.TryParse(txtReps?.Content, out var r) ? (object)r : DBNull.Value;
+            object repsOnly = int.TryParse(txtRepsOnly?.Content, out var rO) ? (object)rO : DBNull.Value;
+            object time = int.TryParse(txtTime?.Content, out var t) ? (object)t : DBNull.Value;
+
+            bool allEmpty =
+                (weight == DBNull.Value || (decimal)weight == 0) &&
+                (reps == DBNull.Value || (int)reps == 0) &&
+                (repsOnly == DBNull.Value || (int)repsOnly == 0) &&
+                (time == DBNull.Value || (int)time == 0);
+
+            if (allEmpty)
+            {
+                checkBox.Checked = false;
+                return;
+            }
+
             if (setRow != null)
             {
                 var confirmedColor = Color.FromArgb(43, 88, 68);
@@ -2593,6 +2650,8 @@ namespace TrainSMARTApp
                 panelExercise.Height -= panelCuiButtons.Height;
             }
 
+            cuiButton_WorkoutTemplate_AddExercise.Visible = false;
+
             foreach (var ctrl in controls)
             {
                 panelExercise.Controls.Add(ctrl);
@@ -2830,6 +2889,7 @@ namespace TrainSMARTApp
                 LoadTemplateExercises(flowLayoutPanel_WorkoutTemplate, selectedTemplateId, isPrebuilt);
                 ShowTemplateDetails(note, isPrebuilt);
                 cuiButton_WorkoutTemplate_Start.BringToFront();
+                panel_WorkoutTemplate_Title.Tag = isPrebuilt;       // TODO: enahcne
                 cuiButton_WorkoutTemplate_GoBack.Tag = selectedTemplateId;
                 cuiButton_WorkoutTemplate_Start.Tag = selectedTemplateId;
                 cuiButton_WorkingOut_Finish.Tag = selectedTemplateId;
@@ -3013,7 +3073,7 @@ namespace TrainSMARTApp
 
 
 
-
+ 
 
 
 

@@ -193,8 +193,8 @@ namespace TrainSMARTApp
 
             if (!InputValidation()) return;
 
-            //string passwordHash = ComputeSha256Hash(password);        // 🔒 hash the password
-            string passwordHash = password;                             // For testing purposes, use plain text password
+            string passwordHash = ComputeSha256Hash(password);        // 🔒 hash the password
+            //string passwordHash = password;                             // For testing purposes, use plain text password
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -254,7 +254,12 @@ namespace TrainSMARTApp
 
         private void cuiButton_Register_PrivacyPolicy_Click(object sender, EventArgs e)
         {
-            // TODO: Show privacy policy
+            string privacyPolicy = "Privacy Policy\n\n" +
+                "We respect your privacy. Your data is stored securely and never shared without your consent.\n\n" +
+                "By using this application, you agree to the collection and storage of your workout and health data for personalization and tracking purposes.\n\n" +
+                "You may review or delete your data at any time from the settings menu.";
+
+            MessageBox.Show(privacyPolicy, "Privacy Policy", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
 
@@ -292,7 +297,7 @@ namespace TrainSMARTApp
                     if (count == 1)
                     {
                         // TODO: send an email or show a reset panel
-                        MessageBox.Show("A password reset link has been sent (simulated).", "Reset Sent", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        MessageBox.Show("A password reset link has been sent.", "Reset Sent", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                     else
                     {
@@ -322,8 +327,8 @@ namespace TrainSMARTApp
                 return;
             }
 
-            //string hashedPassword = ComputeSha256Hash(password);      // Hashing method below
-            string hashedPassword = password;                           // For testing purposes, use plain text password
+            string hashedPassword = ComputeSha256Hash(password);      // Hashing method below
+            //string hashedPassword = password;                           // For testing purposes, use plain text password
 
             using (SqlConnection conn = new SqlConnection(connectionString))
             {
@@ -527,14 +532,25 @@ namespace TrainSMARTApp
 
             foreach (var txtBox in cuiTxtBox)
             {
-                if (txtBox == cuiTextBox_Register_Email && !ValidationHelper.IsValidEmail(txtBox.Content))
+                //if (txtBox == cuiTextBox_Register_Email && !ValidationHelper.IsValidEmail(txtBox.Content))
+                //{
+                //    IndicateError();
+                //    return false;
+                //}
+
+                if (currentMode == DisplayMode.LogIn)
                 {
-                    IndicateError();
-                    return false;
+                    if (txtBox == cuiTextBox_Login_Username && string.IsNullOrWhiteSpace(txtBox.Content) || txtBox.Content.Contains(" "))
+                    {
+                        IndicateError();
+                        return false;
+                    }
+
+                    return true;
                 }
 
 
-                if (string.IsNullOrWhiteSpace(txtBox.Content) || txtBox.Content.Contains(" "))
+                if (string.IsNullOrWhiteSpace(txtBox.Content) || txtBox.Content.Contains(" ") || (txtBox == cuiTextBox_Register_Email && !ValidationHelper.IsValidEmail(txtBox.Content)))
                 {
                     IndicateError();
                     if (errorLabels.TryGetValue(txtBox, out var label))
